@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene />
+	<player>
+		<player x="155" y="300" />
+	</player>
+	<Particles />
+	<colliders />
+	<renderer>
+		<camera x="0" y="0" />
+	</renderer>
+</game_state>
