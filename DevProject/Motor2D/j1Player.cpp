@@ -93,6 +93,7 @@ bool j1Player::Update(float dt) {
 		{
 		case ST_IDLE:
 			current_animation = &idle;
+			
 			break;
 
 		case ST_WALKING_LEFT:
@@ -126,7 +127,6 @@ bool j1Player::Update(float dt) {
 
 		case ST_DEAD:
 			break;
-
 		
 		}
 	}
@@ -185,9 +185,9 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 	
 	
 	if (flip)
-		App->render->Blit(texture, position.x - (r.w - frame.pivotPosition.x), position.y - r.h + frame.pivotPosition.y /*+ jumpHeight*/, &r, flip);
+		App->render->Blit(texture, position.x - r.w, position.y - r.h   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
 	else
-		App->render->Blit(texture, position.x - frame.pivotPosition.x, position.y - r.h + frame.pivotPosition.y /*+ jumpHeight*/, &r, false);
+		App->render->Blit(texture, position.x, position.y - r.h /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, false);
 }
 
 bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
