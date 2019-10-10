@@ -55,11 +55,15 @@ bool j1Player::Start() {
 // Unload assets
 bool j1Player::CleanUp() {
 
-	LOG("Unloading Player 1");
+	LOG("Unloading Player");
 
 	App->tex->UnLoad(graphics);
 
 	walk = Animation();
+	idle = Animation();
+	jump = Animation();
+	rocketJump = Animation();
+	dead = Animation();
 	//Clear Colliders
 	ClearColliders();
 
@@ -123,6 +127,7 @@ bool j1Player::Update(float dt) {
 			break;
 
 		case ST_ROCKET_JUMP:
+			current_animation = &rocketJump;
 			break;
 
 		case ST_DEAD:
