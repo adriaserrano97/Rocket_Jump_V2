@@ -55,11 +55,15 @@ bool j1Player::Start() {
 // Unload assets
 bool j1Player::CleanUp() {
 
-	LOG("Unloading Player 1");
+	LOG("Unloading Player");
 
 	App->tex->UnLoad(graphics);
 
 	walk = Animation();
+	idle = Animation();
+	jump = Animation();
+	rocketJump = Animation();
+	dead = Animation();
 	//Clear Colliders
 	ClearColliders();
 
@@ -123,9 +127,12 @@ bool j1Player::Update(float dt) {
 			break;
 
 		case ST_ROCKET_JUMP:
+			current_animation = &rocketJump;
 			break;
 
 		case ST_DEAD:
+			current_animation = &dead;
+
 			break;
 		
 		}
@@ -185,9 +192,9 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 	
 	
 	if (flip)
-		App->render->Blit(texture, position.x - r.w, position.y - r.h   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
+		App->render->Blit(texture, position.x, position.y   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
 	else
-		App->render->Blit(texture, position.x, position.y - r.h /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, false);
+		App->render->Blit(texture, position.x, position.y /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, false);
 }
 
 bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {

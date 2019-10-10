@@ -147,7 +147,7 @@
 		</run>
 
 
-		<jump frames="6" name="jump">
+		<jump frames="7" name="jump">
 			<frame
 				rposX="50" rposY="50" rwidth="17" rheight="48"
 				time="6"
@@ -189,7 +189,88 @@
 				pivotX="13" pivotY="32"
 				nColliders="0">
 			</frame>
+
+			<frame
+				rposX="150" rposY="100" rwidth="20" rheight="46"
+				time="60000"
+				pivotX="4" pivotY="32"
+				nColliders="0">
+			</frame>
 		</jump>
+
+		<rocketJump frames="1" name="rocketJump">
+			<frame>
+				rposX="0" rposY="150" rwidth="19" rheight="45"
+				time="600000"
+				pivotX="3" pivotY="32"
+				nColliders="0">
+			</frame>
+		</rocketJump>
+
+		<dead frames="4" name="dead">
+			<frame
+				rposX="451" rposY="0" rwidth="24" rheight="49"
+				time="10"
+				pivotX="12" pivotY="32"
+				nColliders="0">
+			</frame>
+		
+			<frame
+				rposX="500" rposY="3" rwidth="28" rheight="46"
+				time="10"
+				pivotX="17" pivotY="29"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="550" rposY="6" rwidth="36" rheight="43"
+				time="10"
+				pivotX="23" pivotY="28"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="400" rposY="60" rwidth="42" rheight="39"
+				time="10"
+				pivotX="31" pivotY="25"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="450" rposY="68" rwidth="44" rheight="29"
+				time="10"
+				pivotX="32" pivotY="17"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="500" rposY="68" rwidth="47" rheight="31"
+				time="10"
+				pivotX="36" pivotY="13"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="400" rposY="122" rwidth="45" rheight="26"
+				time="10"
+				pivotX="33" pivotY="15"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="450" rposY="129" rwidth="47" rheight="20"
+				time="10"
+				pivotX="33" pivotY="16"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="500" rposY="129" rwidth="48" rheight="20"
+				time="10"
+				pivotX="35" pivotY="17"
+				nColliders="0">
+			</frame>
+		</dead>
 	</playerAnimations>
   </player>
 

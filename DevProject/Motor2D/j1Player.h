@@ -81,6 +81,8 @@ public:
 	Animation walk;
 	Animation idle;
 	Animation jump;
+	Animation rocketJump;
+	Animation dead;
 
 	uint fsx = 0u;
 
