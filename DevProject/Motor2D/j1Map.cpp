@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Collision.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -48,6 +49,13 @@ void j1Map::Draw()
 					iPoint position = PosConverter(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->TileToRect(l->gid[l->Get(i, j)]);
 					App->render->Blit(texture, position.x, position.y, sect);
+					
+					//caution, we have to add the x and y of the tile to the x and y of the collision box. 
+					//it's just: THE_FUCKING_RECT.x += position.x
+					//			 THE_FUCKING_RECT.y += position.y
+					//App->collider->AddCollider(THE RECT RELATED TO THIS TILE, COLLIDER_WALL, this); //TODO ADRI
+						
+					
 				}
 			}
 		}
@@ -113,15 +121,21 @@ bool j1Map::Load(const char* file_name)
 
 	// Load all tilesets info ----------------------------------------------
 	pugi::xml_node tileset;
+	
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
 		TileSet* set = new TileSet();
-
+		
+		
+		
 		if(ret == true)
 		{
 			ret = LoadTilesetDetails(tileset, set);
 		}
-
+		if (ret == true)
+		{
+			ret = LoadTilesetCollisions(tileset, set);
+		}
 		if(ret == true)
 		{
 			ret = LoadTilesetImage(tileset, set);
@@ -129,7 +143,7 @@ bool j1Map::Load(const char* file_name)
 
 		data.tilesets.add(set);
 	}
-
+	
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layernode;
@@ -257,6 +271,7 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	set->tile_height = tileset_node.attribute("tileheight").as_int();
 	set->margin = tileset_node.attribute("margin").as_int();
 	set->spacing = tileset_node.attribute("spacing").as_int();
+	set->tile_count = tileset_node.attribute("tilecount").as_int();
 	pugi::xml_node offset = tileset_node.child("tileoffset");
 
 	if(offset != NULL)
@@ -270,6 +285,28 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offset_y = 0;
 	}
 
+	return ret;
+}
+bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
+{
+	bool ret = true;
+	pugi::xml_node tilebox;
+	for (tilebox = map_file.child("map").child("tileset").child("tile"); tilebox && ret; tilebox = tilebox.next_sibling("tile")) {
+		
+		
+		SDL_Rect this_tile_box;
+		this_tile_box.x = tilebox.child("object").attribute("x").as_int();
+		this_tile_box.y = tilebox.child("object").attribute("y").as_int();
+		this_tile_box.w = tilebox.child("object").attribute("width").as_int();
+		this_tile_box.h = tilebox.child("object").attribute("height").as_int();
+		//HOW THE FUCK DO I STORE ALL THIS FUCKING RECTS // TODO ADRI
+		//tilebox.attribute("id").as_int() Tells us the number of the tile
+
+		
+		
+	
+	
+	}
 	return ret;
 }
 
