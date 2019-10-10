@@ -35,6 +35,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 	walk = walk.PushPlayerAnimation(config, "run");
 	idle = idle.PushPlayerAnimation(config, "idle");
+	jump = jump.PushPlayerAnimation(config, "jump");
 	
 	return ret;
 }
@@ -95,23 +96,29 @@ bool j1Player::Update(float dt) {
 			break;
 
 		case ST_WALKING_LEFT:
+			current_animation = &walk;
 			position.x = position.x - speed;
 			flip = true;
 			break;
 
 		case ST_WALKING_RIGHT:
+			current_animation = &walk;
 			position.x = position.x + speed;
 			flip = false;
 			break;
 
 		case ST_JUMP:
-			
+			current_animation = &jump;
 			break;
 
 		case ST_RIGHT_JUMP:
+			current_animation = &jump;
+			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
+			current_animation = &jump;
+			flip = true;
 			break;
 
 		case ST_ROCKET_JUMP:

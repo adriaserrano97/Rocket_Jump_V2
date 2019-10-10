@@ -80,6 +80,7 @@ public:
 	
 	Animation walk;
 	Animation idle;
+	Animation jump;
 
 	uint fsx = 0u;
 
