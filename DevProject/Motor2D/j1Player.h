@@ -79,6 +79,7 @@ public:
 	bool godMode = false;
 	
 	Animation walk;
+	Animation idle;
 
 	uint fsx = 0u;
 

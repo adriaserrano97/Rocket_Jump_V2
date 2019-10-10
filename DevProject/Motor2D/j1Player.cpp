@@ -34,7 +34,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 
 	walk = walk.PushPlayerAnimation(config, "run");
-	
+	idle = idle.PushPlayerAnimation(config, "idle");
 	
 	return ret;
 }
@@ -91,7 +91,7 @@ bool j1Player::Update(float dt) {
 		switch (state)
 		{
 		case ST_IDLE:
-			current_animation = &walk;
+			current_animation = &idle;
 			break;
 
 		case ST_WALKING_LEFT:
