@@ -29,7 +29,7 @@
 
   <player>
 	<folder>textures/player</folder>
-	<playerData initialX="50" initialY="300" speed="2"></playerData>
+	<playerData initialX="50" initialY="300" speed="7"></playerData>
 
 	<playerAnimations>
 		<idle frames="6" name="idle">
