@@ -339,7 +339,7 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 		this_tile_box.w = tilebox.child("objectgroup").child("object").attribute("width").as_int();
 		this_tile_box.h = tilebox.child("objectgroup").child("object").attribute("height").as_int();
 		int id = tilebox.attribute("id").as_int();
-		set->collisionBoxArray[id] = this_tile_box;
+		set->collisionBoxArray[id+1] = this_tile_box;
 		// "-1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1
 	}
 	return ret;
