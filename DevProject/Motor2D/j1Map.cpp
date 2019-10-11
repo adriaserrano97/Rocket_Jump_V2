@@ -34,6 +34,7 @@ void j1Map::Draw()
 
 	// TODO 5: Prepare the loop to iterate all the tiles in a layer
 	p2List_item<Layer*>* item_layer = data.layers.start;
+	
 	while (item_layer != NULL)
 	{
 		Layer* l = item_layer->data;
@@ -53,8 +54,9 @@ void j1Map::Draw()
 					//caution, we have to add the x and y of the tile to the x and y of the collision box. 
 					//it's just: THE_FUCKING_RECT.x += position.x
 					//			 THE_FUCKING_RECT.y += position.y
-					//App->collider->AddCollider(THE RECT RELATED TO THIS TILE, COLLIDER_WALL, this); //TODO ADRI
-						
+					
+					//App->collider->AddCollider(data.tilesets.start->CollisionBoxArray[(tilebox.attribute("id").as_int() - 1)], COLLIDER_WALL, this);
+					//TODO ADRI	
 					
 				}
 			}
@@ -291,6 +293,9 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	pugi::xml_node tilebox;
+	//int size_array_tiles = map_file.child("map").child("tileset").attribute("tilecount").as_int();
+	
+
 	for (tilebox = map_file.child("map").child("tileset").child("tile"); tilebox && ret; tilebox = tilebox.next_sibling("tile")) {
 		
 		
@@ -299,13 +304,8 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 		this_tile_box.y = tilebox.child("object").attribute("y").as_int();
 		this_tile_box.w = tilebox.child("object").attribute("width").as_int();
 		this_tile_box.h = tilebox.child("object").attribute("height").as_int();
-		//HOW THE FUCK DO I STORE ALL THIS FUCKING RECTS // TODO ADRI
-		//tilebox.attribute("id").as_int() Tells us the number of the tile
-
-		
-		
-	
-	
+		set->CollisionBoxArray[(tilebox.attribute("id").as_int() - 1)] = this_tile_box;
+		// "-1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1
 	}
 	return ret;
 }
