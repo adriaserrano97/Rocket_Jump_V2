@@ -2,7 +2,7 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collision.h"
-//#include "j1Player1.h"
+#include "j1Player.h"
 #include "p2Log.h"
 #include "j1Scene.h"
 //#include "ModuleFadeToBlack.h"
@@ -25,6 +25,11 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 	bool ret = true;
 
 	//Here goes the matrix of collider interactions
+	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 
 
 	return ret;
@@ -42,7 +47,7 @@ bool j1Collision::PreUpdate() {
 }
 
 // Called before render is available
-bool j1Collision::Update()
+bool j1Collision::Update(float dt)
 {
 	DebugDraw();
 
@@ -67,6 +72,8 @@ void j1Collision::RemoveDeletedColliders() {
 			colliders[i] = nullptr;
 		}
 	}
+
+	
 }
 
 void j1Collision::CalculateCollisions() {
@@ -105,8 +112,8 @@ void j1Collision::CalculateCollisions() {
 
 void j1Collision::DebugDraw()
 {
-	/*if (App->input->GetKey[SDL_SCANCODE_F1] == KEY_DOWN)
-		debug = !debug;*/
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		debug = !debug;
 
 	if (debug == false)
 		return;
@@ -133,7 +140,7 @@ void j1Collision::DebugDraw()
 
 		}
 	}
-	//App->render->DrawQuad({ App->player1->position.x, App->player1->position.y, 2, 2 }, 0, 0, 0, 100);
+	//App->render->DrawQuad({ App->player->position.x, App->player->position.y, 20, 20 }, 0, 0, 0, 100);
 
 }
 

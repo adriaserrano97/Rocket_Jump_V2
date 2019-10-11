@@ -28,7 +28,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 	map = new j1Map();
-	collider = new j1Collision();
+	colliders = new j1Collision();
 	particles = new j1Particles();
 	player = new j1Player();
 
@@ -42,7 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(player);
 	AddModule(particles);
-	AddModule(collider);
+	AddModule(colliders);
 
 	// render last to swap buffer
 	AddModule(render);

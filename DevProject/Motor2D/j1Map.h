@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#define ARRAY_MAX_COLLIDERS 50
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -15,9 +16,7 @@ struct Layer {
 	uint* gid;
 	inline uint Get(int x, int y) const
 	{
-
 		return x + y * width;
-
 	}
 };
 	// TODO 6: Short function to get the value of x,y
@@ -43,7 +42,7 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
-//	SDL_Rect CollisionBoxArray[MAX_COLLIDERS];
+	SDL_Rect			collisionBoxArray[ARRAY_MAX_COLLIDERS];
 	
 	SDL_Rect getrect(int firstgid) {
 

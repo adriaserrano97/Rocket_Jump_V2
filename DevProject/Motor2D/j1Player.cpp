@@ -5,7 +5,6 @@
 #include "j1Player.h"
 #include "j1Particles.h"
 #include "j1Audio.h"
-#include "j1Collision.h"
 #include "p2Qeue.h"
 #include "p2Log.h"
 
@@ -15,6 +14,7 @@
 j1Player::j1Player()
 {
 	name.create("player");
+	
 }
 
 j1Player::~j1Player()
@@ -32,6 +32,18 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
 
+
+	SDL_Rect rect;
+	rect.x = 0;
+	rect.y = 0;
+	rect.w = 20;
+	rect.h = 50;
+	COLLIDER_TYPE type = COLLIDER_PLAYER;
+	j1Module* callback = this;
+
+
+
+	 collider = App->colliders->AddCollider(rect, type, callback);
 
 	walk = walk.PushPlayerAnimation(config, "run");
 	idle = idle.PushPlayerAnimation(config, "idle");
@@ -70,12 +82,6 @@ bool j1Player::CleanUp() {
 	return true;
 }
 
-bool j1Player::PreUpdate() {
-	
-	ClearColliders();
-	
-	return true;
-}
 
 // Update: draw background
 bool j1Player::Update(float dt) {
@@ -149,6 +155,7 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 
+	collider->SetPos(-App->render->camera.x+200, -App->render->camera.y + 200);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
 	return true;
@@ -156,18 +163,18 @@ bool j1Player::Update(float dt) {
 
 void j1Player::ClearColliders() {
 
-	for (int i = 0; i < max_colliders_per_frame; i++)
-	{
-		if (colliders[i] != nullptr) {
-			colliders[i]->to_delete = true;
-			colliders[i] = nullptr;
+		if (collider != nullptr) {
+			collider->to_delete = true;
+			collider = nullptr;
 		}
-	}
+	
 }
 
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
+	int z = 0;
 
+	z++;
 	
 }
 
@@ -175,18 +182,6 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 	
 	Frame frame = current_animation->GetCurrentFrame();
 	SDL_Rect r;
-
-	int hitboxesQnt = frame.GetColliderQnt();
-
-	for (int i = 0; i < hitboxesQnt; i++)
-	{
-		r = frame.hitBoxeRects[i];
-		if (frame.types[i] != COLLIDER_PLAYER)
-			if (flip)
-				colliders[i] = App->collider->AddCollider({ position.x - (r.w - frame.pivotPosition.x) + r.x, position.y - r.h + frame.pivotPosition.y + /*jumpHeight*/ - r.y ,r.w, r.h }, frame.types[i], frame.callbacks[i]);
-			else
-				colliders[i] = App->collider->AddCollider({ position.x - frame.pivotPosition.x - r.x, position.y - r.h + frame.pivotPosition.y /*+ jumpHeight*/ - r.y ,r.w, r.h }, frame.types[i], frame.callbacks[i]);
-	}
 
 	r = frame.frame;
 	

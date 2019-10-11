@@ -8,6 +8,7 @@ struct SDL_Texture;
 class j1Scene : public j1Module
 {
 public:
+	SDL_Texture* img;
 
 	j1Scene();
 

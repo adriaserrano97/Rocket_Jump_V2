@@ -43,19 +43,14 @@ void j1Map::Draw()
 		{
 			for (int j = 0; j < l->height; j++)
 			{
-				if (l->gid[l->Get(i, j)] != 0)
+				int tile_id = l->gid[l->Get(i, j)];
+				if (tile_id > 0)
 				{
 					l->Get(i, j);
 					SDL_Texture* texture = data.tilesets.start->data->texture;
 					iPoint position = PosConverter(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->TileToRect(l->gid[l->Get(i, j)]);
 					App->render->Blit(texture, position.x, position.y, sect);
-					
-					//caution, we have to add the x and y of the tile to the x and y of the collision box. 
-					//it's just: THE_FUCKING_RECT.x += position.x
-					//			 THE_FUCKING_RECT.y += position.y
-					
-					//App->collider->AddCollider(data.tilesets.start->CollisionBoxArray[(tilebox.attribute("id").as_int() - 1)], COLLIDER_WALL, this);
 					//TODO ADRI	
 					
 				}
@@ -193,6 +188,43 @@ bool j1Map::Load(const char* file_name)
 		}
 	}
 
+
+	p2List_item<Layer*>* item_layer = data.layers.start;
+
+	while (item_layer != NULL)
+	{
+		Layer* l = item_layer->data;
+		item_layer = item_layer->next;
+		for (int i = 0; i < l->width; i++)
+		{
+			for (int j = 0; j < l->height; j++)
+			{
+				int tile_id = l->gid[l->Get(i, j)];
+				if (tile_id > 0)
+				{
+					
+					
+					iPoint position = PosConverter(i, j);
+					//caution, we have to add the x and y of the tile to the x and y of the collision box. 
+					//it's just: THE_FUCKING_RECT.x += position.x
+					//			 THE_FUCKING_RECT.y += position.y
+					SDL_Rect auxRect;
+					auxRect.x = data.tilesets.start->data->collisionBoxArray[tile_id].x + position.x;
+					auxRect.y = data.tilesets.start->data->collisionBoxArray[tile_id].y + position.y;
+					auxRect.h = data.tilesets.start->data->collisionBoxArray[tile_id].h;
+					auxRect.w = data.tilesets.start->data->collisionBoxArray[tile_id].w;
+
+					if (auxRect.h != 0 && auxRect.w != 0) {
+						App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
+					}
+
+					//TODO ADRI	
+
+				}
+			}
+		}
+	}
+
 	map_loaded = ret;
 
 	return ret;
@@ -289,22 +321,25 @@ bool j1Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 
 	return ret;
 }
+
 bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
 	pugi::xml_node tilebox;
-	//int size_array_tiles = map_file.child("map").child("tileset").attribute("tilecount").as_int();
+	
+	//set->collisionBoxArray = new SDL_Rect[map_file.child("map").child("tileset").attribute("tilecount").as_int()];
+
 	
 
-	for (tilebox = map_file.child("map").child("tileset").child("tile"); tilebox && ret; tilebox = tilebox.next_sibling("tile")) {
-		
+	for (tilebox = tileset_node.child("tile"); tilebox && ret; tilebox = tilebox.next_sibling()) {
 		
 		SDL_Rect this_tile_box;
-		this_tile_box.x = tilebox.child("object").attribute("x").as_int();
-		this_tile_box.y = tilebox.child("object").attribute("y").as_int();
-		this_tile_box.w = tilebox.child("object").attribute("width").as_int();
-		this_tile_box.h = tilebox.child("object").attribute("height").as_int();
-		//set->CollisionBoxArray[(tilebox.attribute("id").as_int() - 1)] = this_tile_box;
+		this_tile_box.x = tilebox.child("objectgroup").child("object").attribute("x").as_int();
+		this_tile_box.y = tilebox.child("objectgroup").child("object").attribute("y").as_int();
+		this_tile_box.w = tilebox.child("objectgroup").child("object").attribute("width").as_int();
+		this_tile_box.h = tilebox.child("objectgroup").child("object").attribute("height").as_int();
+		int id = tilebox.attribute("id").as_int();
+		set->collisionBoxArray[id] = this_tile_box;
 		// "-1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1
 	}
 	return ret;

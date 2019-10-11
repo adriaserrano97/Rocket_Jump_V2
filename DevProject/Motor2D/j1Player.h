@@ -57,7 +57,6 @@ public:
 
 	bool Awake(pugi::xml_node& config);
 	bool Start();
-	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
 
@@ -74,7 +73,7 @@ public:
 
 public:
 	int max_colliders_per_frame = 50;
-	Collider* colliders[50];  //CHANGE IN XML  
+	Collider *collider;  //CHANGE IN XML  
 	SDL_Texture* graphics = nullptr;
 	bool godMode = false;
 	
@@ -83,6 +82,7 @@ public:
 	Animation jump;
 	Animation rocketJump;
 	Animation dead;
+
 
 	uint fsx = 0u;
 

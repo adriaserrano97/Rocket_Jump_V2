@@ -45,18 +45,18 @@ public:
 					rect.w = iteratorFrames.attribute("rwidth").as_int();
 					rect.h = iteratorFrames.attribute("rheight").as_int();
 
-					if (iteratorFrames.attribute("nColliders").as_int() == 0)
+				/*if (iteratorFrames.attribute("nColliders").as_int() == 0)
 					{
 						SDL_Rect colRect[1]; 
 						COLLIDER_TYPE colType[1]; 
 						j1Module* callback[1];
 
-						colRect[0] = { 0, 0, 0, 0 };
-						colType[0] = COLLIDER_NONE;
-						callback[0] = (j1Module*)App->player;
+						colRect[0] = { 0, 0, 20, 50 };
+						colType[0] = COLLIDER_PLAYER;
+						callback[0] = (j1Module*)App->player;*/
 					
-						aux.PushBack(rect, iteratorFrames.attribute("time").as_int(), { iteratorFrames.attribute("pivotX").as_int(), iteratorFrames.attribute("pivotY").as_int() }, 1, colRect, colType, callback);
-					}
+						aux.PushBack(rect, iteratorFrames.attribute("time").as_int(), { iteratorFrames.attribute("pivotX").as_int(), iteratorFrames.attribute("pivotY").as_int() });
+					//}
 
 					iteratorFrames = iteratorFrames.next_sibling();
 				}
@@ -66,16 +66,11 @@ public:
 		return aux;
 	}
 
-	void PushBack(const SDL_Rect& rect, const int maxFrames, p2Point <int> pivotPosition, int nColliders, SDL_Rect hitbox[], COLLIDER_TYPE type[], j1Module* callback[]) {
+	void PushBack(const SDL_Rect& rect, const int maxFrames, p2Point <int> pivotPosition) {
 		
 		frames[last_frame].frame = rect;
 		frames[last_frame].maxFrames = maxFrames;
 		frames[last_frame].pivotPosition = pivotPosition;
-
-		for (int i = 0; i < nColliders; i++)
-		{
-			frames[last_frame].AddColliderToFrame(hitbox[i], type[i], callback[i]);
-		}
 
 		last_frame++;
 	}

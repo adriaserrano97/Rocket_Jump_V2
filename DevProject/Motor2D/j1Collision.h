@@ -53,7 +53,7 @@ public:
 	bool Start();
 
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 
@@ -67,7 +67,7 @@ private:
 
 	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	bool debug = false;
+	bool debug =  true;
 };
 
 #endif // __j1Collision_H__
