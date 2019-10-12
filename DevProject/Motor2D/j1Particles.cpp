@@ -118,7 +118,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 			break;
 		}
 	}
-}*/
+}
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
@@ -128,7 +128,6 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
 			active[i]->collider->to_delete = true;
-
 			delete active[i];
 			active[i] = nullptr;
 			break;
