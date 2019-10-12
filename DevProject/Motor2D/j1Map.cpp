@@ -10,6 +10,8 @@
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
+
+	
 }
 
 // Destructor
@@ -25,6 +27,16 @@ bool j1Map::Awake(pugi::xml_node& config)
 	folder.create(config.child("folder").child_value());
 
 	return ret;
+}
+
+bool j1Map::Start() {
+
+	for (int i = 0; i < 400; i++)
+	{
+		col[i] == nullptr;
+	}
+
+	return true;
 }
 
 void j1Map::Draw()
@@ -73,6 +85,7 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
+		App->tex->UnLoad(item->data->texture);
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -85,7 +98,7 @@ bool j1Map::CleanUp()
 
 	while (item2 != NULL)
 	{
-		RELEASE(item2->data->gid);
+		delete (item2->data->gid);
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
@@ -95,9 +108,10 @@ bool j1Map::CleanUp()
 	
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (App->colliders->colliders[i] != nullptr)
+		if (col[i] != nullptr)
 		{
-			App->colliders->colliders[i]->to_delete = true;
+			col[i]->to_delete = true;
+			col[i] = nullptr;
 		}
 		else break; //we add colliders in order, so if we found a nullptr we know there is no more colliders to clean
 	}
@@ -134,9 +148,7 @@ bool j1Map::Load(const char* file_name)
 	
 	for(tileset = map_file.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
 	{
-		TileSet* set = new TileSet();
-		
-		
+		TileSet* set = new TileSet();	
 		
 		if(ret == true)
 		{
@@ -165,7 +177,6 @@ bool j1Map::Load(const char* file_name)
 		{
 			ret = LoadLayer(layernode, set1);
 		}
-
 		data.layers.add(set1);
 	}
 
@@ -204,8 +215,11 @@ bool j1Map::Load(const char* file_name)
 
 	p2List_item<Layer*>* item_layer = data.layers.start;
 
+	int z = 0;
+
 	while (item_layer != NULL)
 	{
+
 		Layer* l = item_layer->data;
 		item_layer = item_layer->next;
 		for (int i = 0; i < l->width; i++)
@@ -228,7 +242,8 @@ bool j1Map::Load(const char* file_name)
 					auxRect.w = data.tilesets.start->data->collisionBoxArray[tile_id].w;
 
 					if (auxRect.h != 0 && auxRect.w != 0) {
-						App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
+						col[z] = App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
+						z++;
 					}
 
 					//TODO ADRI	

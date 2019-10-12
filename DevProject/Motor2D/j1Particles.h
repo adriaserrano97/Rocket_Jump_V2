@@ -43,7 +43,7 @@ public:
 	bool Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type = COLLIDER_NONE, uint sound, uint delay = 0);
+	//void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type = COLLIDER_NONE, uint sound, uint delay = 0);
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:

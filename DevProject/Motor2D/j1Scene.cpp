@@ -86,21 +86,18 @@ bool j1Scene::Update(float dt)
 	//Change scene logic
 	if ((App->input->GetKey(SDL_SCANCODE_1) && (App->fade->scene_number != 1)) == KEY_DOWN) {
 		App->fade->scene_number = 1;
-		App->map->CleanUp();
-		App->fade->FadeToBlack(this, this, 2);
-		App->map->Start();
+		
+		App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map, 2);
+	
 		//App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map,2);
 		//ADRI:We can't do this because we need to change information in Map between its cleanup and its new awake
 	}
 	if ((App->input->GetKey(SDL_SCANCODE_2) && (App->fade->scene_number != 2)) == KEY_DOWN) {
 		App->fade->scene_number = 2;
-		App->map->CleanUp();
-		App->fade->FadeToBlack(this, this, 2);
-		App->map->Start();
+		
+		App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map, 2);
 	}
 
-	//ADRI: We have memory leaks here
-	//ADRI: We are deleting all colliders, we need to re-make the player collider
 
 	return true;
 }
@@ -120,6 +117,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	
 
 	return true;
 }

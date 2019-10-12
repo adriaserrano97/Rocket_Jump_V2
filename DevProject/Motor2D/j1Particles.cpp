@@ -83,7 +83,7 @@ bool j1Particles::Update()
 }
 
 
-void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type, uint sound, uint delay)
+/*void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type, uint sound, uint delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -117,7 +117,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 			break;
 		}
 	}
-}
+}*/
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
