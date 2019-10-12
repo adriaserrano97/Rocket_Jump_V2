@@ -40,9 +40,6 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	rect.h = 50;
 	COLLIDER_TYPE type = COLLIDER_PLAYER;
 	j1Module* callback = this;
-
-
-
 	collider = App->colliders->AddCollider(rect, type, callback);
 
 	walk = walk.PushPlayerAnimation(config, "run");
@@ -82,6 +79,7 @@ bool j1Player::CleanUp() {
 	LOG("Unloading Player");
 
 	App->tex->UnLoad(graphics);
+	App->tex->UnLoad(bazooka);
 
 	walk = Animation();
 	idle = Animation();
@@ -169,7 +167,6 @@ bool j1Player::Update(float dt) {
 
 	int cursorX = 0, cursorY;
 	App->input->GetMousePosition(cursorX, cursorY);
-
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
 	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x, (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
 	collider->SetPos(position.x, position.y);
