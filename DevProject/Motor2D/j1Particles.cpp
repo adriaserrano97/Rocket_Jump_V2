@@ -118,7 +118,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 			break;
 		}
 	}
-}
+}*/
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
