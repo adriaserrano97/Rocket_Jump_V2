@@ -36,7 +36,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 
 	void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type, uint sound, uint delay);
@@ -44,12 +44,16 @@ public:
 
 private:
 
-	SDL_Texture* graphics = nullptr;
+	
 	Particle* active[MAX_ACTIVE_PARTICLES];
 	uint last_particle = 0;
+	p2SString			folder;
+	SDL_Texture* graphics = nullptr;
 
 public:
 	//here goes the particles
+	Particle explosion;
+	Animation explosion_animation;
 };
 
 #endif

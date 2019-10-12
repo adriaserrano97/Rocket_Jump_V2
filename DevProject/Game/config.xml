@@ -279,6 +279,21 @@
 			</frame>
 		</dead>
 	</playerAnimations>
+
   </player>
+  <particles>
+	<folder>textures/particles</folder>
+	<particleAnimations>
+		<explosion_animation frames="1" name="explosion_animation">
+			<frame
+				rposX="0" rposY="0" rwidth="63" rheight="66"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+		</explosion_animation>
+
+	</particleAnimations>
+  </particles>
 
 </config>

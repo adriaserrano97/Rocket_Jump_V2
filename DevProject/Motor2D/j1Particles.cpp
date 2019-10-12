@@ -5,6 +5,7 @@
 #include "j1Particles.h"
 #include "j1Audio.h"
 #include "j1Collision.h"
+#include "j1Player.h"
 #include "p2Log.h"
 
 #include "SDL/include/SDL_timer.h"
@@ -23,13 +24,20 @@ j1Particles::~j1Particles()
 // Load assets
 bool j1Particles::Start()
 {
-
-	graphics = App->tex->Load("assets/images/sprites/sfx/sfx.png");
+	graphics = App->tex->Load(PATH(folder.GetString(), "explosions.png"));
 	return true;
 }
 
 bool j1Particles::Awake(pugi::xml_node& node){
-
+	folder.create(node.child("folder").child_value());
+	//explosion_animation = explosion_animation.PushParticleAnimation(node, "explosion");
+	//explosion.anim = explosion.anim.PushParticleAnimation(node, "explosion");
+	
+	//void PushBack(const SDL_Rect& rect, const int maxFrames, p2Point <int> pivotPosition, int nColliders, SDL_Rect hitbox[], COLLIDER_TYPE type[], Module* callback[])
+	explosion.anim.PushBack({ 0, 0, 63, 66 }, 60, { 0,0 });
+	explosion.life = 10;
+	explosion.anim.loop = true;
+	
 	return true;
 }
 
@@ -50,11 +58,13 @@ bool j1Particles::CleanUp()
 		}
 	}
 
+	explosion_animation = Animation();
+	
 	return true;
 }
 
 // Update: draw background
-bool j1Particles::Update()
+bool j1Particles::Update(float dt)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{

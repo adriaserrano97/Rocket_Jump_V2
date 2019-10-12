@@ -45,6 +45,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	walk = walk.PushPlayerAnimation(config, "run");
 	idle = idle.PushPlayerAnimation(config, "idle");
 	jump = jump.PushPlayerAnimation(config, "jump");
+	
 
 	
 	bazookaRect.x = 0;
@@ -67,7 +68,6 @@ bool j1Player::Start() {
 	bool ret = true;
 
 	graphics = App->tex->Load(PATH(folder.GetString(), "stickman_spritesheet.png"));
-	
 	bazooka = App->tex->Load(PATH(folder.GetString(), "bazooka.png"));
 	
 	return ret;
@@ -248,6 +248,12 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 			left = true;
 		else
 			left = false;
+
+
+		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
+			App->input->GetMousePosition(cursorX, cursorY);
+			App->particles->AddParticle(App->particles->explosion, false, cursorX, cursorY, 0, 0, COLLIDER_NONE,0,0);
+		}
 
 
 		if (right && !left) {
