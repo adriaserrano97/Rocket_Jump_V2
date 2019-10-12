@@ -92,7 +92,7 @@ public:
 
 
 	int speed;
-	int grav = 1;
+	int grav;
 
 	bool freeze = false;
 	bool right = false;

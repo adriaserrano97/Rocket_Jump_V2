@@ -29,8 +29,15 @@
 
   <player>
 	<folder>textures/player</folder>
-	<playerData initialX="50" initialY="300" speed="7"></playerData>
-
+	<playerData initialX="50" initialY="300" speed="7" gravity="5"></playerData>
+	
+	<collider
+		rectX="0"
+		rectY="0"
+		rectW="20"
+		rectH="50">
+		
+	</collider>
 	<playerAnimations>
 		<idle frames="6" name="idle">
 

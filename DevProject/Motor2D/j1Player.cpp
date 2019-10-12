@@ -31,13 +31,13 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	position.x = config.child("playerData").attribute("initialX").as_int();
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
-
+	grav = config.child("playerData").attribute("gravity").as_int();
 
 	SDL_Rect rect;
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = 20;
-	rect.h = 50;
+	rect.x = config.child("collider").attribute("rectX").as_int();
+	rect.y = config.child("collider").attribute("rectY").as_int();
+	rect.w = config.child("collider").attribute("rectW").as_int();
+	rect.h = config.child("collider").attribute("rectH").as_int();
 	COLLIDER_TYPE type = COLLIDER_PLAYER;
 	j1Module* callback = this;
 	collider = App->colliders->AddCollider(rect, type, callback);
@@ -165,7 +165,7 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 
-	position.y = position.y + 2;
+	position.y = position.y + grav;
 
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
@@ -195,6 +195,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
 		{
 			position = { position.x,  App->colliders->playerBuffer.y };
+			inputs.Push(IN_JUMP_FINISH);
 		}
 		
 		else if (((App->colliders->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
@@ -205,8 +206,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			position = { App->colliders->playerBuffer.x,  position.y };
 		}
 
-		
-		
 		else
 		{
 			position = { App->colliders->playerBuffer.x,  App->colliders->playerBuffer.y };
