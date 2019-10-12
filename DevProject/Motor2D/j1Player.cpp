@@ -171,7 +171,7 @@ bool j1Player::Update(float dt) {
 	App->input->GetMousePosition(cursorX, cursorY);
 
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
-	App->render->Blit(bazooka, cursorX - cursorRect.w / 2, cursorY - cursorRect.h / 2, &cursorRect);
+	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x, (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
 	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
