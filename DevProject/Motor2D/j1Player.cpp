@@ -43,11 +43,23 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 
 
-	 collider = App->colliders->AddCollider(rect, type, callback);
+	collider = App->colliders->AddCollider(rect, type, callback);
 
 	walk = walk.PushPlayerAnimation(config, "run");
 	idle = idle.PushPlayerAnimation(config, "idle");
 	jump = jump.PushPlayerAnimation(config, "jump");
+
+	
+	bazookaRect.x = 0;
+	bazookaRect.y = 0;
+	bazookaRect.w = 70;
+	bazookaRect.h = 18;
+
+	cursorRect.x = 0;
+	cursorRect.y = 20;
+	cursorRect.w = 62;
+	cursorRect.h = 62;
+
 	
 	return ret;
 }
@@ -59,7 +71,7 @@ bool j1Player::Start() {
 
 	graphics = App->tex->Load(PATH(folder.GetString(), "stickman_spritesheet.png"));
 	
-	
+	bazooka = App->tex->Load(PATH(folder.GetString(), "bazooka.png"));
 	
 	return ret;
 }
@@ -155,7 +167,12 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 
-	collider->SetPos(-App->render->camera.x+200, -App->render->camera.y + 200);
+	int cursorX = 0, cursorY;
+	App->input->GetMousePosition(cursorX, cursorY);
+
+	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
+	App->render->Blit(bazooka, cursorX - cursorRect.w / 2, cursorY - cursorRect.h / 2, &cursorRect);
+	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
 	return true;

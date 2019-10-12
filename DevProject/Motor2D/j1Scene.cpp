@@ -32,7 +32,6 @@ bool j1Scene::Start()
 {
 	//App->map->Load("hello2.tmx"); //Hello map, handout 04
 	App->map->Load("first_map_v2.tmx");
-	img = App->tex->Load("textures/SDL_pls.png");
 	return true;
 }
 
@@ -63,7 +62,6 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		App->render->camera.x += 10;
 
-	App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
