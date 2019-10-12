@@ -87,7 +87,7 @@ bool j1Scene::Update(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_1) && (App->fade->scene_number != 1)) == KEY_DOWN) {
 		App->fade->scene_number = 1;
 		
-		App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map, 2);
+		App->fade->FadeToBlack(this, this, 2);
 	
 		//App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map,2);
 		//ADRI:We can't do this because we need to change information in Map between its cleanup and its new awake
@@ -95,7 +95,7 @@ bool j1Scene::Update(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_2) && (App->fade->scene_number != 2)) == KEY_DOWN) {
 		App->fade->scene_number = 2;
 		
-		App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map, 2);
+		App->fade->FadeToBlack(this, this, 2);
 	}
 
 
@@ -117,7 +117,7 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	
+	App->map->CleanUp();
 
 	return true;
 }
