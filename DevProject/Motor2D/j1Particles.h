@@ -4,8 +4,6 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
-#include "j1Particles.h"
-
 #define MAX_ACTIVE_PARTICLES 150
 
 struct SDL_Texture;
@@ -23,9 +21,7 @@ struct Particle
 	Uint32 born = 0u;
 	Uint32 life = 0u;
 	bool flip;
-	int number1;
 	uint sfx = 0u;
-
 	Particle();
 	Particle(const Particle& p);
 	bool Update();
@@ -43,7 +39,7 @@ public:
 	bool Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type = COLLIDER_NONE, uint sound, uint delay = 0);
+	void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type, uint sound, uint delay);
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:

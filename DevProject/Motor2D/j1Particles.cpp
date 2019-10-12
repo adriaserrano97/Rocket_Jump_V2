@@ -83,7 +83,8 @@ bool j1Particles::Update()
 }
 
 
-void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type, uint sound, uint delay)
+void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type=COLLIDER_NONE, uint sound = 0, uint delay = 0)
+//ADRI: the last 3 arguments are optional, thus have default parameter values. This way we can call this function whithout issue when our particle does not have those parameters associated
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
