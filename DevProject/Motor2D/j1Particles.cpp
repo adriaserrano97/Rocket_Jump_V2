@@ -12,7 +12,7 @@
 
 j1Particles::j1Particles()
 {
-	name.create("Particles");
+	name.create("particles");
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
@@ -73,18 +73,18 @@ bool j1Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 		p->Update();
-		p->collider->SetPos(p->position);
+		//p->collider->SetPos(p->position);
 		if (SDL_GetTicks() >= p->born)
 		{
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
 		}
-		if (active[i] != nullptr && p->life == 0)
+	/*	if (active[i] != nullptr && p->life == 0)
 		{
 			active[i]->collider->to_delete = true;
 
 			delete active[i];
 			active[i] = nullptr;
-		}
+		}*/
 		if (p->life > 0) {
 			p->life--;
 		}

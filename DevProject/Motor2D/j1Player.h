@@ -77,7 +77,6 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
-	int cursorX = 0, cursorY; //used in explosion managment
 
 	SDL_Rect bazookaRect;
 	SDL_Rect cursorRect;
