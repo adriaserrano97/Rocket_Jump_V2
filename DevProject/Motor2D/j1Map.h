@@ -14,6 +14,7 @@ struct Layer {
 	uint width;
 	uint height;
 	uint* gid;
+	float layer_speed;
 	inline uint Get(int x, int y) const
 	{
 		return x + y * width;

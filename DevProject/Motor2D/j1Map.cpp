@@ -417,6 +417,7 @@ bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 	set->width = layer.attribute("width").as_int();
 	set->height = layer.attribute("height").as_int();
 	set->gid = new uint[set->width * set->height];
+	set->layer_speed = layer.child("properties").child("property").attribute("value").as_float();
 
 	memset(set->gid, 0, sizeof(uint)*(set->height * set->width));
 

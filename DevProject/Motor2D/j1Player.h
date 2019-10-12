@@ -71,6 +71,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	void Player_jump(player_states state);
+
 public:
 	int max_colliders_per_frame = 50;
 	Collider *collider = nullptr;  //CHANGE IN XML  
@@ -92,13 +94,14 @@ public:
 
 
 	int speed;
+	int jumpspeed;
 	int grav;
+	int time_spent_jumping;
 
 	bool freeze = false;
 	bool right = false;
 	bool left = false;
 	bool up = false;
-	
 	bool flip = false;
 
 	player_states state;

@@ -31,6 +31,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	position.x = config.child("playerData").attribute("initialX").as_int();
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
+	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
 
 	SDL_Rect rect;
@@ -96,8 +97,13 @@ bool j1Player::CleanUp() {
 // Update: draw background
 bool j1Player::Update(float dt) {
 
+	//this is the default state of the player. Changes apply below
+	
 	player_states current_state = ST_UNKNOWN;
 	Animation* current_animation = &walk;
+
+
+
 	SDL_Texture *texture = graphics;
 	
 
@@ -130,15 +136,18 @@ bool j1Player::Update(float dt) {
 
 		case ST_JUMP:
 			current_animation = &jump;
+			Player_jump(ST_JUMP);
 			break;
 
 		case ST_RIGHT_JUMP:
 			current_animation = &jump;
+			Player_jump(ST_RIGHT_JUMP);
 			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
 			current_animation = &jump;
+			Player_jump(ST_LEFT_JUMP);
 			flip = true;
 			break;
 
@@ -195,7 +204,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
 		{
 			position = { position.x,  App->colliders->playerBuffer.y };
-			inputs.Push(IN_JUMP_FINISH);
+			if (time_spent_jumping > 1) { inputs.Push(IN_JUMP_FINISH); time_spent_jumping = 0; }	//TODO JOSE : this makes jumping impossible when standing ont he ground
 		}
 		
 		else if (((App->colliders->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
@@ -433,4 +442,38 @@ bool j1Player::Save(pugi::xml_node& data) const
 	ply.append_attribute("y") = position.y;
 
 	return true;
+}
+
+void j1Player::Player_jump(player_states state) {
+
+	int buffer_y = position.y;
+	if (time_spent_jumping == 0) { time_spent_jumping++; }
+	switch (state) {
+
+	case ST_JUMP:
+		position.y -= jumpspeed;  //Remember, our reference system states that (0,0) is the upper left corner
+		position.y += time_spent_jumping;
+		time_spent_jumping++;
+		break;
+
+	case ST_RIGHT_JUMP:
+		position.y -= jumpspeed;
+		position.y += time_spent_jumping;
+		time_spent_jumping++;
+		position.x += speed;
+		break;
+
+	case ST_LEFT_JUMP:
+		position.y -= jumpspeed;
+		position.y += time_spent_jumping;
+		time_spent_jumping++;
+		position.x -= speed;
+		break;
+
+	default:
+		LOG("Player state was not valid to perform a jump from");
+		break;
+	}
+	
+
 }
