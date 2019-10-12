@@ -105,6 +105,7 @@ public:
 	player_states state;
 	p2Qeue<player_inputs> inputs;
 	iPoint	position;
+	int cursorX, cursorY;
 
 	p2SString	folder;
 };
