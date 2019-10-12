@@ -73,9 +73,13 @@ public:
 
 public:
 	int max_colliders_per_frame = 50;
-	Collider *collider;  //CHANGE IN XML  
+	Collider *collider = nullptr;  //CHANGE IN XML  
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
+
+	SDL_Rect bazookaRect;
+	SDL_Rect cursorRect;
 	
 	Animation walk;
 	Animation idle;
