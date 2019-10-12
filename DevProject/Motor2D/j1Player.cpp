@@ -165,7 +165,8 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 
-	int cursorX = 0, cursorY;
+	position.y = position.y + 2;
+
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
 	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x, (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
@@ -186,10 +187,31 @@ void j1Player::ClearColliders() {
 
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
-	int z = 0;
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL);
+	{
+		if (((c1->rect.x + c1->rect.w) < c2->rect.x) ||
+			((App->colliders->playerBuffer.y + c1->rect.h) < c2->rect.y) ||
+			((c2->rect.x + c2->rect.w) < c1->rect.x) ||
+			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
+		{
+			position = { position.x,  App->colliders->playerBuffer.y };
+		}
+		
+		else if (((App->colliders->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
+			((c1->rect.y + c1->rect.h) < c2->rect.y) ||
+			((c2->rect.x + c2->rect.w) < App->colliders->playerBuffer.x) ||
+			((c2->rect.y + c2->rect.h) < c1->rect.y))
+		{
+			position = { App->colliders->playerBuffer.x,  position.y };
+		}
 
-	z++;
-	
+		
+		
+		else
+		{
+			position = { App->colliders->playerBuffer.x,  App->colliders->playerBuffer.y };
+		}
+	}
 }
 
 void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture) {

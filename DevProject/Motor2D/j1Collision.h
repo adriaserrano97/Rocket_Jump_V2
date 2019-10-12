@@ -45,6 +45,7 @@ struct Collider
 class j1Collision : public j1Module
 {
 public:
+	iPoint playerBuffer;
 
 	j1Collision();
 	~j1Collision();
