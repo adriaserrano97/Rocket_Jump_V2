@@ -24,7 +24,7 @@ j1Particles::~j1Particles()
 bool j1Particles::Start()
 {
 
-	//graphics = App->tex->Load("assets/images/sprites/sfx/sfx.png");
+	graphics = App->tex->Load("assets/images/sprites/sfx/sfx.png");
 	return true;
 }
 
@@ -56,7 +56,7 @@ bool j1Particles::CleanUp()
 // Update: draw background
 bool j1Particles::Update()
 {
-	/*for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		Particle* p = active[i];
 
@@ -78,11 +78,11 @@ bool j1Particles::Update()
 		if (p->life > 0) {
 			p->life--;
 		}
-	}*/
+	}
 	return true;
 }
 
-/*
+
 void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, int ryu, COLLIDER_TYPE collider_type, uint sound, uint delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -106,7 +106,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 			}
 
 			if (collider_type != COLLIDER_NONE)
-				//p->collider = App->collider->AddCollider(p->anim.GetCurrentFrameBox(), collider_type, this);
+				p->collider = App->colliders->AddCollider(p->anim.GetCurrentFrameBox(), collider_type, this);
 
 			active[i] = p;
 
@@ -117,7 +117,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 			break;
 		}
 	}
-}*/
+}
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
