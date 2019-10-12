@@ -38,47 +38,41 @@
 		rectH="50">
 		
 	</collider>
-	<playerAnimations>
+	<Animations>
 		<idle frames="6" name="idle">
 
 			<frame
 				rposX="550" rposY="200" rwidth="20" rheight="49"
 				time="5"
-				pivotX="5" pivotY="34"
-				nColliders="0">
+				pivotX="5" pivotY="34">
 			</frame>
 
 			<frame
 				rposX="0" rposY="0" rwidth="20" rheight="48"
 				time="5"
-				pivotX="4" pivotY="32"
-				nColliders="0">
+				pivotX="4" pivotY="32">
 			</frame>
 
 			<frame
 				rposX="250" rposY="0" rwidth="19" rheight="49"
 				time="5"
-				pivotX="5" pivotY="32"
-				nColliders="0">
+				pivotX="5" pivotY="32">
 			</frame>
 
 			<frame
 				rposX="250" rposY="0" rwidth="19" rheight="49"
 				time="5"
-				pivotX="5" pivotY="32"
-				nColliders="0">
+				pivotX="5" pivotY="32">
 			</frame>
 			<frame
 				rposX="0" rposY="0" rwidth="20" rheight="48"
 				time="5"
-				pivotX="4" pivotY="32"
-				nColliders="0">
+				pivotX="4" pivotY="32">
 			</frame>
 			<frame
 				rposX="550" rposY="200" rwidth="20" rheight="49"
 				time="5"
-				pivotX="5" pivotY="34"
-				nColliders="0">
+				pivotX="5" pivotY="34">
 			</frame>
 		</idle>
 
@@ -86,70 +80,60 @@
 			<frame
 				rposX="600" rposY="51" rwidth="32" rheight="48"
 				time="2"
-				pivotX="11" pivotY="33"
-				nColliders="0">
+				pivotX="11" pivotY="33">
 			</frame>
+
 			<frame
 				rposX="649" rposY="53" rwidth="34" rheight="46"
 				time="2"
-				pivotX="13" pivotY="34"
-				nColliders="0">
-				<collider>
-					rposX="10" rposY="10" rwidth="10" rheight="10"
-					COLLIDER_TYPE="collider_none"
-				</collider>
+				pivotX="13" pivotY="34">
 			</frame>
 
 			<frame
 				rposX="699" rposY="56" rwidth="37" rheight="43"
 				time="2"
-				pivotX="17" pivotY="34"
-				nColliders="0">
+				pivotX="17" pivotY="34">
 			</frame>
 
 			<frame
 				rposX="749" rposY="54" rwidth="37" rheight="45"
 				time="2"
-				pivotX="17" pivotY="34"
-				nColliders="0">
+				pivotX="17" pivotY="34">
 			</frame>
 
 			<frame
 				rposX="600" rposY="104" rwidth="33" rheight="45"
 				time="2"
-				pivotX="12" pivotY="33"
-				nColliders="0">
+				pivotX="12" pivotY="33">
 			</frame>
 
 			<frame
 				rposX="649" rposY="102" rwidth="33" rheight="47"
 				time="2"
-				pivotX="13" pivotY="33"
-				nColliders="0">
+				pivotX="13" pivotY="33">
 			</frame>
+
 			<frame
 				rposX="699" rposY="100" rwidth="32" rheight="49"
 				time="2"
-				pivotX="11" pivotY="34"
-				nColliders="0">
+				pivotX="11" pivotY="34">
 			</frame>
+
 			<frame
 				rposX="749" rposY="100" rwidth="30" rheight="49"
 				time="2"
-				pivotX="9" pivotY="33"
-				nColliders="0">
+				pivotX="9" pivotY="33">
 			</frame>
+
 			<frame
 				rposX="600" rposY="150" rwidth="25" rheight="49"
 				time="2"
-				pivotX="6" pivotY="33"
-				nColliders="0">
+				pivotX="6" pivotY="33">
 			</frame>
 			<frame
 				rposX="649" rposY="150" rwidth="30" rheight="49"
 				time="2"
-				pivotX="10" pivotY="33"
-				nColliders="0">
+				pivotX="10" pivotY="33">
 			</frame>
 		</run>
 
@@ -158,50 +142,43 @@
 			<frame
 				rposX="50" rposY="50" rwidth="17" rheight="48"
 				time="6"
-				pivotX="8" pivotY="35"
-				nColliders="0">
+				pivotX="8" pivotY="35">
 			</frame>			
 
 			<frame
 				rposX="100" rposY="50" rwidth="24" rheight="48"
 				time="6"
-				pivotX="11" pivotY="35"
-				nColliders="0">
+				pivotX="11" pivotY="35">
 			</frame>
 
 			<frame
 				rposX="150" rposY="50" rwidth="29" rheight="42"
 				time="6"
-				pivotX="14" pivotY="32"
-				nColliders="0">
+				pivotX="14" pivotY="32">
 			</frame>
 
 			<frame
 				rposX="0" rposY="100" rwidth="30" rheight="38"
 				time="6"
-				pivotX="14" pivotY="33"
-				nColliders="0">
+				pivotX="14" pivotY="33">
 			</frame>
 
 			<frame
 				rposX="50" rposY="100" rwidth="32" rheight="35"
 				time="6"
-				pivotX="15" pivotY="32"
-				nColliders="0">
+				pivotX="15" pivotY="32">
 			</frame>
 
 			<frame
 				rposX="100" rposY="100" rwidth="28" rheight="41"
 				time="6"
-				pivotX="13" pivotY="32"
-				nColliders="0">
+				pivotX="13" pivotY="32">
 			</frame>
 
 			<frame
 				rposX="150" rposY="100" rwidth="20" rheight="46"
 				time="60000"
-				pivotX="4" pivotY="32"
-				nColliders="0">
+				pivotX="4" pivotY="32">
 			</frame>
 		</jump>
 
@@ -209,8 +186,7 @@
 			<frame>
 				rposX="0" rposY="150" rwidth="19" rheight="45"
 				time="600000"
-				pivotX="3" pivotY="32"
-				nColliders="0">
+				pivotX="3" pivotY="32">
 			</frame>
 		</rocketJump>
 
@@ -218,82 +194,74 @@
 			<frame
 				rposX="451" rposY="0" rwidth="24" rheight="49"
 				time="10"
-				pivotX="12" pivotY="32"
-				nColliders="0">
+				pivotX="12" pivotY="32">
 			</frame>
 		
 			<frame
 				rposX="500" rposY="3" rwidth="28" rheight="46"
 				time="10"
-				pivotX="17" pivotY="29"
-				nColliders="0">
+				pivotX="17" pivotY="29">
 			</frame>
 
 			<frame
 				rposX="550" rposY="6" rwidth="36" rheight="43"
 				time="10"
-				pivotX="23" pivotY="28"
-				nColliders="0">
+				pivotX="23" pivotY="28">
 			</frame>
 
 			<frame
 				rposX="400" rposY="60" rwidth="42" rheight="39"
 				time="10"
-				pivotX="31" pivotY="25"
-				nColliders="0">
+				pivotX="31" pivotY="25">
 			</frame>
 
 			<frame
 				rposX="450" rposY="68" rwidth="44" rheight="29"
 				time="10"
-				pivotX="32" pivotY="17"
-				nColliders="0">
+				pivotX="32" pivotY="17">
 			</frame>
 
 			<frame
 				rposX="500" rposY="68" rwidth="47" rheight="31"
 				time="10"
-				pivotX="36" pivotY="13"
-				nColliders="0">
+				pivotX="36" pivotY="13">
 			</frame>
 
 			<frame
 				rposX="400" rposY="122" rwidth="45" rheight="26"
 				time="10"
-				pivotX="33" pivotY="15"
-				nColliders="0">
+				pivotX="33" pivotY="15">
 			</frame>
 
 			<frame
 				rposX="450" rposY="129" rwidth="47" rheight="20"
 				time="10"
-				pivotX="33" pivotY="16"
-				nColliders="0">
+				pivotX="33" pivotY="16">
 			</frame>
 
 			<frame
 				rposX="500" rposY="129" rwidth="48" rheight="20"
 				time="10"
-				pivotX="35" pivotY="17"
-				nColliders="0">
+				pivotX="35" pivotY="17">
 			</frame>
 		</dead>
-	</playerAnimations>
+	</Animations>
 
   </player>
   <particles>
 	<folder>textures/particles</folder>
-	<particleAnimations>
-		<explosion_animation frames="1" name="explosion_animation">
+	
+	<Animations>
+		<explosion frames="1" name="explosion" life="10">
 			<frame
 				rposX="0" rposY="0" rwidth="63" rheight="66"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
-		</explosion_animation>
+		</explosion>
 
-	</particleAnimations>
+	</Animations>
   </particles>
 
 </config>

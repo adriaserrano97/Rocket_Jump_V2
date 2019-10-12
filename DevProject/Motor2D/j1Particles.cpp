@@ -31,12 +31,12 @@ bool j1Particles::Start()
 bool j1Particles::Awake(pugi::xml_node& node){
 	folder.create(node.child("folder").child_value());
 	//explosion_animation = explosion_animation.PushParticleAnimation(node, "explosion");
-	//explosion.anim = explosion.anim.PushParticleAnimation(node, "explosion");
-	
+	explosion.anim = explosion.anim.PushAnimation(node, "explosion");
+	explosion.life = node.child("Animations").child("explosion").attribute("life").as_int();
 	//void PushBack(const SDL_Rect& rect, const int maxFrames, p2Point <int> pivotPosition, int nColliders, SDL_Rect hitbox[], COLLIDER_TYPE type[], Module* callback[])
-	explosion.anim.PushBack({ 0, 0, 63, 66 }, 60, { 0,0 });
+	/*explosion.anim.PushBack({ 0, 0, 63, 66 }, 60, { 0,0 });
 	explosion.life = 10;
-	explosion.anim.loop = true;
+	explosion.anim.loop = true;*/
 	
 	return true;
 }
@@ -73,18 +73,28 @@ bool j1Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 		p->Update();
-		//p->collider->SetPos(p->position);
-		if (SDL_GetTicks() >= p->born)
+
+		if (p->collider != nullptr)
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
+			p->collider->SetPos(p->position);
 		}
-	/*	if (active[i] != nullptr && p->life == 0)
+		
+		
+		App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
+		
+
+		if (p != nullptr && p->life == 0)
 		{
-			active[i]->collider->to_delete = true;
+			if (p->collider != nullptr)
+			{
+				active[i]->collider->to_delete = true;
+			}
+			
 
 			delete active[i];
 			active[i] = nullptr;
-		}*/
+		}
+
 		if (p->life > 0) {
 			p->life--;
 		}

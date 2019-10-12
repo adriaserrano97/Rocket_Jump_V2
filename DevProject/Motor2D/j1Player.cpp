@@ -42,9 +42,9 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	j1Module* callback = this;
 	collider = App->colliders->AddCollider(rect, type, callback);
 
-	walk = walk.PushPlayerAnimation(config, "run");
-	idle = idle.PushPlayerAnimation(config, "idle");
-	jump = jump.PushPlayerAnimation(config, "jump");
+	walk = walk.PushAnimation(config, "run");
+	idle = idle.PushAnimation(config, "idle");
+	jump = jump.PushAnimation(config, "jump");
 	
 
 	
