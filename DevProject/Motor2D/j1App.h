@@ -18,6 +18,7 @@ class j1Map;
 class j1Collision;
 class j1Particles;
 class j1Player;
+class j1FadeToBlack;
 
 class j1App
 {
@@ -91,6 +92,7 @@ public:
 	j1Collision*		colliders;
 	j1Particles*		particles;
 	j1Player*			player;
+	j1FadeToBlack*		fade;
 
 	
 	uint32_t				frames;

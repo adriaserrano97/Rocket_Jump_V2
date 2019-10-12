@@ -11,7 +11,7 @@
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 
-struct Collider;
+struct Collider; //JOSE que hace aquie esto¿?
 
 class j1App;
 
@@ -75,11 +75,34 @@ public:
 
 public:
 
-
 	virtual void OnCollision(Collider*, Collider*) {}
 	p2SString	name;
 	bool		active;
 
+
+	// Module activation 
+	bool IsEnabled() const { return enabled; }
+
+	void Enable()
+	{
+		if (enabled == false)
+		{
+			enabled = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		if (enabled == true)
+		{
+			enabled = false;
+			CleanUp();
+		}
+	}
+
+private:
+	bool enabled = true;
 };
 
 #endif // __j1MODULE_H__

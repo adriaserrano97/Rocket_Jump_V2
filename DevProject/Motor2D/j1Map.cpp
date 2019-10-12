@@ -51,7 +51,7 @@ void j1Map::Draw()
 					iPoint position = PosConverter(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->TileToRect(l->gid[l->Get(i, j)]);
 					App->render->Blit(texture, position.x, position.y, sect);
-					//TODO ADRI	
+					
 					
 				}
 			}
@@ -90,6 +90,19 @@ bool j1Map::CleanUp()
 		item2 = item2->next;
 	}
 	data.layers.clear();
+
+	//Clean all map colliders
+	
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (App->colliders->colliders[i] != nullptr)
+		{
+			App->colliders->colliders[i]->to_delete = true;
+		}
+		else break; //we add colliders in order, so if we found a nullptr we know there is no more colliders to clean
+	}
+
+
 	// Clean up the pugui tree
 	map_file.reset();
 
