@@ -30,13 +30,10 @@ bool j1Particles::Start()
 
 bool j1Particles::Awake(pugi::xml_node& node){
 	folder.create(node.child("folder").child_value());
-	//explosion_animation = explosion_animation.PushParticleAnimation(node, "explosion");
+	
 	explosion.anim = explosion.anim.PushAnimation(node, "explosion");
 	explosion.life = node.child("Animations").child("explosion").attribute("life").as_int();
-	//void PushBack(const SDL_Rect& rect, const int maxFrames, p2Point <int> pivotPosition, int nColliders, SDL_Rect hitbox[], COLLIDER_TYPE type[], Module* callback[])
-	/*explosion.anim.PushBack({ 0, 0, 63, 66 }, 60, { 0,0 });
-	explosion.life = 10;
-	explosion.anim.loop = true;*/
+	
 	
 	return true;
 }
@@ -142,17 +139,7 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-	{
-		// Always destroy particles that collide
-		if (active[i] != nullptr && active[i]->collider == c1)
-		{
-			active[i]->collider->to_delete = true;
-			delete active[i];
-			active[i] = nullptr;
-			break;
-		}
-	}
+	
 }
 
 // -------------------------------------------------------------
