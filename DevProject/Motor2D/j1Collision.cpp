@@ -50,7 +50,7 @@ bool j1Collision::PreUpdate() {
 
 	RemoveDeletedColliders();
 
-	playerBuffer = App->player->position;
+	
 
 	return true;
 }

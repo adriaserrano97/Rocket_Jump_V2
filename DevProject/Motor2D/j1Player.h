@@ -62,6 +62,7 @@ public:
 
 	bool Awake(pugi::xml_node& config);
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
 
@@ -77,7 +78,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	void Player_jump(player_states state);
-	void Player_fall(player_states state);
+	void Player_fall();
 	void Check_if_falling();
 
 public:
@@ -99,13 +100,14 @@ public:
 
 	uint fsx = 0u;
 
-
+	iPoint playerBuffer;
 	int speed;
 	int jumpspeed;
 	int speedcap;
 	int grav;
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sign only accepts +1 / 0 /-1) 
 	int time_spent_jumping = 1;
+	int time_spent_falling = 1;
 
 
 	bool freeze = false;

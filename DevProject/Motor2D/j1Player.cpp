@@ -94,10 +94,14 @@ bool j1Player::CleanUp() {
 	return true;
 }
 
-
+bool j1Player::PreUpdate() {
+	playerBuffer = position;
+	return true;
+}
 // Update: draw background
 bool j1Player::Update(float dt) {
 
+	
 	//this is the default state of the player. Changes apply below
 	
 	player_states current_state = ST_UNKNOWN;
@@ -154,7 +158,7 @@ bool j1Player::Update(float dt) {
 
 		case ST_FALLING:
 			current_animation = &jump;
-			Player_jump(ST_FALLING);
+			Player_fall();
 			break;
 
 		case ST_ROCKET_JUMP:
@@ -169,9 +173,6 @@ bool j1Player::Update(float dt) {
 		}
 	}
 	current_state = state;
-	Check_if_falling();
-	position.y += grav;
-	
 
 	//GOD MODE
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -183,7 +184,12 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 	
-
+	//Apply gravity
+	
+	Check_if_falling();
+	position.y += grav;
+	playerBuffer.y += 0;
+	
 	
 
 	App->input->GetMousePosition(cursorX, cursorY);
@@ -209,28 +215,29 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL);
 	{
 		if (((c1->rect.x + c1->rect.w) < c2->rect.x) ||
-			((App->colliders->playerBuffer.y + c1->rect.h) < c2->rect.y) ||
+			((App->player->playerBuffer.y + c1->rect.h) < c2->rect.y) ||
 			((c2->rect.x + c2->rect.w) < c1->rect.x) ||
-			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
+			((c2->rect.y + c2->rect.h) < App->player->playerBuffer.y))
 		{
-			position = { position.x,  App->colliders->playerBuffer.y };
-			if (time_spent_jumping > 0 || state == IN_FALLING) { 
+			position = { position.x,  App->player->playerBuffer.y };
+			if (time_spent_jumping > 0 || time_spent_falling > 0) {
+				time_spent_jumping = 0;
+				time_spent_falling = 0;
 				inputs.Push(IN_JUMP_FINISH); 
-				time_spent_jumping = 0; 
-			}	//TODO JOSE : this makes jumping impossible when standing ont he ground
+			}	
 		}
 		
-		else if (((App->colliders->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
+		else if (((App->player->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
 			((c1->rect.y + c1->rect.h) < c2->rect.y) ||
-			((c2->rect.x + c2->rect.w) < App->colliders->playerBuffer.x) ||
+			((c2->rect.x + c2->rect.w) < App->player->playerBuffer.x) ||
 			((c2->rect.y + c2->rect.h) < c1->rect.y))
 		{
-			position = { App->colliders->playerBuffer.x,  position.y };
+			position = { App->player->playerBuffer.x,  position.y };
 		}
 
 		else
 		{
-			position = { App->colliders->playerBuffer.x,  App->colliders->playerBuffer.y };
+			position = { App->player->position.x,  App->player->position.y };
 		}
 	}
 }
@@ -391,7 +398,7 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
-			case IN_FALLING: state = ST_FALLING;			break;
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -406,7 +413,7 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
-			case IN_FALLING: state = ST_FALLING;			break;
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -421,7 +428,7 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
-			case IN_FALLING: state = ST_FALLING;			break;
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -436,7 +443,7 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
-			case IN_FALLING: state = ST_FALLING;			break;
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -487,19 +494,23 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 //Player jump functions
 void j1Player::Check_if_falling() {
-	if (position.y > App->colliders->playerBuffer.y && time_spent_jumping == 0) {
-	
+	if (((abs(position.y)-grav) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) {
 		inputs.Push(IN_FALLING); 
-		
 	}	
 }
-void j1Player::Player_fall(player_states state) { 
+void j1Player::Player_fall() { 
 
 	int buffer_y = position.y;
-	if (time_spent_jumping == 0) { time_spent_jumping++; }
+	if (time_spent_falling == 0) { time_spent_falling++; }
 
-	position.y += time_spent_jumping;
-	time_spent_jumping++;
+	position.y += time_spent_falling;
+	time_spent_falling++;
+
+	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
+
+		position.y = buffer_y + sgn(position.y)*speedcap;
+
+	}
 
 	 }
 void j1Player::Player_jump(player_states state) {
