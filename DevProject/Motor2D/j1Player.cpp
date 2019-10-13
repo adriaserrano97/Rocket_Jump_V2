@@ -88,8 +88,9 @@ bool j1Player::CleanUp() {
 	jump = Animation();
 	rocketJump = Animation();
 	dead = Animation();
-	//Clear Colliders
-	ClearColliders();
+
+	collider->to_delete = true;
+	collider = nullptr;
 
 	return true;
 }
@@ -199,15 +200,6 @@ bool j1Player::Update(float dt) {
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
 	return true;
-}
-
-void j1Player::ClearColliders() {
-
-		if (collider != nullptr) {
-			collider->to_delete = true;
-			collider = nullptr;
-		}
-	
 }
 
 
@@ -512,7 +504,9 @@ void j1Player::Player_fall() {
 
 	}
 
-	 }
+ }
+
+
 void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;

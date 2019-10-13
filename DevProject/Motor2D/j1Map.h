@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #define ARRAY_MAX_COLLIDERS 50
+#define MAX_MAP_COLLIDERS 400  
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
@@ -113,7 +114,7 @@ public:
 	MapData data;
 
 private:
-	Collider* col[400];
+	Collider* col[MAX_MAP_COLLIDERS];
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;

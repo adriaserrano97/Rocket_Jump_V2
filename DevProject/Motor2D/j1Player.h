@@ -72,8 +72,6 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture);
 
-	void ClearColliders();
-
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 

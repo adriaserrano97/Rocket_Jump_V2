@@ -78,6 +78,17 @@ bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (col[i] != nullptr)
+		{
+			col[i]->to_delete = true;
+			col[i] = nullptr;
+		}
+		else break; //we add colliders in order, so if we found a nullptr we know there is no more colliders to clean
+	}
+
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
@@ -105,15 +116,7 @@ bool j1Map::CleanUp()
 
 	//Clean all map colliders
 	
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	{
-		if (col[i] != nullptr)
-		{
-			col[i]->to_delete = true;
-			col[i] = nullptr;
-		}
-		else break; //we add colliders in order, so if we found a nullptr we know there is no more colliders to clean
-	}
+	
 
 
 	// Clean up the pugui tree
