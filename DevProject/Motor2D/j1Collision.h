@@ -70,7 +70,7 @@ private:
 
 	
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
-	bool debug =  true;
+	bool debug =  false;
 };
 
 #endif // __j1Collision_H__

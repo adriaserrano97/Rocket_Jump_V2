@@ -50,6 +50,11 @@ bool j1Particles::CleanUp()
 	{
 		if (active[i] != nullptr)
 		{
+			if (active[i]->collider != nullptr)
+			{
+				active[i]->collider->to_delete = true;
+				active[i]->collider = nullptr;
+			}
 			delete active[i];
 			active[i] = nullptr;
 		}
@@ -85,6 +90,7 @@ bool j1Particles::Update(float dt)
 			if (p->collider != nullptr)
 			{
 				active[i]->collider->to_delete = true;
+				active[i]->collider = nullptr;
 			}
 			
 
