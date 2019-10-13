@@ -77,6 +77,8 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	void Player_jump(player_states state);
+	void Player_fall(player_states state);
+	void Check_if_falling();
 
 public:
 	int max_colliders_per_frame = 50;
@@ -102,7 +104,9 @@ public:
 	int jumpspeed;
 	int speedcap;
 	int grav;
+	int buffer_jump_sign = 2; // we initiate it at an impossible number (sign only accepts +1 / 0 /-1) 
 	int time_spent_jumping = 1;
+
 
 	bool freeze = false;
 	bool right = false;

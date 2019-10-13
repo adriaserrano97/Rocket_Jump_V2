@@ -154,7 +154,7 @@ bool j1Player::Update(float dt) {
 
 		case ST_FALLING:
 			current_animation = &jump;
-			position.y = position.y + grav;
+			Player_jump(ST_FALLING);
 			break;
 
 		case ST_ROCKET_JUMP:
@@ -169,6 +169,9 @@ bool j1Player::Update(float dt) {
 		}
 	}
 	current_state = state;
+	Check_if_falling();
+	position.y += grav;
+	
 
 	//GOD MODE
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
@@ -211,7 +214,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
 		{
 			position = { position.x,  App->colliders->playerBuffer.y };
-			if (time_spent_jumping > 0) { 
+			if (time_spent_jumping > 0 || state == IN_FALLING) { 
 				inputs.Push(IN_JUMP_FINISH); 
 				time_spent_jumping = 0; 
 			}	//TODO JOSE : this makes jumping impossible when standing ont he ground
@@ -312,11 +315,6 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 }
 
 void j1Player::internal_input(p2Qeue<player_inputs>& inputs) {
-	
-	if (abs(position.y) > abs(App->colliders->playerBuffer.y));
-	{
-		inputs.Push(IN_FALLING);
-	}
 	
 }
 
@@ -486,6 +484,24 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
+
+//Player jump functions
+void j1Player::Check_if_falling() {
+	if (position.y > App->colliders->playerBuffer.y && time_spent_jumping == 0) {
+	
+		inputs.Push(IN_FALLING); 
+		
+	}	
+}
+void j1Player::Player_fall(player_states state) { 
+
+	int buffer_y = position.y;
+	if (time_spent_jumping == 0) { time_spent_jumping++; }
+
+	position.y += time_spent_jumping;
+	time_spent_jumping++;
+
+	 }
 void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;
@@ -516,7 +532,7 @@ void j1Player::Player_jump(player_states state) {
 		LOG("Player state was not valid to perform a jump from");
 		break;
 	}
-	
+	// speed cap prevents player from avoiding colliders at high speed
 	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
 	
 		position.y = buffer_y + sgn(position.y)*speedcap;
