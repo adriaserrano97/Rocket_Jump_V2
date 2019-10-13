@@ -485,8 +485,12 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 
 //Player jump functions
-void j1Player::Check_if_falling() {
-	if (((abs(position.y)-grav) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) {
+
+
+//TODO ADRI: ASK MARC ABOUT THIS FUCKING BLACK MAGIC
+
+void j1Player::Check_if_falling() { //TRY PUTTING HERE AN INTERRUPTION POINT
+	if (((abs(position.y)-grav) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) { //AND NOW, TRY HERE
 		inputs.Push(IN_FALLING); 
 	}	
 }
