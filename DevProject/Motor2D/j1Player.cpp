@@ -151,6 +151,10 @@ bool j1Player::Update(float dt) {
 			flip = true;
 			break;
 
+		case ST_FALLING:
+			current_animation = &jump;
+			break;
+
 		case ST_ROCKET_JUMP:
 			current_animation = &rocketJump;
 			break;
@@ -173,6 +177,10 @@ bool j1Player::Update(float dt) {
 	}
 
 	// Draw everything --------------------------------------	
+	if (abs(position.y) > abs(App->colliders->playerBuffer.y));
+	{
+		inputs.Push(IN_FALLING);
+	}
 
 	position.y = position.y + grav;
 
@@ -204,7 +212,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
 		{
 			position = { position.x,  App->colliders->playerBuffer.y };
-			if (time_spent_jumping > 1) { inputs.Push(IN_JUMP_FINISH); time_spent_jumping = 0; }	//TODO JOSE : this makes jumping impossible when standing ont he ground
+			if (time_spent_jumping > 1) { 
+				inputs.Push(IN_JUMP_FINISH); 
+				time_spent_jumping = 0; 
+			}	//TODO JOSE : this makes jumping impossible when standing ont he ground
 		}
 		
 		else if (((App->colliders->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
@@ -303,7 +314,7 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 void j1Player::internal_input(p2Qeue<player_inputs>& inputs) {
 	
-
+	
 }
 
 player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
@@ -328,6 +339,8 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
+			case IN_FALLING: state = ST_FALLING;			break;
+
 			case IN_DEAD: state = ST_DEAD;					break;
 
 			}
@@ -343,6 +356,8 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 			case IN_RIGHT_JUMP_DOWN: state = ST_RIGHT_JUMP; break;
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			
@@ -360,6 +375,8 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
+			case IN_FALLING: state = ST_FALLING;			break;
+
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
 
@@ -372,6 +389,8 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -386,6 +405,8 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
+			case IN_FALLING: state = ST_FALLING;			break;
+
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
 
@@ -399,12 +420,30 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
+			case IN_FALLING: state = ST_FALLING;			break;
+
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
 
 		}	break;
 
 		case ST_ROCKET_JUMP:
+		{
+			switch (last_input)
+			{
+			case IN_JUMP_FINISH: state = ST_IDLE;			break;
+
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			case IN_FALLING: state = ST_FALLING;			break;
+
+			case IN_DEAD: state = ST_DEAD;					break;
+			}
+
+		}	break;
+
+
+		case ST_FALLING:
 		{
 			switch (last_input)
 			{

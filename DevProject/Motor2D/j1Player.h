@@ -20,6 +20,8 @@ enum player_states
 	ST_RIGHT_JUMP,
 	ST_LEFT_JUMP,
 
+	ST_FALLING,
+
 	ST_ROCKET_JUMP,
 
 	ST_DEAD
@@ -38,7 +40,10 @@ enum player_inputs
 
 	IN_LEFT_UP,
 	IN_RIGHT_UP,
+	
 	IN_JUMP_FINISH,
+	IN_FALLING,
+
 
 	IN_SHOOT,
 	IN_ROCKET_JUMP,
