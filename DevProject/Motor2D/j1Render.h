@@ -47,6 +47,7 @@ public:
 
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
+	p2Point<int>	camera_last_pos; //used in parallax 
 	SDL_Rect		viewport;
 	SDL_Color		background;
 };
