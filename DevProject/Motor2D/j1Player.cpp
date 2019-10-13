@@ -154,6 +154,7 @@ bool j1Player::Update(float dt) {
 
 		case ST_FALLING:
 			current_animation = &jump;
+			position.y = position.y + grav;
 			break;
 
 		case ST_ROCKET_JUMP:
@@ -178,12 +179,9 @@ bool j1Player::Update(float dt) {
 	}
 
 	// Draw everything --------------------------------------	
-	if (abs(position.y) > abs(App->colliders->playerBuffer.y));
-	{
-		inputs.Push(IN_FALLING);
-	}
+	
 
-	position.y = position.y + grav;
+	
 
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
@@ -213,7 +211,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			((c2->rect.y + c2->rect.h) < App->colliders->playerBuffer.y))
 		{
 			position = { position.x,  App->colliders->playerBuffer.y };
-			if (time_spent_jumping > 1) { 
+			if (time_spent_jumping > 0) { 
 				inputs.Push(IN_JUMP_FINISH); 
 				time_spent_jumping = 0; 
 			}	//TODO JOSE : this makes jumping impossible when standing ont he ground
@@ -315,6 +313,10 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 void j1Player::internal_input(p2Qeue<player_inputs>& inputs) {
 	
+	if (abs(position.y) > abs(App->colliders->playerBuffer.y));
+	{
+		inputs.Push(IN_FALLING);
+	}
 	
 }
 

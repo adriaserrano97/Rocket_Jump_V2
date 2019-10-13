@@ -76,8 +76,7 @@ bool j1Render::PostUpdate()
 {
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
-	camera_last_pos.x = camera.x;
-	camera_last_pos.y = camera.y;
+	
 	return true;
 }
 
