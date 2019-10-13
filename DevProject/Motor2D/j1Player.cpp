@@ -32,6 +32,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
 	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
+	speedcap = config.child("playerData").attribute("speedcap").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
 
 	SDL_Rect rect;
@@ -475,5 +476,10 @@ void j1Player::Player_jump(player_states state) {
 		break;
 	}
 	
+	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
+	
+		position.y = buffer_y + sgn(position.y)*speedcap;
+	
+	}
 
 }
