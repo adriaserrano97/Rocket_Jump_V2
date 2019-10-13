@@ -62,7 +62,7 @@ void j1Map::Draw()
 					SDL_Texture* texture = data.tilesets.start->data->texture;
 					iPoint position = PosConverter(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->TileToRect(l->gid[l->Get(i, j)]);
-					App->render->Blit(texture, position.x, position.y, sect);
+					App->render->Blit(texture, position.x, position.y, sect, l->layer_speed);
 					
 					
 				}
