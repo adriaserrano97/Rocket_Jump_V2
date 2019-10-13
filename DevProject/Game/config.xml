@@ -29,7 +29,7 @@
 
   <player>
 	<folder>textures/player</folder>
-	<playerData initialX="50" initialY="300" speed="7" jumpspeed="25" speedcap="70" gravity="5"></playerData>
+	<playerData initialX="50" initialY="300" speed="7" jumpspeed="25" gravity="5"></playerData>
 	
 	<collider
 		rectX="0"
@@ -252,13 +252,65 @@
 	<folder>textures/particles</folder>
 	
 	<Animations>
-		<explosion frames="1" name="explosion" life="10">
+		<explosion frames="8" name="explosion" life="80">
 			<frame
-				rposX="0" rposY="0" rwidth="63" rheight="66"
+				rposX="0" rposY="2" rwidth="132" rheight="139"
+				time="10"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="165" rposY="4" rwidth="132" rheight="133"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
+
+			<frame
+				rposX="330" rposY="0" rwidth="155" rheight="150"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="2" rposY="146" rwidth="155" rheight="157"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="177" rposY="160" rwidth="151" rheight="143"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="340" rposY="160" rwidth="154" rheight="143"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="2" rposY="315" rwidth="162" rheight="145"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			<frame
+				rposX="175" rposY="315" rwidth="164" rheight="137"
+				time="10"
+				pivotX="0" pivotY="0"
+				nColliders="0">
+			</frame>
+
+			
+
+
 		</explosion>
 
 	</Animations>
