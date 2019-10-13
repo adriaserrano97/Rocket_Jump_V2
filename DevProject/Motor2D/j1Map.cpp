@@ -11,7 +11,6 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
 
-	
 }
 
 // Destructor
@@ -33,7 +32,7 @@ bool j1Map::Start() {
 
 	for (int i = 0; i < 400; i++)
 	{
-		col[i] == nullptr;
+		col[i] = nullptr;
 	}
 
 	return true;
