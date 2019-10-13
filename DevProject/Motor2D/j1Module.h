@@ -101,6 +101,12 @@ public:
 		}
 	}
 
+	//We want all modules to be able to check signs of all types of values
+
+	template <typename T> int sgn(T val) {
+		return (T(0) < val) - (val < T(0));
+	}
+
 private:
 	bool enabled = true;
 };

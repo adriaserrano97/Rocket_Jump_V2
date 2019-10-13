@@ -100,6 +100,7 @@ public:
 
 	int speed;
 	int jumpspeed;
+	int speedcap;
 	int grav;
 	int time_spent_jumping;
 
