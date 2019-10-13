@@ -102,7 +102,7 @@ public:
 	int jumpspeed;
 	int speedcap;
 	int grav;
-	int time_spent_jumping;
+	int time_spent_jumping = 1;
 
 	bool freeze = false;
 	bool right = false;
