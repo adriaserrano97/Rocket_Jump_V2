@@ -92,8 +92,6 @@ bool j1Scene::Update(float dt)
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
 	
-		//App->fade->FadeToBlack((j1Module*)App->map, (j1Module*)App->map,2);
-		//ADRI:We can't do this because we need to change information in Map between its cleanup and its new awake
 	}
 	if ((App->input->GetKey(SDL_SCANCODE_2) && (App->fade->scene_number != 2)) == KEY_DOWN) {
 		App->fade->scene_number = 2;

@@ -11,7 +11,8 @@ public:
 	~j1FadeToBlack();
 	bool Start();
 	bool PostUpdate();
-	bool FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	void FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
+	void j1FadeToBlack::FadeToBlack(float time);
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;
 	int scene_number; //keeps track of which scene we're in: 1= first map, 2= second map

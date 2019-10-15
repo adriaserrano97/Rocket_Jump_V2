@@ -321,6 +321,7 @@ bool j1App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
+
 	pugi::xml_parse_result result = data.load_file(load_game.GetString());
 
 	if(result != NULL)

@@ -7,6 +7,7 @@
 #include "j1Audio.h"
 #include "p2Qeue.h"
 #include "p2Log.h"
+#include "j1FadeToBlack.h"
 
 #include "SDL\include\SDL.h"
 
@@ -34,6 +35,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
 	speedcap = config.child("playerData").attribute("speedcap").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
+	deadFall = config.child("playerData").attribute("deadFall").as_int();
 
 	SDL_Rect rect;
 	rect.x = config.child("collider").attribute("rectX").as_int();
@@ -47,8 +49,8 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	walk = walk.PushAnimation(config, "run");
 	idle = idle.PushAnimation(config, "idle");
 	jump = jump.PushAnimation(config, "jump");
-	
-
+	dead = dead.PushAnimation(config, "dead");
+	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
 	
 	bazookaRect.x = 0;
 	bazookaRect.y = 0;
@@ -102,13 +104,10 @@ bool j1Player::PreUpdate() {
 // Update: draw background
 bool j1Player::Update(float dt) {
 
-	
 	//this is the default state of the player. Changes apply below
-	
+
 	player_states current_state = ST_UNKNOWN;
-	Animation* current_animation = &walk;
-
-
+	Animation* current_animation = &idle;
 
 	SDL_Texture *texture = graphics;
 	
@@ -168,7 +167,6 @@ bool j1Player::Update(float dt) {
 
 		case ST_DEAD:
 			current_animation = &dead;
-
 			break;
 		
 		}
@@ -189,8 +187,6 @@ bool j1Player::Update(float dt) {
 	
 	Check_if_falling();
 	position.y += grav;
-	playerBuffer.y += 0;
-	
 	
 
 	App->input->GetMousePosition(cursorX, cursorY);
@@ -315,6 +311,25 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 void j1Player::internal_input(p2Qeue<player_inputs>& inputs) {
 	
+	if (position.y > deadFall && deadTimerBuffer == 0)
+	{
+		inputs.Push(IN_DEAD);
+		//App->fade->FadeToBlack(2);
+		deadTimerBuffer++;
+	}
+
+	if (deadTimerBuffer > 0)
+	{
+		deadTimerBuffer++;
+		if (deadTimerBuffer == deadTimer)
+		{
+			deadTimerBuffer = 0;
+			inputs.Push(IN_ALIVE);
+			App->LoadGame();
+			
+		}
+	}
+
 }
 
 player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
@@ -456,6 +471,15 @@ player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
 
 		}	break;
 
+		case ST_DEAD:
+		{
+			switch (last_input)
+			{
+			case IN_ALIVE: state = ST_IDLE;					break;
+			}
+
+		}	break;
+
 		}
 
 	}
@@ -505,7 +529,6 @@ void j1Player::Player_fall() {
 	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
 
 		position.y = buffer_y + sgn(position.y)*speedcap;
-
 	}
 
  }

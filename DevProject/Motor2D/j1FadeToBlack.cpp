@@ -40,9 +40,16 @@ bool j1FadeToBlack::PostUpdate()
 	{
 		if (now >= total_time)
 		{
-			to_disable->Disable();
+			if (to_disable != nullptr) {
+				to_disable->Disable();
+			}
 			App->frames = 0;
-			to_enable->Enable();
+
+			if (to_enable != nullptr)
+			{
+				to_enable->Enable();
+			}
+			
 			total_time += total_time;
 			start_time = SDL_GetTicks();
 			current_step = fade_step::fade_from_black;
@@ -69,10 +76,8 @@ bool j1FadeToBlack::PostUpdate()
 }
 
 // Fade to black the screen. At mid point, deactivate one module, then activate the other.
-bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
+void j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float time)
 {
-	bool ret = false;
-
 
 	if (current_step == fade_step::none)
 	{
@@ -81,8 +86,20 @@ bool j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_disable = module_off;
 		to_enable = module_on;
-		ret = true;
 	}
 
-	return ret;
+
+}
+
+void j1FadeToBlack::FadeToBlack(float time)
+{
+
+	if (current_step == fade_step::none)
+	{
+		current_step = fade_step::fade_to_black;
+		start_time = SDL_GetTicks();
+		total_time = (Uint32)(time * 0.5f * 1000.0f);
+	}
+
+
 }

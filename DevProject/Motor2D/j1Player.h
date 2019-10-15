@@ -48,7 +48,8 @@ enum player_inputs
 	IN_SHOOT,
 	IN_ROCKET_JUMP,
 
-	IN_DEAD
+	IN_DEAD,
+	IN_ALIVE
 };
 
 struct SDL_Texture;
@@ -103,6 +104,10 @@ public:
 	int jumpspeed;
 	int speedcap;
 	int grav;
+	int deadFall;
+	int deadAnimation;
+	int deadTimer;
+	int deadTimerBuffer = 0;
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sign only accepts +1 / 0 /-1) 
 	int time_spent_jumping = 1;
 	int time_spent_falling = 1;

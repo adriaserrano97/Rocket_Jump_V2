@@ -97,6 +97,8 @@ public:
 	
 	uint32_t				frames;
 
+	
+
 private:
 	
 	p2List<j1Module*>	modules;
@@ -109,6 +111,7 @@ private:
 
 	mutable bool		want_to_save;
 	bool				want_to_load;
+
 	p2SString			load_game;
 	mutable p2SString	save_game;
 };
