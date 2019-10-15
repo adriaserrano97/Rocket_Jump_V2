@@ -7,10 +7,11 @@
 	<map />
 	<scene />
 	<player>
-		<player x="155" y="300" />
+		<player x="330" y="550" />
 	</player>
-	<Particles />
+	<particles />
 	<colliders />
+	<:anonymous />
 	<renderer>
 		<camera x="0" y="0" />
 	</renderer>

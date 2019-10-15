@@ -253,8 +253,9 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 	if (!freeze) {
 		//Key UP
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 			up = true;
+		}
 		else
 			up = false;
 
@@ -274,6 +275,7 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
 			App->input->GetMousePosition(cursorX, cursorY);
 			App->particles->AddParticle(App->particles->explosion, false, cursorX, cursorY, 0, 0, COLLIDER_EXPLOSION, 0, 0);
+			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 
 
@@ -509,12 +511,12 @@ void j1Player::Player_fall() {
 	}
 
  }
-
-
 void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;
-	if (time_spent_jumping == 0) { time_spent_jumping++; }
+	if (time_spent_jumping == 0) {
+		time_spent_jumping++; App->audio->PlayFx(App->audio->jump_sound, 0);
+	}
 	switch (state) {
 
 	case ST_JUMP:

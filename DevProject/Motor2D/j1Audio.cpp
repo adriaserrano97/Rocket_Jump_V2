@@ -50,6 +50,12 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	//Load SFX needed. The Load function returns the int we need to call it in PlayFx, so we store it for easier use.
+	jump_sound = LoadFx("audio/fx/jump_sound.wav");
+	bomb_sound = LoadFx("audio/fx/bomb.wav");
+
+	//Sound effects made by dklon
+
 	return ret;
 }
 
@@ -160,13 +166,15 @@ unsigned int j1Audio::LoadFx(const char* path)
 bool j1Audio::PlayFx(unsigned int id, int repeat)
 {
 	bool ret = false;
-
+	id += 0;
 	if(!active)
 		return false;
 
 	if(id > 0 && id <= fx.count())
 	{
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		//Input explanation: first argument is channel, -1  meanining first free channel. Second argument is a pointer to the chunk to play.
+		//3rd argument is number of loops. if you want in once, put 0. -1 plays it "infinite" times.
 	}
 
 	return ret;
