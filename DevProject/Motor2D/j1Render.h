@@ -43,12 +43,21 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
+	//Camera control
+	void AdjustCamera();
+	void AdjustAnchorPoints();
+	int GetSideOfScreen(int x);
+
 public:
 
 	SDL_Renderer*	renderer;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+	int left_trigger_camera; //used in camera control
+	int right_trigger_camera;
+	int left_trigger_change;
+	int right_trigger_change;
 };
 
 #endif // __j1RENDER_H__

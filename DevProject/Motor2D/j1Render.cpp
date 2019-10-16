@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
+#include "j1Player.h"
 #include "j1Render.h"
 
 #define VSYNC true
@@ -48,6 +49,11 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.y = 0;
 	}
 
+	
+
+
+
+
 	return ret;
 }
 
@@ -64,18 +70,23 @@ bool j1Render::Start()
 bool j1Render::PreUpdate()
 {
 	SDL_RenderClear(renderer);
+	//defining our anchor points for camera control
+	AdjustAnchorPoints();
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
+	//AdjustCamera();
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
+	
 	return true;
 }
 
@@ -253,4 +264,53 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	}
 
 	return ret;
+}
+
+void j1Render::AdjustCamera() {
+
+	switch (GetSideOfScreen(App->player->position.x)) { //where is the player?
+
+	case 0://player on left side
+		if (App->player->position.x > App->player->playerBuffer.x) {//going right
+			camera.x = App->player->position.x - left_trigger_camera;//make the camera follow the player
+		}
+		if (App->player->position.x < App->player->playerBuffer.x) {//going left
+			if (App->player->position.x <= left_trigger_change) {//went far enough
+				camera.x = App->player->position.x - right_trigger_camera;//change perspective
+			}
+		}
+		//obv, if none of those things happens, the player is not moving, so we do not touch the camera
+		break;
+
+	case 1://player on right side
+
+		break;
+
+
+
+	default:
+		//No need to adjust camera
+		break;
+
+
+	}
+}
+
+void j1Render::AdjustAnchorPoints() {
+
+	//ADRI: for some reason, these variables do not keep values! Always are zero!!!
+
+	left_trigger_camera = int(((1/3)*App->win->width)+camera.x); //ADRI:scalars 1/3 and 2/3 should be defined in xml as anchor points or something
+	right_trigger_camera = int(((2/3)*App->win->width)+camera.x);
+	left_trigger_change = int((1/2)*left_trigger_camera);
+	right_trigger_change = int(left_trigger_change + right_trigger_camera);
+}
+
+int j1Render::GetSideOfScreen(int x){
+//Returns 0 if on left part or just in the middle. Returns 1 if on the right side of the screen. Returns -1 on failing to assert.
+	uint distance_to_L = abs(x - left_trigger_camera);
+	uint distance_to_R = abs(x - right_trigger_camera);
+	if (distance_to_L <= distance_to_R) { return 0; }
+	else if (distance_to_L > distance_to_R) { return 1; }
+	else { LOG("Unable to assert position of object on screen"); return -1; }
 }
