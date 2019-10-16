@@ -16,7 +16,7 @@ public:
 
 private:
 	int frames_passed = 0;
-	int current_frame;
+	int current_frame = 0;
 	int last_frame = 0;
 	int loops = 0;
 
@@ -92,6 +92,7 @@ public:
 	void ResetAnimation()
 	{
 		frames_passed = 0;
+		last_frame = 0;
 		current_frame = 0;
 	}
 };

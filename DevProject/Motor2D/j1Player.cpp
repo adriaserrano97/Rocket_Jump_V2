@@ -270,7 +270,7 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
 			App->input->GetMousePosition(cursorX, cursorY);
-			App->particles->AddParticle(App->particles->explosion, false, cursorX, cursorY, 0, 0, COLLIDER_EXPLOSION, 0, 0);
+			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x), (cursorY - App->render->camera.y), 0, 0, COLLIDER_EXPLOSION, 0, 0);
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 

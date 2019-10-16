@@ -87,6 +87,7 @@ bool j1Particles::Update(float dt)
 
 		if (p != nullptr && p->life == 0)
 		{
+			explosion_animation.ResetAnimation();
 			if (p->collider != nullptr)
 			{
 				active[i]->collider->to_delete = true;
@@ -114,7 +115,6 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 		if (active[i] == nullptr)
 		{
 			Particle* p = new Particle(particle);
-			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
 			p->sfx = sound;
@@ -159,7 +159,7 @@ Particle::Particle()
 
 Particle::Particle(const Particle& p) :
 	anim(p.anim), position(p.position), speed(p.speed),
-	fx(p.fx), born(p.born), life(p.life)
+	fx(p.fx), life(p.life)
 {}
 
 bool Particle::Update()
