@@ -52,8 +52,17 @@ enum player_inputs
 	IN_ALIVE
 };
 
-struct SDL_Texture;
+enum collision_direction
+{
+	DIRECTION_NONE = -1,
+	DIRECTION_UP,
+	DIRECTION_DOWN,
+	DIRECTION_LEFT,
+	DIRECTION_RIGHT,
+	DIRECTION_MAX
+};
 
+struct SDL_Texture;
 
 class j1Player : public j1Module
 {
@@ -65,6 +74,7 @@ public:
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
+	bool PostUpdate();
 	bool CleanUp();
 
 	void internal_input(p2Qeue<player_inputs>& inputs);
@@ -79,6 +89,9 @@ public:
 	void Player_jump(player_states state);
 	void Player_fall();
 	void Check_if_falling();
+
+	collision_direction checkDirection(SDL_Rect player, SDL_Rect collision);
+
 
 public:
 	int max_colliders_per_frame = 50;
@@ -96,6 +109,7 @@ public:
 	Animation rocketJump;
 	Animation dead;
 
+	Animation* current_animation;
 
 	uint fsx = 0u;
 
@@ -118,6 +132,9 @@ public:
 	bool left = false;
 	bool up = false;
 	bool flip = false;
+	bool vertical;
+	bool horizontal;
+
 
 	player_states state;
 	p2Qeue<player_inputs> inputs;

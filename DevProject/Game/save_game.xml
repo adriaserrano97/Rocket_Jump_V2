@@ -7,12 +7,12 @@
 	<map />
 	<scene />
 	<player>
-		<player x="50" y="550" />
+		<player x="2816" y="552" />
 	</player>
 	<particles />
 	<colliders />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-2090" y="0" />
 	</renderer>
 </game_state>
