@@ -58,14 +58,15 @@ bool j1Collision::PreUpdate() {
 // Called before render is available
 bool j1Collision::Update(float dt)
 {
-	DebugDraw();
+	
+	CalculateCollisions();
 
 	return true;
 }
 
 bool j1Collision::PostUpdate()
 {
-	CalculateCollisions();
+	DebugDraw();
 
 	return true;
 }

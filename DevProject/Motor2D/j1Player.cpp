@@ -91,6 +91,8 @@ bool j1Player::CleanUp() {
 	rocketJump = Animation();
 	dead = Animation();
 
+	current_animation = nullptr;
+
 	collider->to_delete = true;
 	collider = nullptr;
 
@@ -99,6 +101,8 @@ bool j1Player::CleanUp() {
 
 bool j1Player::PreUpdate() {
 	playerBuffer = position;
+	vertical = false;
+	horizontal = false;
 	return true;
 }
 // Update: draw background
@@ -107,7 +111,7 @@ bool j1Player::Update(float dt) {
 	//this is the default state of the player. Changes apply below
 
 	player_states current_state = ST_UNKNOWN;
-	Animation* current_animation = &idle;
+	current_animation = &idle;
 
 	SDL_Texture *texture = graphics;
 	
@@ -184,49 +188,82 @@ bool j1Player::Update(float dt) {
 	// Draw everything --------------------------------------	
 	
 	//Apply gravity
+
 	
-	Check_if_falling();
+	//Check_if_falling();
 	position.y += grav;
 	
+	collider->SetPos(position.x, position.y);
+	
+
+	return true;
+}
+
+bool j1Player::PostUpdate() {
 
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
-	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x, (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
+	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x , (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
 	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
+
 
 	return true;
 }
 
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
+
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL);
 	{
-		if (((c1->rect.x + c1->rect.w) < c2->rect.x) ||
-			((App->player->playerBuffer.y + c1->rect.h) < c2->rect.y) ||
-			((c2->rect.x + c2->rect.w) < c1->rect.x) ||
-			((c2->rect.y + c2->rect.h) < App->player->playerBuffer.y))
+
+		switch (checkDirection(c1->rect, c2->rect))
 		{
-			position = { position.x,  App->player->playerBuffer.y };
-			if (time_spent_jumping > 0 || time_spent_falling > 0) {
-				time_spent_jumping = 0;
-				time_spent_falling = 0;
-				inputs.Push(IN_JUMP_FINISH); 
-			}	
-		}
+		case DIRECTION_LEFT:
+			if (!vertical)
+			{
+				position.x = c2->rect.x - c1->rect.w - 1;
+				vertical = true;
+			}
+			
+			break;
+
+		case DIRECTION_RIGHT:
+			if (!vertical)
+			{
+				position.x = c2->rect.x + c2->rect.w + 1;
+				vertical = true;
+			}
+			
+			break;
+
+		case DIRECTION_UP:
+			if (!horizontal)
+			{
+				position.y = c2->rect.y - c1->rect.h - 1;
+
+				if (time_spent_jumping > 0 || time_spent_falling > 0) {
+					time_spent_jumping = 0;
+					time_spent_falling = 0;
+					inputs.Push(IN_JUMP_FINISH);
+				}
+
+				horizontal = true;
+			}
+			
+			break;
+
+		case DIRECTION_DOWN:
+			if (!horizontal)
+			{
+				position.y = c2->rect.y + c2->rect.h + 1;
+				horizontal = true;
+			}
 		
-		else if (((App->player->playerBuffer.x + c1->rect.w) < c2->rect.x) ||
-			((c1->rect.y + c1->rect.h) < c2->rect.y) ||
-			((c2->rect.x + c2->rect.w) < App->player->playerBuffer.x) ||
-			((c2->rect.y + c2->rect.h) < c1->rect.y))
-		{
-			position = { App->player->playerBuffer.x,  position.y };
+
+			break;
 		}
 
-		else
-		{
-			position = { App->player->position.x,  App->player->position.y };
-		}
 	}
 }
 
@@ -270,7 +307,7 @@ bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
 			App->input->GetMousePosition(cursorX, cursorY);
-			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x), (cursorY - App->render->camera.y), 0, 0, COLLIDER_EXPLOSION, 0, 0);
+			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x) - (App->particles->explosion.anim.frames->frame.w/2), (cursorY - App->render->camera.y) - (App->particles->explosion.anim.frames->frame.h / 2), 0, 0, COLLIDER_EXPLOSION, 0, 0);
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 
@@ -534,6 +571,7 @@ void j1Player::Player_fall() {
 	}
 
  }
+
 void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;
@@ -568,9 +606,37 @@ void j1Player::Player_jump(player_states state) {
 	}
 	// speed cap prevents player from avoiding colliders at high speed
 	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
-	
+
 		position.y = buffer_y + sgn(position.y)*speedcap;
+
+	}
+
+}
+
+collision_direction j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
+
+	int directionDiference[DIRECTION_MAX];
+
+	directionDiference[DIRECTION_LEFT] = abs((playerBuffer.x + player.w) - collision.x);
+	directionDiference[DIRECTION_RIGHT] = abs((collision.x + collision.w) - playerBuffer.x);
+	directionDiference[DIRECTION_UP] = abs((playerBuffer.y + player.h) - collision.y);
+	directionDiference[DIRECTION_DOWN] = abs((collision.y + collision.h) - playerBuffer.y);
+
+	int directionCheck = DIRECTION_NONE;
+
+	for (int i = 0; i < DIRECTION_MAX; ++i)
+	{
+		if (directionCheck == DIRECTION_NONE)
+			directionCheck = i;
+		else if ((directionDiference[i] < directionDiference[directionCheck]))
+			directionCheck = i;
+		/*else if (directionDiference[i] == directionDiference[directionCheck]) {
+		LOG("Adri tenias razon");
+			directionCheck = DIRECTION_NONE;
+		}*/
+
 	
 	}
 
+	return (collision_direction)directionCheck;
 }
