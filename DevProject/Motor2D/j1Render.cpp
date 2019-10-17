@@ -334,3 +334,7 @@ int j1Render::GetSideOfScreen(int x){
 	else if (distance_to_L > distance_to_R) { return 1; }
 	else { LOG("Unable to assert position of object on screen"); return -1; }
 }
+
+int j1Render::CamLerp(int a, int b) {
+	return (int)(a + lerp * (b - a));
+}
