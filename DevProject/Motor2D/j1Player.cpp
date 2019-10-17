@@ -121,7 +121,7 @@ bool j1Player::Update(float dt) {
 
 
 
-	if (state != current_state)
+	if ((state != current_state) && godMode == false)
 	{
 		switch (state)
 		{
@@ -173,11 +173,31 @@ bool j1Player::Update(float dt) {
 			break;
 		
 		}
+		position.y += grav;
 	}
 	current_state = state;
 
+	if (godMode)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			position.y -= 5;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			position.y += 5;
+		}
+		
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+			position.x += 5;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+			position.x -= 5;
+		}
+	}
+
 	//GOD MODE
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 		if (godMode == false)
 			godMode = true;
 		else
@@ -186,11 +206,13 @@ bool j1Player::Update(float dt) {
 
 	// Draw everything --------------------------------------	
 	
+
+
 	//Apply gravity
 
 	
 	//Check_if_falling();
-	position.y += grav;
+	
 	
 	collider->SetPos(position.x, position.y);
 	
