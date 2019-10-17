@@ -47,6 +47,8 @@ public:
 	void AdjustCamera();
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
+	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
+	
 
 public:
 
@@ -58,6 +60,9 @@ public:
 	int right_trigger_camera;
 	int left_trigger_change;
 	int right_trigger_change;
+	int up_trigger;
+	int down_trigger;
+	float lerp = 0.1f;//used in our interpolation. Should go to xml.
 };
 
 #endif // __j1RENDER_H__

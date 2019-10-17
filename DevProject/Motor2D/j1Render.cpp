@@ -48,12 +48,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.x = 0;
 		camera.y = 0;
 	}
-
-	
-
-
-
-
 	return ret;
 }
 
@@ -83,7 +77,7 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
-	//AdjustCamera();
+	AdjustCamera();
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	
@@ -267,43 +261,69 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 }
 
 void j1Render::AdjustCamera() {
-
+	
+	iPoint auxCam;
+	auxCam.x = -camera.x; //camera has aaxis flipped in relation to player position
+	auxCam.y = -camera.y;
+	//Change X
 	switch (GetSideOfScreen(App->player->position.x)) { //where is the player?
 
 	case 0://player on left side
-		if (App->player->position.x > App->player->playerBuffer.x) {//going right
-			camera.x = App->player->position.x - left_trigger_camera;//make the camera follow the player
-		}
-		if (App->player->position.x < App->player->playerBuffer.x) {//going left
-			if (App->player->position.x <= left_trigger_change) {//went far enough
-				camera.x = App->player->position.x - right_trigger_camera;//change perspective
-			}
-		}
-		//obv, if none of those things happens, the player is not moving, so we do not touch the camera
+		//going right
+		if (App->player->position.x > left_trigger_camera) { 
+			auxCam.x += (App->player->position.x - left_trigger_camera); 
+		} //follow player
+
+		//going left enough
+		if (App->player->position.x <= left_trigger_change) { 
+			auxCam.x -= (right_trigger_camera - left_trigger_change - (left_trigger_change - App->player->position.x)); 
+		}//produce change of perspective
 		break;
 
 	case 1://player on right side
-
+		//going left
+		if (App->player->position.x < right_trigger_camera) { 
+			auxCam.x -= (right_trigger_camera - App->player->position.x); 
+		}//follow player
+		//going right enough
+		if (App->player->position.x >= right_trigger_change) { 
+			auxCam.x += (right_trigger_change - left_trigger_change + (App->player->position.x - right_trigger_change)); 
+		}//produce change of perspective
+		
 		break;
-
-
-
 	default:
 		//No need to adjust camera
 		break;
-
-
 	}
+	if (auxCam.x < 0) { 
+		auxCam.x = 0; }
+
+	//Change Y
+	if (App->player->position.y < up_trigger) { 
+		auxCam.y -= abs(App->player->position.y - up_trigger);
+	} //adjust up
+	if ((App->player->position.y + App->player->collider->rect.h) > down_trigger) {
+		auxCam.y += abs(App->player->position.y - down_trigger);
+	} //adjust down
+
+	//Assign proper values
+	camera.x = -auxCam.x;
+	camera.y = -auxCam.y;
+
 }
 
 void j1Render::AdjustAnchorPoints() {
 
 	//ADRI: for some reason, these variables do not keep values! Always are zero!!!
+	//ADRI: found out the reason. (int)(x*(1/3)) gives problems because 1/3 generates an infinite decimal scalar
+		//problem solved by expressing it as (int)(1*x/3)
 
-	left_trigger_camera = int(((1/3)*App->win->width)+camera.x); //ADRI:scalars 1/3 and 2/3 should be defined in xml as anchor points or something
-	right_trigger_camera = int(((2/3)*App->win->width)+camera.x);
-	left_trigger_change = int((1/2)*left_trigger_camera);
-	right_trigger_change = int(left_trigger_change + right_trigger_camera);
+	left_trigger_camera = (-1)*(int)(camera.x - (App->win->width / 3));//ADRI:scalars 1/3 and 2/3 should be defined in xml as anchor points or something
+	right_trigger_camera = (-1)*(int)(camera.x - (2 * App->win->width / 3)); //remember, camera axis are flipped, hence the (-1)*
+	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 6));
+	right_trigger_change = (-1)*(int)(camera.x - (5 * App->win->width / 6));
+	up_trigger = (-1)*(int)(camera.y - App->win->height / 2);
+	down_trigger = (-1)*(int)(camera.y - (3 * App->win->height / 4));
 }
 
 int j1Render::GetSideOfScreen(int x){
@@ -313,4 +333,8 @@ int j1Render::GetSideOfScreen(int x){
 	if (distance_to_L <= distance_to_R) { return 0; }
 	else if (distance_to_L > distance_to_R) { return 1; }
 	else { LOG("Unable to assert position of object on screen"); return -1; }
+}
+
+int j1Render::CamLerp(int a, int b) {
+	return (int)(a + lerp * (b - a));
 }
