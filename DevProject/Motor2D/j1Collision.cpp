@@ -50,8 +50,6 @@ bool j1Collision::PreUpdate() {
 
 	RemoveDeletedColliders();
 
-	
-
 	return true;
 }
 
@@ -122,7 +120,7 @@ void j1Collision::CalculateCollisions() {
 
 void j1Collision::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)

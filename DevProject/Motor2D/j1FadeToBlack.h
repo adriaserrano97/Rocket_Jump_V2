@@ -15,7 +15,7 @@ public:
 	void j1FadeToBlack::FadeToBlack(float time);
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;
-	int scene_number; //keeps track of which scene we're in: 1= first map, 2= second map
+	 //keeps track of which scene we're in: 1= first map, 2= second map
 
 private:
 

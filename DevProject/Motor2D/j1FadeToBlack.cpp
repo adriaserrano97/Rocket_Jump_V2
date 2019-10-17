@@ -26,8 +26,8 @@ bool j1FadeToBlack::Start()
 }
 
 // Update: draw background
-bool j1FadeToBlack::PostUpdate()
-{
+bool j1FadeToBlack::PostUpdate() {
+
 	if (current_step == fade_step::none)
 		return true;
 

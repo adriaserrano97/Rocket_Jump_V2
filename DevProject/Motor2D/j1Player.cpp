@@ -15,7 +15,6 @@
 j1Player::j1Player()
 {
 	name.create("player");
-	
 }
 
 j1Player::~j1Player()
@@ -630,11 +629,6 @@ collision_direction j1Player::checkDirection(SDL_Rect player, SDL_Rect collision
 			directionCheck = i;
 		else if ((directionDiference[i] < directionDiference[directionCheck]))
 			directionCheck = i;
-		/*else if (directionDiference[i] == directionDiference[directionCheck]) {
-		LOG("Adri tenias razon");
-			directionCheck = DIRECTION_NONE;
-		}*/
-
 	
 	}
 

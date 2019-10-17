@@ -5,14 +5,16 @@
 	<textures />
 	<audio />
 	<map />
-	<scene />
+	<scene>
+		<scene sceneNumber="1" />
+	</scene>
 	<player>
-		<player x="2816" y="552" />
+		<player x="483" y="382" />
 	</player>
 	<particles />
 	<colliders />
 	<:anonymous />
 	<renderer>
-		<camera x="-2090" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>
