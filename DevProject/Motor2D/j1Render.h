@@ -58,6 +58,8 @@ public:
 	int right_trigger_camera;
 	int left_trigger_change;
 	int right_trigger_change;
+	int up_trigger;
+	int down_trigger;
 };
 
 #endif // __j1RENDER_H__
