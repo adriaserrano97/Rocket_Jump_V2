@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "j1Scene.h"
+#include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,20 +33,20 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	switch (App->fade->scene_number) {
+	switch (scene_number) {
 	case 1:
 		App->map->Load("first_map_v2.tmx");
-		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav",4.0F);
+		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 	case 2:
 		//img = App->tex->Load("textures/SDL_pls.png"); //used for debug purposes
 		App->map->Load("test_small_tileset.tmx");
-		App->audio->PlayMusic("audio/music/down_under_flopdisk.wav",4.0F);
+		App->audio->PlayMusic("audio/music/down_under_flopdisk.wav", 4.0F);
 		break;
 	default:
-		App->fade->scene_number = 1;
+		scene_number = 1;
 		App->map->Load("first_map_v2.tmx"); //ADRI: we default to map 1. Once we have UI, we will default to the Main Menu
-		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav",4.0F);
+		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 	}
 	return true;
@@ -60,10 +61,10 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -89,18 +90,33 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());
 
 	//Change scene logic
-	if ((App->input->GetKey(SDL_SCANCODE_1) && (App->fade->scene_number != 1)) == KEY_DOWN) {
-		App->fade->scene_number = 1;
+	if ((App->input->GetKey(SDL_SCANCODE_F1)) == KEY_DOWN) {
+		scene_number = 1;
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-	
+		
 	}
-	if ((App->input->GetKey(SDL_SCANCODE_2) && (App->fade->scene_number != 2)) == KEY_DOWN) {
-		App->fade->scene_number = 2;
+
+	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
+		scene_number = 2;
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
+		scene_number = 2;
+
+		App->map->CleanUp();
+		App->fade->FadeToBlack(this, this, 2);
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_F3)) == KEY_DOWN) {
+		
+		App->fade->FadeToBlack(2);
+		App->player->position = App->map->playerStart;
+		App->render->camera.x = App->render->camera.y = 0;
 	}
 
 
@@ -123,6 +139,27 @@ bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& data) {
+	
+	if (scene_number != data.child("scene").attribute("sceneNumber").as_int())
+	{
+		scene_number = data.child("scene").attribute("sceneNumber").as_int();
+		App->map->CleanUp();
+		App->fade->FadeToBlack(this, this, 2);
+	}
+	
+
+	return true;
+}
+
+// Save Game State
+bool j1Scene::Save(pugi::xml_node& data) const {
+
+	data.append_child("scene").append_attribute("sceneNumber") = scene_number;
 
 	return true;
 }

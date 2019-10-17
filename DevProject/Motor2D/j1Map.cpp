@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
+#include "j1Player.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -77,7 +78,7 @@ void j1Map::Draw()
 bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
-
+	//Clean all map colliders
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -114,16 +115,13 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
-	//Clean all map colliders
 	
-	
-
-
 	// Clean up the pugui tree
 	map_file.reset();
 
 	return true;
 }
+
 
 // Load new map
 bool j1Map::Load(const char* file_name)
@@ -132,6 +130,9 @@ bool j1Map::Load(const char* file_name)
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
+
+	playerStart.x = App->player->position.x = map_file.child("map").attribute("playerInitialX").as_int();
+	playerStart.y = App->player->position.y = map_file.child("map").attribute("playerInitialY").as_int();
 
 	if(result == NULL)
 	{

@@ -32,6 +32,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	int scene_number = 0;
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 private:
 };
 
