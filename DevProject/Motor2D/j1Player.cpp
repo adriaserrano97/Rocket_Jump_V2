@@ -304,7 +304,7 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 
 bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
-	if (!freeze) {
+	if (!godMode) {
 		//Key UP
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {

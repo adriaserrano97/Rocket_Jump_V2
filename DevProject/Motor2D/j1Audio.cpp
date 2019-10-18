@@ -24,6 +24,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
+	fxFolder.create(config.child("folder").child_value());
+
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
 		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -51,8 +53,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	}
 
 	//Load SFX needed. The Load function returns the int we need to call it in PlayFx, so we store it for easier use.
-	jump_sound = LoadFx("audio/fx/jump_sound.wav");
-	bomb_sound = LoadFx("audio/fx/bomb.wav");
+	jump_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("jump").as_string()));
+	bomb_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("bomb").as_string()));
 
 	//Sound effects made by dklon
 

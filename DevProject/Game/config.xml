@@ -19,6 +19,11 @@
     <fullscreen_window value="false"/>
   </window>
 
+  <audio>
+	<folder>audio/fx/</folder>
+	<fx jump="jump_sound.wav" bomb="bomb.wav"></fx>
+  </audio>
+
   <file_system>
     <path>data.zip</path>
   </file_system>
