@@ -51,15 +51,15 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	dead = dead.PushAnimation(config, "dead");
 	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
 	
-	bazookaRect.x = 0;
-	bazookaRect.y = 0;
-	bazookaRect.w = 70;
-	bazookaRect.h = 18;
+	bazookaRect.x = config.child("bazooka").attribute("x").as_int();
+	bazookaRect.y = config.child("bazooka").attribute("y").as_int();
+	bazookaRect.w = config.child("bazooka").attribute("w").as_int();
+	bazookaRect.h = config.child("bazooka").attribute("h").as_int();
 
-	cursorRect.x = 0;
-	cursorRect.y = 20;
-	cursorRect.w = 62;
-	cursorRect.h = 62;
+	cursorRect.x = config.child("cursor").attribute("x").as_int();
+	cursorRect.y = config.child("cursor").attribute("y").as_int();
+	cursorRect.w = config.child("cursor").attribute("w").as_int();;
+	cursorRect.h = config.child("cursor").attribute("h").as_int();;
 
 	
 	return ret;
