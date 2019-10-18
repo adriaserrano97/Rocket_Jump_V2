@@ -11,6 +11,7 @@ public:
 	~j1FadeToBlack();
 	bool Start();
 	bool PostUpdate();
+	bool CleanUp();
 	void FadeToBlack(j1Module* module_off, j1Module* module_on, float time = 2.0f);
 	void j1FadeToBlack::FadeToBlack(float time);
 	j1Module* to_enable = nullptr;

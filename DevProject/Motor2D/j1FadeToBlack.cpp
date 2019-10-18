@@ -91,8 +91,7 @@ void j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 }
 
-void j1FadeToBlack::FadeToBlack(float time)
-{
+void j1FadeToBlack::FadeToBlack(float time) {
 
 	if (current_step == fade_step::none)
 	{
@@ -105,4 +104,12 @@ void j1FadeToBlack::FadeToBlack(float time)
 	}
 
 
+}
+
+bool j1FadeToBlack::CleanUp() {
+	
+	to_disable = nullptr;
+	to_enable = nullptr;
+
+	return true;
 }
