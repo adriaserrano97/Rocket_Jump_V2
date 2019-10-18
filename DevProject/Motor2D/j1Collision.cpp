@@ -54,8 +54,7 @@ bool j1Collision::PreUpdate() {
 }
 
 // Called before render is available
-bool j1Collision::Update(float dt)
-{
+bool j1Collision::Update(float dt) {
 	
 	CalculateCollisions();
 
@@ -179,11 +178,19 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] == nullptr)
-		{
+		if (colliders[i] == nullptr) {
+
 			ret = colliders[i] = new Collider(rect, type, callback);
 			break;
 		}
+
+		if ((colliders[i]->type == type) && (colliders[i]->rect.x == rect.x) && (colliders[i]->rect.w == rect.w) && (colliders[i]->rect.y == rect.y - colliders[i]->rect.h)) {
+			
+			colliders[i]->rect.h += rect.h;
+			break;
+		}
+
+		
 	}
 
 	return ret;

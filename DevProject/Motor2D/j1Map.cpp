@@ -87,7 +87,7 @@ bool j1Map::CleanUp()
 			col[i]->to_delete = true;
 			col[i] = nullptr;
 		}
-		else break; //we add colliders in order, so if we found a nullptr we know there is no more colliders to clean
+		
 	}
 
 	// Remove all tilesets

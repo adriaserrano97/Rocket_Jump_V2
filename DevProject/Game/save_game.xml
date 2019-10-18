@@ -9,12 +9,12 @@
 		<scene sceneNumber="1" />
 	</scene>
 	<player>
-		<player x="483" y="382" />
+		<player x="1120" y="465" />
 	</player>
 	<particles />
 	<colliders />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-779" y="23" />
 	</renderer>
 </game_state>
