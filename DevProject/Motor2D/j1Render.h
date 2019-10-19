@@ -61,15 +61,18 @@ public:
 	
 	// Variables used in camera control
 	iPoint auxCam;
+
 	int left_trigger_camera; 
 	int right_trigger_camera;
 	int left_trigger_change;
 	int right_trigger_change;
 	int up_trigger;
 	int down_trigger;
+
 	bool snapping_to_right = false;
 	bool snapping_to_left = false;
 	float lerp = 0.07f;//used in our interpolation. Should go to xml.
+
 	enum SNAP_STATE
 	{
 		SNAP_TO_RIGHT,
@@ -77,6 +80,13 @@ public:
 		SNAP_NONE
 	};
 	SNAP_STATE snap_state = SNAP_NONE;
+
+	enum PLAYER_SIDE
+	{
+		LEFT,
+		RIGHT,
+		NONE
+	};
 };
 
 #endif // __j1RENDER_H__
