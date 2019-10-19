@@ -48,7 +48,10 @@ bool j1Particles::CleanUp()
 {
 	LOG("Unloading particles");
 	App->tex->UnLoad(graphics);
+	App->tex->UnLoad(graphics2);
+
 	graphics = nullptr;
+	graphics2 = nullptr;
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
