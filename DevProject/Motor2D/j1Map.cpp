@@ -357,10 +357,6 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 	bool ret = true;
 	pugi::xml_node tilebox;
 	
-	//set->collisionBoxArray = new SDL_Rect[map_file.child("map").child("tileset").attribute("tilecount").as_int()];
-
-	
-
 	for (tilebox = tileset_node.child("tile"); tilebox && ret; tilebox = tilebox.next_sibling()) {
 		
 		SDL_Rect this_tile_box;
@@ -368,7 +364,11 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 		this_tile_box.y = tilebox.child("objectgroup").child("object").attribute("y").as_int();
 		this_tile_box.w = tilebox.child("objectgroup").child("object").attribute("width").as_int();
 		this_tile_box.h = tilebox.child("objectgroup").child("object").attribute("height").as_int();
+
+
 		int id = tilebox.attribute("id").as_int();
+		bool transpassable = tilebox.child("properties").child("property").attribute("value").as_bool(); //only works if tiles have only 1 property
+
 		set->collisionBoxArray[id+1] = this_tile_box;
 		// "+1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1
 	}
