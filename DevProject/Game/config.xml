@@ -312,10 +312,51 @@
 				nColliders="0">
 			</frame>
 
-			
-
-
 		</explosion>
+
+		<dust frames="7" name="dust" life="56">
+			<frame
+				rposX="2" rposY="12" rwidth="22" rheight="3"
+				time="8"
+				pivotX="11" pivotY="3">
+			</frame>
+
+			<frame
+				rposX="28" rposY="4" rwidth="32" rheight="11"
+				time="8"
+				pivotX="16" pivotY="11">
+			</frame>
+
+			<frame
+				rposX="63" rposY="1" rwidth="32" rheight="14"
+				time="8"
+				pivotX="16" pivotY="14">
+			</frame>
+
+			<frame
+				rposX="2" rposY="21" rwidth="32" rheight="15"
+				time="8"
+				pivotX="16" pivotY="15">
+			</frame>
+
+			<frame
+				rposX="37" rposY="22" rwidth="28" rheight="14"
+				time="8"
+				pivotX="14" pivotY="14">
+			</frame>
+
+			<frame
+				rposX="71" rposY="22" rwidth="28" rheight="14"
+				time="8"
+				pivotX="14" pivotY="14">
+			</frame>
+
+			<frame
+				rposX="2" rposY="46" rwidth="32" rheight="14"
+				time="8"
+				pivotX="16" pivotY="14">
+			</frame>
+		</dust>
 
 	</Animations>
   </particles>

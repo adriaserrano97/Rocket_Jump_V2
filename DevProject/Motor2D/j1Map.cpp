@@ -87,7 +87,6 @@ bool j1Map::CleanUp()
 			col[i]->to_delete = true;
 			col[i] = nullptr;
 		}
-		
 	}
 
 	// Remove all tilesets

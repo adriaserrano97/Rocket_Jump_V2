@@ -589,7 +589,9 @@ void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;
 	if (time_spent_jumping == 0) {
-		time_spent_jumping++; App->audio->PlayFx(App->audio->jump_sound, 0);
+		time_spent_jumping++; 
+		App->audio->PlayFx(App->audio->jump_sound, 0);
+		App->particles->AddParticle(App->particles->dust, false, position.x, position.y + collider->rect.h, 0, 0, COLLIDER_NONE, 0, 0);
 	}
 	switch (state) {
 

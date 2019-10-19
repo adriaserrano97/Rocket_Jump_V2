@@ -48,11 +48,15 @@ private:
 	uint last_particle = 0;
 	p2SString			folder;
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics2 = nullptr;
 
 public:
 	//here goes the particles
 	Particle explosion;
-	Animation explosion_animation;
+	Particle dust;
+
+
+	Animation dust_animation;
 };
 
 #endif

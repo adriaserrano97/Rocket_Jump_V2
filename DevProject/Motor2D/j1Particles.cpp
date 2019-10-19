@@ -25,6 +25,8 @@ j1Particles::~j1Particles()
 bool j1Particles::Start()
 {
 	graphics = App->tex->Load(PATH(folder.GetString(), "explosions.png"));
+	graphics2 = App->tex->Load(PATH(folder.GetString(), "dust.png"));
+
 	return true;
 }
 
@@ -34,7 +36,9 @@ bool j1Particles::Awake(pugi::xml_node& node){
 	explosion.anim = explosion.anim.PushAnimation(node, "explosion");
 	explosion.life = node.child("Animations").child("explosion").attribute("life").as_int();
 	
-	
+	dust.anim = dust.anim.PushAnimation(node, "dust");
+	dust.life = node.child("Animations").child("dust").attribute("life").as_int();
+
 	return true;
 }
 
@@ -55,12 +59,14 @@ bool j1Particles::CleanUp()
 				active[i]->collider->to_delete = true;
 				active[i]->collider = nullptr;
 			}
+
+			active[i]->anim = Animation();
 			delete active[i];
 			active[i] = nullptr;
 		}
 	}
 
-	explosion_animation = Animation();
+	
 	
 	return true;
 }
@@ -79,15 +85,17 @@ bool j1Particles::Update(float dt)
 		if (p->collider != nullptr)
 		{
 			p->collider->SetPos(p->position);
+			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
 		}
+
+		else
+			App->render->Blit(graphics2, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
 		
 		
-		App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
 		
 
 		if (p != nullptr && p->life == 0)
 		{
-			explosion_animation.ResetAnimation();
 			if (p->collider != nullptr)
 			{
 				active[i]->collider->to_delete = true;
