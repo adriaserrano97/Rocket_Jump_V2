@@ -23,14 +23,15 @@ private:
 public:
 
 	Animation PushAnimation(pugi::xml_node node, p2SString name) {
+		
 		Animation aux;
+
 		pugi::xml_node iterator = node.child("Animations").first_child();
-		bool ret = true;
-		for (iterator; iterator && ret; iterator = iterator.next_sibling())
+	
+		for (iterator; iterator; iterator = iterator.next_sibling())
 		{
 			if (name == iterator.attribute("name").as_string())
 			{
-				ret = false;
 				pugi::xml_node iteratorFrames = iterator.first_child();
 				for (int y = 0; y < iterator.attribute("frames").as_int(); y++)
 				{
@@ -44,6 +45,7 @@ public:
 					
 					iteratorFrames = iteratorFrames.next_sibling();
 				}
+				break;
 			}
 		}
 		aux.current_frame = 0;

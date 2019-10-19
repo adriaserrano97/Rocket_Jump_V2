@@ -58,8 +58,8 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 	cursorRect.x = config.child("cursor").attribute("x").as_int();
 	cursorRect.y = config.child("cursor").attribute("y").as_int();
-	cursorRect.w = config.child("cursor").attribute("w").as_int();;
-	cursorRect.h = config.child("cursor").attribute("h").as_int();;
+	cursorRect.w = config.child("cursor").attribute("w").as_int();
+	cursorRect.h = config.child("cursor").attribute("h").as_int();
 
 	
 	return ret;
@@ -104,6 +104,7 @@ bool j1Player::PreUpdate() {
 	horizontal = false;
 	return true;
 }
+
 // Update: draw background
 bool j1Player::Update(float dt) {
 
@@ -118,7 +119,6 @@ bool j1Player::Update(float dt) {
 	external_input(inputs);
 	internal_input(inputs);
 	state = process_fsm(inputs);
-
 
 
 	if ((state != current_state) && godMode == false)
@@ -205,18 +205,9 @@ bool j1Player::Update(float dt) {
 	}
 
 	// Draw everything --------------------------------------	
-	
 
-
-	//Apply gravity
-
-	
-	//Check_if_falling();
-	
-	
 	collider->SetPos(position.x, position.y);
 	
-
 	return true;
 }
 
@@ -228,6 +219,7 @@ bool j1Player::PostUpdate() {
 	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
+	Check_if_falling();
 
 	return true;
 }
@@ -235,7 +227,7 @@ bool j1Player::PostUpdate() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL);
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
 	{
 
 		switch (checkDirection(c1->rect, c2->rect))
@@ -574,7 +566,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 //TODO ADRI: ASK MARC ABOUT THIS FUCKING BLACK MAGIC
 
 void j1Player::Check_if_falling() { //TRY PUTTING HERE AN INTERRUPTION POINT
-	if (((abs(position.y)-grav) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) { //AND NOW, TRY HERE
+	if (((abs(position.y)) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) { //AND NOW, TRY HERE
 		inputs.Push(IN_FALLING); 
 	}	
 }
