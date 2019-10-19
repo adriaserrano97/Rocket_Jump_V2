@@ -326,6 +326,10 @@ int j1Render::CamLerp(int a, int b) {
 	//if destination is close enough, just snap to it
 }
 
+int j1Render::Lerp(int a, int b, float t){
+		return (int)(a + lerp * (b - a));
+	}
+
 void j1Render::AdjustAnchorPoints() {
 
 	//ADRI: for some reason, these variables do not keep values! Always are zero!!!
