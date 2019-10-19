@@ -43,12 +43,13 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	//Camera control
+	//Camera control functions
 	void AdjustCamera();
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
 	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
-	
+	void DebugPaintCameraTrigger(int trigger);
+	void SnapAxis();
 
 public:
 
@@ -56,13 +57,25 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
-	int left_trigger_camera; //used in camera control
+	
+	// Variables used in camera control
+	iPoint auxCam;
+	int left_trigger_camera; 
 	int right_trigger_camera;
 	int left_trigger_change;
 	int right_trigger_change;
 	int up_trigger;
 	int down_trigger;
-	float lerp = 0.1f;//used in our interpolation. Should go to xml.
+	bool snapping_to_right = false;
+	bool snapping_to_left = false;
+	float lerp = 0.07f;//used in our interpolation. Should go to xml.
+	enum SNAP_STATE
+	{
+		SNAP_TO_RIGHT,
+		SNAP_TO_LEFT,
+		SNAP_NONE
+	};
+	SNAP_STATE snap_state = SNAP_NONE;
 };
 
 #endif // __j1RENDER_H__
