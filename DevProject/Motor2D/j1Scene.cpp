@@ -39,8 +39,7 @@ bool j1Scene::Start()
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 	case 2:
-		//img = App->tex->Load("textures/SDL_pls.png"); //used for debug purposes
-		App->map->Load("test_small_tileset.tmx");
+		App->map->Load("second_map.tmx");
 		App->audio->PlayMusic("audio/music/down_under_flopdisk.wav", 4.0F);
 		break;
 	default:
