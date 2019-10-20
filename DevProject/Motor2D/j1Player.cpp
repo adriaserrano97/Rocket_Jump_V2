@@ -110,7 +110,7 @@ bool j1Player::Update(float dt) {
 
 	//this is the default state of the player. Changes apply below
 
-	PLAYER_STATES current_state = ST_UNKNOWN;
+	player_states current_state = ST_UNKNOWN;
 	current_animation = &idle;
 
 	SDL_Texture *texture = graphics;
@@ -144,44 +144,28 @@ bool j1Player::Update(float dt) {
 
 		case ST_JUMP:
 			current_animation = &jump;
-			playerJump(ST_JUMP);
+			Player_jump(ST_JUMP);
 			break;
 
 		case ST_RIGHT_JUMP:
 			current_animation = &jump;
-			playerJump(ST_RIGHT_JUMP);
+			Player_jump(ST_RIGHT_JUMP);
 			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
 			current_animation = &jump;
-			playerJump(ST_LEFT_JUMP);
+			Player_jump(ST_LEFT_JUMP);
 			flip = true;
 			break;
 
 		case ST_FALLING:
 			current_animation = &jump;
-			playerFall();
+			Player_fall();
 			break;
 
-		case ST_LEFT_ROCKET_JUMP:
-			current_animation = &idle;
-			playerJump(ST_LEFT_ROCKET_JUMP);
-			break;
-
-		case ST_RIGHT_ROCKET_JUMP:
-			current_animation = &idle;
-			playerJump(ST_RIGHT_ROCKET_JUMP);
-			break;
-
-		case ST_UP_ROCKET_JUMP:
-			current_animation = &idle;
-			playerJump(ST_UP_ROCKET_JUMP);
-			break;
-
-		case ST_DOWN_ROCKET_JUMP:
-			current_animation = &idle;
-			playerJump(ST_DOWN_ROCKET_JUMP);
+		case ST_ROCKET_JUMP:
+			current_animation = &rocketJump;
 			break;
 
 		case ST_DEAD:
@@ -312,39 +296,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			}
 			
 		}
-	}
-
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_EXPLOSION)
-	{
-			
-
-		switch (checkDirection(c1->rect, c2->rect))
-		{
-			case DIRECTION_LEFT:
-					
-				inputs.Push(IN_LEFT_ROCKET_JUMP);
-				time_spent_jumping = 0;
-				break;
-
-			case DIRECTION_RIGHT:
-					
-				inputs.Push(IN_RIGHT_ROCKET_JUMP);
-				time_spent_jumping = 0;
-				break;
-
-			case DIRECTION_UP:
-					
-				inputs.Push(IN_UP_ROCKET_JUMP);
-				time_spent_jumping = 0;
-				break;
-
-			case DIRECTION_DOWN:
-					
-				inputs.Push(IN_DOWN_ROCKET_JUMP);
-				time_spent_jumping = 0;
-				break;
-		}
-		
 
 	}
 }
@@ -363,7 +314,7 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 		App->render->Blit(texture, position.x, position.y /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, false);
 }
 
-bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
+bool j1Player::external_input(p2Qeue<player_inputs>& inputs) {
 
 	if (!godMode) {
 		//Key UP
@@ -430,7 +381,7 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 	return true;
 }
 
-void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
+void j1Player::internal_input(p2Qeue<player_inputs>& inputs) {
 	
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
@@ -453,9 +404,9 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 
 }
 
-PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
-	static PLAYER_STATES state = ST_IDLE;
-	PLAYER_INPUTS last_input;
+player_states j1Player::process_fsm(p2Qeue<player_inputs>& inputs) {
+	static player_states state = ST_IDLE;
+	player_inputs last_input;
 
 	while (inputs.Pop(last_input))
 	{
@@ -473,14 +424,7 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			case IN_LEFT_JUMP_DOWN: state = ST_LEFT_JUMP;	break;
 			case IN_RIGHT_JUMP_DOWN: state = ST_RIGHT_JUMP; break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
 			case IN_FALLING: state = ST_FALLING;			break;
 
@@ -498,14 +442,7 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			case IN_JUMP_DOWN: state = ST_RIGHT_JUMP;		break;
 			case IN_RIGHT_JUMP_DOWN: state = ST_RIGHT_JUMP; break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
 			case IN_FALLING: state = ST_FALLING;			break;
 
@@ -523,14 +460,7 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			case IN_JUMP_DOWN: state = ST_LEFT_JUMP;		break;
 			case IN_LEFT_JUMP_DOWN: state = ST_LEFT_JUMP;	break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
 			case IN_FALLING: state = ST_FALLING;			break;
 
@@ -545,14 +475,9 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -565,14 +490,9 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -585,179 +505,30 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
 
 		}	break;
 
-		case ST_LEFT_ROCKET_JUMP:
+		case ST_ROCKET_JUMP:
 		{
 			switch (last_input)
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
+
+			//case IN_FALLING: state = ST_FALLING;			break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
 
 		}	break;
 
-		case ST_RIGHT_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_UP_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_DOWN_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_LEFT_UP_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_LEFT_DOWN_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_RIGHT_UP_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
-
-		case ST_RIGHT_DOWN_ROCKET_JUMP:
-		{
-			switch (last_input)
-			{
-			case IN_JUMP_FINISH: state = ST_IDLE;			break;
-
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
-
-			case IN_DEAD: state = ST_DEAD;					break;
-			}
-
-		}	break;
 
 		case ST_FALLING:
 		{
@@ -765,14 +536,7 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 			{
 			case IN_JUMP_FINISH: state = ST_IDLE;			break;
 
-			case IN_LEFT_ROCKET_JUMP: state = ST_LEFT_ROCKET_JUMP;				break;
-			case IN_RIGHT_ROCKET_JUMP: state = ST_RIGHT_ROCKET_JUMP;			break;
-			case IN_UP_ROCKET_JUMP: state = ST_UP_ROCKET_JUMP;					break;
-			case IN_DOWN_ROCKET_JUMP: state = ST_DOWN_ROCKET_JUMP;				break;
-			case IN_LEFT_UP_ROCKET_JUMP: state = ST_LEFT_UP_ROCKET_JUMP;		break;
-			case IN_LEFT_DOWN_ROCKET_JUMP: state = ST_LEFT_DOWN_ROCKET_JUMP;	break;
-			case IN_RIGHT_UP_ROCKET_JUMP: state = ST_RIGHT_UP_ROCKET_JUMP;		break;
-			case IN_RIGHT_DOWN_ROCKET_JUMP: state = ST_RIGHT_DOWN_ROCKET_JUMP;	break;
+			case IN_ROCKET_JUMP: state = ST_ROCKET_JUMP;	break;
 
 			case IN_DEAD: state = ST_DEAD;					break;
 			}
@@ -826,7 +590,7 @@ void j1Player::Check_if_falling() { //TRY PUTTING HERE AN INTERRUPTION POINT
 		inputs.Push(IN_FALLING); 
 	}	
 }
-void j1Player::playerFall() { 
+void j1Player::Player_fall() { 
 
 	int buffer_y = position.y;
 	if (time_spent_falling == 0) { time_spent_falling++; }
@@ -841,7 +605,7 @@ void j1Player::playerFall() {
 
  }
 
-void j1Player::playerJump(PLAYER_STATES state) {
+void j1Player::Player_jump(player_states state) {
 
 	int buffer_y = position.y;
 	if (time_spent_jumping == 0) {
@@ -871,22 +635,6 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		position.x -= speed;
 		break;
 
-	case ST_LEFT_ROCKET_JUMP:
-		time_spent_jumping++;
-		position.x -= speed;
-		break;
-
-	case ST_RIGHT_ROCKET_JUMP:
-		time_spent_jumping++;
-		position.x += speed;
-		break;
-
-	case ST_UP_ROCKET_JUMP:
-		position.y -= jumpspeed;
-		position.y += time_spent_jumping;
-		time_spent_jumping++;
-		break;
-
 	default:
 		LOG("Player state was not valid to perform a jump from");
 		break;
@@ -900,7 +648,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 
 }
 
-COLLISION_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
+collision_direction j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
 
 	int directionDiference[DIRECTION_MAX];
 
@@ -920,5 +668,5 @@ COLLISION_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision
 	
 	}
 
-	return (COLLISION_DIRECTION)directionCheck;
+	return (collision_direction)directionCheck;
 }

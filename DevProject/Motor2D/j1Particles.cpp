@@ -22,14 +22,15 @@ j1Particles::~j1Particles()
 {}
 
 // Load assets
-bool j1Particles::Start() {
+bool j1Particles::Start()
+{
 	graphics = App->tex->Load(PATH(folder.GetString(), "explosions.png"));
 	graphics2 = App->tex->Load(PATH(folder.GetString(), "dust.png"));
 
 	return true;
 }
- 
-bool j1Particles::Awake(pugi::xml_node& node) {
+
+bool j1Particles::Awake(pugi::xml_node& node){
 	folder.create(node.child("folder").child_value());
 	
 	explosion.anim = explosion.anim.PushAnimation(node, "explosion");
