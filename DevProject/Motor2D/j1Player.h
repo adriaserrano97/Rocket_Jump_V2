@@ -8,7 +8,7 @@
 
 struct Mix_Chunk;
 
-enum PLAYER_STATES
+enum player_states
 {
 	ST_UNKNOWN,
 	ST_IDLE,
@@ -22,20 +22,12 @@ enum PLAYER_STATES
 
 	ST_FALLING,
 
-	ST_LEFT_ROCKET_JUMP,
-	ST_RIGHT_ROCKET_JUMP,
-	ST_UP_ROCKET_JUMP,
-	ST_DOWN_ROCKET_JUMP,
-
-	ST_LEFT_UP_ROCKET_JUMP,
-	ST_LEFT_DOWN_ROCKET_JUMP,
-	ST_RIGHT_UP_ROCKET_JUMP,
-	ST_RIGHT_DOWN_ROCKET_JUMP,
+	ST_ROCKET_JUMP,
 
 	ST_DEAD
 };
 
-enum PLAYER_INPUTS
+enum player_inputs
 {
 	IN_NEUTRAL,
 
@@ -54,22 +46,13 @@ enum PLAYER_INPUTS
 
 
 	IN_SHOOT,
-
-	IN_LEFT_ROCKET_JUMP,
-	IN_RIGHT_ROCKET_JUMP,
-	IN_UP_ROCKET_JUMP,
-	IN_DOWN_ROCKET_JUMP,
-	
-	IN_LEFT_UP_ROCKET_JUMP,
-	IN_LEFT_DOWN_ROCKET_JUMP,
-	IN_RIGHT_UP_ROCKET_JUMP,
-	IN_RIGHT_DOWN_ROCKET_JUMP,
+	IN_ROCKET_JUMP,
 
 	IN_DEAD,
 	IN_ALIVE
 };
 
-enum COLLISION_DIRECTION
+enum collision_direction
 {
 	DIRECTION_NONE = -1,
 	DIRECTION_UP,
@@ -94,20 +77,20 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	void internal_input(p2Qeue<PLAYER_INPUTS>& inputs);
-	bool external_input(p2Qeue<PLAYER_INPUTS>& inputs);
-	PLAYER_STATES process_fsm(p2Qeue<PLAYER_INPUTS>& inputs);
+	void internal_input(p2Qeue<player_inputs>& inputs);
+	bool external_input(p2Qeue<player_inputs>& inputs);
+	player_states process_fsm(p2Qeue<player_inputs>& inputs);
 	void OnCollision(Collider* c1, Collider* c2);
 	void BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture);
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void playerJump(PLAYER_STATES state);
-	void playerFall();
+	void Player_jump(player_states state);
+	void Player_fall();
 	void Check_if_falling();
 
-	COLLISION_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
+	collision_direction checkDirection(SDL_Rect player, SDL_Rect collision);
 
 
 public:
@@ -153,8 +136,8 @@ public:
 	bool horizontal;
 
 
-	PLAYER_STATES state;
-	p2Qeue<PLAYER_INPUTS> inputs;
+	player_states state;
+	p2Qeue<player_inputs> inputs;
 	iPoint	position;
 	int cursorX, cursorY;
 
