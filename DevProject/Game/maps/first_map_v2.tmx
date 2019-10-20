@@ -4,7 +4,7 @@
   <image source="extended_tileset.png" trans="ff00ff" width="946" height="344"/>
   <tile id="1">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -12,7 +12,7 @@
   </tile>
   <tile id="2">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -20,7 +20,7 @@
   </tile>
   <tile id="5">
    <properties>
-    <property transpassable="true"/>
+    <property name="transpassable" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="30"/>
@@ -28,7 +28,7 @@
   </tile>
   <tile id="6">
    <properties>
-    <property transpassable="true"/>
+    <property name="transpassable" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="30"/>
@@ -36,7 +36,7 @@
   </tile>
   <tile id="7">
    <properties>
-    <property transpassable="true"/>
+    <property name="transpassable" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="30"/>
@@ -44,7 +44,7 @@
   </tile>
   <tile id="8">
    <properties>
-    <property transpassable="true"/>
+    <property name="transpassable" type="bool" value="true"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="30"/>
@@ -52,7 +52,7 @@
   </tile>
   <tile id="17">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -60,7 +60,7 @@
   </tile>
   <tile id="18">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -68,7 +68,7 @@
   </tile>
   <tile id="19">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -76,7 +76,7 @@
   </tile>
   <tile id="20">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -84,7 +84,7 @@
   </tile>
   <tile id="21">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -92,7 +92,7 @@
   </tile>
   <tile id="28">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -100,7 +100,7 @@
   </tile>
   <tile id="29">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -108,7 +108,7 @@
   </tile>
   <tile id="30">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -116,7 +116,7 @@
   </tile>
   <tile id="31">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>
@@ -124,7 +124,7 @@
   </tile>
   <tile id="32">
    <properties>
-    <property transpassable="false"/>
+    <property name="transpassable" type="bool" value="false"/>
    </properties>
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="86" height="86"/>

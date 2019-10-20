@@ -26,27 +26,16 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 
 	//Here goes the matrix of collider interactions
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
-	matrix[COLLIDER_WALL][COLLIDER_TRANSPASSABLE_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_EXPLOSION] = false;
 
-
-	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_WALL] = false;
-	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_TRANSPASSABLE_WALL] = false;
-	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_EXPLOSION] = false;
-	
-
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_TRANSPASSABLE_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_EXPLOSION] = true;
 
-
-	matrix[COLLIDER_EXPLOSION][COLLIDER_WALL] = false;
-	matrix[COLLIDER_EXPLOSION][COLLIDER_TRANSPASSABLE_WALL] = false;
-	matrix[COLLIDER_EXPLOSION][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_EXPLOSION] = false;
+	matrix[COLLIDER_EXPLOSION][COLLIDER_WALL] = false;
+	matrix[COLLIDER_EXPLOSION][COLLIDER_PLAYER] = true;
 
 
 
@@ -149,10 +138,6 @@ void j1Collision::DebugDraw()
 
 		case COLLIDER_WALL: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			break;
-
-		case COLLIDER_TRANSPASSABLE_WALL: // purple
-			App->render->DrawQuad(colliders[i]->rect, 128, 0, 128, alpha);
 			break;
 
 		case COLLIDER_PLAYER: // green

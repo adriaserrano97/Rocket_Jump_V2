@@ -45,7 +45,6 @@ struct TileSet
 	int					offset_x;
 	int					offset_y;
 	SDL_Rect			collisionBoxArray[ARRAY_MAX_COLLIDERS];
-	bool				transpassable[ARRAY_MAX_COLLIDERS];
 	
 	SDL_Rect getrect(int firstgid) {
 

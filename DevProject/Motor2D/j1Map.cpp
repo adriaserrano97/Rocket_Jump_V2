@@ -234,25 +234,21 @@ bool j1Map::Load(const char* file_name)
 					
 					
 					iPoint position = PosConverter(i, j);
-					
+					//caution, we have to add the x and y of the tile to the x and y of the collision box. 
+					//it's just: THE_FUCKING_RECT.x += position.x
+					//			 THE_FUCKING_RECT.y += position.y
 					SDL_Rect auxRect;
 					auxRect.x = data.tilesets.start->data->collisionBoxArray[tile_id].x + position.x;
 					auxRect.y = data.tilesets.start->data->collisionBoxArray[tile_id].y + position.y;
 					auxRect.h = data.tilesets.start->data->collisionBoxArray[tile_id].h;
 					auxRect.w = data.tilesets.start->data->collisionBoxArray[tile_id].w;
 
-					if ((auxRect.h != 0) && (auxRect.w != 0) && !data.tilesets.start->data->transpassable[tile_id]) {
+					if (auxRect.h != 0 && auxRect.w != 0) {
 						col[z] = App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
 						z++;
 					}
 
-					else if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->transpassable[tile_id])
-					{
-						col[z] = App->colliders->AddCollider(auxRect, COLLIDER_TRANSPASSABLE_WALL, this);
-						z++;
-					}
-
-					
+					//TODO ADRI	
 
 				}
 			}
@@ -371,8 +367,7 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 
 
 		int id = tilebox.attribute("id").as_int();
-
-		set->transpassable[id + 1] = tilebox.child("properties").child("property").attribute("transpassable").as_bool(); //only works if tiles have only 1 property
+		bool transpassable = tilebox.child("properties").child("property").attribute("value").as_bool(); //only works if tiles have only 1 property
 
 		set->collisionBoxArray[id+1] = this_tile_box;
 		// "+1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1

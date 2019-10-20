@@ -278,11 +278,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 
 	}
-
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_TRANSPASSABLE_WALL)
-	{
-
-	}
 }
 
 void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture) {
