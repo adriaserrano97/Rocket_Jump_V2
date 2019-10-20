@@ -44,7 +44,7 @@ bool j1Scene::Start()
 		break;
 	default:
 		scene_number = 1;
-		App->map->Load("first_map_v2_weird_shit.tmx"); //ADRI: we default to map 1. Once we have UI, we will default to the Main Menu
+		App->map->Load("first_map_v2.tmx"); //ADRI: we default to map 1. Once we have UI, we will default to the Main Menu
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 	}
