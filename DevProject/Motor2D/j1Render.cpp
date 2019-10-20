@@ -299,8 +299,8 @@ void j1Render::AdjustCamera() {
 	if (auxCam.x < 0) {//respect margins
 		auxCam.x = 0;	
 	}
-	if ((auxCam.x + App->win->width) > App->map->data.layers[0]->width*App->map->data.tile_width) {
-		auxCam.x = App->map->data.layers[0]->width*App->map->data.tile_width - App->win->width;
+	if ((auxCam.x + App->win->width) > App->map->data.width*App->map->data.tile_width) {
+		auxCam.x = App->map->data.width*App->map->data.tile_width - App->win->width;
 	}
 	//Change Y
 	//adjust up
@@ -315,8 +315,8 @@ void j1Render::AdjustCamera() {
 	if (auxCam.y < 0) {//respect margins
 		auxCam.y = 0;
 	}
-	if ((auxCam.y + App->win->height) > App->map->data.layers[0]->height*App->map->data.tile_height) {
-		auxCam.y = App->map->data.layers[0]->height*App->map->data.tile_height - App->win->height;
+	if ((auxCam.y + App->win->height) > App->map->data.height*App->map->data.tile_height) {
+		auxCam.y = App->map->data.height*App->map->data.tile_height - App->win->height;
 	}
 	
 
