@@ -372,7 +372,7 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 
 		int id = tilebox.attribute("id").as_int();
 
-		set->transpassable[id + 1] = tilebox.child("properties").child("property").attribute("transpassable").as_bool(); //only works if tiles have only 1 property
+		set->transpassable[id + 1] = tilebox.child("properties").child("property").attribute("value").as_bool(); //only works if tiles have only 1 property
 
 		set->collisionBoxArray[id+1] = this_tile_box;
 		// "+1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1

@@ -269,6 +269,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case DIRECTION_DOWN:
 			if (!horizontal)
 			{
+
 				position.y = c2->rect.y + c2->rect.h + 1;
 				horizontal = true;
 			}
@@ -281,6 +282,20 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
+		if (position.y > playerBuffer.y)
+		{
+			if (checkDirection(c1->rect, c2->rect) == DIRECTION_UP)
+			{
+				position.y = c2->rect.y - c1->rect.h - 1;
+
+				if (time_spent_jumping > 0 || time_spent_falling > 0) {
+					time_spent_jumping = 0;
+					time_spent_falling = 0;
+					inputs.Push(IN_JUMP_FINISH);
+				}
+			}
+			
+		}
 
 	}
 }
