@@ -49,6 +49,8 @@ bool j1Scene::Start()
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 	}
+	App->player->godMode = false;
+
 	return true;
 }
 
@@ -61,9 +63,10 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
-
+		App->player->godMode = true;
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
@@ -103,6 +106,7 @@ bool j1Scene::Update(float dt)
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
+		App->player->godMode = true;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
@@ -110,6 +114,7 @@ bool j1Scene::Update(float dt)
 
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
+		App->player->godMode = true;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F3)) == KEY_DOWN) {
@@ -150,6 +155,7 @@ bool j1Scene::Load(pugi::xml_node& data) {
 		scene_number = data.child("scene").attribute("sceneNumber").as_int();
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
+
 	}
 	
 
