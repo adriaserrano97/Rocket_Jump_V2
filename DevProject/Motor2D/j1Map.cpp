@@ -264,7 +264,7 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
-// Load map general properties
+// Load map properties
 bool j1Map::LoadMap()
 {
 	bool ret = true;
@@ -416,7 +416,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
- //TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 {
 	bool ret = true;
@@ -436,6 +435,8 @@ bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 	}
 	return ret;
 }
+
+//Conversion functions
 
 SDL_Rect TileSet::TileToRect(uint tileid) 
 {
