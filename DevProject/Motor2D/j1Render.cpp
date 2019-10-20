@@ -3,7 +3,6 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Player.h"
-#include "j1Map.h"
 #include "j1Render.h"
 
 #define VSYNC true
@@ -297,13 +296,10 @@ void j1Render::AdjustCamera() {
 	}	
 	
 	if (auxCam.x < 0) {//respect margins
-		auxCam.x = 0;	
+		auxCam.x = 0;
+		
 	}
-	
-	if ((auxCam.x + App->win->width) > App->map->data.width*App->map->data.tile_width) {
-		auxCam.x = App->map->data.width*App->map->data.tile_width - App->win->width;
-	}
-	
+
 	//Change Y
 	//adjust up
 	if (App->player->position.y < up_trigger) { //high enough
@@ -316,10 +312,6 @@ void j1Render::AdjustCamera() {
 		
 	if (auxCam.y < 0) {//respect margins
 		auxCam.y = 0;
-	}
-	
-	if ((auxCam.y + App->win->height) > App->map->data.height*App->map->data.tile_height) {
-		auxCam.y = App->map->data.height*App->map->data.tile_height - App->win->height;
 	}
 	
 
@@ -357,6 +349,7 @@ void j1Render::AdjustAnchorPoints() {
 
 	down_trigger = (-1)*(int)(camera.y - (2 * App->win->height / 3));
 }
+
 
 int j1Render::GetSideOfScreen(int x){
 //Returns 0 if on left part or just in the middle. Returns 1 if on the right side of the screen. Returns -1 on failing to assert.
