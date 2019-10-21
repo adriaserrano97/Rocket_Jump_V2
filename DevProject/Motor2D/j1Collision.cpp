@@ -5,7 +5,7 @@
 #include "j1Player.h"
 #include "p2Log.h"
 #include "j1Scene.h"
-//#include "ModuleFadeToBlack.h"
+
 
 j1Collision::j1Collision()
 {
@@ -165,7 +165,6 @@ void j1Collision::DebugDraw()
 
 		}
 	}
-	//App->render->DrawQuad({ App->player->position.x, App->player->position.y, 20, 20 }, 0, 0, 0, 100);
 
 }
 
@@ -185,6 +184,7 @@ bool j1Collision::CleanUp()
 
 	return true;
 }
+
 
 Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
@@ -210,6 +210,7 @@ Collider* j1Collision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 	return ret;
 }
 
+//simplified version of the above
 Collider* j1Collision::AddCollider(Collider collider)
 {
 	Collider* ret = new Collider(collider.rect, collider.type, collider.callback);

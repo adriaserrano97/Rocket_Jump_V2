@@ -72,13 +72,15 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
-	
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
+	//Make Camera movement
 	AdjustCamera();
+
+	//Draw everything
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
@@ -266,7 +268,10 @@ void j1Render::AdjustCamera() {
 	auxCam.x = -camera.x; //camera has axis flipped in relation to player position
 	auxCam.y = -camera.y;
 	
+
 	//Change X
+	//---------------------------------
+
 	if (snap_state != SNAP_NONE) { SnapAxis(); }
 	switch (GetSideOfScreen(App->player->position.x)) { //where is the player?
 
@@ -296,24 +301,29 @@ void j1Render::AdjustCamera() {
 		break;
 	}	
 	
-	if (auxCam.x < 0) {//respect margins
+	//respect margins
+	if (auxCam.x < 0) {
 		auxCam.x = 0;
 	}
 	if (auxCam.x + App->win->width > App->map->data.width*App->map->data.tile_width) {
 		auxCam.x = App->map->data.width*App->map->data.tile_width - App->win->width;
 	}
 
+
 	//Change Y
+	//---------------------------------
+
 	//adjust up
 	if (App->player->position.y < up_trigger) { //high enough
-		auxCam.y -= abs(CamLerp(App->player->position.y, up_trigger));
+		auxCam.y -= abs(CamLerp(App->player->position.y, up_trigger));//adjust down
 	} 
-	//adjust down
+	
 	if ((App->player->position.y + App->player->collider->rect.h) > down_trigger) {//low enough
-		auxCam.y += abs(CamLerp(App->player->position.y + App->player->collider->rect.h, down_trigger));
+		auxCam.y += abs(CamLerp(App->player->position.y + App->player->collider->rect.h, down_trigger));//adjust high
 	} 
-		
-	if (auxCam.y < 0) {//respect margins
+
+	//respect margins	
+	if (auxCam.y < 0) {
 		auxCam.y = 0;
 	}
 	if (App->map->data.height*App->map->data.tile_height <auxCam.y + App->win->height) {
@@ -326,26 +336,26 @@ void j1Render::AdjustCamera() {
 	camera.y = -auxCam.y;
 }
 
+//Returns lerp% distance from a to b
 int j1Render::CamLerp(int a, int b) {
-	//used just to calculate distances
 	if (abs(b - a) >= 5)return (int)(lerp * (b - a));
 	else return (b-a);
-	//if destination is close enough, just snap to it
+	//if destination is close enough, snap to it
 }
 
+//General Lerp function
 int j1Render::Lerp(int a, int b, float t){
 		return (int)(a + lerp * (b - a));
-	}
+}
 
+//Define where does our camera have triggers to change perspective
 void j1Render::AdjustAnchorPoints() {
+	
+	//remember, camera axis are flipped, hence the (-1)*
 
-	//ADRI: for some reason, these variables do not keep values! Always are zero!!!
-	//ADRI: found out the reason. (int)(x*(2/3)) gives problems because 1/3 generates an infinite decimal scalar
-		//problem solved by expressing it as (int)(2*x/3)
+	left_trigger_camera = (-1)*(int)(camera.x - (App->win->width / 3));	
 
-	left_trigger_camera = (-1)*(int)(camera.x - (App->win->width / 3));	//ADRI:scalars 1/3 and 2/3 should be defined in xml as anchor points or something
-
-	right_trigger_camera = (-1)*(int)(camera.x - (2 * App->win->width / 3)); //remember, camera axis are flipped, hence the (-1)*
+	right_trigger_camera = (-1)*(int)(camera.x - (2 * App->win->width / 3)); 
 
 	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 6));
 
@@ -358,7 +368,7 @@ void j1Render::AdjustAnchorPoints() {
 
 
 int j1Render::GetSideOfScreen(int x){
-//Returns 0 if on left part or just in the middle. Returns 1 if on the right side of the screen. Returns -1 on failing to assert.
+
 	uint distance_to_L = abs(x - left_trigger_camera);
 	uint distance_to_R = abs(x - right_trigger_camera);
 
@@ -376,37 +386,27 @@ int j1Render::GetSideOfScreen(int x){
 	}
 }
 
-void j1Render::DebugPaintCameraTrigger(int trigger) {
-	SDL_Rect auxxxrect;
-	auxxxrect.w = 1000;
-	auxxxrect.h = 20;
-	auxxxrect.x = 0;
-	auxxxrect.y = trigger;
-	DrawQuad(auxxxrect, 255, 0, 0, 150, true, false);
-}
 
 void j1Render::SnapAxis() {
 	
-	switch (snap_state) {
-	case SNAP_TO_RIGHT:
-		//auxCam.x -= (right_trigger_camera - left_trigger_change - (left_trigger_change - App->player->position.x)); 
-		
-		auxCam.x -= abs(CamLerp(right_trigger_camera,left_trigger_change));
+	//Check if we need to change camera perspective
 
+	switch (snap_state) {
+
+	case SNAP_TO_RIGHT:
+	
+		auxCam.x -= abs(CamLerp(right_trigger_camera,left_trigger_change));
 		if (App->player->position.x >= right_trigger_camera) { 
 			snap_state = SNAP_NONE;
 		}
-
 		break;
-	case SNAP_TO_LEFT:
-		//auxCam.x += (right_trigger_change - left_trigger_change + (App->player->position.x - right_trigger_change));
-		
-		auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera));
 
+	case SNAP_TO_LEFT:
+
+		auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera));
 		if (App->player->position.x <= left_trigger_camera) { 
 			snap_state = SNAP_NONE; 
 		}
-		
 		break;	
 	}
 }

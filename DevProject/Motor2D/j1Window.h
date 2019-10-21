@@ -39,6 +39,7 @@ public:
 	uint		width;
 	uint		height;
 	uint		scale;
+
 private:
 	p2SString	title;
 

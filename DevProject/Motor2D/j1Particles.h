@@ -51,11 +51,11 @@ private:
 	SDL_Texture* graphics2 = nullptr;
 
 public:
-	//here goes the particles
+	//list of particles
 	Particle explosion;
 	Particle dust;
 
-
+	//list of animations of such particles 
 	Animation dust_animation;
 };
 

@@ -8,7 +8,6 @@
 #include "p2Qeue.h"
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
-
 #include "SDL\include\SDL.h"
 
 
@@ -28,14 +27,18 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 	folder.create(config.child("folder").child_value());
 
+
+	//player movement related variables
 	position.x = config.child("playerData").attribute("initialX").as_int();
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
 	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
 	speedcap = config.child("playerData").attribute("speedcap").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
-	deadFall = config.child("playerData").attribute("deadFall").as_int();
+	deadFall = config.child("playerData").attribute("deadFall").as_int(); 
+	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
 
+	//player collider information
 	SDL_Rect rect;
 	rect.x = config.child("collider").attribute("rectX").as_int();
 	rect.y = config.child("collider").attribute("rectY").as_int();
@@ -45,17 +48,20 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	j1Module* callback = this;
 	collider = App->colliders->AddCollider(rect, type, callback);
 
+	//Player animations, loaded from xml
 	walk = walk.PushAnimation(config, "run");
 	idle = idle.PushAnimation(config, "idle");
 	jump = jump.PushAnimation(config, "jump");
 	dead = dead.PushAnimation(config, "dead");
-	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
+
 	
+	//player's firearm position information
 	bazookaRect.x = config.child("bazooka").attribute("x").as_int();
 	bazookaRect.y = config.child("bazooka").attribute("y").as_int();
 	bazookaRect.w = config.child("bazooka").attribute("w").as_int();
 	bazookaRect.h = config.child("bazooka").attribute("h").as_int();
 
+	//image used as cursor information
 	cursorRect.x = config.child("cursor").attribute("x").as_int();
 	cursorRect.y = config.child("cursor").attribute("y").as_int();
 	cursorRect.w = config.child("cursor").attribute("w").as_int();
@@ -81,17 +87,19 @@ bool j1Player::CleanUp() {
 
 	LOG("Unloading Player");
 
+	//Unload all textures
 	App->tex->UnLoad(graphics);
 	App->tex->UnLoad(bazooka);
 
+	//Unload all animations
 	walk = Animation();
 	idle = Animation();
 	jump = Animation();
 	rocketJump = Animation();
 	dead = Animation();
-
 	current_animation = nullptr;
 
+	//Unload all colliders
 	collider->to_delete = true;
 	collider = nullptr;
 
@@ -99,28 +107,33 @@ bool j1Player::CleanUp() {
 }
 
 bool j1Player::PreUpdate() {
-	playerBuffer = position;
+
+	//get player's position before any changes are made to it
+	playerBuffer = position; 
+
+	//reset state box control variables
 	vertical = false;
 	horizontal = false;
+
 	return true;
 }
 
 // Update: draw background
 bool j1Player::Update(float dt) {
 
-	//this is the default state of the player. Changes apply below
-
+	//If no changes apply to player, this is it's default state
 	PLAYER_STATES current_state = ST_UNKNOWN;
 	current_animation = &idle;
 
+	//get player spritesheet
 	SDL_Texture *texture = graphics;
 	
-
+	//check inputs to traverse state matrix
 	external_input(inputs);
 	internal_input(inputs);
 	state = process_fsm(inputs);
 
-
+	
 	if ((state != current_state) && godMode == false)
 	{
 		switch (state)
@@ -196,19 +209,19 @@ bool j1Player::Update(float dt) {
 	if (godMode)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			position.y -= 5;
+			position.y -= speed;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			position.y += 5;
+			position.y += speed;
 		}
 		
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			position.x += 5;
+			position.x += speed;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			position.x -= 5;
+			position.x -= speed;
 		}
 	}
 
@@ -229,12 +242,14 @@ bool j1Player::Update(float dt) {
 
 bool j1Player::PostUpdate() {
 
+	//Once our positions are set, draw everything player related
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
 	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x , (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
 	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
+	//Once all changes are made, check if player is free falling
 	Check_if_falling();
 
 	return true;
@@ -271,6 +286,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			{
 				position.y = c2->rect.y - c1->rect.h - 1;
 
+				//If colliding with a platform, stop jumping
 				if (time_spent_jumping > 0 || time_spent_falling > 0) {
 					time_spent_jumping = 0;
 					time_spent_falling = 0;
@@ -296,6 +312,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
 	}
 
+	//Ensure that upon transpassing a transpassable platform, player stops its movement above it
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
 		if (position.y > playerBuffer.y)
@@ -314,6 +331,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 	}
 
+	//Define the consequences of beign hit with a rocket explosion
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_EXPLOSION)
 	{
 			
@@ -356,7 +374,7 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 
 	r = frame.frame;
 	
-	App->render->Blit(texture, position.x, position.y   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
+	App->render->Blit(texture, position.x, position.y, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
 
 }
 
@@ -432,7 +450,6 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
-		//App->fade->FadeToBlack(2);
 		deadTimerBuffer++;
 	}
 
@@ -443,11 +460,9 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 		{
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
-			App->LoadGame();
-			
+			App->LoadGame(); //go back to last checkpoint	
 		}
 	}
-
 }
 
 PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
@@ -792,12 +807,11 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 	return state;
 }
 
-
+// Define where does player spawn
 bool j1Player::Load(pugi::xml_node& data)
 {
 	position.x = data.child("player").attribute("x").as_int();
 	position.y = data.child("player").attribute("y").as_int();
-
 	return true;
 }
 
@@ -805,7 +819,6 @@ bool j1Player::Load(pugi::xml_node& data)
 bool j1Player::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node ply = data.append_child("player");
-
 	ply.append_attribute("x") = position.x;
 	ply.append_attribute("y") = position.y;
 
@@ -815,24 +828,23 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 //Player jump functions
 
-
-//TODO ADRI: ASK MARC ABOUT THIS FUCKING BLACK MAGIC
-
-void j1Player::Check_if_falling() { //TRY PUTTING HERE AN INTERRUPTION POINT
-	if (((abs(position.y)) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) { //AND NOW, TRY HERE
+void j1Player::Check_if_falling() { 
+	//If player is mid air but did not jump, it means he is falling
+	if (((abs(position.y)) > abs(playerBuffer.y)) && (time_spent_jumping == 0)) { 
 		inputs.Push(IN_FALLING); 
 	}	
 }
+
 void j1Player::playerFall() { 
 
+	//Simulate acceleration
 	int buffer_y = position.y;
 	if (time_spent_falling == 0) { time_spent_falling++; }
-
 	position.y += time_spent_falling;
 	time_spent_falling++;
 
+	//Adjust to max speed, prevent tunneling
 	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
-
 		position.y = buffer_y + sgn(position.y)*speedcap;
 	}
 
@@ -841,15 +853,17 @@ void j1Player::playerFall() {
 void j1Player::playerJump(PLAYER_STATES state) {
 
 	int buffer_y = position.y;
+	//Check if player just jumped
 	if (time_spent_jumping == 0) {
 		time_spent_jumping++; 
+		//Play jump sound and add appropiate particles
 		App->audio->PlayFx(App->audio->jump_sound, 0);
 		App->particles->AddParticle(App->particles->dust, false, position.x, position.y + collider->rect.h, 0, 0, COLLIDER_NONE, 0, 0);
 	}
 	switch (state) {
-
+		//Remember, our reference system states that (0,0) is the upper left corner
 	case ST_JUMP:
-		position.y -= jumpspeed;  //Remember, our reference system states that (0,0) is the upper left corner
+		position.y -= jumpspeed;  
 		position.y += time_spent_jumping;
 		time_spent_jumping++;
 		break;
@@ -888,15 +902,15 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		LOG("Player state was not valid to perform a jump from");
 		break;
 	}
-	// speed cap prevents player from avoiding colliders at high speed
+
+	// speed cap check, to prevent player from tunneling
 	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
-
 		position.y = buffer_y + sgn(position.y)*speedcap;
-
 	}
 
 }
 
+//Check which side did player collide to
 COLLISION_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
 
 	int directionDiference[DIRECTION_MAX];

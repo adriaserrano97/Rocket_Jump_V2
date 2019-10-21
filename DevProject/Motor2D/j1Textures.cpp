@@ -3,7 +3,6 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
-
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
@@ -91,7 +90,6 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 			return true;
 		}
 	}
-
 	return false;
 }
 

@@ -2,7 +2,6 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
-
 #include "SDL/include/SDL.h"
 
 
@@ -98,7 +97,6 @@ bool j1Window::CleanUp()
 // Set new window title
 void j1Window::SetTitle(const char* new_title)
 {
-	//title.create(new_title);
 	SDL_SetWindowTitle(window, new_title);
 }
 

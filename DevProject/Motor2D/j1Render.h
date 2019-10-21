@@ -49,7 +49,6 @@ public:
 	int GetSideOfScreen(int x);
 	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
 	int Lerp(int a, int b, float t);
-	void DebugPaintCameraTrigger(int trigger);
 	void SnapAxis();
 
 public:
@@ -61,25 +60,15 @@ public:
 	
 	// Variables used in camera control
 	iPoint auxCam;
-
 	int left_trigger_camera; 
 	int right_trigger_camera;
 	int left_trigger_change;
 	int right_trigger_change;
 	int up_trigger;
 	int down_trigger;
-
 	bool snapping_to_right = false;
 	bool snapping_to_left = false;
-	float lerp = 0.07f;//used in our interpolation. Should go to xml.
-
-	enum SNAP_STATE
-	{
-		SNAP_TO_RIGHT,
-		SNAP_TO_LEFT,
-		SNAP_NONE
-	};
-	SNAP_STATE snap_state = SNAP_NONE;
+	float lerp = 0.07f;//default lerp value. All lerps shall default to this value unless specified otherwise
 
 	enum PLAYER_SIDE
 	{
@@ -87,6 +76,17 @@ public:
 		RIGHT,
 		NONE
 	};
+
+	enum SNAP_STATE
+	{
+		SNAP_TO_RIGHT,
+		SNAP_TO_LEFT,
+		SNAP_NONE
+	};
+
+	SNAP_STATE snap_state = SNAP_NONE;
+
+
 };
 
 #endif // __j1RENDER_H__

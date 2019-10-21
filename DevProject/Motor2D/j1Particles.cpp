@@ -25,7 +25,6 @@ j1Particles::~j1Particles()
 bool j1Particles::Start() {
 	graphics = App->tex->Load(PATH(folder.GetString(), "particles.png"));
 	graphics2 = App->tex->Load(PATH(folder.GetString(), "dust.png"));
-
 	return true;
 }
  
@@ -113,7 +112,6 @@ bool j1Particles::Update(float dt)
 
 
 void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type=COLLIDER_NONE, uint sound = 0, uint delay = 0)
-//ADRI: the last 3 arguments are optional, thus have default parameter values. This way we can call this function whithout issue when our particle does not have those parameters associated
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -152,9 +150,6 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
 	
 }
-
-// -------------------------------------------------------------
-// -------------------------------------------------------------
 
 Particle::Particle()
 {

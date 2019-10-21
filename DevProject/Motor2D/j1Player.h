@@ -26,7 +26,6 @@ enum PLAYER_STATES
 	ST_RIGHT_ROCKET_JUMP,
 	ST_UP_ROCKET_JUMP,
 	ST_DOWN_ROCKET_JUMP,
-
 	ST_LEFT_UP_ROCKET_JUMP,
 	ST_LEFT_DOWN_ROCKET_JUMP,
 	ST_RIGHT_UP_ROCKET_JUMP,
@@ -42,7 +41,6 @@ enum PLAYER_INPUTS
 	IN_LEFT_DOWN,
 	IN_RIGHT_DOWN,
 	IN_JUMP_DOWN,
-
 	IN_LEFT_JUMP_DOWN,
 	IN_RIGHT_JUMP_DOWN,	
 
@@ -59,7 +57,6 @@ enum PLAYER_INPUTS
 	IN_RIGHT_ROCKET_JUMP,
 	IN_UP_ROCKET_JUMP,
 	IN_DOWN_ROCKET_JUMP,
-	
 	IN_LEFT_UP_ROCKET_JUMP,
 	IN_LEFT_DOWN_ROCKET_JUMP,
 	IN_RIGHT_UP_ROCKET_JUMP,
@@ -112,7 +109,7 @@ public:
 
 public:
 	int max_colliders_per_frame = 50;
-	Collider *collider = nullptr;  //CHANGE IN XML  
+	Collider *collider = nullptr;  
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
@@ -139,8 +136,8 @@ public:
 	int deadAnimation;
 	int deadTimer;
 	int deadTimerBuffer = 0;
-	int buffer_jump_sign = 2; // we initiate it at an impossible number (sign only accepts +1 / 0 /-1) 
-	int time_spent_jumping = 1;
+	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
+	int time_spent_jumping = 1; //we always start our maps airborne
 	int time_spent_falling = 1;
 
 

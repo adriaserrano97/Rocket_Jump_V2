@@ -68,7 +68,7 @@ bool j1FadeToBlack::PostUpdate() {
 	// Finally render the black square with alpha on the screen
 	int screen_width = +(App->win->width);	//conversion needed since win uses these values as uint and SDL_Rect only works with int
 	int screen_height = +(App->win->height);
-	screen = { 0, 0, screen_width, screen_height }; //ADRI: if we want to scale our window, multiply this by the factor
+	screen = { 0, 0, screen_width, screen_height}; 
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
 
@@ -91,6 +91,7 @@ void j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 
 }
 
+//Fade without messing with modules. Used to "reset" positions in a visually smooth way
 void j1FadeToBlack::FadeToBlack(float time) {
 
 	if (current_step == fade_step::none)

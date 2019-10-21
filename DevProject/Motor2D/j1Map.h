@@ -8,7 +8,6 @@
 #define ARRAY_MAX_COLLIDERS 50
 #define MAX_MAP_COLLIDERS 400  
 
-// TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
 struct Layer {
 	p2SString name;
@@ -21,14 +20,11 @@ struct Layer {
 		return x + y * width;
 	}
 };
-	// TODO 6: Short function to get the value of x,y
-	
-
 
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rect
+	//Tileset information
 	SDL_Rect TileToRect(uint tileid);
 	p2SString			name;
 	int					firstgid;
@@ -37,6 +33,8 @@ struct TileSet
 	int					tile_width;
 	int					tile_height;
 	int					tile_count;
+	
+	//Information about the texture related to tileset
 	SDL_Texture*		texture;
 	int					tex_width;
 	int					tex_height;
@@ -44,16 +42,13 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	//Information about the colliders associated with the tileset
 	SDL_Rect			collisionBoxArray[ARRAY_MAX_COLLIDERS];
 	bool				transpassable[ARRAY_MAX_COLLIDERS];
-	
-	SDL_Rect getrect(int firstgid) {
-
-
-	}
-	
+	SDL_Rect getrect(int firstgid) {}
 };
-
+// ----------------------------------------------------
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -71,8 +66,7 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
-	// TODO 2: Add a list/array of layers to the map!
-	p2List<Layer*> layers;
+	p2List<Layer*>		layers;
 };
 
 // ----------------------------------------------------
@@ -99,21 +93,21 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	// Go from map position to world position
 	iPoint PosConverter(int x, int y);
 private:
 
+	//Information loading related functions
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 
 public:
 
 	MapData data;
-	iPoint playerStart;
+	iPoint playerStart; //defined in each map
 
 private:
 	Collider* col[MAX_MAP_COLLIDERS];

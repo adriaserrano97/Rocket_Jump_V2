@@ -34,7 +34,7 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
-	// All the sfx we use
+	// List of sfx
 	uint jump_sound;
 	uint bomb_sound;
 

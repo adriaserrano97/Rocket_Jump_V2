@@ -11,7 +11,6 @@
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
-
 }
 
 // Destructor
@@ -33,7 +32,7 @@ bool j1Map::Start() {
 
 	for (int i = 0; i < 400; i++)
 	{
-		col[i] = nullptr;
+		col[i] = nullptr; //make sure our collider array is reseted
 	}
 
 	return true;
@@ -41,10 +40,11 @@ bool j1Map::Start() {
 
 void j1Map::Draw()
 {
-	if(map_loaded == false)
+	if (map_loaded == false) {
+		LOG("Tried do draw map, but no map was loaded");
 		return;
+	}
 
-	// TODO 5: Prepare the loop to iterate all the tiles in a layer
 	p2List_item<Layer*>* item_layer = data.layers.start;
 	
 	while (item_layer != NULL)
@@ -69,8 +69,6 @@ void j1Map::Draw()
 			}
 		}
 	}
-	// TODO 9: Complete the draw function
-
 }
 
 
@@ -101,7 +99,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
+
 	// Remove all layers
 	p2List_item<Layer*>* item2;
 	item2 = data.layers.start;
@@ -130,6 +128,7 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
+	//Starting position for our player is contained in each map's information
 	playerStart.x = App->player->position.x = map_file.child("map").attribute("playerInitialX").as_int();
 	playerStart.y = App->player->position.y = map_file.child("map").attribute("playerInitialY").as_int();
 
@@ -154,21 +153,20 @@ bool j1Map::Load(const char* file_name)
 		
 		if(ret == true)
 		{
-			ret = LoadTilesetDetails(tileset, set);
+			ret = LoadTilesetDetails(tileset, set); //tileset general information
 		}
 		if (ret == true)
 		{
-			ret = LoadTilesetCollisions(tileset, set);
+			ret = LoadTilesetCollisions(tileset, set); //collisions related to that tileset, defined in Tiled
 		}
 		if(ret == true)
 		{
-			ret = LoadTilesetImage(tileset, set);
+			ret = LoadTilesetImage(tileset, set); //relate tileset information to source tile image
 		}
 
 		data.tilesets.add(set);
 	}
 	
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layernode;
 	for (layernode = map_file.child("map").child("layer"); layernode && ret; layernode = layernode.next_sibling("layer"))
@@ -182,6 +180,7 @@ bool j1Map::Load(const char* file_name)
 		data.layers.add(set1);
 	}
 
+	//Check if everything went as expected and LOG the results
 
 	if(ret == true)
 	{
@@ -199,9 +198,6 @@ bool j1Map::Load(const char* file_name)
 			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item = item->next;
 		}
-	
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this code with your own variables
 		
 		p2List_item<Layer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
@@ -216,23 +212,21 @@ bool j1Map::Load(const char* file_name)
 
 
 	p2List_item<Layer*>* item_layer = data.layers.start;
-
-	int z = 0;
+	int collider_iterator = 0;
 
 	while (item_layer != NULL)
 	{
-
 		Layer* l = item_layer->data;
-		item_layer = item_layer->next;
-		for (int i = 0; i < l->width; i++)
+		item_layer = item_layer->next; //iterate all layers
+
+		for (int i = 0; i < l->width; i++) //iterate all rows in layer
 		{
-			for (int j = 0; j < l->height; j++)
+			for (int j = 0; j < l->height; j++) //iterate all columns in layer
 			{
 				int tile_id = l->gid[l->Get(i, j)];
 				if (tile_id > 0)
 				{
-					
-					
+
 					iPoint position = PosConverter(i, j);
 					
 					SDL_Rect auxRect;
@@ -241,26 +235,22 @@ bool j1Map::Load(const char* file_name)
 					auxRect.h = data.tilesets.start->data->collisionBoxArray[tile_id].h;
 					auxRect.w = data.tilesets.start->data->collisionBoxArray[tile_id].w;
 
+					//Check if tile has a collider attached. If it does, added to our array of colliders
 					if ((auxRect.h != 0) && (auxRect.w != 0) && !data.tilesets.start->data->transpassable[tile_id]) {
-						col[z] = App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
-						z++;
+						col[collider_iterator] = App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
+						collider_iterator++;
 					}
-
 					else if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->transpassable[tile_id])
 					{
-						col[z] = App->colliders->AddCollider(auxRect, COLLIDER_TRANSPASSABLE_WALL, this);
-						z++;
+						col[collider_iterator] = App->colliders->AddCollider(auxRect, COLLIDER_TRANSPASSABLE_WALL, this);
+						collider_iterator++;
 					}
-
-					
-
 				}
 			}
 		}
 	}
 
 	map_loaded = ret;
-
 	return ret;
 }
 
@@ -373,9 +363,9 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 		int id = tilebox.attribute("id").as_int();
 
 		set->transpassable[id + 1] = tilebox.child("properties").child("property").attribute("value").as_bool(); //only works if tiles have only 1 property
-
 		set->collisionBoxArray[id+1] = this_tile_box;
-		// "+1" is not a magic number: is just adjusting to the fact that array size starts at 0 but tile id starts at 1
+
+		// "+1" is not a magic number: array size starts at 0 but tile id starts at 1
 	}
 	return ret;
 }
@@ -416,7 +406,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
- //TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 {
 	bool ret = true;
@@ -443,8 +432,8 @@ SDL_Rect TileSet::TileToRect(uint tileid)
 	SDL_Rect rect;
 	rect.w = tile_width;
 	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (id % num_tiles_width));	//DANGER margin and spacing may be switched
-	rect.y = margin + ((rect.h + spacing) * (id / num_tiles_width));	//DANGER
+	rect.x = margin + ((rect.w + spacing) * (id % num_tiles_width));	
+	rect.y = margin + ((rect.h + spacing) * (id / num_tiles_width));	
 	return rect;
 }
 

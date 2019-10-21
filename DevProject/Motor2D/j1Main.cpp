@@ -98,7 +98,7 @@ int main(int argc, char* args[])
 
 			// Exit with errors and shame ---------------------------------------
 			case FAIL:
-			LOG("Exiting with errors :(");
+			LOG("Exiting with errors, great shame and extreme sadness :(");
 			result = EXIT_FAILURE;
 			state = EXIT;
 			break;

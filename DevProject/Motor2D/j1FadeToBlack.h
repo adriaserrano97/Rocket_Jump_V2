@@ -3,7 +3,6 @@
 
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
-//class j1Map : public j1Module
 class j1FadeToBlack : public j1Module
 {
 public:
@@ -16,7 +15,6 @@ public:
 	void j1FadeToBlack::FadeToBlack(float time);
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;
-	//keeps track of which scene we're in: 1= first map, 2= second map
 
 private:
 

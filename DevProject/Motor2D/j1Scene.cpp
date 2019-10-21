@@ -33,22 +33,28 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	//Our different maps. We only load the one we're currently using.
 	switch (scene_number) {
+
 	case 1:
 		App->map->Load("first_map_v2.tmx");
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
+
 	case 2:
-		//img = App->tex->Load("textures/SDL_pls.png"); //used for debug purposes
 		App->map->Load("second_map.tmx");
 		App->audio->PlayMusic("audio/music/down_under_flopdisk.wav", 4.0F);
 		break;
+
 	default:
 		scene_number = 1;
-		App->map->Load("first_map_v2.tmx"); //ADRI: we default to map 1. Once we have UI, we will default to the Main Menu
+		App->map->Load("first_map_v2.tmx"); 
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
+
 	}
+
+	//Reset player debugging state
 	App->player->godMode = false;
 
 	return true;

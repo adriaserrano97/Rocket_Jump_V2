@@ -3,13 +3,12 @@
 
 #include "j1Module.h"
 
-//#define NUM_KEYS 352
+
 #define NUM_MOUSE_BUTTONS 5
-//#define LAST_KEYS_PRESSED_BUFFER 50
 
 struct SDL_Rect;
 
-enum j1EventWindow
+enum j1EventWindow //used to control mouse events
 {
 	WE_QUIT = 0,
 	WE_HIDE = 1,
