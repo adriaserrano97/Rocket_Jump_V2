@@ -258,55 +258,55 @@
 	<Animations>
 		<explosion frames="8" name="explosion" life="80">
 			<frame
-				rposX="0" rposY="2" rwidth="132" rheight="139"
+				rposX="38" rposY="27" rwidth="132" rheight="139"
 				time="10"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="165" rposY="4" rwidth="132" rheight="133"
+				rposX="220" rposY="27" rwidth="132" rheight="133"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="330" rposY="0" rwidth="155" rheight="150"
+				rposX="396" rposY="25" rwidth="135" rheight="150"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="2" rposY="146" rwidth="155" rheight="157"
+				rposX="38" rposY="185" rwidth="132" rheight="132"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="177" rposY="160" rwidth="151" rheight="143"
+				rposX="215" rposY="185" rwidth="151" rheight="142"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="340" rposY="160" rwidth="154" rheight="143"
+				rposX="378" rposY="185" rwidth="154" rheight="143"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="2" rposY="315" rwidth="162" rheight="145"
+				rposX="40" rposY="340" rwidth="162" rheight="145"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
-				rposX="175" rposY="315" rwidth="164" rheight="137"
+				rposX="213" rposY="340" rwidth="164" rheight="137"
 				time="10"
 				pivotX="0" pivotY="0"
 				nColliders="0">
@@ -316,43 +316,43 @@
 
 		<dust frames="7" name="dust" life="56">
 			<frame
-				rposX="2" rposY="12" rwidth="22" rheight="3"
+				rposX="395" rposY="356" rwidth="22" rheight="3"
 				time="8"
 				pivotX="11" pivotY="3">
 			</frame>
 
 			<frame
-				rposX="28" rposY="4" rwidth="32" rheight="11"
+				rposX="421" rposY="348" rwidth="32" rheight="11"
 				time="8"
 				pivotX="16" pivotY="11">
 			</frame>
 
 			<frame
-				rposX="63" rposY="1" rwidth="32" rheight="14"
+				rposX="456" rposY="345" rwidth="32" rheight="14"
 				time="8"
 				pivotX="16" pivotY="14">
 			</frame>
 
 			<frame
-				rposX="2" rposY="21" rwidth="32" rheight="15"
+				rposX="395" rposY="365" rwidth="32" rheight="15"
 				time="8"
 				pivotX="16" pivotY="15">
 			</frame>
 
 			<frame
-				rposX="37" rposY="22" rwidth="28" rheight="14"
+				rposX="430" rposY="366" rwidth="28" rheight="14"
 				time="8"
 				pivotX="14" pivotY="14">
 			</frame>
 
 			<frame
-				rposX="71" rposY="22" rwidth="28" rheight="14"
+				rposX="464" rposY="366" rwidth="28" rheight="14"
 				time="8"
 				pivotX="14" pivotY="14">
 			</frame>
 
 			<frame
-				rposX="2" rposY="46" rwidth="32" rheight="14"
+				rposX="395" rposY="390" rwidth="32" rheight="14"
 				time="8"
 				pivotX="16" pivotY="14">
 			</frame>

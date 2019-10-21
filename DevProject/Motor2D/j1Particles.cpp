@@ -23,7 +23,7 @@ j1Particles::~j1Particles()
 
 // Load assets
 bool j1Particles::Start() {
-	graphics = App->tex->Load(PATH(folder.GetString(), "explosions.png"));
+	graphics = App->tex->Load(PATH(folder.GetString(), "particles.png"));
 	graphics2 = App->tex->Load(PATH(folder.GetString(), "dust.png"));
 
 	return true;
@@ -85,15 +85,10 @@ bool j1Particles::Update(float dt)
 		p->Update();
 
 		if (p->collider != nullptr)
-		{
 			p->collider->SetPos(p->position);
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
-		}
+		
 
-		else
-			App->render->Blit(graphics2, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
-		
-		
+		App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox()), p->flip);
 		
 
 		if (p != nullptr && p->life == 0)

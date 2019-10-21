@@ -356,11 +356,8 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 
 	r = frame.frame;
 	
-	
-	if (flip)
-		App->render->Blit(texture, position.x, position.y   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
-	else
-		App->render->Blit(texture, position.x, position.y /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, false);
+	App->render->Blit(texture, position.x, position.y   /*+ jumpHeight*/, &r, NULL, NULL, frame.pivotPosition.x, frame.pivotPosition.y, flip);
+
 }
 
 bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
@@ -387,7 +384,7 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 			left = false;
 
 
-		if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
 			App->input->GetMousePosition(cursorX, cursorY);
 			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x) - (App->particles->explosion.anim.frames->frame.w/2), (cursorY - App->render->camera.y) - (App->particles->explosion.anim.frames->frame.h / 2), 0, 0, COLLIDER_EXPLOSION, 0, 0);
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
