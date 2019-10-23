@@ -147,7 +147,8 @@ void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y,
 
 void j1Particles::OnCollision(Collider* c1, Collider* c2)
 {
-
+	/*c1->to_delete = true;
+	c1 = nullptr;*/
 }
 
 Particle::Particle()
