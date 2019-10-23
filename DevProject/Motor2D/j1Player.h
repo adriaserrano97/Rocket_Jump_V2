@@ -117,6 +117,7 @@ public:
 	void playerJump(PLAYER_STATES state);
 	void playerFall();
 	void Check_if_falling();
+	void PlayerWalk(float factor = 1); //if not told otherwise, does not alter any speed
 
 	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
 	COLLISION_EXPLOSION_DIRECTION checkDirectionExplosion(SDL_Rect player, SDL_Rect collision);
@@ -156,7 +157,7 @@ public:
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
 	int time_spent_jumping = 1; //we always start our maps airborne
 	int time_spent_falling = 1;
-
+	float JumpAdjustMargin;
 
 	bool freeze = false;
 	bool right = false;

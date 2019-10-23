@@ -40,6 +40,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	deadFall = config.child("playerData").attribute("deadFall").as_int(); 
 	explosion_CD = config.child("playerData").attribute("explosion_CD").as_int();
 	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
+	JumpAdjustMargin = config.child("playerData").attribute("JumpAdjustMargin").as_float();
 
 	//set counter time for our explosion CD
 	time_from_last_explosion = explosion_CD;
@@ -163,17 +164,20 @@ bool j1Player::Update(float dt) {
 		case ST_JUMP:
 			current_animation = &jump;
 			playerJump(ST_JUMP);
+			PlayerWalk(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_JUMP:
 			current_animation = &jump;
 			playerJump(ST_RIGHT_JUMP);
+			PlayerWalk(JumpAdjustMargin);
 			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
 			current_animation = &jump;
 			playerJump(ST_LEFT_JUMP);
+			PlayerWalk(JumpAdjustMargin);
 			flip = true;
 			break;
 
@@ -233,21 +237,7 @@ bool j1Player::Update(float dt) {
 
 	if (godMode && !freeze)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			position.y -= speed;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			position.y += speed;
-		}
-		
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			position.x += speed;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			position.x -= speed;
-		}
+		PlayerWalk();
 	}
 
 	//GOD MODE
@@ -1069,6 +1059,24 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		position.y = buffer_y + sgn(position.y)*speedcap;
 	}
 
+}
+
+void j1Player::PlayerWalk( float factor) {
+	if (godMode && App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		position.y -= (int)(speed *factor); 
+	}
+
+	if (godMode && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		position.y += (int)(speed * factor);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		position.x += (int)(speed * factor);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		position.x -= (int)(speed * factor);
+	}
 }
 
 //Check which side did player collide to

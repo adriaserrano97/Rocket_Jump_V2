@@ -354,13 +354,13 @@ void j1Render::AdjustAnchorPoints() {
 	
 	//remember, camera axis are flipped, hence the (-1)*
 
-	left_trigger_camera = (-1)*(int)(camera.x - (App->win->width / 3));	
+	left_trigger_camera = (-1)*(int)(camera.x - (App->win->width / 4));	
 
-	right_trigger_camera = (-1)*(int)(camera.x - (2 * App->win->width / 3)); 
+	right_trigger_camera = (-1)*(int)(camera.x - (3 * App->win->width / 4)); 
 
-	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 6));
+	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 10));
 
-	right_trigger_change = (-1)*(int)(camera.x - (5 * App->win->width / 6));
+	right_trigger_change = (-1)*(int)(camera.x - (9 * App->win->width / 10));
 
 	up_trigger = (-1)*(int)(camera.y - App->win->height / 3);
 
