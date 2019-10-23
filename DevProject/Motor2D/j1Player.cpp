@@ -33,6 +33,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	position.y = config.child("playerData").attribute("initialY").as_int();
 	speed = config.child("playerData").attribute("speed").as_int();
 	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
+	rocketJumpSpeed = config.child("playerData").attribute("rocketJumpSpeed").as_int();
 	speedcap = config.child("playerData").attribute("speedcap").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
 	deadFall = config.child("playerData").attribute("deadFall").as_int(); 
@@ -95,7 +96,6 @@ bool j1Player::CleanUp() {
 	walk = Animation();
 	idle = Animation();
 	jump = Animation();
-	rocketJump = Animation();
 	dead = Animation();
 	current_animation = nullptr;
 
@@ -195,6 +195,26 @@ bool j1Player::Update(float dt) {
 		case ST_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_DOWN_ROCKET_JUMP);
+			break;
+
+		case ST_LEFT_UP_ROCKET_JUMP:
+			current_animation = &idle;
+			playerJump(ST_LEFT_UP_ROCKET_JUMP);
+			break;
+
+		case ST_LEFT_DOWN_ROCKET_JUMP:
+			current_animation = &idle;
+			playerJump(ST_LEFT_DOWN_ROCKET_JUMP);
+			break;
+
+		case ST_RIGHT_UP_ROCKET_JUMP:
+			current_animation = &idle;
+			playerJump(ST_RIGHT_UP_ROCKET_JUMP);
+			break;
+
+		case ST_RIGHT_DOWN_ROCKET_JUMP:
+			current_animation = &idle;
+			playerJump(ST_RIGHT_DOWN_ROCKET_JUMP);
 			break;
 
 		case ST_DEAD:
@@ -336,29 +356,53 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	{
 			
 
-		switch (checkDirection(c1->rect, c2->rect))
+		switch (checkDirectionExplosion(c1->rect, c2->rect))
 		{
-			case DIRECTION_LEFT:
+			case R_DIRECTION_LEFT:
 					
 				inputs.Push(IN_LEFT_ROCKET_JUMP);
 				time_spent_jumping = 0;
 				break;
 
-			case DIRECTION_RIGHT:
+			case R_DIRECTION_RIGHT:
 					
 				inputs.Push(IN_RIGHT_ROCKET_JUMP);
 				time_spent_jumping = 0;
 				break;
 
-			case DIRECTION_UP:
+			case R_DIRECTION_UP:
 					
 				inputs.Push(IN_UP_ROCKET_JUMP);
 				time_spent_jumping = 0;
 				break;
 
-			case DIRECTION_DOWN:
+			case R_DIRECTION_DOWN:
 					
 				inputs.Push(IN_DOWN_ROCKET_JUMP);
+				time_spent_jumping = 0;
+				break;
+
+			case R_DIRECTION_LEFT_UP:
+				
+				inputs.Push(IN_LEFT_UP_ROCKET_JUMP);
+				time_spent_jumping = 0;
+				break;
+
+			case R_DIRECTION_LEFT_DOWN:
+				
+				inputs.Push(IN_LEFT_DOWN_ROCKET_JUMP);
+				time_spent_jumping = 0;
+				break;
+
+			case R_DIRECTION_RIGHT_UP:
+
+				inputs.Push(IN_RIGHT_UP_ROCKET_JUMP);
+				time_spent_jumping = 0;
+				break;
+
+			case R_DIRECTION_RIGHT_DOWN:
+
+				inputs.Push(IN_RIGHT_DOWN_ROCKET_JUMP);
 				time_spent_jumping = 0;
 				break;
 		}
@@ -812,6 +856,9 @@ bool j1Player::Load(pugi::xml_node& data)
 {
 	position.x = data.child("player").attribute("x").as_int();
 	position.y = data.child("player").attribute("y").as_int();
+
+	godMode = false;
+
 	return true;
 }
 
@@ -860,6 +907,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		App->audio->PlayFx(App->audio->jump_sound, 0);
 		App->particles->AddParticle(App->particles->dust, false, position.x, position.y + collider->rect.h, 0, 0, COLLIDER_NONE, 0, 0);
 	}
+
 	switch (state) {
 		//Remember, our reference system states that (0,0) is the upper left corner
 	case ST_JUMP:
@@ -883,19 +931,85 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		break;
 
 	case ST_LEFT_ROCKET_JUMP:
-		time_spent_jumping++;
-		position.x -= speed;
+		
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.x -= rocketJumpSpeed;
+			position.x += time_spent_jumping;
+			time_spent_jumping++;
+		}
 		break;
 
 	case ST_RIGHT_ROCKET_JUMP:
-		time_spent_jumping++;
-		position.x += speed;
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.x += rocketJumpSpeed;
+			position.x -= time_spent_jumping;
+			time_spent_jumping++;
+		}
 		break;
 
 	case ST_UP_ROCKET_JUMP:
-		position.y -= jumpspeed;
+		position.y -= rocketJumpSpeed;
 		position.y += time_spent_jumping;
 		time_spent_jumping++;
+		break;
+
+	case ST_DOWN_ROCKET_JUMP:
+		
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.y += rocketJumpSpeed;
+			position.y -= time_spent_jumping;
+			time_spent_jumping++;
+		}
+		break;
+
+	case ST_LEFT_UP_ROCKET_JUMP:
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.y -= rocketJumpSpeed;
+			position.y += time_spent_jumping;
+			position.x -= rocketJumpSpeed;
+			position.x += time_spent_jumping;
+			time_spent_jumping++;
+		}
+		break;
+
+		break;
+
+	case ST_LEFT_DOWN_ROCKET_JUMP:
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.y += rocketJumpSpeed;
+			position.y -= time_spent_jumping;
+			position.x -= rocketJumpSpeed;
+			position.x += time_spent_jumping;
+			time_spent_jumping++;
+		}
+		break;
+
+	case ST_RIGHT_UP_ROCKET_JUMP:
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.y -= rocketJumpSpeed;
+			position.y += time_spent_jumping;
+			position.x += rocketJumpSpeed;
+			position.x -= time_spent_jumping;
+			time_spent_jumping++;
+		}
+
+		break;
+
+	case ST_RIGHT_DOWN_ROCKET_JUMP:
+		if (rocketJumpSpeed > time_spent_jumping)
+		{
+			position.y += rocketJumpSpeed;
+			position.y -= time_spent_jumping;
+			position.x += rocketJumpSpeed;
+			position.x -= time_spent_jumping;
+			time_spent_jumping++;
+		}
 		break;
 
 	default:
@@ -911,7 +1025,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 }
 
 //Check which side did player collide to
-COLLISION_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
+COLLISION_WALL_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
 
 	int directionDiference[DIRECTION_MAX];
 
@@ -931,5 +1045,67 @@ COLLISION_DIRECTION j1Player::checkDirection(SDL_Rect player, SDL_Rect collision
 	
 	}
 
-	return (COLLISION_DIRECTION)directionCheck;
+	return (COLLISION_WALL_DIRECTION)directionCheck;
+}
+
+
+COLLISION_EXPLOSION_DIRECTION j1Player::checkDirectionExplosion(SDL_Rect player, SDL_Rect collision) {
+
+	COLLISION_EXPLOSION_DIRECTION ret = R_DIRECTION_NONE;
+	if (player.x <= collision.x + (int)(collision.w*0.3))
+	{
+		if (player.y <= collision.y + (int)(collision.h*0.3))
+		{
+			ret = R_DIRECTION_LEFT_UP;
+		}
+
+		if ((player.y < collision.y + (int)(collision.h*0.7)) && (player.y > collision.y + (int)(collision.h*0.3)))
+		{
+			ret = R_DIRECTION_LEFT;
+		}
+
+		if (player.y >= collision.y + (int)(collision.h*0.7))
+		{
+			ret = R_DIRECTION_LEFT_DOWN;
+		}
+
+	}
+
+	if ((player.x < collision.x + (int)(collision.w*0.7)) && (player.x > collision.x + (int)(collision.w*0.3)))
+	{
+		if (player.y <= collision.y + (int)(collision.h*0.3))
+		{
+			ret = R_DIRECTION_UP;
+		}
+
+		if ((player.y < collision.y + (int)(collision.h*0.7)) && (player.y > collision.y + (int)(collision.h*0.3)))
+		{
+			ret = R_DIRECTION_UP;
+		}
+
+		if (player.y >= collision.y + (int)(collision.h*0.7))
+		{
+			ret = R_DIRECTION_DOWN;
+		}
+	}
+
+	if (player.x >= collision.x + (int)(collision.w*0.7))
+	{
+		if (player.y <= collision.y + (int)(collision.h*0.3))
+		{
+			ret = R_DIRECTION_RIGHT_UP;
+		}
+
+		if ((player.y < collision.y + (int)(collision.h*0.7)) && (player.y > collision.y + (int)(collision.h*0.3)))
+		{
+			ret = R_DIRECTION_RIGHT;
+		}
+
+		if (player.y >= collision.y + (int)(collision.h*0.7))
+		{
+			ret = R_DIRECTION_RIGHT_DOWN;
+		}
+	}
+
+	return ret;
 }

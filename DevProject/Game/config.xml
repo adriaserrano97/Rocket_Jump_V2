@@ -34,7 +34,7 @@
 
   <player>
 	<folder>textures/player</folder>
-	<playerData initialX="0" initialY="0" speed="7" jumpspeed="25" gravity="5" speedcap="20" deadFall="2200"></playerData>
+	<playerData initialX="0" initialY="0" speed="7" jumpspeed="25" rocketJumpSpeed="30" gravity="5" speedcap="20" deadFall="2200"></playerData>
 	
 	<bazooka x="0" y="0" w="70" h="18"></bazooka>
 

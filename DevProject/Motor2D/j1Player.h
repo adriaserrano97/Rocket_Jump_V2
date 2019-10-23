@@ -66,7 +66,7 @@ enum PLAYER_INPUTS
 	IN_ALIVE
 };
 
-enum COLLISION_DIRECTION
+enum COLLISION_WALL_DIRECTION
 {
 	DIRECTION_NONE = -1,
 	DIRECTION_UP,
@@ -74,6 +74,20 @@ enum COLLISION_DIRECTION
 	DIRECTION_LEFT,
 	DIRECTION_RIGHT,
 	DIRECTION_MAX
+};
+
+enum COLLISION_EXPLOSION_DIRECTION
+{
+	R_DIRECTION_NONE = -1,
+	R_DIRECTION_UP,
+	R_DIRECTION_DOWN,
+	R_DIRECTION_LEFT,
+	R_DIRECTION_RIGHT,
+	R_DIRECTION_LEFT_UP,
+	R_DIRECTION_LEFT_DOWN,
+	R_DIRECTION_RIGHT_UP,
+	R_DIRECTION_RIGHT_DOWN,
+	R_DIRECTION_MAX
 };
 
 struct SDL_Texture;
@@ -104,7 +118,8 @@ public:
 	void playerFall();
 	void Check_if_falling();
 
-	COLLISION_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
+	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
+	COLLISION_EXPLOSION_DIRECTION checkDirectionExplosion(SDL_Rect player, SDL_Rect collision);
 
 
 public:
@@ -120,7 +135,6 @@ public:
 	Animation walk;
 	Animation idle;
 	Animation jump;
-	Animation rocketJump;
 	Animation dead;
 
 	Animation* current_animation;
@@ -130,6 +144,7 @@ public:
 	iPoint playerBuffer;
 	int speed;
 	int jumpspeed;
+	int rocketJumpSpeed;
 	int speedcap;
 	int grav;
 	int deadFall;
