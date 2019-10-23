@@ -150,6 +150,8 @@ public:
 	int deadFall;
 	int deadAnimation;
 	int deadTimer;
+	int explosion_CD;
+	int time_from_last_explosion;
 	int deadTimerBuffer = 0;
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
 	int time_spent_jumping = 1; //we always start our maps airborne

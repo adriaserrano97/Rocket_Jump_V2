@@ -8,6 +8,7 @@
 #include "p2Qeue.h"
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
+#include "j1Render.h"
 #include "SDL\include\SDL.h"
 
 
@@ -37,7 +38,11 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	speedcap = config.child("playerData").attribute("speedcap").as_int();
 	grav = config.child("playerData").attribute("gravity").as_int();
 	deadFall = config.child("playerData").attribute("deadFall").as_int(); 
+	explosion_CD = config.child("playerData").attribute("explosion_CD").as_int();
 	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
+
+	//set counter time for our explosion CD
+	time_from_last_explosion = explosion_CD;
 
 	//player collider information
 	SDL_Rect rect;
@@ -355,55 +360,58 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_EXPLOSION)
 	{
 			
+		//prevent player from building up speed
+		time_spent_jumping = 0;
+		time_spent_falling = 0;
 
 		switch (checkDirectionExplosion(c1->rect, c2->rect))
 		{
 			case R_DIRECTION_LEFT:
 					
 				inputs.Push(IN_LEFT_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_RIGHT:
 					
 				inputs.Push(IN_RIGHT_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_UP:
 					
 				inputs.Push(IN_UP_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_DOWN:
 					
 				inputs.Push(IN_DOWN_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_LEFT_UP:
 				
 				inputs.Push(IN_LEFT_UP_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_LEFT_DOWN:
 				
 				inputs.Push(IN_LEFT_DOWN_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_RIGHT_UP:
 
 				inputs.Push(IN_RIGHT_UP_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 
 			case R_DIRECTION_RIGHT_DOWN:
 
 				inputs.Push(IN_RIGHT_DOWN_ROCKET_JUMP);
-				time_spent_jumping = 0;
+				
 				break;
 		}
 		
@@ -446,7 +454,8 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 			left = false;
 
 
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) { //ADRI: this only creates one explosion, since the second frame r is key_down it becomes key_repeat
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && time_from_last_explosion==explosion_CD) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
+			time_from_last_explosion = 0;
 			App->input->GetMousePosition(cursorX, cursorY);
 			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x) - (App->particles->explosion.anim.frames->frame.w/2), (cursorY - App->render->camera.y) - (App->particles->explosion.anim.frames->frame.h / 2), 0, 0, COLLIDER_EXPLOSION, 0, 0);
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
@@ -507,6 +516,9 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 			inputs.Push(IN_ALIVE);
 			App->LoadGame(); //go back to last checkpoint	
 		}
+	}
+	if (time_from_last_explosion < explosion_CD) {
+		time_from_last_explosion++;
 	}
 }
 
@@ -937,6 +949,11 @@ void j1Player::playerJump(PLAYER_STATES state) {
 			position.x += time_spent_jumping;
 			time_spent_jumping++;
 		}
+		else
+		{
+			position.x -= speed;
+			playerFall();
+		}
 		break;
 
 	case ST_RIGHT_ROCKET_JUMP:
@@ -946,12 +963,23 @@ void j1Player::playerJump(PLAYER_STATES state) {
 			position.x -= time_spent_jumping;
 			time_spent_jumping++;
 		}
+		else
+		{
+			position.x += speed;
+			playerFall();
+		}
 		break;
 
 	case ST_UP_ROCKET_JUMP:
-		position.y -= rocketJumpSpeed;
-		position.y += time_spent_jumping;
-		time_spent_jumping++;
+		if (rocketJumpSpeed > time_spent_jumping) {
+			position.y -= rocketJumpSpeed;
+			position.y += time_spent_jumping;
+			time_spent_jumping++;
+		}
+	else
+	{
+		playerFall();
+	}
 		break;
 
 	case ST_DOWN_ROCKET_JUMP:
@@ -969,9 +997,15 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		{
 			position.y -= rocketJumpSpeed;
 			position.y += time_spent_jumping;
+
 			position.x -= rocketJumpSpeed;
 			position.x += time_spent_jumping;
 			time_spent_jumping++;
+		}
+		else
+		{
+			position.x -= speed;
+			playerFall();
 		}
 		break;
 
@@ -982,22 +1016,35 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		{
 			position.y += rocketJumpSpeed;
 			position.y -= time_spent_jumping;
+
 			position.x -= rocketJumpSpeed;
 			position.x += time_spent_jumping;
 			time_spent_jumping++;
 		}
+		else
+		{
+			position.x -= speed;
+		}
 		break;
 
+
 	case ST_RIGHT_UP_ROCKET_JUMP:
+
+
 		if (rocketJumpSpeed > time_spent_jumping)
 		{
 			position.y -= rocketJumpSpeed;
 			position.y += time_spent_jumping;
+
 			position.x += rocketJumpSpeed;
 			position.x -= time_spent_jumping;
 			time_spent_jumping++;
 		}
-
+		else
+		{
+			position.x += speed;
+			playerFall();
+		}
 		break;
 
 	case ST_RIGHT_DOWN_ROCKET_JUMP:
@@ -1005,6 +1052,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 		{
 			position.y += rocketJumpSpeed;
 			position.y -= time_spent_jumping;
+
 			position.x += rocketJumpSpeed;
 			position.x -= time_spent_jumping;
 			time_spent_jumping++;
