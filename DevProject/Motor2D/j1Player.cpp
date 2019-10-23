@@ -134,7 +134,7 @@ bool j1Player::Update(float dt) {
 	state = process_fsm(inputs);
 
 	
-	if ((state != current_state) && godMode == false)
+	if ((state != current_state) && !godMode && !freeze)
 	{
 		switch (state)
 		{
@@ -226,7 +226,7 @@ bool j1Player::Update(float dt) {
 	}
 	current_state = state;
 
-	if (godMode)
+	if (godMode && !freeze)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 			position.y -= speed;
@@ -494,6 +494,7 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
+		App->fade->FadeToBlack(3);
 		deadTimerBuffer++;
 	}
 
@@ -854,10 +855,8 @@ PLAYER_STATES j1Player::process_fsm(p2Qeue<PLAYER_INPUTS>& inputs) {
 // Define where does player spawn
 bool j1Player::Load(pugi::xml_node& data)
 {
-	position.x = data.child("player").attribute("x").as_int();
-	position.y = data.child("player").attribute("y").as_int();
-
-	godMode = false;
+	position.x = data.attribute("x").as_int();
+	position.y = data.attribute("y").as_int();
 
 	return true;
 }
@@ -865,9 +864,9 @@ bool j1Player::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node ply = data.append_child("player");
-	ply.append_attribute("x") = position.x;
-	ply.append_attribute("y") = position.y;
+	
+	data.append_attribute("x") = position.x;
+	data.append_attribute("y") = position.y;
 
 	return true;
 }

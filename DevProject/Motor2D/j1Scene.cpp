@@ -54,9 +54,6 @@ bool j1Scene::Start()
 
 	}
 
-	//Reset player debugging state
-	App->player->godMode = false;
-
 	return true;
 }
 
@@ -71,8 +68,9 @@ bool j1Scene::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
-		App->player->godMode = true;
 	}
+		
+	
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
@@ -104,7 +102,7 @@ bool j1Scene::Update(float dt)
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-		
+		App->player->position = App->map->playerStart;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
@@ -112,15 +110,7 @@ bool j1Scene::Update(float dt)
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-		App->player->godMode = true;
-	}
-
-	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
-		scene_number = 2;
-
-		App->map->CleanUp();
-		App->fade->FadeToBlack(this, this, 2);
-		App->player->godMode = true;
+		App->player->position = App->map->playerStart;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F3)) == KEY_DOWN) {
@@ -156,12 +146,15 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::Load(pugi::xml_node& data) {
 	
-	if (scene_number != data.child("scene").attribute("sceneNumber").as_int())
+	if (scene_number != data.attribute("sceneNumber").as_int())
 	{
-		scene_number = data.child("scene").attribute("sceneNumber").as_int();
+		scene_number = data.attribute("sceneNumber").as_int();
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-
+	}
+	else
+	{
+		App->fade->FadeToBlack(2);
 	}
 	
 
@@ -171,7 +164,7 @@ bool j1Scene::Load(pugi::xml_node& data) {
 // Save Game State
 bool j1Scene::Save(pugi::xml_node& data) const {
 
-	data.append_child("scene").append_attribute("sceneNumber") = scene_number;
+	data.append_attribute("sceneNumber") = scene_number;
 
 	return true;
 }

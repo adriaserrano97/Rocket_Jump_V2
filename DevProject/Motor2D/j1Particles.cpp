@@ -23,8 +23,9 @@ j1Particles::~j1Particles()
 
 // Load assets
 bool j1Particles::Start() {
+
 	graphics = App->tex->Load(PATH(folder.GetString(), "particles.png"));
-	graphics2 = App->tex->Load(PATH(folder.GetString(), "dust.png"));
+
 	return true;
 }
  
@@ -46,10 +47,8 @@ bool j1Particles::CleanUp()
 {
 	LOG("Unloading particles");
 	App->tex->UnLoad(graphics);
-	App->tex->UnLoad(graphics2);
 
 	graphics = nullptr;
-	graphics2 = nullptr;
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{

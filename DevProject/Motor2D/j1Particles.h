@@ -48,7 +48,6 @@ private:
 	uint last_particle = 0;
 	p2SString			folder;
 	SDL_Texture* graphics = nullptr;
-	SDL_Texture* graphics2 = nullptr;
 
 public:
 	//list of particles

@@ -5,6 +5,7 @@
 #include "j1Map.h"
 #include "p2Log.h"
 #include "j1Window.h"
+#include "j1Player.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -60,8 +61,11 @@ bool j1FadeToBlack::PostUpdate() {
 	{
 		normalized = 1.0f - normalized;
 
-		if (now >= total_time)
+		if (now >= total_time) {
 			current_step = fade_step::none;
+			App->player->godMode = false;
+			App->player->freeze = false;
+		}
 	} break;
 	}
 	
@@ -86,6 +90,9 @@ void j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		to_disable = module_off;
 		to_enable = module_on;
+
+		App->player->godMode = true;
+		App->player->freeze = true;
 	}
 
 
@@ -102,6 +109,9 @@ void j1FadeToBlack::FadeToBlack(float time) {
 
 		to_disable = nullptr;
 		to_enable = nullptr;
+
+		App->player->godMode = true;
+		App->player->freeze = true;
 	}
 
 

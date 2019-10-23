@@ -129,8 +129,8 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	//Starting position for our player is contained in each map's information
-	playerStart.x = App->player->position.x = map_file.child("map").attribute("playerInitialX").as_int();
-	playerStart.y = App->player->position.y = map_file.child("map").attribute("playerInitialY").as_int();
+	playerStart.x = map_file.child("map").attribute("playerInitialX").as_int();
+	playerStart.y = map_file.child("map").attribute("playerInitialY").as_int();
 
 	if(result == NULL)
 	{
