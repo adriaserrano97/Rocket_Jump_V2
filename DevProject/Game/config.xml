@@ -256,58 +256,58 @@
 	<folder>textures/particles</folder>
 	
 	<Animations>
-		<explosion frames="8" name="explosion" life="80">
+		<explosion frames="8" name="explosion" life="48">
 			<frame
 				rposX="38" rposY="27" rwidth="132" rheight="139"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
 				rposX="220" rposY="27" rwidth="132" rheight="133"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="396" rposY="25" rwidth="135" rheight="150"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="38" rposY="185" rwidth="132" rheight="132"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="215" rposY="185" rwidth="151" rheight="142"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="378" rposY="185" rwidth="154" rheight="143"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="40" rposY="340" rwidth="162" rheight="145"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
 
 			<frame
 				rposX="213" rposY="340" rwidth="164" rheight="137"
-				time="10"
+				time="6"
 				pivotX="0" pivotY="0"
 				nColliders="0">
 			</frame>
