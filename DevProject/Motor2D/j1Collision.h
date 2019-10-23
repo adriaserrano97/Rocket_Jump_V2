@@ -13,6 +13,7 @@ enum COLLIDER_TYPE
 	COLLIDER_TRANSPASSABLE_WALL, //we want untranspassable walls, so we make different colliders
 	COLLIDER_PLAYER,
 	COLLIDER_EXPLOSION,
+	COLLIDER_END_LEVEL,
 	COLLIDER_MAX
 };
 
