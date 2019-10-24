@@ -4,7 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Collision.h"
-#include "j1Player.h"
+#include "j1Scene.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -234,13 +234,18 @@ bool j1Map::Load(const char* file_name)
 					auxRect.w = data.tilesets.start->data->collisionBoxArray[tile_id].w;
 
 					//Check if tile has a collider attached. If it does, added to our array of colliders
-					if ((auxRect.h != 0) && (auxRect.w != 0) && !data.tilesets.start->data->transpassable[tile_id]) {
+					if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->type[tile_id] == 0) {
 						col[collider_iterator] = App->colliders->AddCollider(auxRect, COLLIDER_WALL, this);
 						collider_iterator++;
 					}
-					else if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->transpassable[tile_id])
+					else if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->type[tile_id] == 1)
 					{
 						col[collider_iterator] = App->colliders->AddCollider(auxRect, COLLIDER_TRANSPASSABLE_WALL, this);
+						collider_iterator++;
+					}
+					else if ((auxRect.h != 0) && (auxRect.w != 0) && data.tilesets.start->data->type[tile_id] == 2)
+					{
+						col[collider_iterator] = App->colliders->AddCollider(auxRect, COLLIDER_END_LEVEL, App->scene);
 						collider_iterator++;
 					}
 				}
@@ -360,7 +365,7 @@ bool j1Map::LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set)
 
 		int id = tilebox.attribute("id").as_int();
 
-		set->transpassable[id + 1] = tilebox.child("properties").child("property").attribute("value").as_bool(); //only works if tiles have only 1 property
+		set->type[id + 1] = tilebox.child("properties").child("property").attribute("value").as_int(); //only works if tiles have only 1 property
 		set->collisionBoxArray[id+1] = this_tile_box;
 
 		// "+1" is not a magic number: array size starts at 0 but tile id starts at 1

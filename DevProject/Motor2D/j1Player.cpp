@@ -299,7 +299,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		case DIRECTION_UP:
 			
 			
-			if (!horizontal && ResetJumpCheck(c1->rect, c2->rect))
+			if (!horizontal && ResetJumpCheck(c1->rect, c2->rect) && (state == ST_JUMP || state == ST_LEFT_JUMP || state == ST_RIGHT_JUMP))
 			{
 				position.y = c2->rect.y - c1->rect.h - 1;
 				//If colliding with a platform, stop jumping
@@ -310,6 +310,22 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 					time_spent_falling = 0;
 					inputs.Push(IN_JUMP_FINISH);
 			
+				}
+
+				horizontal = true;
+			}
+
+			if (!horizontal && (state != ST_JUMP && state != ST_LEFT_JUMP && state != ST_RIGHT_JUMP))
+			{
+				position.y = c2->rect.y - c1->rect.h - 1;
+				//If colliding with a platform, stop jumping
+				if (time_spent_jumping > 0 || time_spent_falling > 0) {
+
+
+					time_spent_jumping = 0;
+					time_spent_falling = 0;
+					inputs.Push(IN_JUMP_FINISH);
+
 				}
 
 				horizontal = true;
