@@ -116,6 +116,7 @@ public:
 
 	void playerJump(PLAYER_STATES state);
 	void playerFall();
+	bool ResetJumpCheck(SDL_Rect player, SDL_Rect collision);
 	void Check_if_falling();
 	void PlayerWalk(float factor = 1); //if not told otherwise, does not alter any speed
 
@@ -152,6 +153,7 @@ public:
 	int deadAnimation;
 	int deadTimer;
 	int explosion_CD;
+	int JumpingDelta;
 	int time_from_last_explosion;
 	int deadTimerBuffer = 0;
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
@@ -166,7 +168,7 @@ public:
 	bool flip = false;
 	bool vertical;
 	bool horizontal;
-
+	
 
 	PLAYER_STATES state;
 	p2Qeue<PLAYER_INPUTS> inputs;

@@ -41,6 +41,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	explosion_CD = config.child("playerData").attribute("explosion_CD").as_int();
 	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
 	JumpAdjustMargin = config.child("playerData").attribute("JumpAdjustMargin").as_float();
+	JumpingDelta = 8 ;
 
 	//set counter time for our explosion CD
 	time_from_last_explosion = explosion_CD;
@@ -297,15 +298,19 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			break;
 
 		case DIRECTION_UP:
-			if (!horizontal)
+			
+			
+			if (!horizontal && ResetJumpCheck(c1->rect, c2->rect))
 			{
 				position.y = c2->rect.y - c1->rect.h - 1;
-
 				//If colliding with a platform, stop jumping
 				if (time_spent_jumping > 0 || time_spent_falling > 0) {
+					
+					
 					time_spent_jumping = 0;
 					time_spent_falling = 0;
 					inputs.Push(IN_JUMP_FINISH);
+			
 				}
 
 				horizontal = true;
@@ -966,10 +971,9 @@ void j1Player::playerJump(PLAYER_STATES state) {
 			position.y += time_spent_jumping;
 			time_spent_jumping++;
 		}
-	else
-	{
+		else{
 		playerFall();
-	}
+		}
 		break;
 
 	case ST_DOWN_ROCKET_JUMP:
@@ -1070,13 +1074,46 @@ void j1Player::PlayerWalk( float factor) {
 		position.y += (int)(speed * factor);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+ 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		position.x += (int)(speed * factor);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		position.x -= (int)(speed * factor);
 	}
+}
+
+
+bool j1Player::ResetJumpCheck(SDL_Rect player, SDL_Rect collision) {
+
+	int distance1;
+	int distance2;
+	distance1 = abs((player.x + player.w) - collision.x);
+	distance2 = abs(player.x - (collision.x + collision.w));
+
+	if (player.x < collision.x) { //left side
+
+		if (abs((player.x + player.w) - collision.x) > JumpingDelta) {
+
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+	else if (player.x > collision.x) { //right side
+
+		if (abs(player.x - (collision.x + collision.w)) > JumpingDelta) {
+          
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+	
 }
 
 //Check which side did player collide to
