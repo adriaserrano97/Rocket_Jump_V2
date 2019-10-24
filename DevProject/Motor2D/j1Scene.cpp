@@ -38,6 +38,7 @@ bool j1Scene::Start()
 
 	case 1:
 		App->map->Load("first_map_v2.tmx");
+
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
 		break;
 
@@ -102,7 +103,7 @@ bool j1Scene::Update(float dt)
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-		App->player->position = App->map->playerStart;
+		App->player->position = App->player->startPos;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
@@ -110,13 +111,13 @@ bool j1Scene::Update(float dt)
 		
 		App->map->CleanUp();
 		App->fade->FadeToBlack(this, this, 2);
-		App->player->position = App->map->playerStart;
+		App->player->position = App->player->startPos;
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F3)) == KEY_DOWN) {
 		
 		App->fade->FadeToBlack(2);
-		App->player->position = App->map->playerStart;
+		App->player->position = App->player->startPos;
 		App->render->camera.x = App->render->camera.y = 0;
 	}
 
@@ -152,16 +153,18 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 		{
 			scene_number = 2;
 			App->map->CleanUp();
+			App->player->position = App->player->startPos;
 			App->fade->FadeToBlack(this, this, 2);
-			App->player->position = App->map->playerStart;
+			
 		}
 
 		else if (scene_number == 2)
 		{
 			scene_number = 1;
 			App->map->CleanUp();
+			App->player->position = App->player->startPos;
 			App->fade->FadeToBlack(this, this, 2);
-			App->player->position = App->map->playerStart;
+			
 		}
 	}
 }

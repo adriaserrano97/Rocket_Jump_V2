@@ -107,7 +107,6 @@ private:
 public:
 
 	MapData data;
-	iPoint playerStart; //defined in each map
 
 private:
 	Collider* col[MAX_MAP_COLLIDERS];

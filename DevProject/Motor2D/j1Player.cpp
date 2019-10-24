@@ -30,8 +30,9 @@ bool j1Player::Awake(pugi::xml_node& config) {
 
 
 	//player movement related variables
-	position.x = config.child("playerData").attribute("initialX").as_int();
-	position.y = config.child("playerData").attribute("initialY").as_int();
+	startPos.x = position.x = config.child("playerData").attribute("initialX").as_int();
+	startPos.y = position.y = config.child("playerData").attribute("initialY").as_int();
+	
 	speed = config.child("playerData").attribute("speed").as_int();
 	jumpspeed = config.child("playerData").attribute("jumpspeed").as_int();
 	rocketJumpSpeed = config.child("playerData").attribute("rocketJumpSpeed").as_int();
@@ -513,7 +514,6 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
-		App->fade->FadeToBlack(3);
 		deadTimerBuffer++;
 	}
 

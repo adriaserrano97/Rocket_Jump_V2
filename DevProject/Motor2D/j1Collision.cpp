@@ -171,6 +171,9 @@ void j1Collision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 
+		case COLLIDER_END_LEVEL: //yellow
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
 		}
 	}
 
@@ -180,6 +183,8 @@ void j1Collision::DebugDraw()
 bool j1Collision::CleanUp()
 {
 	LOG("Freeing all colliders");
+
+	RemoveDeletedColliders();
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{

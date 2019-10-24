@@ -6,11 +6,11 @@
 	<audio />
 	<map />
 	<scene sceneNumber="1" />
-	<player x="2969" y="1927" />
+	<player x="10" y="551" />
 	<particles />
 	<colliders />
 	<:anonymous />
 	<renderer>
-		<camera x="-2301" y="-1382" />
+		<camera x="0" y="-75" />
 	</renderer>
 </game_state>

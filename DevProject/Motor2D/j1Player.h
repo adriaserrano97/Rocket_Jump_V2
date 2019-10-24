@@ -173,6 +173,7 @@ public:
 	PLAYER_STATES state;
 	p2Qeue<PLAYER_INPUTS> inputs;
 	iPoint	position;
+	iPoint	startPos;
 	int cursorX, cursorY;
 
 	p2SString	folder;

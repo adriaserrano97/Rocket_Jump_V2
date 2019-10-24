@@ -30,7 +30,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 bool j1Map::Start() {
 
-	for (int i = 0; i < 400; i++)
+	for (int i = 0; i < MAX_MAP_COLLIDERS; i++)
 	{
 		col[i] = nullptr; //make sure our collider array is reseted
 	}
@@ -127,8 +127,7 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	//Starting position for our player is contained in each map's information
-	playerStart.x = map_file.child("map").attribute("playerInitialX").as_int();
-	playerStart.y = map_file.child("map").attribute("playerInitialY").as_int();
+	
 
 	if(result == NULL)
 	{
