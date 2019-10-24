@@ -67,6 +67,7 @@ public:
 	int right_trigger_change;
 	int up_trigger;
 	int down_trigger;
+	int camera_speed = 10;
 	bool snapping_to_right = false;
 	bool snapping_to_left = false;
 	float lerp = 0.07f;//default lerp value. All lerps shall default to this value unless specified otherwise

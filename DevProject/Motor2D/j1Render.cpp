@@ -80,7 +80,7 @@ bool j1Render::PostUpdate()
 {
 	//Make Camera movement
 	AdjustCamera();
-
+	Vertical_Look();
 	//Draw everything
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -339,12 +339,14 @@ void j1Render::AdjustCamera() {
 }
 
 void j1Render::Vertical_Look() {
-	if (App->player->godMode && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		camera.y++;
+	
+	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		camera.y -= 10;
 	}
-
+	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		camera.y += 10;
+	}
 	//TODO
-
 }
 
 //Returns lerp% distance from a to b
