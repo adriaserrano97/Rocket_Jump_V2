@@ -151,16 +151,14 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 		if (scene_number == 1)
 		{
 			scene_number = 2;
-
 			App->map->CleanUp();
 			App->fade->FadeToBlack(this, this, 2);
 			App->player->position = App->map->playerStart;
 		}
 
-		if (scene_number == 2)
+		else if (scene_number == 2)
 		{
 			scene_number = 1;
-
 			App->map->CleanUp();
 			App->fade->FadeToBlack(this, this, 2);
 			App->player->position = App->map->playerStart;
