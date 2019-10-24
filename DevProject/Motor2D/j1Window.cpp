@@ -89,6 +89,9 @@ bool j1Window::CleanUp()
 		SDL_DestroyWindow(window);
 	}
 
+	window = nullptr;
+	screen_surface = nullptr;
+
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
