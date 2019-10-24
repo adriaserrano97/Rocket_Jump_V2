@@ -144,6 +144,30 @@ bool j1Scene::CleanUp()
 	return true;
 }
 
+void j1Scene::OnCollision(Collider* c1, Collider* c2) {
+
+	if (c1->type == COLLIDER_END_LEVEL && c2->type == COLLIDER_PLAYER)
+	{
+		if (scene_number == 1)
+		{
+			scene_number = 2;
+
+			App->map->CleanUp();
+			App->fade->FadeToBlack(this, this, 2);
+			App->player->position = App->map->playerStart;
+		}
+
+		if (scene_number == 2)
+		{
+			scene_number = 1;
+
+			App->map->CleanUp();
+			App->fade->FadeToBlack(this, this, 2);
+			App->player->position = App->map->playerStart;
+		}
+	}
+}
+
 bool j1Scene::Load(pugi::xml_node& data) {
 	
 	if (scene_number != data.attribute("sceneNumber").as_int())
