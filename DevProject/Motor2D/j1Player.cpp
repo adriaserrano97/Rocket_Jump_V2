@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "j1Particles.h"
+#include "j1Map.h"
 #include "j1Audio.h"
 #include "p2Qeue.h"
 #include "p2Log.h"
@@ -127,7 +128,7 @@ bool j1Player::PreUpdate() {
 // Update: draw background
 bool j1Player::Update(float dt) {
 
-	//If no changes apply to player, this is it's default state
+	//If no changes apply to player, this is its default state
 	PLAYER_STATES current_state = ST_UNKNOWN;
 	current_animation = &idle;
 
@@ -246,9 +247,11 @@ bool j1Player::Update(float dt) {
 			godMode = true;
 		else
 			godMode = false;
-	}
+	}	
+	// Set collider
 
-	// Draw everything --------------------------------------	
+	//Check that player is not moving out of map
+	
 
 	collider->SetPos(position.x, position.y);
 	
@@ -257,11 +260,15 @@ bool j1Player::Update(float dt) {
 
 bool j1Player::PostUpdate() {
 
+	//Assign definitive values to pos and collider
+	collider->SetPos(position.x, position.y);
+	Stay_in_map(collider->rect);
+
+
 	//Once our positions are set, draw everything player related
 	App->input->GetMousePosition(cursorX, cursorY);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
 	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x , (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
-	collider->SetPos(position.x, position.y);
 	BlitCharacterAndAddColliders(current_animation, graphics);
 
 	//Once all changes are made, check if player is free falling
@@ -893,7 +900,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-//Player jump functions
+//Player jump/movement functions
 
 void j1Player::Check_if_falling() { 
 	//If player is mid air but did not jump, it means he is falling
@@ -1097,7 +1104,6 @@ void j1Player::PlayerMov( float factor) {
 	}
 }
 
-
 bool j1Player::ResetJumpCheck(SDL_Rect player, SDL_Rect collision) {
 
 	int distance1;
@@ -1128,6 +1134,23 @@ bool j1Player::ResetJumpCheck(SDL_Rect player, SDL_Rect collision) {
 		}
 	}
 	
+}
+
+void j1Player::Stay_in_map(SDL_Rect rect) {
+	
+	if (rect.x < 0) { 
+		position.x = 0;} //adjust left
+	
+	
+	if ((rect.x+rect.w) > (App->map->data.width*App->map->data.tile_width)) { 
+		position.x = (App->map->data.width*App->map->data.tile_width) - rect.w; } //right
+
+	if (rect.y < 0) { 
+		position.y = 0; } //up
+	
+	//if ((rect.y+rect.h) > (App->map->data.height*App->map->data.tile_height)) {
+		//position.y = (App->map->data.height*App->map->data.tile_height) +  rect.h; } //down
+		
 }
 
 //Check which side did player collide to

@@ -252,7 +252,6 @@ bool j1Map::Load(const char* file_name)
 			}
 		}
 	}
-
 	map_loaded = ret;
 	return ret;
 }
