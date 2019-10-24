@@ -50,6 +50,7 @@ public:
 	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
 	int Lerp(int a, int b, float t);
 	void SnapAxis();
+	void Vertical_Look();
 
 public:
 

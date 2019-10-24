@@ -425,7 +425,7 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 	if (!godMode) {
 		//Key UP
 
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 			up = true;
 		}
 		else
@@ -1062,7 +1062,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 }
 
 void j1Player::PlayerWalk( float factor) {
-	if (godMode && App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (godMode && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		position.y -= (int)(speed *factor); 
 	}
 

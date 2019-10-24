@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Player.h"
 #include "j1Map.h"
+#include "j1Input.h"
 #include "j1Render.h"
 
 #define VSYNC true
@@ -337,6 +338,15 @@ void j1Render::AdjustCamera() {
 	camera.y = -auxCam.y;
 }
 
+void j1Render::Vertical_Look() {
+	if (App->player->godMode && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		camera.y++;
+	}
+
+	//TODO
+
+}
+
 //Returns lerp% distance from a to b
 int j1Render::CamLerp(int a, int b) {
 	if (abs(b - a) >= 5)return (int)(lerp * (b - a));
@@ -358,9 +368,9 @@ void j1Render::AdjustAnchorPoints() {
 
 	right_trigger_camera = (-1)*(int)(camera.x - (3 * App->win->width / 4)); 
 
-	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 10));
+	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 12));
 
-	right_trigger_change = (-1)*(int)(camera.x - (9 * App->win->width / 10));
+	right_trigger_change = (-1)*(int)(camera.x - (11 * App->win->width / 12));
 
 	up_trigger = (-1)*(int)(camera.y - App->win->height / 3);
 
