@@ -37,6 +37,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	void OnCollision(Collider* c1, Collider* c2);
 	//Tracker of current scene
 	int scene_number = 0;
 
