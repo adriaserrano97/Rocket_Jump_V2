@@ -61,12 +61,14 @@ bool j1Particles::CleanUp()
 			}
 
 			active[i]->anim = Animation();
+		
 			delete active[i];
 			active[i] = nullptr;
 		}
 	}
 
-	
+	explosion.anim = Animation();
+	dust.anim = Animation();
 	
 	return true;
 }
