@@ -35,6 +35,8 @@ bool j1Render::Awake(pugi::xml_node& config)
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
 	}
+	camera_speed = (config.child("speedcamera").attribute("value").as_int());
+	lerp = (config.child("lerp").attribute("value").as_float());
 
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 
@@ -344,10 +346,10 @@ void j1Render::AdjustCamera() {
 void j1Render::Vertical_Look() {
 	
 	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		camera.y -= 10;
+		camera.y -= camera_speed;
 	}
 	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		camera.y += 10;
+		camera.y += camera_speed;
 	}
 	//TODO
 }

@@ -41,7 +41,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	explosion_CD = config.child("playerData").attribute("explosion_CD").as_int();
 	deadTimer = config.child("Animations").child("dead").attribute("time").as_int();
 	JumpAdjustMargin = config.child("playerData").attribute("JumpAdjustMargin").as_float();
-	JumpingDelta = 8 ;
+	JumpingDelta = config.child("playerData").attribute("JumpingDelta").as_int();
 
 	//set counter time for our explosion CD
 	time_from_last_explosion = explosion_CD;
