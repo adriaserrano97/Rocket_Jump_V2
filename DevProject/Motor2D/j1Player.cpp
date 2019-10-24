@@ -79,7 +79,6 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	return ret;
 }
 
-
 // Load assets
 bool j1Player::Start() {
 	bool ret = true;
@@ -165,20 +164,20 @@ bool j1Player::Update(float dt) {
 		case ST_JUMP:
 			current_animation = &jump;
 			playerJump(ST_JUMP);
-			PlayerWalk(JumpAdjustMargin);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_JUMP:
 			current_animation = &jump;
 			playerJump(ST_RIGHT_JUMP);
-			PlayerWalk(JumpAdjustMargin);
+			PlayerMov(JumpAdjustMargin);
 			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
 			current_animation = &jump;
 			playerJump(ST_LEFT_JUMP);
-			PlayerWalk(JumpAdjustMargin);
+			PlayerMov(JumpAdjustMargin);
 			flip = true;
 			break;
 
@@ -238,7 +237,7 @@ bool j1Player::Update(float dt) {
 
 	if (godMode && !freeze)
 	{
-		PlayerWalk();
+		PlayerMov();
 	}
 
 	//GOD MODE
@@ -878,7 +877,6 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-
 //Player jump functions
 
 void j1Player::Check_if_falling() { 
@@ -1065,7 +1063,7 @@ void j1Player::playerJump(PLAYER_STATES state) {
 
 }
 
-void j1Player::PlayerWalk( float factor) {
+void j1Player::PlayerMov( float factor) {
 	if (godMode && App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		position.y -= (int)(speed *factor); 
 	}

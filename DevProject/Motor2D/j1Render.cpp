@@ -343,7 +343,7 @@ void j1Render::Vertical_Look() {
 		camera.y++;
 	}
 
-	//TODO
+	
 
 }
 
