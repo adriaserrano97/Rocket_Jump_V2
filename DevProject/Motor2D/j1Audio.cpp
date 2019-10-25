@@ -56,7 +56,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	jump_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("jump").as_string()));
 	bomb_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("bomb").as_string()));
 
-	//Credit given to "dklon" for these sound effects
+	
 
 	return ret;
 }
