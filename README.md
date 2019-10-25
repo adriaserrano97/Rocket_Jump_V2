@@ -44,9 +44,11 @@ Currently there is no installation required, just open the .exe provided in the 
 
 
 ## Team roles:
-José Tello: Rocket Jump implementation, state matrix managment, memory managment, player collisions, debug implementation, particles.
-Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions, camera, player fall managment, sound music and sound sfx, player-map navegation.
-DISCLAIMER: Mostly everything was done in cooperation. The statements above reflect who was the one to take responsability for the section, as well as supervision and final implementation.
+José Tello: Rocket Jump implementation, state matrix managment, memory managment, player collisions, debug implementation, particles.<br>
+
+Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions, camera, player fall managment, sound music and sound sfx, player-map navegation.<br>
+
+DISCLAIMER: Mostly everything was done in cooperation. The statements above reflect who was the one to take responsability for the section, as well as supervision and final implementation.<br>
 
 
 ##Worthwhile considerations:
