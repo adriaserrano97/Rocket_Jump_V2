@@ -1,6 +1,10 @@
 # Rocket_Jump_V2
-Platformer game made by 2 year students at CITM, Terrassa, Spain: Adrià Serrano, José Tello.
+## Game can be found on the following repository: https://github.com/adriaserrano97/Rocket_Jump_V2 <br>
 
+Platformer game made by 2 students at CITM, Terrassa, Spain: 
+
+José Luís Redondo Tello: <https://github.com/jose-tello> <br>
+Adriá Serrano López: <https://github.com/adriaserrano97> <br>
 
 
 Worthwhile considerations:
