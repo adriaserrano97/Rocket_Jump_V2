@@ -1151,19 +1151,22 @@ bool j1Player::ResetJumpCheck(SDL_Rect player, SDL_Rect collision) {
 
 void j1Player::Stay_in_map(SDL_Rect rect) {
 	
+	//always adjust with 1 of diference so it the collision detction smoother
+
 	if (rect.x < 0) { 
-		position.x = 0;} //adjust left
+		position.x = 1;} //adjust left
 	
 	
 	if ((rect.x+rect.w) > (App->map->data.width*App->map->data.tile_width)) { 
-		position.x = (App->map->data.width*App->map->data.tile_width) - rect.w; } //right
+		position.x = (App->map->data.width*App->map->data.tile_width) - (rect.w + 1); } //right
 
 	if (rect.y < 0) { 
-		position.y = 0; } //up
+		position.y = 1; } //up
 	
 	//if ((rect.y+rect.h) > (App->map->data.height*App->map->data.tile_height)) {
 		//position.y = (App->map->data.height*App->map->data.tile_height) +  rect.h; } //down
 		
+		//we do not adjust down, since the player fallñing off the map is our death condition 
 }
 
 //Check which side did player collide to
