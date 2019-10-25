@@ -285,7 +285,7 @@ bool j1Player::PostUpdate() {
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL)
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && godMode == false)
 	{
 
 		switch (checkDirection(c1->rect, c2->rect))
@@ -354,7 +354,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 	//Ensure that upon transpassing a transpassable platform, player stops its movement above it
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_TRANSPASSABLE_WALL)
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_TRANSPASSABLE_WALL && godMode == false)
 	{
 		if (position.y > playerBuffer.y)
 		{
@@ -373,7 +373,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 
 	//Define the consequences of beign hit with a rocket explosion
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_EXPLOSION)
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_EXPLOSION && godMode == false)
 	{
 			
 		//prevent player from building up speed
