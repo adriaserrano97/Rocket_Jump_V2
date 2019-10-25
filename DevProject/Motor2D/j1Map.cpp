@@ -73,14 +73,13 @@ void j1Map::Draw()
 // Called before quitting
 bool j1Map::CleanUp()
 {
-	LOG("Unloading map");
+	LOG("Cleaning map");
 	//Clean all map colliders
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (col[i] != nullptr)
 		{
-			col[i]->to_delete = true;
 			col[i] = nullptr;
 		}
 	}
@@ -119,6 +118,51 @@ bool j1Map::CleanUp()
 	return true;
 }
 
+void j1Map::Unload()
+{
+	LOG("Cleaning map");
+	//Clean all map colliders
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (col[i] != nullptr)
+		{
+			col[i]->to_delete = true;
+			col[i] = nullptr;
+		}
+	}
+
+
+
+	// Remove all tilesets
+	p2List_item<TileSet*>* item;
+	item = data.tilesets.start;
+
+	while (item != NULL)
+	{
+		App->tex->UnLoad(item->data->texture);
+		RELEASE(item->data);
+		item = item->next;
+	}
+	data.tilesets.clear();
+
+
+	// Remove all layers
+	p2List_item<Layer*>* item2;
+	item2 = data.layers.start;
+
+	while (item2 != NULL)
+	{
+		delete (item2->data->gid);
+		RELEASE(item2->data);
+		item2 = item2->next;
+	}
+	data.layers.clear();
+
+
+	// Clean up the pugui tree
+	map_file.reset();
+}
 
 // Load new map
 bool j1Map::Load(const char* file_name)

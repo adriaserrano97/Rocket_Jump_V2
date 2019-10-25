@@ -107,10 +107,9 @@ bool j1Player::CleanUp() {
 	dead = Animation();
 	current_animation = nullptr;
 
-	//Unload all colliders
+	//Set all colliders to nullptr
 	if (collider != nullptr)
 	{
-		collider->to_delete = true;
 		collider = nullptr;
 	}
 	

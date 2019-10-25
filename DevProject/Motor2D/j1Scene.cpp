@@ -101,7 +101,8 @@ bool j1Scene::Update(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_F1)) == KEY_DOWN) {
 		scene_number = 1;
 		
-		App->map->CleanUp();
+		
+		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 		App->player->position = App->player->startPos;
 	}
@@ -109,7 +110,8 @@ bool j1Scene::Update(float dt)
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
 		scene_number = 2;
 		
-		App->map->CleanUp();
+		
+		App->map->Unload();;
 		App->fade->FadeToBlack(this, this, 2);
 		App->player->position = App->player->startPos;
 	}
@@ -152,7 +154,8 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 		if (scene_number == 1)
 		{
 			scene_number = 2;
-			App->map->CleanUp();
+			
+			App->map->Unload();
 			App->player->position = App->player->startPos;
 			App->fade->FadeToBlack(this, this, 2);
 			
@@ -161,7 +164,8 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 		else if (scene_number == 2)
 		{
 			scene_number = 1;
-			App->map->CleanUp();
+		
+			App->map->Unload();
 			App->player->position = App->player->startPos;
 			App->fade->FadeToBlack(this, this, 2);
 			
@@ -174,7 +178,8 @@ bool j1Scene::Load(pugi::xml_node& data) {
 	if (scene_number != data.attribute("sceneNumber").as_int())
 	{
 		scene_number = data.attribute("sceneNumber").as_int();
-		App->map->CleanUp();
+		
+		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 	}
 	else

@@ -92,6 +92,7 @@ public:
 
 	// Load new map
 	bool Load(const char* path);
+	void Unload();
 
 	// Go from map position to world position
 	iPoint PosConverter(int x, int y);
