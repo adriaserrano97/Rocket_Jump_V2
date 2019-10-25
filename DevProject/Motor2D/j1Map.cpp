@@ -85,6 +85,8 @@ bool j1Map::CleanUp()
 		}
 	}
 
+
+
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;

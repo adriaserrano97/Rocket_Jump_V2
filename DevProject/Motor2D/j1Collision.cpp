@@ -184,7 +184,6 @@ bool j1Collision::CleanUp()
 {
 	LOG("Freeing all colliders");
 
-	RemoveDeletedColliders();
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{

@@ -128,7 +128,7 @@ public:
 
 public:
 	int max_colliders_per_frame = 50;
-	Collider *collider = nullptr;  
+	Collider* collider = nullptr;  
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
@@ -169,7 +169,6 @@ public:
 	bool up = false;
 	bool flip = false;
 	bool vertical;
-	bool horizontal;
 	
 
 	PLAYER_STATES state;
