@@ -1,6 +1,6 @@
 # Rocket_Jump_V2
 ## Game can be found on the following repository: https://github.com/adriaserrano97/Rocket_Jump_V2 <br>
-Welcome to Rocket Jump, an original platformer game which focus on fast paced scrolling though a level. Combine your jump and your rocket jump to pull off amazing moves!
+Welcome to Rocket Jump, an original platformer game which focus on fast paced scrolling though a level. Combine your jump and your rocket jump to pull off amazing moves! Fly trough the map as quickly as possible and get to the PC at the end of the level: it will take yu to the following one.
 
 
 ## Credits
@@ -32,8 +32,10 @@ Currently there is no installation required, just open the .exe provided in the 
 ### Player Controls: <br>
         W: Look up 
         A: Move right
+		While jumping, slightly adjust jump reach
         S: Look down 
         D: Move left 
+		While jumping, slightly adjust jump reach
 	Left mouse click: Create explosion
 
 
@@ -51,7 +53,7 @@ Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions,
 DISCLAIMER: Mostly everything was done in cooperation. The statements above reflect who was the one to take responsability for the section, as well as supervision and final implementation.<br>
 
 
-##Worthwhile considerations:
+## Worthwhile considerations:
 V2 was created because V1's poor repository managment caused unsolvable issues (gitignore was not implemented currently, causing certain files to corrupt if opened with certain versions of VisualStudio).
 
 
