@@ -194,41 +194,49 @@ bool j1Player::Update(float dt) {
 		case ST_LEFT_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_LEFT_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_RIGHT_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_UP_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_UP_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_DOWN_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_LEFT_UP_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_LEFT_UP_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_LEFT_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_LEFT_DOWN_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_UP_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_RIGHT_UP_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
 			playerJump(ST_RIGHT_DOWN_ROCKET_JUMP);
+			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_DEAD:
@@ -383,50 +391,42 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		{
 			case R_DIRECTION_LEFT:
 					
-				inputs.Push(IN_LEFT_ROCKET_JUMP);
-				
+				inputs.Push(IN_LEFT_ROCKET_JUMP);				
 				break;
 
 			case R_DIRECTION_RIGHT:
 					
-				inputs.Push(IN_RIGHT_ROCKET_JUMP);
-				
+				inputs.Push(IN_RIGHT_ROCKET_JUMP);				
 				break;
 
 			case R_DIRECTION_UP:
 					
-				inputs.Push(IN_UP_ROCKET_JUMP);
-				
+				inputs.Push(IN_UP_ROCKET_JUMP);				
 				break;
 
 			case R_DIRECTION_DOWN:
 					
-				inputs.Push(IN_DOWN_ROCKET_JUMP);
-				
+				inputs.Push(IN_DOWN_ROCKET_JUMP);				
 				break;
 
 			case R_DIRECTION_LEFT_UP:
 				
-				inputs.Push(IN_LEFT_UP_ROCKET_JUMP);
-				
+				inputs.Push(IN_LEFT_UP_ROCKET_JUMP);		
 				break;
 
 			case R_DIRECTION_LEFT_DOWN:
 				
-				inputs.Push(IN_LEFT_DOWN_ROCKET_JUMP);
-				
+				inputs.Push(IN_LEFT_DOWN_ROCKET_JUMP);		
 				break;
 
 			case R_DIRECTION_RIGHT_UP:
 
 				inputs.Push(IN_RIGHT_UP_ROCKET_JUMP);
-				
 				break;
 
 			case R_DIRECTION_RIGHT_DOWN:
 
-				inputs.Push(IN_RIGHT_DOWN_ROCKET_JUMP);
-				
+				inputs.Push(IN_RIGHT_DOWN_ROCKET_JUMP);			
 				break;
 		}
 		
@@ -531,6 +531,7 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 			App->LoadGame(); //go back to last checkpoint	
 		}
 	}
+
 	if (time_from_last_explosion < explosion_CD) {
 		time_from_last_explosion++;
 	}
