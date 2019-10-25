@@ -353,7 +353,22 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			break;
 
 		case DIRECTION_DOWN:
-				position.y = c2->rect.y + c2->rect.h + 1;
+				
+
+				if (ResetJumpCheck(c1->rect, c2->rect) && (state == ST_JUMP || state == ST_LEFT_JUMP || state == ST_RIGHT_JUMP || state == ST_LEFT_ROCKET_JUMP || 
+					state == ST_RIGHT_ROCKET_JUMP || state == ST_UP_ROCKET_JUMP || state == ST_DOWN_ROCKET_JUMP || state == ST_LEFT_UP_ROCKET_JUMP || 
+					state == ST_LEFT_DOWN_ROCKET_JUMP || state == ST_RIGHT_UP_ROCKET_JUMP || state == ST_RIGHT_DOWN_ROCKET_JUMP))
+				{
+					position.y = c2->rect.y + c2->rect.h + 1;
+
+				}
+
+				if ((state != ST_JUMP && state != ST_LEFT_JUMP && state != ST_RIGHT_JUMP && state != ST_LEFT_ROCKET_JUMP &&
+					state != ST_RIGHT_ROCKET_JUMP && state != ST_UP_ROCKET_JUMP && state != ST_DOWN_ROCKET_JUMP && state != ST_LEFT_UP_ROCKET_JUMP &&
+					state != ST_LEFT_DOWN_ROCKET_JUMP && state != ST_RIGHT_UP_ROCKET_JUMP && state != ST_RIGHT_DOWN_ROCKET_JUMP))
+				{
+					position.y = c2->rect.y + c2->rect.h + 1;
+				}
 
 			break;
 		}
