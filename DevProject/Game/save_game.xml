@@ -5,12 +5,12 @@
 	<textures />
 	<audio />
 	<map />
-	<scene sceneNumber="1" />
-	<player x="0" y="225" />
+	<scene sceneNumber="2" />
+	<player x="5936" y="1669" />
 	<particles />
 	<colliders />
 	<:anonymous />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-5426" y="-1324" />
 	</renderer>
 </game_state>
