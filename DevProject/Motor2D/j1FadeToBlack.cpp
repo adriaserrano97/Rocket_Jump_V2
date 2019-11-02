@@ -6,8 +6,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Player.h"
-#include "SDL/include/SDL_render.h"
-#include "SDL/include/SDL_timer.h"
+
 
 j1FadeToBlack::j1FadeToBlack()
 {
