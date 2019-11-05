@@ -30,6 +30,7 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_WALL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_WALL][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = false;
 
 
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_WALL] = false;
@@ -37,13 +38,15 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_END_LEVEL] = false;
-	
+	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_ENEMY] = false;
+
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_TRANSPASSABLE_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_EXPLOSION] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 
 
 	matrix[COLLIDER_EXPLOSION][COLLIDER_WALL] = false;
@@ -51,12 +54,23 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 	matrix[COLLIDER_EXPLOSION][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_EXPLOSION][COLLIDER_ENEMY] = false;
+
 
 	matrix[COLLIDER_END_LEVEL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_TRANSPASSABLE_WALL] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_END_LEVEL][COLLIDER_ENEMY] = false;
+
+
+	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_TRANSPASSABLE_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_EXPLOSION] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 
 	return ret;
 }
@@ -173,6 +187,10 @@ void j1Collision::DebugDraw()
 
 		case COLLIDER_END_LEVEL: //yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
+			break;
+
+		case COLLIDER_ENEMY: // red
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 		}
 	}

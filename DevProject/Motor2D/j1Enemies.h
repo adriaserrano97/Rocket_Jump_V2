@@ -2,7 +2,7 @@
 #define __ModuleEnemies_H__
 
 #include "j1Module.h"
-//#include "Enemy_RedBird.h"
+#include "AlienEnemy.h"
 
 #define MAX_ENEMIES 100
 
@@ -15,7 +15,7 @@
 enum ENEMY_TYPES
 {
 	NO_TYPE,
-	REDBIRD,
+	ALIEN,
 };
 
 class Enemy;
@@ -26,13 +26,14 @@ struct EnemyInfo
 	int x, y;
 };
 
-class ModuleEnemies : public j1Module
+class j1Enemies : public j1Module
 {
 public:
 
-	ModuleEnemies();
-	~ModuleEnemies();
+	j1Enemies();
+	~j1Enemies();
 
+	bool Awake(pugi::xml_node& config);
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
@@ -50,7 +51,8 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
-	//SDL_Texture* sprites;
+	SDL_Texture* sprites;
+	p2SString	folder;
 };
 
 #endif // __ModuleEnemies_H__

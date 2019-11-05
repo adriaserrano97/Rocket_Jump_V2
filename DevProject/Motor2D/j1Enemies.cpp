@@ -7,42 +7,52 @@
 #include "j1Window.h"
 #include "p2Log.h"
 #include "Enemy.h"
-#include "Enemy_RedBird.h"
+
 
 #define SPAWN_MARGIN 50
 
-ModuleEnemies::ModuleEnemies()
+j1Enemies::j1Enemies()
 {
+	name.create("enemy");
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 }
 
 // Destructor
-ModuleEnemies::~ModuleEnemies()
+j1Enemies::~j1Enemies()
 {
 }
 
-bool ModuleEnemies::Start()
-{
+bool j1Enemies::Awake(pugi::xml_node& config) {
+
+	folder.create(config.child("folder").child_value());
 	// Create a prototype for each enemy available so we can copy them around
-	//sprites = App->textures->Load("rtype/enemies.png");
+	
 
 	return true;
 }
 
-bool ModuleEnemies::PreUpdate()
+bool j1Enemies::Start()
+{
+	sprites = App->tex->Load(PATH(folder.GetString(), "AlienSprites.png"));
+
+	return true;
+}
+
+bool j1Enemies::PreUpdate()
 {
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if (queue[i].x * App->win->width < App->render->camera.x + (App->render->camera.w * App->win->scale) + SPAWN_MARGIN)
-			{
+			//if (queue[i].x * App->win->width < App->render->camera.x + (App->render->camera.w * App->win->scale) + SPAWN_MARGIN)
+			//{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
 				LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
-			}
+			//}
 		}
 	}
 
@@ -50,7 +60,7 @@ bool ModuleEnemies::PreUpdate()
 }
 
 // Called before render is available
-bool ModuleEnemies::Update(float dt)
+bool j1Enemies::Update(float dt)
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr) enemies[i]->Move();
@@ -61,10 +71,10 @@ bool ModuleEnemies::Update(float dt)
 	return true;
 }
 
-bool ModuleEnemies::PostUpdate()
+bool j1Enemies::PostUpdate()
 {
 	// check camera position to decide what to spawn
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr)
 		{
@@ -75,13 +85,13 @@ bool ModuleEnemies::PostUpdate()
 				enemies[i] = nullptr;
 			}
 		}
-	}
+	}*/
 
 	return true;
 }
 
 // Called before quitting
-bool ModuleEnemies::CleanUp()
+bool j1Enemies::CleanUp()
 {
 	LOG("Freeing all enemies");
 
@@ -99,7 +109,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
+bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 {
 	bool ret = false;
 
@@ -118,7 +128,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
+void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
@@ -128,14 +138,14 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 	{
 		switch (info.type)
 		{
-		case ENEMY_TYPES::REDBIRD:
-			enemies[i] = new Enemy_RedBird(info.x, info.y);
+		case ENEMY_TYPES::ALIEN:
+			enemies[i] = new Alien_Enemy(info.x, info.y);
 			break;
 		}
 	}
 }
 
-void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
+void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{

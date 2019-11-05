@@ -10,7 +10,7 @@
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
 #include "j1Render.h"
-#include "SDL\include\SDL.h"
+#include "j1Enemies.h"
 
 
 j1Player::j1Player()
@@ -77,7 +77,8 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	cursorRect.w = config.child("cursor").attribute("w").as_int();
 	cursorRect.h = config.child("cursor").attribute("h").as_int();
 
-	
+	App->enemy->AddEnemy(ALIEN, 50, 50);
+
 	return ret;
 }
 

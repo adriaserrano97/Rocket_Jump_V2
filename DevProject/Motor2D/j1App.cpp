@@ -13,6 +13,7 @@
 #include "j1Player.h"
 #include "j1FadeToBlack.h"
 #include "j1App.h"
+#include "j1Enemies.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -31,7 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	particles = new j1Particles();
 	player = new j1Player();
 	fade = new j1FadeToBlack();
-
+	enemy = new j1Enemies();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -41,6 +42,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(enemy);
 	AddModule(particles);
 	AddModule(colliders);
 	AddModule(fade);
