@@ -28,7 +28,8 @@ bool j1Enemies::Awake(pugi::xml_node& config) {
 
 	folder.create(config.child("folder").child_value());
 	// Create a prototype for each enemy available so we can copy them around
-	
+
+	alienAnimation = alienAnimation.PushAnimation(config, "alienFly");
 
 	return true;
 }

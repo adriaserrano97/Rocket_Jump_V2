@@ -77,7 +77,7 @@ bool j1Player::Awake(pugi::xml_node& config) {
 	cursorRect.w = config.child("cursor").attribute("w").as_int();
 	cursorRect.h = config.child("cursor").attribute("h").as_int();
 
-	App->enemy->AddEnemy(ALIEN, 50, 50);
+	
 
 	return ret;
 }
@@ -89,6 +89,8 @@ bool j1Player::Start() {
 	graphics = App->tex->Load(PATH(folder.GetString(), "stickman_spritesheet.png"));
 	bazooka = App->tex->Load(PATH(folder.GetString(), "bazooka.png"));
 	
+	App->enemy->AddEnemy(ALIEN, 50, 50);
+
 	return ret;
 }
 

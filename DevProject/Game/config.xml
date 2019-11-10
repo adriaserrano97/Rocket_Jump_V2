@@ -368,7 +368,7 @@
 	<folder>textures/enemy</folder>
 
 	<Animations>
-		<alien frames="6" name="explosion" life="48">
+		<alien frames="6" name="alienFly" life="48">
 			<frame
 				rposX="0" rposY="0" rwidth="106" rheight="140"
 				time="6"
