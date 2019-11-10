@@ -368,9 +368,39 @@
 	<folder>textures/enemy</folder>
 
 	<Animations>
-		<alien frames="8" name="explosion" life="48">
+		<alien frames="6" name="explosion" life="48">
 			<frame
-				rposX="38" rposY="27" rwidth="132" rheight="139"
+				rposX="0" rposY="0" rwidth="106" rheight="140"
+				time="6"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="123" rposY="0" rwidth="106" rheight="140"
+				time="6"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="246" rposY="0" rwidth="106" rheight="140"
+				time="6"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="0" rposY="152" rwidth="106" rheight="140"
+				time="6"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="123" rposY="152" rwidth="106" rheight="140"
+				time="6"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="246" rposY="152" rwidth="106" rheight="140"
 				time="6"
 				pivotX="0" pivotY="0">
 			</frame>
