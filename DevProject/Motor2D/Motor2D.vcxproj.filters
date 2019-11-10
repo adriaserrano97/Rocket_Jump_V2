@@ -55,6 +55,12 @@
     <ClCompile Include="AlienEnemy.cpp">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleTimer.cpp">
+      <Filter>Desenvolupament  ========\Timers</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfectTimer.cpp">
+      <Filter>Desenvolupament  ========\Timers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -138,6 +144,12 @@
     <ClInclude Include="AlienEnemy.h">
       <Filter>Desenvolupament  ========\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleTimer.h">
+      <Filter>Desenvolupament  ========\Timers</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfectTimer.h">
+      <Filter>Desenvolupament  ========\Timers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -160,6 +172,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Enemies">
       <UniqueIdentifier>{3756719f-27e0-4955-9411-a4c12ad1db24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Timers">
+      <UniqueIdentifier>{d8360410-638f-413b-af30-fd905b8a728e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

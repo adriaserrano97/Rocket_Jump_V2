@@ -14,6 +14,8 @@
 #include "j1FadeToBlack.h"
 #include "j1App.h"
 #include "j1Enemies.h"
+#include "PerfectTimer.h"
+#include "SimpleTimer.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -21,6 +23,18 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	frames = 0;
 	want_to_save = want_to_load = false;
 
+	if (SDL_InitSubSystem(SDL_INIT_TIMER) == 0) {
+
+		LOG("SDL timer subsystem correctly initialized");
+	}
+	else { SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError()); }
+
+
+	//timers
+	perf_time = new PerfectTimer();
+	simple_time = new SimpleTimer();
+
+	//modules
 	input = new j1Input();
 	win = new j1Window();
 	render = new j1Render();

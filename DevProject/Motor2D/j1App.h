@@ -21,6 +21,10 @@ class j1Player;
 class j1FadeToBlack;
 class j1Enemies;
 
+//Timers
+class PerfectTimer;
+class SimpleTimer;
+
 class j1App
 {
 public:
@@ -96,6 +100,9 @@ public:
 	j1FadeToBlack*		fade;
 	j1Enemies*			enemy;
 
+	//timers
+	SimpleTimer* simple_time = NULL;
+	PerfectTimer* perf_time = NULL;
 	
 	uint32_t				frames;
 
