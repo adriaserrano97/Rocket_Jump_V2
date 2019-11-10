@@ -48,12 +48,9 @@ bool j1Enemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			//if (queue[i].x * App->win->width < App->render->camera.x + (App->render->camera.w * App->win->scale) + SPAWN_MARGIN)
-			//{
-				SpawnEnemy(queue[i]);
-				queue[i].type = ENEMY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
-			//}
+			SpawnEnemy(queue[i]);
+			queue[i].type = ENEMY_TYPES::NO_TYPE;
+			LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
 		}
 	}
 
@@ -72,24 +69,6 @@ bool j1Enemies::Update(float dt)
 	return true;
 }
 
-bool j1Enemies::PostUpdate()
-{
-	// check camera position to decide what to spawn
-	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			if (enemies[i]->position.x * App->win->scale < (App->render->camera.x) - SPAWN_MARGIN)
-			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.x * App->win->scale);
-				delete enemies[i];
-				enemies[i] = nullptr;
-			}
-		}
-	}*/
-
-	return true;
-}
 
 // Called before quitting
 bool j1Enemies::CleanUp()

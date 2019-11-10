@@ -8,12 +8,13 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 {
 	//charge the animation
 
-	collider = App->colliders->AddCollider({ x, y, 50, 50 }, COLLIDER_ENEMY, (j1Module*)App->enemy);
-
 	fly = App->enemy->alienAnimation;
 
 	animation = &fly;
 
+	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
+
+	
 }
 
 void Alien_Enemy::Move()

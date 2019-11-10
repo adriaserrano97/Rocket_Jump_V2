@@ -196,7 +196,7 @@
 			</frame>
 		</rocketJump>
 
-		<dead frames="9" name="dead" time="90">
+		<dead frames="9" name="dead">
 			<frame
 				rposX="451" rposY="0" rwidth="24" rheight="49"
 				time="10"
@@ -368,40 +368,58 @@
 	<folder>textures/enemy</folder>
 
 	<Animations>
-		<alien frames="6" name="alienFly" life="48">
+		<alien frames="9" name="alienFly">
 			<frame
-				rposX="0" rposY="0" rwidth="106" rheight="140"
-				time="6"
+				rposX="0" rposY="0" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="123" rposY="0" rwidth="106" rheight="140"
-				time="6"
+				rposX="100" rposY="0" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="246" rposY="0" rwidth="106" rheight="140"
-				time="6"
+				rposX="200" rposY="0" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="0" rposY="152" rwidth="106" rheight="140"
-				time="6"
+				rposX="0" rposY="119" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="123" rposY="152" rwidth="106" rheight="140"
-				time="6"
+				rposX="100" rposY="119" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="246" rposY="152" rwidth="106" rheight="140"
-				time="6"
+				rposX="200" rposY="119" rwidth="85" rheight="111"
+				time="5"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="0" rposY="238" rwidth="85" rheight="111"
+				time="5"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="100" rposY="238" rwidth="85" rheight="111"
+				time="5"
+				pivotX="0" pivotY="0">
+			</frame>
+
+			<frame
+				rposX="200" rposY="238" rwidth="85" rheight="111"
+				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 

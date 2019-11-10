@@ -34,6 +34,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	perf_time = new PerfectTimer();
 	simple_time = new SimpleTimer();
 
+	
+
 	//modules
 	input = new j1Input();
 	win = new j1Window();
@@ -63,6 +65,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	// render last to swap buffer
 	AddModule(render);
+
+	
+
 }
 
 // Destructor
@@ -89,6 +94,8 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
+
+	
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
@@ -122,6 +129,8 @@ bool j1App::Awake()
 	load_game = config.first_child().child("load").attribute("fileName").as_string();
 	save_game = config.first_child().child("load").attribute("fileName").as_string();
 
+
+
 	return ret;
 }
 
@@ -144,6 +153,11 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	/*uint32 start = simple_time->Read();
+	float start2 = perf_time->ReadMs();
+	LOG("Start1: %i", start);
+	LOG("Start2: %f", start2);*/
+
 	bool ret = true;
 	PrepareUpdate();
 
@@ -158,6 +172,11 @@ bool j1App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
+
+	/*uint32 end = simple_time->Read();
+	float end2 = perf_time->ReadMs();
+	LOG("End1: %i", end);
+	LOG("End2: %f", end2);*/
 
 	FinishUpdate();
 	return ret;
