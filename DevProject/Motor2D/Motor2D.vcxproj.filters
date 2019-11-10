@@ -61,6 +61,9 @@
     <ClCompile Include="PerfectTimer.cpp">
       <Filter>Desenvolupament  ========\Timers</Filter>
     </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="PerfectTimer.h">
       <Filter>Desenvolupament  ========\Timers</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

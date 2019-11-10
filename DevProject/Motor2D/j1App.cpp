@@ -16,6 +16,7 @@
 #include "j1Enemies.h"
 #include "PerfectTimer.h"
 #include "SimpleTimer.h"
+#include "j1Pathfinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -47,6 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	fade = new j1FadeToBlack();
 	enemy = new j1Enemies();
+	pathfinding = new j1PathFinding();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
@@ -60,6 +62,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(particles);
 	AddModule(colliders);
 	AddModule(fade);
+	AddModule(pathfinding);
 
 	// render last to swap buffer
 	AddModule(render);
