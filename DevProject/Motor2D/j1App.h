@@ -20,6 +20,7 @@ class j1Particles;
 class j1Player;
 class j1FadeToBlack;
 class j1Enemies;
+class j1PathFinding;
 
 //Timers
 class PerfectTimer;
@@ -99,6 +100,7 @@ public:
 	j1Player*			player;
 	j1FadeToBlack*		fade;
 	j1Enemies*			enemy;
+	j1PathFinding*		pathfinding;
 
 	//timers
 	SimpleTimer* simple_time = NULL;
