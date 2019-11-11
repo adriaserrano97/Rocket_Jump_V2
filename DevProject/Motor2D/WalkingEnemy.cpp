@@ -22,3 +22,15 @@ void Walking_Enemy::Move()
 	position.x;
 	position.y;
 }
+
+
+void Walking_Enemy::OnCollision(Collider* collider) {
+
+	if (collider->type == COLLIDER_EXPLOSION)
+	{
+
+		Destroy();
+
+	}
+
+}

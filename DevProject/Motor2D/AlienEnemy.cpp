@@ -22,3 +22,9 @@ void Alien_Enemy::Move()
 	position.x;
 	position.y;
 }
+
+void Alien_Enemy::OnCollision(Collider* collider) {
+
+
+
+}

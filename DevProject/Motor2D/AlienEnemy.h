@@ -15,6 +15,7 @@ public:
 	Alien_Enemy(int x, int y);
 
 	void Move();
+	void OnCollision(Collider* collider);
 };
 
 #endif // __ALIEN_ENEMY_H__

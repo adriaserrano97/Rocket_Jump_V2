@@ -9,6 +9,16 @@ Enemy::Enemy(int x, int y) : position(x, y)
 
 Enemy::~Enemy()
 {
+	collider = nullptr;
+
+	if (animation != nullptr)
+	{
+		*animation = Animation();
+	}
+}
+
+void Enemy::Destroy() {
+
 	if (collider != nullptr)
 		collider->to_delete = true;
 
@@ -17,6 +27,8 @@ Enemy::~Enemy()
 		*animation = Animation();
 	}
 }
+
+
 
 const Collider* Enemy::GetCollider() const
 {
@@ -32,7 +44,3 @@ void Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &animation->GetCurrentFrameBox());
 }
 
-void Enemy::OnCollision(Collider* collider)
-{
-	
-}
