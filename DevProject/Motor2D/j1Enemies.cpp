@@ -51,6 +51,7 @@ bool j1Enemies::PreUpdate()
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
 			SpawnEnemy(queue[i]);
+			//queue[i].type = ENEMY_TYPES::NO_TYPE;
 			LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
 		}
 	}
