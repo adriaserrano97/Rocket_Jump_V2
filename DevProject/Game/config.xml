@@ -196,7 +196,7 @@
 			</frame>
 		</rocketJump>
 
-		<dead frames="9" name="dead">
+		<dead frames="9" name="dead" time="90">
 			<frame
 				rposX="451" rposY="0" rwidth="24" rheight="49"
 				time="10"
