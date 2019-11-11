@@ -89,7 +89,8 @@ bool j1Player::Start() {
 	graphics = App->tex->Load(PATH(folder.GetString(), "stickman_spritesheet.png"));
 	bazooka = App->tex->Load(PATH(folder.GetString(), "bazooka.png"));
 	
-	App->enemy->AddEnemy(ALIEN, 50, 150);
+	App->enemy->AddEnemy(ALIEN, 150, 150);
+	App->enemy->AddEnemy(WALKING_ALIEN, 250, 150);
 
 	return ret;
 }
