@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "AlienEnemy.h"
+#include "WalkingEnemy.h"
 
 #define MAX_ENEMIES 100
 
@@ -16,6 +17,7 @@ enum ENEMY_TYPES
 {
 	NO_TYPE,
 	ALIEN,
+	WALKING_ALIEN
 };
 
 class Enemy;
@@ -37,13 +39,13 @@ public:
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
-	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y);
 
 	Animation alienAnimation;
+	Animation walkingAlien;
 
 private:
 
@@ -53,7 +55,8 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
-	SDL_Texture* sprites;
+	SDL_Texture* spritesFlyAlien;
+	SDL_Texture* spritesWalkAlien;
 	p2SString	folder;
 };
 

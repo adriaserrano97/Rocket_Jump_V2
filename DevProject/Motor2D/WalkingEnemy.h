@@ -1,21 +1,21 @@
-#ifndef __ALIEN_ENEMY_H__
-#define __ALIEN_ENEMY_H__
+#ifndef __WALKING_ENEMY_H__
+#define __WALKING_ENEMY_H__
 
 #include "Enemy.h"
 
-class Alien_Enemy : public Enemy
+class Walking_Enemy : public Enemy
 {
 private:
-	float wave = -1.0f;
 	bool going_up = true;
-	Animation fly;
+	Animation run;
 
 public:
 
-	Alien_Enemy(int x, int y);
+	Walking_Enemy(int x, int y);
 
 	void Move();
 	void OnCollision(Collider* collider);
 };
 
 #endif // __ALIEN_ENEMY_H__
+

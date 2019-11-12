@@ -30,13 +30,15 @@ bool j1Enemies::Awake(pugi::xml_node& config) {
 	// Create a prototype for each enemy available so we can copy them around
 
 	alienAnimation = alienAnimation.PushAnimation(config, "alienFly");
+	walkingAlien = walkingAlien.PushAnimation(config, "alienRun");
 
 	return true;
 }
 
 bool j1Enemies::Start()
 {
-	sprites = App->tex->Load(PATH(folder.GetString(), "AlienSprites.png"));
+	spritesFlyAlien = App->tex->Load(PATH(folder.GetString(), "AlienSprites.png"));
+	spritesWalkAlien = App->tex->Load(PATH(folder.GetString(), "WalkingEnemySprites.png"));
 
 	return true;
 }
@@ -48,12 +50,9 @@ bool j1Enemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			//if (queue[i].x * App->win->width < App->render->camera.x + (App->render->camera.w * App->win->scale) + SPAWN_MARGIN)
-			//{
-				SpawnEnemy(queue[i]);
-				queue[i].type = ENEMY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
-			//}
+			SpawnEnemy(queue[i]);
+			//queue[i].type = ENEMY_TYPES::NO_TYPE;
+			LOG("Spawning enemy at %d", queue[i].x * App->win->scale);
 		}
 	}
 
@@ -66,37 +65,23 @@ bool j1Enemies::Update(float dt)
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr) enemies[i]->Move();
 
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
+		if (enemies[i] != nullptr && queue[i].type == ALIEN) enemies[i]->Draw(spritesFlyAlien);
+		if (enemies[i] != nullptr && queue[i].type == WALKING_ALIEN) enemies[i]->Draw(spritesWalkAlien);
+
+	}
 	return true;
 }
 
-bool j1Enemies::PostUpdate()
-{
-	// check camera position to decide what to spawn
-	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			if (enemies[i]->position.x * App->win->scale < (App->render->camera.x) - SPAWN_MARGIN)
-			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.x * App->win->scale);
-				delete enemies[i];
-				enemies[i] = nullptr;
-			}
-		}
-	}*/
-
-	return true;
-}
 
 // Called before quitting
 bool j1Enemies::CleanUp()
 {
 	LOG("Freeing all enemies");
 
-	App->tex->UnLoad(sprites);
+	App->tex->UnLoad(spritesFlyAlien);
+	App->tex->UnLoad(spritesWalkAlien);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -106,6 +91,9 @@ bool j1Enemies::CleanUp()
 			enemies[i] = nullptr;
 		}
 	}
+
+	alienAnimation = Animation();
+	walkingAlien = Animation();
 
 	return true;
 }
@@ -142,6 +130,10 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ALIEN:
 			enemies[i] = new Alien_Enemy(info.x, info.y);
 			break;
+
+		case ENEMY_TYPES::WALKING_ALIEN:
+			enemies[i] = new Walking_Enemy(info.x, info.y);
+			break;
 		}
 	}
 }
@@ -153,8 +145,6 @@ void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
-			delete enemies[i];
-			enemies[i] = nullptr;
 			break;
 		}
 	}

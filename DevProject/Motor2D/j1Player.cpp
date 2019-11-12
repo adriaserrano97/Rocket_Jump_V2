@@ -89,7 +89,12 @@ bool j1Player::Start() {
 	graphics = App->tex->Load(PATH(folder.GetString(), "stickman_spritesheet.png"));
 	bazooka = App->tex->Load(PATH(folder.GetString(), "bazooka.png"));
 	
-	App->enemy->AddEnemy(ALIEN, 50, 50);
+	App->enemy->AddEnemy(ALIEN, 150, 150);
+	App->enemy->AddEnemy(WALKING_ALIEN, 250, 150);
+	App->enemy->AddEnemy(WALKING_ALIEN, 280, 150);
+	App->enemy->AddEnemy(WALKING_ALIEN, 300, 150);
+	
+
 
 	return ret;
 }
@@ -449,6 +454,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		}
 		
 
+	}
+
+
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY && godMode == false)
+	{
+		inputs.Push(IN_DEAD);
+		deadTimerBuffer++;
 	}
 }
 
