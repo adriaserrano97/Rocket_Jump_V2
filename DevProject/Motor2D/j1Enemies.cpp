@@ -22,6 +22,7 @@ j1Enemies::j1Enemies()
 // Destructor
 j1Enemies::~j1Enemies()
 {
+
 }
 
 bool j1Enemies::Awake(pugi::xml_node& config) {
@@ -40,11 +41,8 @@ bool j1Enemies::Start()
 	spritesFlyAlien = App->tex->Load(PATH(folder.GetString(), "AlienSprites.png"));
 	spritesWalkAlien = App->tex->Load(PATH(folder.GetString(), "WalkingEnemySprites.png"));
 
-	return true;
-}
 
-bool j1Enemies::PreUpdate()
-{
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -56,6 +54,12 @@ bool j1Enemies::PreUpdate()
 		}
 	}
 
+	return true;
+}
+
+bool j1Enemies::PreUpdate()
+{
+	//Here, we used to spawn all enemies every frame. Let it be remembered.
 	return true;
 }
 
@@ -91,6 +95,21 @@ bool j1Enemies::CleanUp()
 			enemies[i] = nullptr;
 		}
 	}
+
+	//delete enemies;
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
+		{
+			queue[i].type = ENEMY_TYPES::NO_TYPE;
+			queue[i].x = NULL;
+			queue[i].y = NULL;
+		}
+
+	}
+
+	//delete queue;
 
 	alienAnimation = Animation();
 	walkingAlien = Animation();

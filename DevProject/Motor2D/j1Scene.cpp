@@ -76,17 +76,14 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	/*
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
 
 		App->pathfinding->CreatePath(App->player->position, iPoint(0, 0));
 	}
+	*/
 
-
-
-
-	
-	
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
 	}

@@ -5,12 +5,14 @@
 	<textures />
 	<audio />
 	<map />
-	<scene sceneNumber="2" />
-	<player x="5936" y="1669" />
+	<scene sceneNumber="1" />
+	<player x="20" y="551" />
+	<enemy />
 	<particles />
 	<colliders />
 	<:anonymous />
+	<pathfinding />
 	<renderer>
-		<camera x="-5426" y="-1324" />
+		<camera x="0" y="-75" />
 	</renderer>
 </game_state>

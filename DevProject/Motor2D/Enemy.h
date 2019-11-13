@@ -10,11 +10,11 @@ struct Collider;
 class Enemy
 {
 protected:
-	Animation* animation = nullptr;
-	Collider* collider = nullptr;
-
+	//nope
 public:
 	iPoint position;
+	Animation* animation = nullptr;
+	Collider* collider = nullptr;
 
 public:
 	Enemy(int x, int y);
