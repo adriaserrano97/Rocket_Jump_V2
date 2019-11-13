@@ -45,8 +45,7 @@ struct TileSet
 
 	//Information about the colliders associated with the tileset
 	SDL_Rect			collisionBoxArray[ARRAY_MAX_COLLIDERS];
-	int				type[ARRAY_MAX_COLLIDERS];
-	SDL_Rect getrect(int firstgid) {}
+	int					type[ARRAY_MAX_COLLIDERS];
 };
 // ----------------------------------------------------
 enum MapTypes

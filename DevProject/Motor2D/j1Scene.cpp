@@ -55,14 +55,14 @@ bool j1Scene::Start()
 		break;
 
 	}
-	{
+	
 		int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))
 			App->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
-	}
+	
 
 	return true;
 }
@@ -76,17 +76,18 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	/*
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-
-		App->pathfinding->CreatePath(App->player->position, iPoint(0, 0));
+		App->pathfinding->CreatePath(iPoint(0, 4), iPoint(0, 0));
 	}
-
-
-
-
+<<<<<<< HEAD
 	
 	
+=======
+	*/
+
+>>>>>>> 643e66d29ebc15686e09f0678afbfe525eb5e085
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
 	}
