@@ -74,19 +74,17 @@ void j1Map::Draw()
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
+
 	p2List_item<Layer*>* item;
 	item = data.layers.start;
 
+	uchar* map = new uchar[data.width*data.height];
+	memset(map, 0, data.width*data.height);
+
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
-		
-		//data.tilesets.start->data->type
-		Layer* layer = item->data;
-		
-	
 
-		uchar* map = new uchar[layer->width*layer->height];
-		memset(map, 1, layer->width*layer->height);
+		Layer* layer = item->data;
 
 		for (int y = 0; y < data.height; ++y)
 		{
@@ -94,28 +92,26 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 			{
 				int i = (y*layer->width) + x;
 
-				int tile_id = layer->Get(x, y);
+				int tile_id = layer->gid[layer->Get(x, y)];
 				TileSet* tileset = (tile_id > 0) ? GetTilesetFromTileId(tile_id) : NULL;
 
 				if (tileset != NULL)
 				{
-					map[i] = (tile_id - tileset->firstgid) > 0 ? 0 : 1;
-					/*TileType* ts = tileset->GetTileType(tile_id);
-					if(ts != NULL)
+					if (tileset->collisionBoxArray[tile_id].w != 0)
 					{
-						map[i] = ts->properties.Get("walkable", 1);
-					}*/
+						map[i] = 1;
+					}
 				}
 			}
 		}
 
-		*buffer = map;
-		width = data.width;
-		height = data.height;
-		ret = true;
-
-		break;
 	}
+
+
+	*buffer = map;
+	width = data.width;
+	height = data.height;
+	ret = true;
 
 	return ret;
 }

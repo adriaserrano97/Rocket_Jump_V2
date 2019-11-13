@@ -55,14 +55,14 @@ bool j1Scene::Start()
 		break;
 
 	}
-	{
+	
 		int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))
 			App->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
-	}
+	
 
 	return true;
 }
@@ -79,8 +79,7 @@ bool j1Scene::Update(float dt)
 	/*
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
 	{
-
-		App->pathfinding->CreatePath(App->player->position, iPoint(0, 0));
+		App->pathfinding->CreatePath(iPoint(0, 4), iPoint(0, 0));
 	}
 	*/
 
