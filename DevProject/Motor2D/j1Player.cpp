@@ -91,10 +91,9 @@ bool j1Player::Start() {
 	
 	App->enemy->AddEnemy(ALIEN, 150, 150);
 	App->enemy->AddEnemy(WALKING_ALIEN, 250, 150);
-	App->enemy->AddEnemy(WALKING_ALIEN, 280, 150);
-	App->enemy->AddEnemy(WALKING_ALIEN, 300, 150);
+//	App->enemy->AddEnemy(WALKING_ALIEN, 280, 150);
+//	App->enemy->AddEnemy(WALKING_ALIEN, 300, 150);
 	
-
 
 	return ret;
 }

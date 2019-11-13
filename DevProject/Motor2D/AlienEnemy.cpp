@@ -6,7 +6,7 @@
 
 Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 {
-	//charge the animation
+	//load the animation
 
 	fly = App->enemy->alienAnimation;
 
@@ -24,7 +24,6 @@ void Alien_Enemy::Move()
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {
-
-
+	
 
 }

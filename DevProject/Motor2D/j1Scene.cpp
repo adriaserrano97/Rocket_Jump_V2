@@ -81,13 +81,8 @@ bool j1Scene::Update(float dt)
 	{
 		App->pathfinding->CreatePath(iPoint(0, 4), iPoint(0, 0));
 	}
-<<<<<<< HEAD
-	
-	
-=======
 	*/
 
->>>>>>> 643e66d29ebc15686e09f0678afbfe525eb5e085
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
 	}

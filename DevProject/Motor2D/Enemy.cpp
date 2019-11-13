@@ -19,12 +19,13 @@ Enemy::~Enemy()
 
 void Enemy::Destroy() {
 
-	if (collider != nullptr)
+	if (collider != nullptr) {
 		collider->to_delete = true;
+	}
 
 	if (animation != nullptr)
 	{
-		*animation = Animation();
+		*animation = Animation(); 
 	}
 }
 

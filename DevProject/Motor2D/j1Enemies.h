@@ -7,12 +7,6 @@
 
 #define MAX_ENEMIES 100
 
-// TODO 2: Add a new enemy: Brown Cookies!
-
-// TODO 3: Have the Brown Cookies describe a path in the screen
-
-// TODO 4: Create a new enemy type: the Mech
-
 enum ENEMY_TYPES
 {
 	NO_TYPE,
@@ -55,8 +49,10 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
+
 	SDL_Texture* spritesFlyAlien;
 	SDL_Texture* spritesWalkAlien;
+
 	p2SString	folder;
 };
 

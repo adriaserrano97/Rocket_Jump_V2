@@ -6,7 +6,7 @@
 
 Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 {
-	//charge the animation
+	//load the animation
 
 	run = App->enemy->walkingAlien;
 
