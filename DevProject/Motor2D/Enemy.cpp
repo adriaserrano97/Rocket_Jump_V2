@@ -20,6 +20,7 @@ Enemy::~Enemy()
 void Enemy::Destroy() {
 
 	if (collider != nullptr) {
+
 		collider->to_delete = true;
 	}
 

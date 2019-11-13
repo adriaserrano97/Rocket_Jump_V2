@@ -96,7 +96,7 @@ bool j1Enemies::CleanUp()
 		}
 	}
 
-	//delete enemies;
+	//delete enemies; TODO: ask marc about possible delete of those arrays
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
