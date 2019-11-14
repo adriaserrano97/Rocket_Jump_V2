@@ -104,6 +104,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetCollisions(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadEnemies(pugi::xml_node& tileset_node, Layer* set);
 	bool LoadLayer(pugi::xml_node& node, Layer* layer);
 	TileSet* GetTilesetFromTileId(int id) const;
 
