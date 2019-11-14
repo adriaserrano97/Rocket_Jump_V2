@@ -41,6 +41,8 @@ public:
 	//Tracker of current scene
 	int scene_number = 0;
 
+	SDL_Texture* debug_tex = nullptr;
+
 private:
 };
 

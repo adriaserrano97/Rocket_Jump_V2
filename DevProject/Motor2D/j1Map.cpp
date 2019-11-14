@@ -79,7 +79,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	item = data.layers.start;
 
 	uchar* map = new uchar[data.width*data.height];
-	memset(map, 0, data.width*data.height);
+	memset(map, 1, data.width*data.height);
 
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
@@ -99,7 +99,7 @@ bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 				{
 					if (tileset->collisionBoxArray[tile_id].w != 0)
 					{
-						map[i] = 1;
+						map[i] = 0;
 					}
 				}
 			}
@@ -554,6 +554,16 @@ iPoint j1Map :: PosConverter(int x, int y){
 
 	ret.x = x * data.tile_width;
 	ret.y = y * data.tile_height;
+
+	return ret;
+}
+
+iPoint j1Map::WorldToMap(int x, int y) const
+{
+	iPoint ret(0, 0);
+	
+	ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;
 
 	return ret;
 }

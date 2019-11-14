@@ -42,7 +42,10 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
+	
+	iPoint ScreenToWorld(int x, int y) const;
 
+private:
 	//Camera control functions
 	void AdjustCamera();
 	void AdjustAnchorPoints();

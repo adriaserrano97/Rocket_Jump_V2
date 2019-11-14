@@ -8,7 +8,7 @@
 #include "j1Player.h"
 #include "p2Log.h"
 
-#include "SDL/include/SDL_timer.h"
+
 
 j1Particles::j1Particles()
 {

@@ -95,6 +95,7 @@ public:
 
 	// Go from map position to world position
 	iPoint PosConverter(int x, int y);
+	iPoint WorldToMap(int x, int y) const;
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 private:
 

@@ -55,6 +55,8 @@ bool j1Scene::Start()
 		break;
 
 	}
+
+	debug_tex = App->tex->Load("maps/path2.png");
 	
 		int w, h;
 		uchar* data = NULL;
@@ -70,6 +72,30 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
+
+
 	return true;
 }
 
@@ -137,6 +163,18 @@ bool j1Scene::Update(float dt)
 		App->fade->FadeToBlack(2);
 		App->player->position = App->player->startPos;
 		App->render->camera.x = App->render->camera.y = 0;
+	}
+
+
+
+	// Debug pathfinding ------------------------------
+
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->PosConverter(path->At(i)->x, path->At(i)->y);
+		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
 
 
