@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "PerfectTimer.h"
+#include "SimpleTimer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 typedef unsigned int uint;
@@ -22,9 +24,6 @@ class j1FadeToBlack;
 class j1Enemies;
 class j1PathFinding;
 
-//Timers
-class PerfectTimer;
-class SimpleTimer;
 
 class j1App
 {
@@ -113,7 +112,6 @@ public:
 private:
 	
 	p2List<j1Module*>	modules;
-	float				dt;
 	int					argc;
 	char**				args;
 
@@ -125,6 +123,16 @@ private:
 
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	PerfectTimer		ptimer;
+	uint64				frame_count = 0;
+	SimpleTimer			startup_time;
+	SimpleTimer			frame_time;
+	SimpleTimer			last_sec_frame_time;
+	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
+	uint				frameRate = 0;
+	float				dt;
 };
 
 extern j1App* App; 

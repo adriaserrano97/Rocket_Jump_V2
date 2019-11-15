@@ -1,14 +1,14 @@
 <!-- Config file for the game -->
 
 <config>
-  <app>
+  <app framerate_cap="30">
    	<title>Game Development Testbed</title>
    	<organization>UPC</organization>
 	<load fileName="save_game.xml"></load>
   </app>
 	
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
     <lerp value="0.07"/>
     <speedcamera value="12"/>
   </renderer>

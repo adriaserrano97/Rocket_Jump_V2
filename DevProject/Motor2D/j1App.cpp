@@ -14,28 +14,14 @@
 #include "j1FadeToBlack.h"
 #include "j1App.h"
 #include "j1Enemies.h"
-#include "PerfectTimer.h"
-#include "SimpleTimer.h"
 #include "j1Pathfinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
-	frames = 0;
+	PERF_START(ptimer);
+
 	want_to_save = want_to_load = false;
-
-	if (SDL_InitSubSystem(SDL_INIT_TIMER) == 0) {
-
-		LOG("SDL timer subsystem correctly initialized");
-	}
-	else { SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s", SDL_GetError()); }
-
-
-	//timers
-	perf_time = new PerfectTimer();
-	simple_time = new SimpleTimer();
-
-	
 
 	//modules
 	input = new j1Input();
@@ -70,7 +56,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(render);
 
 	
-
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -97,7 +83,7 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
-
+	PERF_START(ptimer);
 	
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
@@ -114,6 +100,8 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+
+		frameRate = app_config.attribute("framerate_cap").as_int();
 	}
 
 	if(ret == true)
@@ -132,7 +120,7 @@ bool j1App::Awake()
 	load_game = config.first_child().child("load").attribute("fileName").as_string();
 	save_game = config.first_child().child("load").attribute("fileName").as_string();
 
-
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -156,10 +144,7 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
-	/*uint32 start = simple_time->Read();
-	float start2 = perf_time->ReadMs();
-	LOG("Start1: %i", start);
-	LOG("Start2: %f", start2);*/
+
 
 	bool ret = true;
 	PrepareUpdate();
@@ -176,10 +161,6 @@ bool j1App::Update()
 	if(ret == true)
 		ret = PostUpdate();
 
-	/*uint32 end = simple_time->Read();
-	float end2 = perf_time->ReadMs();
-	LOG("End1: %i", end);
-	LOG("End2: %f", end2);*/
 
 	FinishUpdate();
 	return ret;
@@ -203,16 +184,64 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	frame_count++;
+	last_sec_frame_count++;
+
+	// TODO 4: Calculate the dt: differential time since last frame
+	/*dt =*/
+
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	if(want_to_save == true)
+	PERF_START(ptimer);
+
+	if (want_to_save == true)
 		SavegameNow();
 
-	if(want_to_load == true)
+	if (want_to_load == true)
 		LoadGameNow();
+
+	// Framerate calculations --
+
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	uint32 last_frame_ms = frame_time.Read();
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	static char title[256];
+	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	App->win->SetTitle(title);
+
+
+	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	int delay;
+	int averageFrame = ((1.0f / frameRate) * 1000);
+	delay = averageFrame - last_frame_ms;
+
+	LOG("Average Frame: %i", averageFrame);
+	LOG("Last_frame_ms: %i", last_frame_ms);
+	LOG("Delay %i", delay);
+
+	if (delay > 0)
+	{
+		SDL_Delay(delay);
+		
+	}
+
+
+	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
+	PERF_PEEK(ptimer);
 
 }
 
