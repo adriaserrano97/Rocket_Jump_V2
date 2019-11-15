@@ -17,10 +17,10 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 	
 }
 
-void Alien_Enemy::Move()
+void Alien_Enemy::Move(iPoint destiny)
 {
-	position.x;
-	position.y;
+	position.x += (position.x - destiny.x)/60;
+	position.y += (position.x - destiny.x)/60;
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {

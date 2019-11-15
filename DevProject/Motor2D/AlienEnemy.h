@@ -14,7 +14,7 @@ public:
 
 	Alien_Enemy(int x, int y);
 
-	void Move();
+	void Move(iPoint destiny);
 	void OnCollision(Collider* collider);
 };
 

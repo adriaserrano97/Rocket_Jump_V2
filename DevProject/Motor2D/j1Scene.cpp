@@ -102,12 +102,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	/*
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-	{
-		App->pathfinding->CreatePath(iPoint(0, 4), iPoint(0, 0));
-	}
-	*/
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->LoadGame();
@@ -168,7 +162,7 @@ bool j1Scene::Update(float dt)
 
 
 	// Debug pathfinding ------------------------------
-
+	
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
 	for (uint i = 0; i < path->Count(); ++i)
@@ -176,7 +170,7 @@ bool j1Scene::Update(float dt)
 		iPoint pos = App->map->PosConverter(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
-
+	
 
 	return true;
 }
