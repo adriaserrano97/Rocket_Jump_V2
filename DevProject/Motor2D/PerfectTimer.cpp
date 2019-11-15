@@ -13,26 +13,28 @@ PerfectTimer::PerfectTimer()
 {
 	// TODO 2: Fill Constructor, Start(),ReadMs() and ReadTicks() methods
 	// they are simple, one line each!
+	if (frequency == 0)
+		frequency = SDL_GetPerformanceFrequency();
+
 	Start();
 }
 
 // ---------------------------------------------
 void PerfectTimer::Start()
 {
-	frequency = SDL_GetPerformanceFrequency();
 	started_at = SDL_GetPerformanceCounter();
 }
 
 // ---------------------------------------------
 double PerfectTimer::ReadMs() const
 {
-	return ((((SDL_GetPerformanceCounter() - started_at)) / (float)frequency) * 1000);
+	return 1000.0 * (double(SDL_GetPerformanceCounter() - started_at) / double(frequency));
 }
 
 // ---------------------------------------------
 uint64 PerfectTimer::ReadTicks() const
 {
-	return (SDL_GetPerformanceCounter() - started_at);
+	return SDL_GetPerformanceCounter() - started_at;
 }
 
 

@@ -132,12 +132,6 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count());
-
-	App->win->SetTitle(title.GetString());
 
 	//Change scene logic
 	if ((App->input->GetKey(SDL_SCANCODE_F1)) == KEY_DOWN) {

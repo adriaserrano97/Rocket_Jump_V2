@@ -22,11 +22,11 @@ void SimpleTimer::Start()
 // ---------------------------------------------
 uint32 SimpleTimer::Read() const
 {
-	return ((SDL_GetTicks() - started_at));
+	return SDL_GetTicks() - started_at;
 }
 
 // ---------------------------------------------
 float SimpleTimer::ReadSec() const
 {
-	return  ((SDL_GetTicks() - started_at) * 1000);
+	return float(SDL_GetTicks() - started_at) / 1000.0f;
 }
