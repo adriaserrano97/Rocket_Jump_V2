@@ -42,8 +42,10 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
-	
 	iPoint ScreenToWorld(int x, int y) const;
+
+	//General lerp function
+	int Lerp(int a, int b);
 
 private:
 	//Camera control functions
@@ -51,7 +53,7 @@ private:
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
 	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
-	int Lerp(int a, int b, float t);
+
 	void SnapAxis();
 	void Vertical_Look();
 

@@ -78,12 +78,7 @@ bool j1Enemies::Update(float dt)
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr) enemies[i]->Move();
 	*/ 
-	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-
-		if (enemies[i] != nullptr && queue[i].type == ALIEN) enemies[i]->Draw(spritesFlyAlien);
-		if (enemies[i] != nullptr && queue[i].type == WALKING_ALIEN) enemies[i]->Draw(spritesWalkAlien);
-
-	}
+	
 	
 	//check if any enemy has detected the player. If so, pathfind to it.
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
@@ -91,15 +86,18 @@ bool j1Enemies::Update(float dt)
 		if (enemies[i] != nullptr) {
 		
 			if (enemies[i]->position.DistanceTo(App->player->position) < aggro_range && queue[i].in_path == false) {
-			
+				//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
+
+
 				//Prepare our inputs to create Path
 				iPoint o = App->map->WorldToMap(enemies[i]->position.x, enemies[i]->position.y);
 				iPoint d = App->map->WorldToMap(App->player->position.x, App->player->position.y);
 				
 				//We dont want our enemies creating one path a frame
-				App->pathfinding->CreatePath(o,d);
-				queue[i].path = App->pathfinding->GetLastPath();
-				//PROBLEM: this has to be const
+				App->pathfinding->CreatePath(o, d);
+
+				queue[i].path = &App->pathfinding->last_path;
+				queue[i].path->Flip(); //this ensures that Pop() pops starting from the enemy, thus enabling pathfinding
 				queue[i].in_path = true;
 			}
 		}
@@ -109,10 +107,12 @@ bool j1Enemies::Update(float dt)
 	
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
-		if (enemies[i] != nullptr && queue[i].in_path == true) {
+		if (enemies[i] != nullptr && queue[i].in_path == true && queue[i].path->Count()!=0) {
 			
 			//make them follow their path
-			iPoint destiny = App->map->PosConverter(queue[i].path->At(0)->x, queue[i].path->At(0)->y);
+			
+			int tilenum = (queue[i].path->Count() -1); // -1 because this returns count, we want to access to array position
+			iPoint destiny = App->map->PosConverter(queue[i].path->At(tilenum)->x, queue[i].path->At(tilenum)->y);
 
 			enemies[i]->Move(destiny); 
 
@@ -120,11 +120,10 @@ bool j1Enemies::Update(float dt)
 
 			//if they reached a tile on their path, pop it from their current path
 
-			if (enemies[i]->position.DistanceTo(destiny) <= delta_move) {
+			if (enemies[i]->position.DistanceTo(destiny) <= delta_move || enemies[i]->position.DistanceTo(destiny) <= delta_move + enemies[i]->collider->rect.w) {
 
-				//queue[i].path->Pop(last_tile);
-				//PROBLEM: this cant be const
-			
+				queue[i].path->Pop(last_tile);
+				
 			}
 		}
 	}
@@ -139,7 +138,15 @@ bool j1Enemies::Update(float dt)
 		iPoint pos = App->map->PosConverter(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
 	}
-	
+
+
+	//Draw those bad boys
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
+		if (enemies[i] != nullptr && queue[i].type == ALIEN) enemies[i]->Draw(spritesFlyAlien);
+		if (enemies[i] != nullptr && queue[i].type == WALKING_ALIEN) enemies[i]->Draw(spritesWalkAlien);
+
+	}
 	
 	
 	return true;

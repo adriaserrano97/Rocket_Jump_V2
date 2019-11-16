@@ -366,7 +366,7 @@
 
   <enemy>
 	<folder>textures/enemy</folder>
-	<values aggro_range="500" delta_move="10"></values>
+	<values aggro_range="600" delta_move="1"></values>
 	<Animations>
 		<alien frames="9" name="alienFly">
 			<frame

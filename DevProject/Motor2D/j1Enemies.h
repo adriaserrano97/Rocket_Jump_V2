@@ -5,6 +5,7 @@
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
 #include "p2DynArray.h"
+#include "j1Render.h" //we need access to lerp values and functions
 
 #define MAX_ENEMIES 100
 
@@ -22,7 +23,8 @@ struct EnemyInfo
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	int x, y;
 	bool in_path = false;
-	const p2DynArray<iPoint>* path = nullptr;
+	p2DynArray<iPoint>* path = nullptr;
+	
 };
 
 class j1Enemies : public j1Module

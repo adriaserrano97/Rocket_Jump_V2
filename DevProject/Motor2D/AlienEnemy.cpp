@@ -19,8 +19,9 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 
 void Alien_Enemy::Move(iPoint destiny)
 {
-	position.x += (position.x - destiny.x)/60;
-	position.y += (position.x - destiny.x)/60;
+	position.x = App->render->Lerp(position.x, destiny.x);
+	position.y = App->render->Lerp(position.y, destiny.y);
+
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {

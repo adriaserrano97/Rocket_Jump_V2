@@ -362,7 +362,7 @@ int j1Render::CamLerp(int a, int b) {
 }
 
 //General Lerp function
-int j1Render::Lerp(int a, int b, float t){
+int j1Render::Lerp(int a, int b){
 		return (int)(a + lerp * (b - a));
 }
 
