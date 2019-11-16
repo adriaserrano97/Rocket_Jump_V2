@@ -143,8 +143,8 @@ bool j1Enemies::Update(float dt)
 	//Draw those bad boys
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
-		if (enemies[i] != nullptr && queue[i].type == ALIEN) enemies[i]->Draw(spritesFlyAlien);
-		if (enemies[i] != nullptr && queue[i].type == WALKING_ALIEN) enemies[i]->Draw(spritesWalkAlien);
+		if (enemies[i] != nullptr && queue[i].type == ALIEN) enemies[i]->Draw(spritesFlyAlien, dt);
+		if (enemies[i] != nullptr && queue[i].type == WALKING_ALIEN) enemies[i]->Draw(spritesWalkAlien, dt);
 
 	}
 	
