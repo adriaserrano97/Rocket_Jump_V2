@@ -24,7 +24,7 @@ public:
 	void Destroy();
 
 	virtual void Move(iPoint pos) {};
-	virtual void Draw(SDL_Texture* sprites);
+	virtual void Draw(SDL_Texture* sprites, float dt);
 	virtual void OnCollision(Collider* collider) {};
 };
 
