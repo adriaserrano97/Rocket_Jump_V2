@@ -10,7 +10,7 @@ enum COLLIDER_TYPE;
 class Frame
 {
 public:
-	int maxFrames;
+	float maxFrames;
 	SDL_Rect frame;
 	p2Point <int> pivotPosition;
 

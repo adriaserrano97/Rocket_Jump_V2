@@ -177,6 +177,8 @@ public:
 	iPoint	startPos;
 	int cursorX, cursorY;
 
+	float dtAnimation = 0.f;
+
 	p2SString	folder;
 };
 
