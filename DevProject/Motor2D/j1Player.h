@@ -114,8 +114,8 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	void playerJump(PLAYER_STATES state);
-	void playerFall();
+	void playerJump(PLAYER_STATES state, float dt);
+	void playerFall(float dt);
 	bool ResetJumpCheck(SDL_Rect player, SDL_Rect collision);
 	void Check_if_falling();
 	
