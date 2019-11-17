@@ -91,7 +91,7 @@ bool j1Particles::Update(float dt)
 		App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrameBox(dt)), p->flip);
 		
 
-		if (p != nullptr && p->life * dt * TIME_CONST <= 0)
+		if (p != nullptr && p->life * dt <= 0)
 		{
 			if (p->collider != nullptr)
 			{
@@ -104,8 +104,8 @@ bool j1Particles::Update(float dt)
 			active[i] = nullptr;
 		}
 
-		if (p->life * dt * TIME_CONST > 0) {
-			p->life -= dt * TIME_CONST;
+		if (p->life * dt > 0) {
+			p->life -= dt ;
 		}
 	}
 	return true;

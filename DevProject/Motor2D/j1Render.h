@@ -45,17 +45,17 @@ public:
 	iPoint ScreenToWorld(int x, int y) const;
 
 	//General lerp function
-	int Lerp(int a, int b);
+	int Lerp(int a, int b, float dt);
 
 private:
 	//Camera control functions
-	void AdjustCamera();
+	void AdjustCamera(float dt);
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
-	int CamLerp(int a, int b); //adjusted to work with our camera, with our prefered default value
+	int CamLerp(int a, int b, float dt = 1.f); //adjusted to work with our camera, with our prefered default value
 
-	void SnapAxis();
-	void Vertical_Look();
+	void SnapAxis(float dt);
+	void Vertical_Look(float dt);
 
 public:
 

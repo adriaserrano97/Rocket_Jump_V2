@@ -142,8 +142,8 @@ bool j1Player::Update(float dt) {
 	SDL_Texture *texture = graphics;
 	
 	//check inputs to traverse state matrix
-	external_input(inputs, dt * TIME_CONST);
-	internal_input(inputs, dt * TIME_CONST);
+	external_input(inputs, dt);
+	internal_input(inputs, dt);
 	state = process_fsm(inputs);
 
 	
@@ -158,86 +158,86 @@ bool j1Player::Update(float dt) {
 
 		case ST_WALKING_LEFT:
 			current_animation = &walk;
-			position.x -= speed * dt * TIME_CONST;
+			position.x -= speed * dt;
 			flip = true;
 			break;
 
 		case ST_WALKING_RIGHT:
 			current_animation = &walk;
-			position.x += speed * dt * TIME_CONST;
+			position.x += speed * dt;
 			flip = false;
 			break;
 
 		case ST_JUMP:
 			current_animation = &jump;
-			playerJump(ST_JUMP, dt * TIME_CONST);
+			playerJump(ST_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_JUMP:
 			current_animation = &jump;
-			playerJump(ST_RIGHT_JUMP, dt * TIME_CONST);
+			playerJump(ST_RIGHT_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			flip = false;
 			break;
 
 		case ST_LEFT_JUMP:
 			current_animation = &jump;
-			playerJump(ST_LEFT_JUMP, dt * TIME_CONST);
+			playerJump(ST_LEFT_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			flip = true;
 			break;
 
 		case ST_FALLING:
 			current_animation = &jump;
-			playerFall(dt * TIME_CONST);
+			playerFall(dt);
 			break;
 
 		case ST_LEFT_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_LEFT_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_LEFT_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_RIGHT_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_RIGHT_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_UP_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_UP_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_UP_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_DOWN_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_DOWN_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_LEFT_UP_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_LEFT_UP_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_LEFT_UP_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_LEFT_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_LEFT_DOWN_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_LEFT_DOWN_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_UP_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_RIGHT_UP_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_RIGHT_UP_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
 		case ST_RIGHT_DOWN_ROCKET_JUMP:
 			current_animation = &idle;
-			playerJump(ST_RIGHT_DOWN_ROCKET_JUMP, dt * TIME_CONST);
+			playerJump(ST_RIGHT_DOWN_ROCKET_JUMP, dt);
 			PlayerMov(JumpAdjustMargin);
 			break;
 
@@ -246,7 +246,7 @@ bool j1Player::Update(float dt) {
 			break;
 		
 		}
-		position.y += grav * dt * TIME_CONST;
+		position.y += grav * dt;
 	}
 	current_state = state;
 

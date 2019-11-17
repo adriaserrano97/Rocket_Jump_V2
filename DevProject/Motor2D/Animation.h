@@ -64,8 +64,8 @@ public:
 
 	Frame& GetCurrentFrame(float dt)
 	{
-		if (frames_passed * dt * TIME_CONST < frames[current_frame].maxFrames * dt * TIME_CONST) {
-			frames_passed += dt * TIME_CONST;
+		if (frames_passed * dt < frames[current_frame].maxFrames * dt) {
+			frames_passed += dt;
 		}
 		else {
 			frames_passed = 0;

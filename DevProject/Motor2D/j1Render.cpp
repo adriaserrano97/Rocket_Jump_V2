@@ -75,14 +75,16 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+	//Make Camera movement
+	AdjustCamera(dt);
+	Vertical_Look(dt);
+
 	return true;
 }
 
 bool j1Render::PostUpdate()
 {
-	//Make Camera movement
-	AdjustCamera();
-	Vertical_Look();
+	
 	//Draw everything
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -270,7 +272,7 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 }
 
 // Camera control functions
-void j1Render::AdjustCamera() {
+void j1Render::AdjustCamera(float dt) {
 
 	auxCam.x = -camera.x; //camera has axis flipped in relation to player position
 	auxCam.y = -camera.y;
@@ -279,13 +281,13 @@ void j1Render::AdjustCamera() {
 	//Change X
 	//---------------------------------
 
-	if (snap_state != SNAP_NONE) { SnapAxis(); }
+	if (snap_state != SNAP_NONE) { SnapAxis(dt); }
 	switch (GetSideOfScreen(App->player->position.x)) { //where is the player?
 
 	case LEFT://player on left side
 		//going right
 		if (App->player->position.x > left_trigger_camera) {
-			auxCam.x += abs(CamLerp(App->player->position.x, left_trigger_camera));
+			auxCam.x += abs(CamLerp(App->player->position.x, left_trigger_camera, dt))  ;
 		} //follow player
 
 		//going left enough
@@ -297,7 +299,7 @@ void j1Render::AdjustCamera() {
 	case RIGHT://player on right side
 		//going left
 		if (App->player->position.x < right_trigger_camera) {
-			auxCam.x -= abs(CamLerp(right_trigger_camera, App->player->position.x));
+			auxCam.x -= abs(CamLerp(right_trigger_camera, App->player->position.x, dt)) ;
 		}//follow player
 
 		//going right enough
@@ -322,11 +324,11 @@ void j1Render::AdjustCamera() {
 
 	//adjust up
 	if (App->player->position.y < up_trigger) { //high enough
-		auxCam.y -= abs(CamLerp(App->player->position.y, up_trigger));//adjust down
+		auxCam.y -= abs(CamLerp(App->player->position.y, up_trigger, dt));//adjust down
 	} 
 	
 	if ((App->player->position.y + App->player->collider->rect.h) > down_trigger) {//low enough
-		auxCam.y += abs(CamLerp(App->player->position.y + App->player->collider->rect.h, down_trigger));//adjust high
+		auxCam.y += abs(CamLerp(App->player->position.y + App->player->collider->rect.h, down_trigger, dt));//adjust high
 	} 
 
 	//respect margins	
@@ -343,7 +345,7 @@ void j1Render::AdjustCamera() {
 	camera.y = -auxCam.y;
 }
 
-void j1Render::Vertical_Look() {
+void j1Render::Vertical_Look(float dt) {
 	
 	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		camera.y -= camera_speed;
@@ -355,15 +357,16 @@ void j1Render::Vertical_Look() {
 }
 
 //Returns lerp% distance from a to b
-int j1Render::CamLerp(int a, int b) {
-	if (abs(b - a) >= 5)return (int)(lerp * (b - a));
-	else return (b-a);
+int j1Render::CamLerp(int a, int b, float dt) {
+	if (abs(b - a) >= 5) 
+		return (int)(lerp * (b - a)) * dt;
+	else return (b-a) * dt;
 	//if destination is close enough, snap to it
 }
 
 //General Lerp function
-int j1Render::Lerp(int a, int b){
-		return (int)(a + lerp * (b - a));
+int j1Render::Lerp(int a, int b, float dt){
+		return (int)(a + lerp * (b - a)) * dt;
 }
 
 //Define where does our camera have triggers to change perspective
@@ -405,7 +408,7 @@ int j1Render::GetSideOfScreen(int x){
 }
 
 
-void j1Render::SnapAxis() {
+void j1Render::SnapAxis(float dt) {
 	
 	//Check if we need to change camera perspective
 
@@ -413,7 +416,7 @@ void j1Render::SnapAxis() {
 
 	case SNAP_TO_RIGHT:
 	
-		auxCam.x -= abs(CamLerp(right_trigger_camera,left_trigger_change));
+		auxCam.x -= abs(CamLerp(right_trigger_camera,left_trigger_change)) * dt;
 		if (App->player->position.x >= right_trigger_camera) { 
 			snap_state = SNAP_NONE;
 		}
@@ -421,7 +424,7 @@ void j1Render::SnapAxis() {
 
 	case SNAP_TO_LEFT:
 
-		auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera));
+		auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera)) * dt;
 		if (App->player->position.x <= left_trigger_camera) { 
 			snap_state = SNAP_NONE; 
 		}
