@@ -123,6 +123,7 @@ bool j1Enemies::Update(float dt)
 			if (enemies[i]->position.DistanceTo(destiny) <= delta_move || enemies[i]->position.DistanceTo(destiny) <= delta_move + enemies[i]->collider->rect.w) {
 
 				queue[i].path->Pop(last_tile);
+				if (queue[i].path->Count() == 0) { queue[i].in_path = false; }
 				
 			}
 		}
