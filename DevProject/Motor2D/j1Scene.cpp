@@ -40,18 +40,18 @@ bool j1Scene::Start()
 	case 1:
 		App->map->Load("first_map_v2.tmx");
 
-		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
+		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
 	case 2:
 		App->map->Load("second_map.tmx");
-		App->audio->PlayMusic("audio/music/down_under_flopdisk.wav", 4.0F);
+		App->audio->PlayMusic("audio/music/down_under_flopdisk.ogg", 4.0F);
 		break;
 
 	default:
 		scene_number = 1;
 		App->map->Load("first_map_v2.tmx"); 
-		App->audio->PlayMusic("audio/music/ace_of_flopdisks.wav", 4.0F);
+		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
 	}

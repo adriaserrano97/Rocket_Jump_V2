@@ -32,7 +32,7 @@ class j1Enemies : public j1Module
 public:
 
 	int aggro_range;
-	int delta_move;
+	float delta_move; //defines when do enemies correct their pathfinding
 
 public:
 
