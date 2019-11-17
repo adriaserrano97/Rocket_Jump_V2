@@ -37,7 +37,7 @@ bool j1Enemies::Awake(pugi::xml_node& config) {
 	alienAnimation = alienAnimation.PushAnimation(config, "alienFly");
 	walkingAlien = walkingAlien.PushAnimation(config, "alienRun");
 	aggro_range = config.child("values").attribute("aggro_range").as_int();
-	delta_move = config.child("values").attribute("delta_move").as_int(); //defines when do enemies correct their pathfinding
+	delta_move = config.child("values").attribute("delta_move").as_float(); 
 
 	return true;
 }
@@ -113,7 +113,8 @@ bool j1Enemies::Update(float dt)
 			
 			int tilenum = (queue[i].path->Count() -1); // -1 because this returns count, we want to access to array position
 			iPoint destiny = App->map->PosConverter(queue[i].path->At(tilenum)->x, queue[i].path->At(tilenum)->y);
-
+			destiny.x += App->map->data.tile_width / 3;
+			destiny.y += App->map->data.tile_height / 3;
 			enemies[i]->Move(destiny); 
 
 			iPoint last_tile;
