@@ -113,8 +113,7 @@ bool j1Enemies::Update(float dt)
 			
 			int tilenum = (queue[i].path->Count() -1); // -1 because this returns count, we want to access to array position
 			iPoint destiny = App->map->PosConverter(queue[i].path->At(tilenum)->x, queue[i].path->At(tilenum)->y);
-			destiny.x += App->map->data.tile_width / 3;
-			destiny.y += App->map->data.tile_height / 3;
+			destiny.y += App->map->data.tile_height / 3; // slight adjustment so the enemy chases the player, not the corner
 			enemies[i]->Move(destiny); 
 
 			iPoint last_tile;
