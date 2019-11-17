@@ -6,6 +6,8 @@
 #include "p2Point.h"
 #include "p2Qeue.h"
 
+
+
 struct Mix_Chunk;
 
 enum PLAYER_STATES
@@ -105,8 +107,8 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 
-	void internal_input(p2Qeue<PLAYER_INPUTS>& inputs);
-	bool external_input(p2Qeue<PLAYER_INPUTS>& inputs);
+	void internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
+	bool external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
 	PLAYER_STATES process_fsm(p2Qeue<PLAYER_INPUTS>& inputs);
 	void OnCollision(Collider* c1, Collider* c2);
 	void BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture);
@@ -156,11 +158,11 @@ public:
 	int deadTimer;
 	int explosion_CD;
 	int JumpingDelta;
-	int time_from_last_explosion;
-	int deadTimerBuffer = 0;
+	float time_from_last_explosion;
+	float deadTimerBuffer = 0;
 	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
-	int time_spent_jumping = 1; //we always start our maps airborne
-	int time_spent_falling = 1;
+	float time_spent_jumping = 1; //we always start our maps airborne
+	float time_spent_falling = 1;
 	float JumpAdjustMargin;
 
 	bool freeze = false;

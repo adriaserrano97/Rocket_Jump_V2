@@ -18,7 +18,7 @@ struct Particle
 	uint fx = 0u;
 	iPoint position;
 	iPoint speed;	
-	Uint32 life = 0u;
+	float life = 0.0f;
 	bool flip;
 	uint sfx = 0u;
 	Particle();

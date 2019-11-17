@@ -16,7 +16,7 @@ public:
 
 private:
 	float frames_passed = 0;
-	float current_frame = 0;
+	int current_frame = 0;
 	int last_frame = 0;
 	int loops = 0;
 
@@ -64,12 +64,12 @@ public:
 
 	Frame& GetCurrentFrame(float dt)
 	{
-		if (frames_passed < frames[(int)current_frame].maxFrames) {
-			frames_passed++ * dt;
+		if (frames_passed * dt * TIME_CONST < frames[current_frame].maxFrames * dt * TIME_CONST) {
+			frames_passed += dt * TIME_CONST;
 		}
 		else {
 			frames_passed = 0;
-			current_frame++ * dt;
+			current_frame ++;
 		}
 
 		if (current_frame >= last_frame)
@@ -78,12 +78,17 @@ public:
 			loops++;
 		}
 
-		return frames[(int)current_frame];
+		return frames[current_frame];
 	}
 
 	SDL_Rect& GetCurrentFrameBox(float dt)
 	{
 		return GetCurrentFrame(dt).frame;
+	}
+
+	SDL_Rect& GetRect()
+	{
+		return this->frames[0].frame;
 	}
 
 	bool Finished() const
