@@ -23,7 +23,7 @@ public:
 	const Collider* GetCollider() const;
 	void Destroy();
 
-	virtual void Move(iPoint pos) {};
+	virtual void Move(iPoint pos, float dt) {};
 	virtual void Draw(SDL_Texture* sprites, float dt);
 	virtual void OnCollision(Collider* collider) {};
 };

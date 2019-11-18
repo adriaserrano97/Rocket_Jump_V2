@@ -142,8 +142,8 @@ bool j1Player::Update(float dt) {
 	SDL_Texture *texture = graphics;
 	
 	//check inputs to traverse state matrix
-	external_input(inputs);
-	internal_input(inputs);
+	external_input(inputs, dt);
+	internal_input(inputs, dt);
 	state = process_fsm(inputs);
 
 	
@@ -467,7 +467,7 @@ void j1Player::BlitCharacterAndAddColliders(Animation* current_animation, SDL_Te
 
 }
 
-bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
+bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 
 	if (!godMode) {
 		//Key UP
@@ -491,7 +491,7 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 			left = false;
 
 
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && time_from_last_explosion>=explosion_CD) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && time_from_last_explosion * dt >= explosion_CD * dt) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
 			time_from_last_explosion = 0;
 			App->input->GetMousePosition(cursorX, cursorY);
 			App->particles->AddParticle(App->particles->explosion, false, (cursorX - App->render->camera.x) - (App->particles->explosion.anim.frames->frame.w/2), (cursorY - App->render->camera.y) - (App->particles->explosion.anim.frames->frame.h / 2), 0, 0, COLLIDER_EXPLOSION, 0, 0);
@@ -530,23 +530,23 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 
 
 		if (!left)
-			inputs.Push(IN_LEFT_UP);
+			inputs.Push(IN_LEFT_UP); 
 	}
 	return true;
 }
 
-void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
+void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 	
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
-		deadTimerBuffer++;
+		deadTimerBuffer += dt;
 	}
 
 	if (deadTimerBuffer > 0)
 	{
 		deadTimerBuffer++;
-		if (deadTimerBuffer == deadTimer)
+		if (deadTimerBuffer * dt == deadTimer * dt)
 		{
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
@@ -554,8 +554,8 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs) {
 		}
 	}
 
-	if (time_from_last_explosion < explosion_CD) {
-		time_from_last_explosion++;
+	if (time_from_last_explosion*dt < explosion_CD*dt) {
+		time_from_last_explosion += dt;
 	}
 }
 
@@ -934,14 +934,14 @@ void j1Player::playerFall(float dt) {
 	//Simulate acceleration
 	int buffer_y = position.y;
 	if (time_spent_falling == 0)  
-		time_spent_falling++; 
+		time_spent_falling += dt;
 
-	position.y += time_spent_falling * dt;
-	time_spent_falling++;
+	position.y += time_spent_falling;
+	time_spent_falling += dt;
 
 	//Adjust to max speed, prevent tunneling
-	if ((abs(position.y) - abs(buffer_y)) > speedcap) {
-		position.y = (buffer_y + sgn(position.y)*speedcap) * dt;
+	if ((abs(position.y) - abs(buffer_y)) > speedcap * dt) {
+		position.y = (buffer_y + sgn(position.y)*speedcap * dt) ;
 	}
 
  }
@@ -951,7 +951,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 	int buffer_y = position.y;
 	//Check if player just jumped
 	if (time_spent_jumping == 0) {
-		time_spent_jumping++; 
+		time_spent_jumping++ * dt; 
 		//Play jump sound and add appropiate particles
 		App->audio->PlayFx(App->audio->jump_sound, 0);
 		App->particles->AddParticle(App->particles->dust, false, position.x, position.y + collider->rect.h, 0, 0, COLLIDER_NONE, 0, 0);
@@ -962,20 +962,20 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 	case ST_JUMP:
 		position.y -= jumpspeed * dt;  
 		position.y += time_spent_jumping * dt;
-		time_spent_jumping++;
+		time_spent_jumping += dt;
 		break;
 
 	case ST_RIGHT_JUMP:
 		position.y -= jumpspeed * dt;
 		position.y += time_spent_jumping * dt;
-		time_spent_jumping++;
+		time_spent_jumping += dt;
 		position.x += speed * dt;
 		break;
 
 	case ST_LEFT_JUMP:
 		position.y -= jumpspeed * dt;
 		position.y += time_spent_jumping * dt;
-		time_spent_jumping++;
+		time_spent_jumping += dt;
 		position.x -= speed * dt;
 		break;
 
@@ -985,7 +985,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 		{
 			position.x -= rocketJumpSpeed * dt;
 			position.x += time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else
 		{
@@ -999,7 +999,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 		{
 			position.x += rocketJumpSpeed * dt;
 			position.x -= time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else
 		{
@@ -1012,7 +1012,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 		if (rocketJumpSpeed > time_spent_jumping) {
 			position.y -= rocketJumpSpeed * dt;
 			position.y += time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else{
 		playerFall(dt);
@@ -1025,7 +1025,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 		{
 			position.y += rocketJumpSpeed * dt;
 			position.y -= time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		break;
 
@@ -1037,7 +1037,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 
 			position.x -= rocketJumpSpeed * dt;
 			position.x += time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else
 		{
@@ -1056,7 +1056,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 
 			position.x -= rocketJumpSpeed * dt;
 			position.x += time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else
 		{
@@ -1075,7 +1075,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 
 			position.x += rocketJumpSpeed * dt;
 			position.x -= time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		else
 		{
@@ -1092,7 +1092,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 
 			position.x += rocketJumpSpeed * dt;
 			position.x -= time_spent_jumping * dt;
-			time_spent_jumping++;
+			time_spent_jumping += dt;
 		}
 		break;
 

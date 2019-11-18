@@ -1,6 +1,8 @@
 #ifndef __j1APP_H__
 #define __j1APP_H__
 
+#define TIME_CONST 50
+
 #include "p2List.h"
 #include "j1Module.h"
 #include "PerfectTimer.h"

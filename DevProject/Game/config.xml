@@ -36,7 +36,7 @@
 
   <player>
 	<folder>textures/player</folder>
-	<playerData initialX="20" initialY="0" speed="7" JumpAdjustMargin="0.35" jumpspeed="25" rocketJumpSpeed="30" gravity="5" speedcap="30" JumpingDelta="8" explosion_CD="40" deadFall="2200"></playerData>
+	<playerData initialX="20" initialY="0" speed="7" JumpAdjustMargin="0.35" jumpspeed="25" rocketJumpSpeed="30" gravity="5" speedcap="15" JumpingDelta="8" explosion_CD="40" deadFall="2200"></playerData>
 	
 	<bazooka x="0" y="0" w="70" h="18"></bazooka>
 
@@ -366,7 +366,7 @@
 
   <enemy>
 	<folder>textures/enemy</folder>
-	<values aggro_range="600" delta_move="0.5"></values>
+	<values aggro_range="600" delta_move="1"></values>
 	<Animations>
 		<alien frames="9" name="alienFly">
 			<frame

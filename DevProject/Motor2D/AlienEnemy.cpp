@@ -14,13 +14,13 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 
 	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
 
-	
+	int z;
 }
 
-void Alien_Enemy::Move(iPoint destiny)
+void Alien_Enemy::Move(iPoint destiny, float dt)
 {
-	position.x = App->render->Lerp(position.x, destiny.x);
-	position.y = App->render->Lerp(position.y, destiny.y);
+	position.x = App->render->Lerp(position.x, destiny.x, dt);
+	position.y = App->render->Lerp(position.y, destiny.y, dt);
 
 }
 
