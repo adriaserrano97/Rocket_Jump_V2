@@ -70,16 +70,23 @@ bool j1Enemies::PreUpdate()
 	return true;
 }
 
+//Saving enemy positions
+bool j1Enemies::Save(pugi::xml_node& data) const
+{
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
+		if (enemies[i] != nullptr) {
+			
+			data.append_attribute("x") = queue[i].x;
+			data.append_attribute("y") = queue[i].y;
+		}
+	}
+	return true;
+}
+
 // Called before render is available
 bool j1Enemies::Update(float dt)
-{
-	//They move only if they have a path, not on update. -Adri
-	/*
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Move();
-	*/ 
-	
-	
+{	
 	//check if any enemy has detected the player. If so, pathfind to it.
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
@@ -123,6 +130,8 @@ bool j1Enemies::Update(float dt)
 			if (enemies[i]->position.DistanceTo(destiny) <= delta_move || enemies[i]->position.DistanceTo(destiny) <= delta_move + enemies[i]->collider->rect.w) {
 
 				queue[i].path->Pop(last_tile);
+
+				//done pathfinding? Try to pathfind again
 				if (queue[i].path->Count() == 0) { queue[i].in_path = false; }
 				
 			}
@@ -153,8 +162,6 @@ bool j1Enemies::Update(float dt)
 	return true;
 	
 }
-
-
 // Called before quitting
 bool j1Enemies::CleanUp()
 {
@@ -192,6 +199,8 @@ bool j1Enemies::CleanUp()
 
 	return true;
 }
+
+//Enemy managment
 
 bool j1Enemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 {
@@ -233,6 +242,31 @@ void j1Enemies::SpawnEnemy(const EnemyInfo& info)
 	}
 }
 
+//collision
+
+COLLISION_WALL_DIRECTION j1Enemies::checkDirection(SDL_Rect enemy, SDL_Rect collision) {
+
+	int directionDiference[DIRECTION_MAX];
+
+	directionDiference[DIRECTION_LEFT] = abs((enemy.x + enemy.w) - collision.x);
+	directionDiference[DIRECTION_RIGHT] = abs((collision.x + collision.w) - enemy.x);
+	directionDiference[DIRECTION_UP] = abs((enemy.y + enemy.h) - collision.y);
+	directionDiference[DIRECTION_DOWN] = abs((collision.y + collision.h) - enemy.y);
+
+	int directionCheck = DIRECTION_NONE;
+
+	for (int i = 0; i < DIRECTION_MAX; ++i)
+	{
+		if (directionCheck == DIRECTION_NONE)
+			directionCheck = i;
+		else if ((directionDiference[i] < directionDiference[directionCheck]))
+			directionCheck = i;
+
+	}
+
+	return (COLLISION_WALL_DIRECTION)directionCheck;
+}
+
 void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
@@ -240,6 +274,42 @@ void j1Enemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
+
+			switch (checkDirection(c1->rect, c2->rect))
+			{
+			case DIRECTION_LEFT:
+				
+				enemies[i]->position.x = c2->rect.x - c1->rect.w - 1;
+			
+				queue[i].in_path = false;
+				
+				break;
+
+			case DIRECTION_RIGHT:
+				
+				enemies[i]->position.x = c2->rect.x + c2->rect.w + 1;
+				
+				queue[i].in_path = false;
+
+				break;
+
+			case DIRECTION_DOWN:
+
+				enemies[i]->position.y = c2->rect.y + c2->rect.h + 1;
+				
+				queue[i].in_path = false;
+
+				break;
+
+			case DIRECTION_UP:
+
+				enemies[i]->position.y = c2->rect.y - c1->rect.h - 1;
+			
+				queue[i].in_path = false;
+
+				break;
+			}
+
 			break;
 		}
 	}

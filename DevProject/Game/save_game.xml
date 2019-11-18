@@ -6,13 +6,15 @@
 	<audio />
 	<map />
 	<scene sceneNumber="1" />
-	<player x="20" y="145" />
-	<enemy />
+	<player x="333" y="551" />
+	<enemy>
+		<enemy x="774" y="258" />
+	</enemy>
 	<particles />
 	<colliders />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="0" y="-75" />
 	</renderer>
 </game_state>

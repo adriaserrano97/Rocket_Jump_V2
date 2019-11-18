@@ -16,6 +16,8 @@ enum ENEMY_TYPES
 	WALKING_ALIEN
 };
 
+enum COLLISION_WALL_DIRECTION;
+
 class Enemy;
 
 struct EnemyInfo
@@ -45,15 +47,19 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
+	bool Save(pugi::xml_node&) const;
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y);
 
 	Animation alienAnimation;
 	Animation walkingAlien;
 
+	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect enemy, SDL_Rect collision);
 private:
 
 	void SpawnEnemy(const EnemyInfo& info);
+
+	
 
 private:
 

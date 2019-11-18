@@ -25,6 +25,7 @@ void Alien_Enemy::Move(iPoint destiny)
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {
+
 	
 
 }
