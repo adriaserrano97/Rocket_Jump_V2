@@ -366,7 +366,7 @@ int j1Render::CamLerp(int a, int b, float dt) {
 
 //General Lerp function
 int j1Render::Lerp(int a, int b, float dt){
-		return (int)(a + lerp * (b - a)) /** dt*/;
+		return (int)(a + lerp * (b - a) * dt) /** dt*/;
 }
 
 //Define where does our camera have triggers to change perspective
