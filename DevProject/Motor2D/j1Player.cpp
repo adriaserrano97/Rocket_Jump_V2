@@ -545,8 +545,8 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 
 	if (deadTimerBuffer > 0)
 	{
-		deadTimerBuffer++;
-		if (deadTimerBuffer * dt == deadTimer * dt)
+		deadTimerBuffer += dt;
+		if (deadTimerBuffer * dt >= deadTimer * dt)
 		{
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
