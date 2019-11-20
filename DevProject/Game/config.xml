@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="30">
+  <app framerate_cap="800">
    	<title>Game Development Testbed</title>
    	<organization>UPC</organization>
 	<load fileName="save_game.xml"></load>
