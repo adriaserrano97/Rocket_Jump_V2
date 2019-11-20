@@ -93,7 +93,7 @@ p2List_item<PathNode>* PathList::Find(const iPoint& point)
 p2List_item<PathNode>* PathList::GetNodeLowestScore() 
 {
 	p2List_item<PathNode>* ret = NULL;
-	int min = 65535;
+	float min = 65535;
 
 	p2List_item<PathNode>* item = list.end;
 	while(item)
@@ -114,7 +114,7 @@ p2List_item<PathNode>* PathList::GetNodeLowestScore()
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
 
-PathNode::PathNode(int g, int h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
+PathNode::PathNode(float g, float h, const iPoint& pos, PathNode* parent) : g(g), h(h), pos(pos), parent(parent)
 {}
 
 PathNode::PathNode( PathNode& node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
@@ -126,31 +126,94 @@ PathNode::PathNode( PathNode& node) : g(node.g), h(node.h), pos(node.pos), paren
 uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 {
 	iPoint cell;
+
+	bool north = false;
+	bool south = false;
+	bool east = false;
+	bool west = false;
+
 	uint before = list_to_fill.list.count();
 
 	// north
 	cell.create(pos.x, pos.y + 1);
 	if (App->pathfinding->IsWalkable(cell)) {
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+		north = true;
 	}
 
 	// south
 	cell.create(pos.x, pos.y - 1);
 	if (App->pathfinding->IsWalkable(cell)) {
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+		south = true;
 	}
 
 	// east
 	cell.create(pos.x + 1, pos.y);
 	if (App->pathfinding->IsWalkable(cell)) {
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+		east = true;
 	}
 
 	// west
 	cell.create(pos.x - 1, pos.y);
 	if (App->pathfinding->IsWalkable(cell)){
 		list_to_fill.list.add(PathNode(-1, -1, cell, this));
-}
+		west = true;
+	}
+
+
+	
+	if (north)
+	{
+		// north-east
+		if (east)
+		{
+			cell.create(pos.x + 1, pos.y + 1);
+			if (App->pathfinding->IsWalkable(cell)) {
+				list_to_fill.list.add(PathNode(-1, -1, cell, this));
+			}
+		}
+
+		// north-west
+		if (west)
+		{
+			cell.create(pos.x - 1, pos.y + 1);
+			if (App->pathfinding->IsWalkable(cell)) {
+				list_to_fill.list.add(PathNode(-1, -1, cell, this));
+			}
+		}
+		
+	}
+
+	if (south)
+	{
+		// south-east
+		if (east)
+		{
+			cell.create(pos.x + 1, pos.y - 1);
+			if (App->pathfinding->IsWalkable(cell)) {
+				list_to_fill.list.add(PathNode(-1, -1, cell, this));
+			}
+		}
+
+		// south-west
+		if (west)
+		{
+			cell.create(pos.x - 1, pos.y - 1);
+			if (App->pathfinding->IsWalkable(cell)) {
+				list_to_fill.list.add(PathNode(-1, -1, cell, this));
+			}
+		}
+
+	}
+	
+
+	
+
+	
+
+	
 
 	return list_to_fill.list.count();
 }
@@ -158,7 +221,7 @@ uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 // PathNode -------------------------------------------------------------------------
 // Calculates this tile score
 // ----------------------------------------------------------------------------------
-int PathNode::Score() const
+float PathNode::Score() const
 {
 	return g + h;
 }
@@ -166,9 +229,17 @@ int PathNode::Score() const
 // PathNode -------------------------------------------------------------------------
 // Calculate the F for a specific destination tile
 // ----------------------------------------------------------------------------------
-int PathNode::CalculateF(const iPoint& destination)
+float PathNode::CalculateF(const iPoint& destination)
 {
-	g = parent->g + 1;
+	if (pos.x != parent->pos.x && pos.y != parent->pos.y) {
+
+		g = parent->g + 1.5;
+	}
+
+	else {
+		g = parent->g + 1;
+	}
+
 	h = pos.DistanceTo(destination);
 
 	return g + h;
@@ -232,10 +303,11 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 					open.list.add(Adjacent_list.list[i]);
 				}
 				else { // If it is already in the open list, check if it is a better path (compare G)
-					if (Adjacent_list.list[i].g < open.Find(Adjacent_list.list[i].pos)->data.g) {
+					Adjacent_list.list[i].CalculateF(destination);
+					if ( Adjacent_list.list[i].g < open.Find(Adjacent_list.list[i].pos)->data.g) {
 						// If it is a better path, Update the parent
 						//open.Find(Adjacent_list.list[i].pos)->data.parent = Adjacent_list.list[i].parent;
-						Adjacent_list.list[i].CalculateF(destination);
+						
 						open.list.del(open.Find(Adjacent_list.list[i].pos));
 						open.list.add(Adjacent_list.list[i]);
 					}
