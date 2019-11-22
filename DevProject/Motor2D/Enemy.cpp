@@ -4,6 +4,7 @@
 #include "j1Particles.h"
 #include "j1Render.h"
 
+
 Enemy::Enemy(int x, int y) : position(x, y)
 {}
 
@@ -29,7 +30,12 @@ void Enemy::Destroy() {
 		*animation = Animation(); 
 	}
 }
+void Enemy::AvoidStuck(iPoint destiny) {
 
+	position.x += 10 * sgn(destiny.x - position.x);
+
+	position.y += 10 * sgn(destiny.y - position.y);
+}
 
 
 const Collider* Enemy::GetCollider() const

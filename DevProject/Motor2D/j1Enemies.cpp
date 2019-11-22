@@ -67,6 +67,35 @@ bool j1Enemies::PreUpdate()
 {
 	//Here, we used to spawn all enemies every frame. Let it be remembered.
 
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
+		if (enemies[i] != nullptr) {
+			
+			if (enemies[i]->position.DistanceTo(enemies[i]->position_buffer) < delta_move && queue[i].in_path == true) {
+
+				queue[i].frames_stuck++;
+			}
+		}
+	}
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
+		if (enemies[i] != nullptr) {
+
+			enemies[i]->position_buffer = enemies[i]->position;
+
+		}
+	}
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i) {
+
+		if (enemies[i] != nullptr && queue[i].frames_stuck > 2) {
+
+			enemies[i]->AvoidStuck(App->player->position);	//AvoidStuck(App->map->PosConverter(queue[i].path->At(0)->x, queue[i].path->At(0)->y));
+
+			queue[i].frames_stuck = 0;
+		}
+	}
 	return true;
 }
 

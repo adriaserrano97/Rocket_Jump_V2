@@ -25,6 +25,7 @@ struct EnemyInfo
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	int x, y;
 	bool in_path = false;
+	int frames_stuck = 0;
 	p2DynArray<iPoint>* path = nullptr;
 	
 };
