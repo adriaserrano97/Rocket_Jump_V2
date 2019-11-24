@@ -121,7 +121,7 @@ public:
 	bool ResetJumpCheck(SDL_Rect player, SDL_Rect collision);
 	void Check_if_falling();
 	
-	void PlayerMov(float factor = 1); //if not told otherwise, does not alter any speed
+	void PlayerMov(float dt, float factor = 1); //if not told otherwise, does not alter any speed
 	void Stay_in_map(SDL_Rect rect);
 
 	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
