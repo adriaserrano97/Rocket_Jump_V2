@@ -3,6 +3,10 @@
 #include "j1App.h"
 #include "j1PathFinding.h"
 #include "Brofiler/Brofiler/Brofiler.h"
+#include "j1Map.h"
+#include "j1Render.h"
+#include "j1Scene.h"
+
 
 j1PathFinding::j1PathFinding() : j1Module(), map(NULL), last_path(DEFAULT_PATH_LENGTH),width(0), height(0)
 {
@@ -70,6 +74,19 @@ uchar j1PathFinding::GetTileAt(const iPoint& pos) const
 const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 {
 	return &last_path;
+}
+
+void j1PathFinding::PrintLastPath() {
+
+	//Print the path, just debug
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->PosConverter(path->At(i)->x, path->At(i)->y);
+		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+	}
+
 }
 
 // PathList ------------------------------------------------------------------------

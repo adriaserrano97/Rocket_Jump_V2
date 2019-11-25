@@ -14,7 +14,7 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 
 	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
 
-	int z;
+	type = ALIEN;
 }
 
 void Alien_Enemy::Move(iPoint destiny, float dt)

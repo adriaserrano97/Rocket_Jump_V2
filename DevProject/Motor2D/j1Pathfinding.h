@@ -49,6 +49,8 @@ public:
 
 	// we store the created path here
 	p2DynArray<iPoint> last_path;
+
+	void PrintLastPath();
 private:
 
 	// size of the map

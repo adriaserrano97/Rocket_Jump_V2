@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1Enemies.h"
+#include "Enemy.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -564,15 +565,15 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 				
 				iPoint spawn = PosConverter(i, j);
 
-				switch (tile_id - 1) //compensaating for TILED nomenclature, not a magic number
+				switch (tile_id - 1) //compensating for TILED nomenclature, not a magic number
 				{
 
 				case 42:
-					App->enemy->AddEnemy(ALIEN, spawn.x, spawn.y);
+					App->enemy->SpawnEnemy(ALIEN, spawn.x, spawn.y);
 					break;
 
 				case 43:
-					App->enemy->AddEnemy(WALKING_ALIEN, spawn.x, spawn.y);
+					App->enemy->SpawnEnemy(WALKING_ALIEN, spawn.x, spawn.y);
 					break;
 
 				default:
@@ -596,7 +597,7 @@ SDL_Rect TileSet::TileToRect(uint tileid)
 	return rect;
 }
 
-iPoint j1Map :: PosConverter(int x, int y){
+iPoint j1Map::PosConverter(int x, int y){
 
 	iPoint ret;
 

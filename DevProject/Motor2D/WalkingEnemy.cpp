@@ -14,6 +14,7 @@ Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
 
 	collider = App->colliders->AddCollider({ x, y, run.frames->frame.w, run.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
 
+	type = WALKING_ALIEN;
 
 }
 

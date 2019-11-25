@@ -5,6 +5,44 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+
+
+/*
+Okay. This one is gonna be a long explanation.
+
+First things first: what represents Mongolia to us? It all starts in the 13th century. Under the command of Genghis Khan (born as Temüjin) the Mongol Empire ruled over the vast
+majority of the asian continent. In further expansions, both under his command and the command of his heirs (once he joined the departed), Mongol Empire expanded both West
+to Europe and South. Why is this important? Well, because the first Empire that was taken over was... China. If not for that, Mongol Empire would have never been the powerhouse that ended up beign.
+
+China was and has always beign a cultural reference in antique times, starting from times way before the Roman Empire. Once Mongol Empire took over, they adopted all cultural and structural organization
+methods that China had been developing for the past 3000+ years. Used to rule a vast territory from a centralized capital, China had all the structural and politicial tools needed to, in conjunction with
+a most impressive burocratial flowchart of control, rule in perfect coordination all his provinces. In contrast, Mongols had always function in small tribes, living as nomads. Thus, their power structures had
+nothing to do with controlling territory, as there was no territory to control (Mongol steppe is famously harsh, so keeping on foot is almost mandatory back at the time).
+
+For all those reasons, historians and traditional mongol culture see their invasion of China as a golden chapter in Mongol History. A perfect oportunity for a underdeveloped political empire to
+adquire HUGE knowledge and technological development, sustained by a militar prowess (the horde of Genghis Khan, which would later be Ödegai, the last great khan before the great division of the Empire, 
+which give birth to the chinease descendents of the Yuren-Chin and Kiri-Kithian, and the heirs of the mongols which stayed in the steppe, the two sister tribes of Black Sheep and White Sheep, which would later
+merge into the Golden Horde which would raid Europe from the 14ths to the late 15ths).
+
+Thus, from a historical point of view, "leaving Mongolia" represented a move which granted great knowledge. 
+It represents the action of adquiring greater wisdom. 
+A golden oportunity to ascend to a higher level of understanding.
+
+This is us, now.
+The next includes is our own "leaving Mongolia".
+It represents the culmination of our knowledge, focused in two of the most unlikely and bizarre lines of code you would ever see.
+
+Rejoyce, and ascend with us to a higher plane of understanding.
+
+Take our had,
+	Leave Mongolia
+
+*/
+#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )//Leaving Mongolia
+#include "SDL_image/include/SDL_image.h"//Leaving Mongolia
+
+
+
 #define ARRAY_MAX_COLLIDERS 50
 #define MAX_MAP_COLLIDERS 400  
 
@@ -20,6 +58,7 @@ struct Layer {
 		return x + y * width;
 	}
 };
+
 
 // ----------------------------------------------------
 struct TileSet
