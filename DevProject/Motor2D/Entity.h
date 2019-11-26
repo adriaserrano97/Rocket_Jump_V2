@@ -5,7 +5,7 @@
 
 #include "p2Point.h"
 
-class SDL_Texture;
+struct SDL_Texture;
 
 
 
@@ -29,10 +29,11 @@ public:
 
 public:
 	Entity(EntityTypes type);
-	virtual ~Entity();
-	virtual void PreUpdate();
+	Entity() {};
+	//virtual ~Entity();
+	/*virtual void PreUpdate();
 	virtual void Update(float);
-	virtual void PostUpdate();
+	virtual void PostUpdate();*/
 
 };
 
