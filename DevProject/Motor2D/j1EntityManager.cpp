@@ -66,15 +66,17 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 
 void j1EntityManager::DestroyEntity(Entity* entity) {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
-
-		entity_array[i]->HandleInput();
-	}
+	
 
 }
 
 
 bool j1EntityManager::PreUpdate() {
+
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+
+		entity_array[i]->HandleInput();
+	}
 
 	return true;
 }
@@ -87,6 +89,8 @@ bool j1EntityManager::Update(float dt) {
 		entity_array[i]->Update(dt);
 	}
 
+	deltaTime = dt;
+
 	return true;
 }
 
@@ -95,13 +99,20 @@ bool j1EntityManager::PostUpdate() {
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
-		entity_array[i]->Draw(0.5f);
+		entity_array[i]->Draw(deltaTime);
 	}
 
 	return true;
 }
 
 bool j1EntityManager::CleanUp() {
+
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+
+		delete entity_array[i];
+		entity_array[i] = nullptr;
+	}
+
 
 	return true;
 }

@@ -33,6 +33,8 @@ private:
 	Entity* entity_array[MAX_ENTITYES];
 	p2SString			folder;
 
+	float deltaTime;
+
 };
 
 

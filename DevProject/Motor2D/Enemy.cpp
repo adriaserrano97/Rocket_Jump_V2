@@ -34,8 +34,8 @@ void Enemy::Destroy() {
 		collider->to_delete = true;
 	}
 
-	if (animation != nullptr)
-	{
+	if (animation != nullptr) {
+
 		*animation = Animation(); 
 	}
 }
