@@ -42,7 +42,6 @@ Take our had,
 #include "SDL_image/include/SDL_image.h"//Leaving Mongolia
 
 
-
 #define ARRAY_MAX_COLLIDERS 50
 #define MAX_MAP_COLLIDERS 400  
 

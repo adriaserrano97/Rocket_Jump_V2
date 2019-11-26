@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "p2DynArray.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -18,7 +19,7 @@ enum ENEMY_TYPES
 };
 
 
-class Enemy
+class Enemy: public Entity
 {
 public:
 	//general info

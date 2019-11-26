@@ -50,10 +50,10 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
     <ClCompile Include="AlienEnemy.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
     <ClCompile Include="SimpleTimer.cpp">
       <Filter>Desenvolupament  ========\Timers</Filter>
@@ -65,7 +65,13 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
     <ClCompile Include="WalkingEnemy.cpp">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,10 +151,10 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
     <ClInclude Include="AlienEnemy.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
     <ClInclude Include="SimpleTimer.h">
       <Filter>Desenvolupament  ========\Timers</Filter>
@@ -160,10 +166,16 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="WalkingEnemy.h">
-      <Filter>Desenvolupament  ========\Enemies</Filter>
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
     <ClInclude Include="Brofiler\Brofiler\Brofiler.h">
       <Filter>Desenvolupament  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,11 +197,11 @@
     <Filter Include="Desenvolupament  ========\Tools\PuguiXML">
       <UniqueIdentifier>{7cb78d67-17cc-45eb-af97-e2106becce7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Desenvolupament  ========\Enemies">
-      <UniqueIdentifier>{3756719f-27e0-4955-9411-a4c12ad1db24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Desenvolupament  ========\Timers">
       <UniqueIdentifier>{d8360410-638f-413b-af30-fd905b8a728e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entitys">
+      <UniqueIdentifier>{3756719f-27e0-4955-9411-a4c12ad1db24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

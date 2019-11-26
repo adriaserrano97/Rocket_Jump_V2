@@ -8,7 +8,7 @@
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 
-Enemy::Enemy(int x, int y) : position(x, y)
+Enemy::Enemy(int x, int y) : position(x, y) : Entity()
 {}
 
 Enemy::Enemy(int x, int y, uint ID) : position(x, y), My_ID(ID)
@@ -212,4 +212,3 @@ const Collider* Enemy::GetCollider() const
 {
 	return collider;
 }
-

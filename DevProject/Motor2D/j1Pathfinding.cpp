@@ -22,7 +22,7 @@ j1PathFinding::~j1PathFinding()
 //called at start
 bool j1PathFinding::Start() {
 	LOG("Started Pathfinding module");
-	LOG("small yeet");
+
 	return true;
 }
 
