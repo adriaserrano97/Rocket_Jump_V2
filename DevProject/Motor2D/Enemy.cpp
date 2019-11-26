@@ -213,8 +213,3 @@ const Collider* Enemy::GetCollider() const
 	return collider;
 }
 
-void Draw() {
-
-
-
-}

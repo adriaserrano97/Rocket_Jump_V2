@@ -3,6 +3,8 @@
 #ifndef __J1ENTITY_MANAGER_H__
 #define __J1ENTITY_MANAGER_H__
 
+#define MAX_ENTITYES 50
+
 #include "j1Module.h"
 #include "Entity.h"
 #include "p2DynArray.h"
@@ -28,7 +30,7 @@ public:
 
 
 private:
-	Entity* entity_array[50];
+	Entity* entity_array[MAX_ENTITYES];
 	p2SString			folder;
 
 };
