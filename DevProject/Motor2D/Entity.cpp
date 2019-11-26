@@ -24,3 +24,4 @@ bool Entity::PostUpdate()
 }
 
 void Entity::Draw(float dt) {}
+

@@ -75,12 +75,6 @@ bool j1Enemies::Update(float dt)
 			enemies[i]->FollowPath(dt);
 			App->pathfinding->PrintLastPath(); //optional, comment this before release
 			
-			/*if (enemies[i]->type == ALIEN) {*/
-				enemies[i]->Draw(dt);
-			//}
-			/*if (enemies[i]->type == WALKING_ALIEN) { 
-				enemies[i]->Draw(spritesWalkAlien, dt); 
-			}*/
 
 		}
 	}

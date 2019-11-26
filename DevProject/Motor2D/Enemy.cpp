@@ -213,3 +213,16 @@ const Collider* Enemy::GetCollider() const
 	return collider;
 }
 
+bool Enemy::Update(float dt) {
+
+	CheckStuck();
+	position_buffer = position;
+
+	Pathfind();
+	FollowPath(dt);
+	App->pathfinding->PrintLastPath();
+
+
+	return true;
+}
+

@@ -43,6 +43,8 @@ public:
 	virtual void Pathfind();
 	virtual void FollowPath(float dt);
 
+	bool Update(float dt);
+
 	//Render fucntion
 	void Draw(float dt);
 
