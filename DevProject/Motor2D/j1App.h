@@ -2,6 +2,7 @@
 #define __j1APP_H__
 
 #define TIME_CONST 50
+#define MAX_DT 3
 
 #include "p2List.h"
 #include "j1Module.h"

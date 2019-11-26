@@ -123,6 +123,7 @@ bool j1App::Awake()
 	load_game = config.first_child().child("load").attribute("fileName").as_string();
 	save_game = config.first_child().child("load").attribute("fileName").as_string();
 
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -193,6 +194,12 @@ void j1App::PrepareUpdate()
 	// TODO 4: Calculate the dt: differential time since last frame
 	dt = frame_time.ReadSec() * TIME_CONST;
 	LOG("%f", dt);
+
+	//just to when we debug, the player doesnt trespass the floor
+	if (dt > MAX_DT)
+	{
+		dt = MAX_DT;
+	}
 
 	frame_time.Start();
 }
