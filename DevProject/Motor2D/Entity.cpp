@@ -6,7 +6,7 @@ bool Entity::Start()
 }
 
 // Called each loop iteration
-bool Entity::PreUpdate()
+bool Entity::HandleInput()
 {
 	return true;
 }

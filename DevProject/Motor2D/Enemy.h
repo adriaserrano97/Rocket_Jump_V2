@@ -44,7 +44,7 @@ public:
 	virtual void FollowPath(float dt);
 
 	bool Update(float dt);
-
+	bool HandleInput();
 	//Render fucntion
 	void Draw(float dt);
 

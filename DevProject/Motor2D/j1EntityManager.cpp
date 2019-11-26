@@ -66,7 +66,10 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 
 void j1EntityManager::DestroyEntity(Entity* entity) {
 
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
+		entity_array[i]->HandleInput();
+	}
 
 }
 

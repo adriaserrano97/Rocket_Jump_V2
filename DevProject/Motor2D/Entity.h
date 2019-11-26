@@ -30,7 +30,7 @@ public:
 	Entity(EntityTypes type);
 	Entity() {};
 	//virtual ~Entity();
-	virtual bool PreUpdate();
+	virtual bool HandleInput();
 	virtual bool Update(float);
 	virtual bool PostUpdate();
 	virtual bool Start();

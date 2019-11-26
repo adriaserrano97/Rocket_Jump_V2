@@ -68,7 +68,6 @@ void Enemy::Pathfind() {
 	if (position.DistanceTo(App->player->position) < App->enemy->aggro_range && in_path == false) {
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
 
-		LOG("the saddest of yeeets");
 		//Prepare our inputs to create Path
 		iPoint o = App->map->WorldToMap(position.x, position.y);
 		iPoint d = App->map->WorldToMap(App->player->position.x, App->player->position.y);
@@ -208,20 +207,26 @@ void Enemy::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
+
 const Collider* Enemy::GetCollider() const
 {
 	return collider;
 }
 
-bool Enemy::Update(float dt) {
+bool Enemy::HandleInput() {
 
 	CheckStuck();
 	position_buffer = position;
 
+	return true;
+}
+
+
+bool Enemy::Update(float dt) {
+
 	Pathfind();
 	FollowPath(dt);
 	App->pathfinding->PrintLastPath();
-
 
 	return true;
 }
