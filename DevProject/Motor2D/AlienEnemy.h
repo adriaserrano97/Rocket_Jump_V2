@@ -16,6 +16,7 @@ public:
 
 	void Move(iPoint destiny, float dt);
 	void OnCollision(Collider* collider);
+	bool Start();
 };
 
 #endif // __ALIEN_ENEMY_H__

@@ -36,7 +36,7 @@ public:
 	Enemy* enemies[MAX_ENEMIES]; 
 
 	//Enemy generation
-	void SpawnEnemy(ENEMY_TYPES type, int x, int y);
+	
 	
 };
 

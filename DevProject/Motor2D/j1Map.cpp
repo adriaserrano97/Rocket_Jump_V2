@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "j1Enemies.h"
 #include "Enemy.h"
+#include "j1EntityManager.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -569,11 +570,11 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 				{
 
 				case 42:
-					App->enemy->SpawnEnemy(ALIEN, spawn.x, spawn.y);
+					App->entity->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
 					break;
 
 				case 43:
-					App->enemy->SpawnEnemy(WALKING_ALIEN, spawn.x, spawn.y);
+					App->entity->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
 					break;
 
 				default:

@@ -75,12 +75,12 @@ bool j1Enemies::Update(float dt)
 			enemies[i]->FollowPath(dt);
 			App->pathfinding->PrintLastPath(); //optional, comment this before release
 			
-			if (enemies[i]->type == ALIEN) {
-				enemies[i]->Draw(spritesFlyAlien, dt);
-			}
-			if (enemies[i]->type == WALKING_ALIEN) { 
+			/*if (enemies[i]->type == ALIEN) {*/
+				enemies[i]->Draw(dt);
+			//}
+			/*if (enemies[i]->type == WALKING_ALIEN) { 
 				enemies[i]->Draw(spritesWalkAlien, dt); 
-			}
+			}*/
 
 		}
 	}
@@ -117,13 +117,13 @@ bool j1Enemies::CleanUp()
 }
 
 //Enemy managment
-void j1Enemies::SpawnEnemy(ENEMY_TYPES type, int x, int y)
+/*void j1Enemies::SpawnEnemy(ENEMY_TYPES type, int x, int y)
 {
 	// find room for the new enemy
 	uint i = 0;
 	for (; App->enemy->enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
 
-	if (i != MAX_ENEMIES)
+	/*if (i != MAX_ENEMIES)
 	{
 		switch (type)
 		{
@@ -146,6 +146,6 @@ void j1Enemies::SpawnEnemy(ENEMY_TYPES type, int x, int y)
 		}
 		}
 	}
-}
+}*/
 
 

@@ -8,7 +8,6 @@
 struct SDL_Texture;
 
 
-
 class Entity
 {
 
@@ -31,9 +30,11 @@ public:
 	Entity(EntityTypes type);
 	Entity() {};
 	//virtual ~Entity();
-	/*virtual void PreUpdate();
-	virtual void Update(float);
-	virtual void PostUpdate();*/
+	virtual bool PreUpdate();
+	virtual bool Update(float);
+	virtual bool PostUpdate();
+	virtual bool Start();
+	virtual void Draw(float dt);
 
 };
 

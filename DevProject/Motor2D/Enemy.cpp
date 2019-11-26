@@ -108,14 +108,14 @@ void Enemy::FollowPath(float dt) {
 }
 
 //Rendering functions
-void Enemy::Draw(SDL_Texture* sprites, float dt)
+void Enemy::Draw(float dt)
 {
 	if (collider != nullptr) {
 		collider->SetPos(position.x, position.y);
 	}
 
 	if (animation != nullptr) {
-		App->render->Blit(sprites, position.x, position.y, &animation->GetCurrentFrameBox(dt));
+		App->render->Blit(texture, position.x, position.y, &animation->GetCurrentFrameBox(dt));
 	}
 }
 
@@ -211,4 +211,10 @@ void Enemy::OnCollision(Collider* c1, Collider* c2)
 const Collider* Enemy::GetCollider() const
 {
 	return collider;
+}
+
+void Draw() {
+
+
+
 }

@@ -28,7 +28,7 @@ public:
 
 
 private:
-	p2DynArray<Entity*> entity_array;
+	Entity* entity_array[50];
 	p2SString			folder;
 
 };

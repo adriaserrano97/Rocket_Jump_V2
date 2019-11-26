@@ -25,6 +25,7 @@ class j1Player;
 class j1FadeToBlack;
 class j1Enemies;
 class j1PathFinding;
+class j1EntityManager;
 
 
 class j1App
@@ -102,6 +103,7 @@ public:
 	j1FadeToBlack*		fade;
 	j1Enemies*			enemy;
 	j1PathFinding*		pathfinding;
+	j1EntityManager*	entity;
 
 	//timers
 	SimpleTimer* simple_time = NULL;

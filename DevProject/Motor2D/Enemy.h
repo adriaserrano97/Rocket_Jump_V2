@@ -11,13 +11,6 @@
 struct SDL_Texture;
 struct Collider;
 enum COLLISION_WALL_DIRECTION;
-enum ENEMY_TYPES
-{
-	NO_TYPE,
-	ALIEN,
-	WALKING_ALIEN
-};
-
 
 class Enemy: public Entity
 {
@@ -25,7 +18,6 @@ public:
 	//general info
 	iPoint position;
 	iPoint position_buffer; //position at start of step
-	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	uint My_ID; //position in enemy array
@@ -52,7 +44,7 @@ public:
 	virtual void FollowPath(float dt);
 
 	//Render fucntion
-	virtual void Draw(SDL_Texture* sprites, float dt);
+	void Draw(float dt);
 
 	//Enemy managment between games
 	bool Save(pugi::xml_node&) const;

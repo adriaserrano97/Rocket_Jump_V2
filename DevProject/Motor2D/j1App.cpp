@@ -15,6 +15,7 @@
 #include "j1App.h"
 #include "j1Enemies.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -34,8 +35,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	colliders = new j1Collision();
 	particles = new j1Particles();
 	player = new j1Player();
-	fade = new j1FadeToBlack();
 	enemy = new j1Enemies();
+	entity = new j1EntityManager();
+	fade = new j1FadeToBlack();
 	pathfinding = new j1PathFinding();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -47,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(player);
 	AddModule(enemy);
+	AddModule(entity);
 	AddModule(particles);
 	AddModule(colliders);
 	AddModule(fade);

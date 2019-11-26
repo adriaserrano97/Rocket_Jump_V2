@@ -24,6 +24,11 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 
 bool j1EntityManager::Start() {
 
+	//for (int i = 0; i < entity_array.Count(); i++)
+	//{
+		entity_array[0]->Start();
+	//}
+
 	return true;
 }
 
@@ -37,6 +42,8 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	case Entity::EntityTypes::FLY_ENEMY:	ret = new Alien_Enemy(x, y);	break;
 	case Entity::EntityTypes::WALK_ENEMY:	ret = new Walking_Enemy(x, y); break;
 	}
+
+	entity_array[0] = ret;
 
 	return ret;
 }
@@ -61,6 +68,8 @@ bool j1EntityManager::Update(float dt) {
 
 
 bool j1EntityManager::PostUpdate() {
+
+	entity_array[0]->Draw(0.5f);
 
 	return true;
 }
