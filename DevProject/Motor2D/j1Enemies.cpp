@@ -71,7 +71,7 @@ bool j1Enemies::Update(float dt)
 
 		if (enemies[i] != nullptr) {
 		
-			enemies[i]->Pathfind();
+			enemies[i]->Pathfind(dt);
 			enemies[i]->FollowPath(dt);
 			App->pathfinding->PrintLastPath(); //optional, comment this before release
 			
