@@ -570,11 +570,11 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 				{
 
 				case 42:
-					App->entity->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
+					//App->entity->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
 					break;
 
 				case 43:
-					App->entity->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
+					//App->entity->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
 					break;
 
 				default:

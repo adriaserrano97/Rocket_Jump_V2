@@ -53,6 +53,7 @@ private:
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
 	int CamLerp(int a, int b, float dt = 1.f); //adjusted to work with our camera, with our prefered default value
+	bool manual = false; //manual camera control - automatic camera control
 
 	void SnapAxis(float dt);
 	void Vertical_Look(float dt);
