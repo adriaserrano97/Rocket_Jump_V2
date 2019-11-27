@@ -16,7 +16,6 @@ public:
 
 	void Move(iPoint destiny, float dt);
 	void OnCollision(Collider* collider);
-	void LockOnPlayer(float dt); //Zoom in on player if extremely close. Avoid cluncky movement in short distance
 	bool Start();
 };
 
