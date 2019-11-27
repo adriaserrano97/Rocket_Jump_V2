@@ -6,7 +6,6 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-
 /*
 Okay. This one is gonna be a long explanation.
 
@@ -38,9 +37,12 @@ Take our had,
 	Leave Mongolia
 
 */
-#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )//Leaving Mongolia
-#include "SDL_image/include/SDL_image.h"//Leaving Mongolia
+//#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )//Leaving Mongolia
+//#include "SDL_image/include/SDL_image.h"//Leaving Mongolia
 
+#include "SDL/include/SDL_rect.h"
+#include "SDL/include/SDL_pixels.h"
+struct SDL_Texture;
 
 #define ARRAY_MAX_COLLIDERS 50
 #define MAX_MAP_COLLIDERS 400  

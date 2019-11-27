@@ -6,7 +6,7 @@
 #include "j1Collision.h"
 #include "j1Scene.h"
 #include "j1Map.h"
-#include "j1Enemies.h"
+//#include "j1Enemies.h"
 #include "Enemy.h"
 #include "j1EntityManager.h"
 #include <math.h>
