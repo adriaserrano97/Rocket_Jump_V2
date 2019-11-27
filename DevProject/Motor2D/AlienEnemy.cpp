@@ -2,6 +2,8 @@
 #include "AlienEnemy.h"
 #include "j1Enemies.h"
 #include "j1Collision.h"
+#include "j1Player.h"
+#include "j1Map.h"
 
 
 Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
@@ -24,9 +26,14 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 
 void Alien_Enemy::Move(iPoint destiny, float dt)
 {
-	position.x = App->render->Lerp(position.x, destiny.x, dt);
-	position.y = App->render->Lerp(position.y, destiny.y, dt);
+	if (position.DistanceTo(destiny) <= App->map->data.tile_width/2) {
+		LockOnPlayer(dt);
+	}
+	else {
 
+		position.x = App->render->Lerp(position.x, destiny.x, dt);
+		position.y = App->render->Lerp(position.y, destiny.y, dt);
+	}
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {
@@ -40,4 +47,12 @@ bool Alien_Enemy::Start() {
 	texture = App->enemy->spritesFlyAlien;
 
 	return true;
+}
+
+void Alien_Enemy::LockOnPlayer(float dt) {
+
+	iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w, App->player->collider->rect.y + App->player->collider->rect.h);
+
+	Move(aux, dt);
+
 }
