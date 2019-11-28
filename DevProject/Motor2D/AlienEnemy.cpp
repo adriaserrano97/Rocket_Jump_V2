@@ -26,7 +26,11 @@ void Alien_Enemy::Move(iPoint destiny, float dt)
 {
 	position.x = App->render->Lerp(position.x, destiny.x, dt);
 	position.y = App->render->Lerp(position.y, destiny.y, dt);
+}
 
+void Alien_Enemy::LockOn(iPoint destiny, float dt) {
+	position.x = App->render->Lerp(position.x, destiny.x, dt);
+	position.y = App->render->Lerp(position.y, destiny.y, dt);
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {

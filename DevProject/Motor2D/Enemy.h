@@ -38,9 +38,10 @@ public:
 
 	//Pathfinding functions
 	virtual void Move(iPoint pos, float dt) {};
+	virtual void LockOn(iPoint destiny, float dt) {};
 	virtual void AvoidStuck(iPoint destiny);
 	virtual void CheckStuck();
-	virtual void Pathfind();
+	virtual void Pathfind(float dt);
 	virtual void FollowPath(float dt);
 
 	bool Update(float dt);
