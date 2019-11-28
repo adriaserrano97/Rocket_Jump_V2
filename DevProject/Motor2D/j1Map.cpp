@@ -6,7 +6,6 @@
 #include "j1Collision.h"
 #include "j1Scene.h"
 #include "j1Map.h"
-//#include "j1Enemies.h"
 #include "Enemy.h"
 #include "j1EntityManager.h"
 #include <math.h>
@@ -570,11 +569,11 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 				{
 
 				case 42:
-					//App->entity->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
+					App->entityManager->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
 					break;
 
 				case 43:
-					//App->entity->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
+					App->entityManager->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
 					break;
 
 				default:

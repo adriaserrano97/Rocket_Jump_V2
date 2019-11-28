@@ -104,7 +104,7 @@ public:
 	j1FadeToBlack*		fade;
 	j1Enemies*			enemy;
 	j1PathFinding*		pathfinding;
-	j1EntityManager*	entity;
+	j1EntityManager*	entityManager;
 
 	//timers
 	SimpleTimer* simple_time = NULL;

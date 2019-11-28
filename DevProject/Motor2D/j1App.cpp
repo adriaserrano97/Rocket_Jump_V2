@@ -36,7 +36,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	particles = new j1Particles();
 	player = new j1Player();
 	enemy = new j1Enemies();
-	entity = new j1EntityManager();
+	entityManager = new j1EntityManager();
 	fade = new j1FadeToBlack();
 	pathfinding = new j1PathFinding();
 	// Ordered for awake / Start / Update
@@ -49,7 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(player);
 	AddModule(enemy);
-	AddModule(entity);
+	AddModule(entityManager);
 	AddModule(particles);
 	AddModule(colliders);
 	AddModule(fade);
@@ -148,7 +148,6 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
-
 
 	bool ret = true;
 	PrepareUpdate();
