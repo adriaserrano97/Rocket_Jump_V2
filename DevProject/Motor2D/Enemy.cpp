@@ -46,7 +46,7 @@ void Enemy::AvoidStuck(iPoint destiny) {
 
 	position.x += 10 * sgn(destiny.x - position.x);
 
-	position.y += 10 * sgn(destiny.y - position.y);
+    position.y += 10 * sgn(destiny.y - position.y);
 }
 
 void Enemy::CheckStuck() {
@@ -55,7 +55,7 @@ void Enemy::CheckStuck() {
 
 		frames_stuck++;
 	}
-	if (frames_stuck > 2) {
+	if (frames_stuck > 30) {
 
 		AvoidStuck(App->player->position);	
 
@@ -65,9 +65,9 @@ void Enemy::CheckStuck() {
 
 void Enemy::Pathfind(float dt) {
 
-	if (position.DistanceTo(App->player->position) <= 2*App->map->data.tile_width) {
+	if (CheckLockOn(App->player->position)) {
 		
-		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w, App->player->collider->rect.y + App->player->collider->rect.h);
+		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w/2, App->player->collider->rect.y + App->player->collider->rect.h/2);
 		
 		LockOn(aux, dt);
 
@@ -110,6 +110,28 @@ void Enemy::FollowPath(float dt) {
 
 		}
 	}
+}
+
+void Enemy::ResetPathCounter(float dt) {
+
+	path_counter += 1 + dt;
+
+	if (path_counter > 300) {
+	
+		path_counter = 0;
+
+		path = nullptr;
+
+		in_path = false;
+	}
+}
+
+bool Enemy::CheckLockOn(iPoint destiny) {
+
+	//each enemy has its own conditions
+
+	return false;
+
 }
 
 //Rendering functions
@@ -227,13 +249,18 @@ bool Enemy::HandleInput() {
 	return true;
 }
 
-
 bool Enemy::Update(float dt) {
 
 	Pathfind(dt);
 	FollowPath(dt);
 	App->pathfinding->PrintLastPath();
+	position_buffer = position;
 
+	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
+
+	if (type != EntityTypes::FLY_ENEMY) {
+		position.y += round(App->player->grav * dt);
+	}
 	return true;
 }
 

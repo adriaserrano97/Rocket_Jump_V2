@@ -17,7 +17,7 @@ class Enemy: public Entity
 public:
 	//general info
 	iPoint position;
-	iPoint position_buffer; //position at start of step
+	iPoint position_buffer; //position last frame
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
 	uint My_ID; //position in enemy array
@@ -39,10 +39,13 @@ public:
 	//Pathfinding functions
 	virtual void Move(iPoint pos, float dt) {};
 	virtual void LockOn(iPoint destiny, float dt) {};
+	virtual bool CheckLockOn(iPoint destiny);
 	virtual void AvoidStuck(iPoint destiny);
 	virtual void CheckStuck();
 	virtual void Pathfind(float dt);
 	virtual void FollowPath(float dt);
+	virtual void ResetPathCounter(float dt);
+	float path_counter = 0;
 
 	bool Update(float dt);
 	bool HandleInput();

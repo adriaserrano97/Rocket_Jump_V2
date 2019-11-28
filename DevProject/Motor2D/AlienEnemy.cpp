@@ -2,7 +2,7 @@
 #include "AlienEnemy.h"
 #include "j1Enemies.h"
 #include "j1Collision.h"
-
+#include "j1Map.h"
 
 Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 {
@@ -13,11 +13,10 @@ Alien_Enemy::Alien_Enemy(int x, int y) : Enemy(x, y)
 	
 	animation = &fly;
 
-	My_ID = 1;
+	My_ID = 1; //pls fix
+	App->enemy->enemies[My_ID - 1];
 
 	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
-
-	App->enemy->enemies[My_ID-1];
 
 	type = EntityTypes::FLY_ENEMY;
 }
@@ -33,9 +32,23 @@ void Alien_Enemy::LockOn(iPoint destiny, float dt) {
 	position.y = App->render->Lerp(position.y, destiny.y, dt);
 }
 
+bool Alien_Enemy::CheckLockOn(iPoint destiny) {
+	
+	bool ret = false;
+
+	if (position.DistanceTo(destiny) <= 2 * App->map->data.tile_width) { ret = true; }
+
+	return ret;
+}
+
 void Alien_Enemy::OnCollision(Collider* collider) {
 
-	
+	if (collider->type == COLLIDER_EXPLOSION)
+	{
+
+		Destroy();
+
+	}
 
 }
 

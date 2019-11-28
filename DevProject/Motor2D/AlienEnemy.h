@@ -17,6 +17,7 @@ public:
 	void Move(iPoint destiny, float dt);
 	void LockOn(iPoint destiny, float dt);
 	void OnCollision(Collider* collider);
+	bool CheckLockOn(iPoint destiny);
 	bool Start();
 };
 
