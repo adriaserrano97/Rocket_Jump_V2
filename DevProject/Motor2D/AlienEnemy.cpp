@@ -22,7 +22,7 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 	App->enemy->enemies[My_ID - 1];
 
 	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
-
+	
 	type = EntityTypes::FLY_ENEMY;
 }
 

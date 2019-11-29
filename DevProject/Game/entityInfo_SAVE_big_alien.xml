@@ -6,55 +6,55 @@
 	<Animations>
 		<alien frames="9" name="alienFly">
 			<frame
-				rposX="0" rposY="0" rwidth="63" rheight="83"
+				rposX="0" rposY="0" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="100" rposY="0" rwidth="63" rheight="83"
+				rposX="100" rposY="0" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="200" rposY="0" rwidth="63" rheight="83"
+				rposX="200" rposY="0" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="0" rposY="119" rwidth="63" rheight="83"
+				rposX="0" rposY="119" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="100" rposY="119" rwidth="63" rheight="83"
+				rposX="100" rposY="119" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="200" rposY="119" rwidth="63" rheight="83"
+				rposX="200" rposY="119" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="0" rposY="238" rwidth="63" rheight="83"
+				rposX="0" rposY="238" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="100" rposY="238" rwidth="63" rheight="83"
+				rposX="100" rposY="238" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
 
 			<frame
-				rposX="200" rposY="238" rwidth="63" rheight="83"
+				rposX="200" rposY="238" rwidth="85" rheight="111"
 				time="5"
 				pivotX="0" pivotY="0">
 			</frame>
