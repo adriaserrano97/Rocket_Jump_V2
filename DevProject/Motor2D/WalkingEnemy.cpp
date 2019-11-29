@@ -52,7 +52,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		{
 		case DIRECTION_LEFT:
 			position.x = collider->rect.x + collider->rect.w +1;
-			in_path = false;
+			
 
 			break;
 
@@ -60,7 +60,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 			position.x = collider->rect.x - collider->rect.w -1;
 
-			in_path = false;
+		
 
 			break;
 
@@ -131,7 +131,7 @@ bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	
 	bool ret = false;
 
-	if ((abs(position.x - destiny.x) <= 1.1 * App->map->data.tile_width)) { ret = true; }
+	if ((abs(position.x - destiny.x) <= 1.3*App->map->data.tile_width)) { ret = true; }
 
 	return ret;
 
