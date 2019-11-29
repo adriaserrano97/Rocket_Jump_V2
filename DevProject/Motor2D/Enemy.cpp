@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "j1Collision.h"
 #include "j1Particles.h"
-#include "j1Enemies.h"
+
 #include "j1Player.h"
 #include "j1Render.h"
 #include "j1Map.h"
@@ -44,7 +44,7 @@ void Enemy::AvoidStuck(iPoint destiny) {
 
 void Enemy::CheckStuck() {
 
-	if (position.DistanceTo(position_buffer) < App->enemy->delta_move && in_path == true) {
+	if (position.DistanceTo(position_buffer) < App->entityManager->delta_move && in_path == true) {
 
 		frames_stuck++;
 	}
@@ -64,7 +64,7 @@ void Enemy::Pathfind(float dt) {
 		
 		LockOn(aux, dt);
 
-	}else if (position.DistanceTo(App->player->position) < App->enemy->aggro_range && in_path == false) {
+	}else if (position.DistanceTo(App->player->position) < App->entityManager->aggro_range && in_path == false) {
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
 
 		//Prepare our inputs to create Path
@@ -94,7 +94,7 @@ void Enemy::FollowPath(float dt) {
 
 		//if they reached a tile on their path, pop it from their current path
 
-		if (position.DistanceTo(destiny) <= App->enemy->delta_move || position.DistanceTo(destiny) <= App->enemy->delta_move + collider->rect.w) {
+		if (position.DistanceTo(destiny) <= App->entityManager->delta_move || position.DistanceTo(destiny) <= App->entityManager->delta_move + collider->rect.w) {
 
 			path->Pop(last_tile);
 

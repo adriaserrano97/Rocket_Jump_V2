@@ -13,7 +13,7 @@
 #include "j1Player.h"
 #include "j1FadeToBlack.h"
 #include "j1App.h"
-#include "j1Enemies.h"
+
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 
@@ -35,7 +35,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	colliders = new j1Collision();
 	particles = new j1Particles();
 	player = new j1Player();
-	enemy = new j1Enemies();
+
 	entityManager = new j1EntityManager();
 	fade = new j1FadeToBlack();
 	pathfinding = new j1PathFinding();
@@ -48,7 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
-	AddModule(enemy);
+
 	AddModule(entityManager);
 	AddModule(particles);
 	AddModule(colliders);

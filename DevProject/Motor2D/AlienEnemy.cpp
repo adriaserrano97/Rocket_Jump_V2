@@ -1,10 +1,10 @@
 #include "j1App.h"
 #include "AlienEnemy.h"
-#include "j1Enemies.h"
 #include "j1EntityManager.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include"j1EntityManager.h"
+#include "j1Render.h"
 
 Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 {
@@ -13,13 +13,13 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 	position.x = x;
 	position.y = y;
 
-	fly = App->enemy->alienAnimation;
+	fly = App->entityManager->alienAnimation;
 
 	
 	animation = &fly;
 
 	My_ID = 1; //pls fix
-	App->enemy->enemies[My_ID - 1];
+	//App->enemy->enemies[My_ID - 1];
 
 	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 

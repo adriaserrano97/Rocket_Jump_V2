@@ -1,11 +1,11 @@
 #include "j1App.h"
 #include "WalkingEnemy.h"
-#include "j1Enemies.h"
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "j1Render.h"
 
 
 
@@ -21,7 +21,7 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 	animation = &run;
 
 	My_ID = 1; //pls fix
-	App->enemy->enemies[My_ID - 1];
+	//App->entityManager->enemies[My_ID - 1];
 
 	collider = App->colliders->AddCollider({ x, y, run.frames->frame.w, run.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
@@ -116,7 +116,7 @@ void Walking_Enemy::FollowPath(float dt) {
 
 		//if they reached a tile on their path, pop it from their current path
 
-		if (abs(position.x-destiny.x) <= App->enemy->delta_move || abs(position.x - destiny.x) <= App->enemy->delta_move + collider->rect.w) {
+		if (abs(position.x-destiny.x) <= App->entityManager->delta_move || abs(position.x - destiny.x) <= App->entityManager->delta_move + collider->rect.w) {
 
 			path->Pop(last_tile);
 
@@ -145,7 +145,7 @@ void Walking_Enemy::AvoidStuck(iPoint destiny) {
 
 void Walking_Enemy::CheckStuck() {
 
-	if (abs(position.x - position_buffer.x) < App->enemy->delta_move && in_path == true) {
+	if (abs(position.x - position_buffer.x) < App->entityManager->delta_move && in_path == true) {
 
 		frames_stuck++;
 	}
