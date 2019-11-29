@@ -10,7 +10,7 @@
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
 #include "j1Render.h"
-#include "j1Enemies.h"
+
 
 
 j1Player::j1Player()

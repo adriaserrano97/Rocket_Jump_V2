@@ -46,9 +46,6 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Enemies.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
@@ -145,9 +142,6 @@
       <Filter>Programacio 2 ===========</Filter>
     </ClInclude>
     <ClInclude Include="j1FadeToBlack.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="j1Enemies.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
