@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 
 Enemy::~Enemy()

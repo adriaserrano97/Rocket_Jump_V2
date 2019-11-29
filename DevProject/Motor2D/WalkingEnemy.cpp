@@ -13,7 +13,7 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 {
 	//load the animation
 
-	run = App->enemy->walkingAlien;
+	run = App->entityManager->walkingAlien;
 
 	position.x = x;
 	position.y = y;
@@ -46,7 +46,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
-		//OnCollision(c2);
+
 
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
@@ -58,7 +58,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 		case DIRECTION_RIGHT:
 
-			position.x = collider->rect.x - this->collider->rect.w -1;
+			position.x = collider->rect.x - collider->rect.w -1;
 
 		
 
@@ -74,7 +74,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 		case DIRECTION_UP:
 
-			position.y = collider->rect.y - this->collider->rect.h -1;
+			position.y = collider->rect.y - collider->rect.h -1;
 
 			
 
@@ -85,7 +85,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 bool Walking_Enemy::Start() {
 
-	texture = App->enemy->spritesWalkAlien;
+	texture = App->entityManager->spritesWalkAlien;
 
 	return true;
 }

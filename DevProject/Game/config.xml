@@ -4,7 +4,7 @@
   <app framerate_cap="30">
    	<title>Game Development Testbed</title>
    	<organization>UPC</organization>
-	<load fileName="save_game.xml"></load>d 
+	<load fileName="save_game.xml"></load> 
   </app>
 	
   <renderer>
@@ -510,5 +510,9 @@
 	</Animations>
 
   </enemy>
+
+  <entity_manager>
+	<entity_doc>entityInfo.xml</entity_doc>
+  </entity_manager>
 
 </config>

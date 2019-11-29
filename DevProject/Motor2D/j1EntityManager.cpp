@@ -1,13 +1,14 @@
 #include "j1EntityManager.h"
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
+#include "j1Textures.h"
 #include "p2Log.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 
 j1EntityManager::j1EntityManager() : j1Module() {
 
-	name.create("Entity_manager");
+	name.create("entity_manager");
 
 	for (int i = 0; i <= MAX_ENTITYES; i++)
 	{
@@ -23,12 +24,36 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	LOG("Loading Map Parser");
 	bool ret = true;
 
-	folder.create(config.child("folder").child_value());
+	entity_doc.create(config.child("entity_doc").child_value());
+
+	pugi::xml_document	entity_file;
+	pugi::xml_node		entity_config;
+
+	pugi::xml_parse_result result = entity_file.load_file(entity_doc.GetString());
+
+	if (result == NULL) {
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+
+	entity_config = entity_file.first_child().first_child();
+
+	//Enemy
+	enemy_folder.create(entity_config.child("enemy_folder").child_value());
+
+	alienAnimation = alienAnimation.PushAnimation(entity_config, "alienFly");
+	walkingAlien = walkingAlien.PushAnimation(entity_config, "alienRun");
+	aggro_range = entity_config.child("values").attribute("aggro_range").as_int();
+	delta_move = entity_config.child("values").attribute("delta_move").as_float();
+
 
 	return ret;
 }
 
 bool j1EntityManager::Start() {
+
+	spritesFlyAlien = App->tex->Load(PATH(enemy_folder.GetString(), "AlienSprites.png"));
+	spritesWalkAlien = App->tex->Load(PATH(enemy_folder.GetString(), "WalkingEnemySprites.png"));
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
 	{
