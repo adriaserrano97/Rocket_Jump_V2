@@ -59,9 +59,8 @@ void Enemy::Pathfind(float dt) {
 
 	if (CheckLockOn(App->player->position)) {
 		
-		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w/2, App->player->collider->rect.y + App->player->collider->rect.h/2);
-		
-		LockOn(aux, dt);
+		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w/2, App->player->collider->rect.y - App->player->collider->rect.h/2);
+		Move(aux, dt);
 
 	}else if (position.DistanceTo(App->player->position) < App->enemy->aggro_range && in_path == false) {
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
@@ -93,10 +92,11 @@ void Enemy::FollowPath(float dt) {
 
 		//if they reached a tile on their path, pop it from their current path
 
-		if (position.DistanceTo(destiny) <= App->enemy->delta_move || position.DistanceTo(destiny) <= App->enemy->delta_move + collider->rect.w) {
-
-			path->Pop(last_tile);
-
+		if (position.DistanceTo(destiny) <= round(App->enemy->delta_move/3) || position.DistanceTo(destiny) <= round(App->enemy->delta_move/3) + collider->rect.w) {
+			
+			
+				path->Pop(last_tile);
+			
 			//done pathfinding? Try to pathfind again
 			if (path->Count() == 0) { in_path = false; }
 

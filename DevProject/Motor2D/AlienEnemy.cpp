@@ -47,24 +47,24 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
-			position.x = collider->rect.x - this->collider->rect.w - 1;
-			//in_path = false;
+			position.x = collider->rect.x + collider->rect.w + 1;
+			in_path = false;
 
 			break;
 
 		case DIRECTION_RIGHT:
 
-			position.x = collider->rect.x + collider->rect.w + 1;
+			position.x = collider->rect.x - this->collider->rect.w - 1;
 
-			//in_path = false;
+			in_path = false;
 
 			break;
 
 		case DIRECTION_DOWN:
 
-			position.y = collider->rect.y + collider->rect.h + 1;
+			position.y = collider->rect.y - collider->rect.h + 1;
 
-			//in_path = false;
+
 
 			break;
 
@@ -72,12 +72,11 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 
 			position.y = collider->rect.y - this->collider->rect.h - 1;
 
-			//in_path = false;
+
 
 			break;
 		}
 	}
-
 }
 
 bool Alien_Enemy::Start() {
@@ -88,6 +87,7 @@ bool Alien_Enemy::Start() {
 }
 
 void Alien_Enemy::LockOn(iPoint destiny, float dt) {
+
 	position.x = App->render->Lerp(position.x, destiny.x, dt);
 	position.y = App->render->Lerp(position.y, destiny.y, dt);
 }
@@ -96,7 +96,7 @@ bool Alien_Enemy::CheckLockOn(iPoint destiny) {
 	
 	bool ret = false;
 
-	if (position.DistanceTo(destiny) <= 2 * App->map->data.tile_width) { ret = true; }
+	if (position.DistanceTo(destiny) <= 1.3*App->map->data.tile_width) { ret = true; }
 
 	return ret;
 }

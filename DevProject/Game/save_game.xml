@@ -6,7 +6,7 @@
 	<audio />
 	<map />
 	<scene sceneNumber="1" />
-	<player x="174" y="141" />
+	<player x="412" y="366" />
 	<enemy />
 	<Entity_manager />
 	<particles />
