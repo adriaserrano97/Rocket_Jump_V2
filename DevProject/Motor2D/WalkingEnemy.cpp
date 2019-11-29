@@ -51,24 +51,24 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
-			position.x = collider->rect.x - this->collider->rect.w - 1;
-			//in_path = false;
+			position.x = collider->rect.x + collider->rect.w + 1;
+			in_path = false;
 
 			break;
 
 		case DIRECTION_RIGHT:
 
-			position.x = collider->rect.x + collider->rect.w + 1;
+			position.x = collider->rect.x - this->collider->rect.w - 1;
 
-			//in_path = false;
+			in_path = false;
 
 			break;
 
 		case DIRECTION_DOWN:
 
-			position.y = collider->rect.y + collider->rect.h + 1;
+			position.y = collider->rect.y - collider->rect.h + 1;
 
-			//in_path = false;
+			
 
 			break;
 
@@ -76,7 +76,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 			position.y = collider->rect.y - this->collider->rect.h -1;
 
-			//in_path = false;
+			
 
 			break;
 		}
