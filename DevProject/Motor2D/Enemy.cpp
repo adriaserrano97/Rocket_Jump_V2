@@ -166,7 +166,7 @@ Collider* Enemy::GetCollider() const
 bool Enemy::HandleInput() {
 
 	CheckStuck();
-	position_buffer = position;
+	position_buffer = position; 
 
 	return true;
 }
@@ -177,7 +177,6 @@ bool Enemy::Update(float dt) {
 	Pathfind(dt);
 	FollowPath(dt);
 	App->pathfinding->PrintLastPath();
-	position_buffer = position;
 
 	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
 

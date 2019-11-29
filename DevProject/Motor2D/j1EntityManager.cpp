@@ -151,43 +151,7 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 		Collider* col = entity_array[i]->GetCollider();
 		if (entity_array[i] != nullptr &&  col== c1)
 		{
-			//OnCollision(c2);
-
-			switch (checkDirection(c1->rect, c2->rect))
-			{
-			case DIRECTION_LEFT:
-
-				entity_array[i]->position.x = c2->rect.x - c1->rect.w - 1;
-
-				//in_path = false;
-
-				break;
-
-			case DIRECTION_RIGHT:
-
-				entity_array[i]->position.x = c2->rect.x + c2->rect.w + 1;
-
-				//in_path = false;
-
-				break;
-
-			case DIRECTION_DOWN:
-
-				entity_array[i]->position.y = c2->rect.y + c2->rect.h + 1;
-
-				//in_path = false;
-
-				break;
-
-			case DIRECTION_UP:
-
-				entity_array[i]->position.y = c2->rect.y - c1->rect.h - 1;
-
-				//in_path = false;
-
-				break;
-			}
-
+			entity_array[i]->OnCollision(c2);
 			break;
 		}
 	}

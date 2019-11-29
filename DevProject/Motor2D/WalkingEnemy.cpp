@@ -5,6 +5,7 @@
 #include "j1Player.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 
 
@@ -22,7 +23,8 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 	My_ID = 1; //pls fix
 	App->enemy->enemies[My_ID - 1];
 
-	collider = App->colliders->AddCollider({ x, y, run.frames->frame.w, run.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->enemy);
+	collider = App->colliders->AddCollider({ x, y, run.frames->frame.w, run.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
+																															//not enemies >:(
 
 	type = EntityTypes::WALK_ENEMY;
 
@@ -42,6 +44,43 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 	}
 
+	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
+	{
+		//OnCollision(c2);
+
+		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
+		{
+		case DIRECTION_LEFT:
+			position.x = collider->rect.x - this->collider->rect.w - 1;
+			//in_path = false;
+
+			break;
+
+		case DIRECTION_RIGHT:
+
+			position.x = collider->rect.x + collider->rect.w + 1;
+
+			//in_path = false;
+
+			break;
+
+		case DIRECTION_DOWN:
+
+			position.y = collider->rect.y + collider->rect.h + 1;
+
+			//in_path = false;
+
+			break;
+
+		case DIRECTION_UP:
+
+			position.y = collider->rect.y - this->collider->rect.h -1;
+
+			//in_path = false;
+
+			break;
+		}
+	}
 }
 
 bool Walking_Enemy::Start() {
