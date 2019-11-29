@@ -25,3 +25,9 @@ bool Entity::PostUpdate()
 
 void Entity::Draw(float dt) {}
 
+void Entity::OnCollision(Collider* collider) {}
+
+Collider* Entity::GetCollider() const {
+	return nullptr;
+}
+

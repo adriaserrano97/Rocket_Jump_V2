@@ -8,14 +8,6 @@
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 
-Enemy::Enemy(int x, int y) : position(x, y)
-{}
-
-Enemy::Enemy(int x, int y, uint ID) : position(x, y), My_ID(ID)
-{}
-
-Enemy::Enemy() : position(0, 0)
-{}
 
 Enemy::~Enemy()
 {
@@ -162,84 +154,14 @@ bool Enemy::Save(pugi::xml_node& data) const {
 }
 
 
-//collision
-
-COLLISION_WALL_DIRECTION Enemy::checkDirection(SDL_Rect enemy, SDL_Rect collision) {
-
-	int directionDiference[DIRECTION_MAX];
-
-	directionDiference[DIRECTION_LEFT] = abs((enemy.x + enemy.w) - collision.x);
-	directionDiference[DIRECTION_RIGHT] = abs((collision.x + collision.w) - enemy.x);
-	directionDiference[DIRECTION_UP] = abs((enemy.y + enemy.h) - collision.y);
-	directionDiference[DIRECTION_DOWN] = abs((collision.y + collision.h) - enemy.y);
-
-	int directionCheck = DIRECTION_NONE;
-
-	for (int i = 0; i < DIRECTION_MAX; ++i)
-	{
-		if (directionCheck == DIRECTION_NONE)
-			directionCheck = i;
-		else if ((directionDiference[i] < directionDiference[directionCheck]))
-			directionCheck = i;
-
-	}
-
-	return (COLLISION_WALL_DIRECTION)directionCheck;
-}
-
-void Enemy::OnCollision(Collider* c1, Collider* c2)
-{
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (App->enemy->enemies[i] != nullptr && App->enemy->enemies[i]->GetCollider() == c1)
-		{
-			OnCollision(c2);
-
-			switch (checkDirection(c1->rect, c2->rect))
-			{
-			case DIRECTION_LEFT:
-
-				position.x = c2->rect.x - c1->rect.w - 1;
-
-				in_path = false;
-
-				break;
-
-			case DIRECTION_RIGHT:
-
-				position.x = c2->rect.x + c2->rect.w + 1;
-
-				in_path = false;
-
-				break;
-
-			case DIRECTION_DOWN:
-
-				position.y = c2->rect.y + c2->rect.h + 1;
-
-				in_path = false;
-
-				break;
-
-			case DIRECTION_UP:
-
-				position.y = c2->rect.y - c1->rect.h - 1;
-
-				in_path = false;
-
-				break;
-			}
-
-			break;
-		}
-	}
-}
 
 
-const Collider* Enemy::GetCollider() const
+
+Collider* Enemy::GetCollider() const
 {
 	return collider;
 }
+
 
 bool Enemy::HandleInput() {
 
@@ -248,6 +170,7 @@ bool Enemy::HandleInput() {
 
 	return true;
 }
+
 
 bool Enemy::Update(float dt) {
 
@@ -263,4 +186,5 @@ bool Enemy::Update(float dt) {
 	}
 	return true;
 }
+
 

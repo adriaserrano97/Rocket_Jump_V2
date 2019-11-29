@@ -116,3 +116,79 @@ bool j1EntityManager::CleanUp() {
 
 	return true;
 }
+
+
+//collision
+
+COLLISION_WALL_DIRECTION j1EntityManager::checkDirection(SDL_Rect enemy, SDL_Rect collision) {
+
+	int directionDiference[DIRECTION_MAX];
+
+	directionDiference[DIRECTION_LEFT] = abs((enemy.x + enemy.w) - collision.x);
+	directionDiference[DIRECTION_RIGHT] = abs((collision.x + collision.w) - enemy.x);
+	directionDiference[DIRECTION_UP] = abs((enemy.y + enemy.h) - collision.y);
+	directionDiference[DIRECTION_DOWN] = abs((collision.y + collision.h) - enemy.y);
+
+	int directionCheck = DIRECTION_NONE;
+
+	for (int i = 0; i < DIRECTION_MAX; ++i)
+	{
+		if (directionCheck == DIRECTION_NONE)
+			directionCheck = i;
+		else if ((directionDiference[i] < directionDiference[directionCheck]))
+			directionCheck = i;
+
+	}
+
+	return (COLLISION_WALL_DIRECTION)directionCheck;
+}
+
+
+void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
+{
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		Collider* col = entity_array[i]->GetCollider();
+		if (entity_array[i] != nullptr &&  col== c1)
+		{
+			//OnCollision(c2);
+
+			switch (checkDirection(c1->rect, c2->rect))
+			{
+			case DIRECTION_LEFT:
+
+				entity_array[i]->position.x = c2->rect.x - c1->rect.w - 1;
+
+				//in_path = false;
+
+				break;
+
+			case DIRECTION_RIGHT:
+
+				entity_array[i]->position.x = c2->rect.x + c2->rect.w + 1;
+
+				//in_path = false;
+
+				break;
+
+			case DIRECTION_DOWN:
+
+				entity_array[i]->position.y = c2->rect.y + c2->rect.h + 1;
+
+				//in_path = false;
+
+				break;
+
+			case DIRECTION_UP:
+
+				entity_array[i]->position.y = c2->rect.y - c1->rect.h - 1;
+
+				//in_path = false;
+
+				break;
+			}
+
+			break;
+		}
+	}
+}

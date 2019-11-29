@@ -5,8 +5,8 @@
 
 #include "p2Point.h"
 
+struct Collider;
 struct SDL_Texture;
-
 
 class Entity
 {
@@ -35,6 +35,10 @@ public:
 	virtual bool PostUpdate();
 	virtual bool Start();
 	virtual void Draw(float dt);
+
+	virtual void OnCollision(Collider* collider);
+
+	virtual Collider* GetCollider() const;
 
 };
 

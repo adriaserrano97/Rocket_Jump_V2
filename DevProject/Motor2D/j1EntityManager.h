@@ -8,6 +8,7 @@
 #include "j1Module.h"
 #include "Entity.h"
 #include "p2DynArray.h"
+#include "j1Player.h"
 
 class j1EntityManager : public j1Module
 {
@@ -26,6 +27,10 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
+
+	void OnCollision(Collider* c1, Collider* c2);
+	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect enemy, SDL_Rect collision);
+
 	bool CleanUp();
 
 
@@ -36,7 +41,6 @@ private:
 	float deltaTime;
 
 };
-
 
 
 

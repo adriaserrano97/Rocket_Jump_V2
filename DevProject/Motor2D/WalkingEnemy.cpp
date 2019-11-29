@@ -8,11 +8,14 @@
 
 
 
-Walking_Enemy::Walking_Enemy(int x, int y) : Enemy(x, y)
+Walking_Enemy::Walking_Enemy(int x, int y) 
 {
 	//load the animation
 
 	run = App->enemy->walkingAlien;
+
+	position.x = x;
+	position.y = y;
 
 	animation = &run;
 

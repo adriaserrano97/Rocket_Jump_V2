@@ -16,7 +16,6 @@ class Enemy: public Entity
 {
 public:
 	//general info
-	iPoint position;
 	iPoint position_buffer; //position last frame
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
@@ -28,9 +27,7 @@ public:
 	p2DynArray<iPoint>* path = nullptr;
 
 public:
-	Enemy(int x, int y, uint ID);
-	Enemy(int x, int y);
-	Enemy();
+	
 
 	virtual ~Enemy();
 	void Destroy();
@@ -57,10 +54,9 @@ public:
 	/* ----------------Load function. yikes----------------------*/
 
 	//Collision managment
-	void OnCollision(Collider* c1, Collider* c2);
-	virtual void OnCollision(Collider* collider) {};
-	const Collider* GetCollider() const;
-	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect enemy, SDL_Rect collision);
+	
+	Collider* GetCollider() const;
+	
 };
 
 #endif // __ENEMY_H__
