@@ -33,10 +33,22 @@ public:
 
 	bool CleanUp();
 
+	//Enemy
+	SDL_Texture* spritesFlyAlien = nullptr;
+	SDL_Texture* spritesWalkAlien = nullptr;
+	int aggro_range;
+	float delta_move; //defines when do enemies correct their pathfinding
+	Animation alienAnimation;
+	Animation walkingAlien;
+
 
 private:
 	Entity* entity_array[MAX_ENTITYES];
+
 	p2SString			folder;
+
+	p2SString			entity_doc;
+	p2SString			enemy_folder;
 
 	float deltaTime;
 
