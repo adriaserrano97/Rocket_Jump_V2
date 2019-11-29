@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "Enemy.h"
 #include "j1EntityManager.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -233,6 +234,9 @@ void j1Map::Unload()
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
+	BROFILER_CATEGORY("Load Map", Profiler::Color::Aqua);
+
+
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 

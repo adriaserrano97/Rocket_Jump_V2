@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "SDL_image/include/SDL_image.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
 j1Textures::j1Textures() : j1Module()
@@ -60,6 +61,10 @@ bool j1Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const j1Textures::Load(const char* path)
 {
+
+	BROFILER_CATEGORY("Loading_Textures", Profiler::Color::BlanchedAlmond);
+
+	
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 

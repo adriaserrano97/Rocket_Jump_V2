@@ -2,6 +2,7 @@
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 
 j1EntityManager::j1EntityManager() : j1Module() {
@@ -83,6 +84,8 @@ bool j1EntityManager::PreUpdate() {
 
 
 bool j1EntityManager::Update(float dt) {
+
+	BROFILER_CATEGORY("Update_Entity_Manager", Profiler::Color::CornflowerBlue)
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 

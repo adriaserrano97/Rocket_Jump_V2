@@ -51,14 +51,14 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
-			position.x = collider->rect.x + collider->rect.w + 1;
+			position.x = collider->rect.x + collider->rect.w +1;
 			in_path = false;
 
 			break;
 
 		case DIRECTION_RIGHT:
 
-			position.x = collider->rect.x - this->collider->rect.w - 1;
+			position.x = collider->rect.x - this->collider->rect.w -1;
 
 			in_path = false;
 
@@ -90,7 +90,7 @@ bool Walking_Enemy::Start() {
 	return true;
 }
 
-//Pathfinding
+//Pathfinding, specific of walking enemy
 
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
@@ -108,7 +108,7 @@ void Walking_Enemy::FollowPath(float dt) {
 
 		iPoint destiny = App->map->PosConverter(path->At(tilenum)->x, path->At(tilenum)->y);
 
-		destiny.y += App->map->data.tile_height / 3; // slight adjustment so the enemy chases the player, not the corner
+		destiny.y += round(App->map->data.tile_height / 3); // slight adjustment so the enemy chases the player, not the corner
 
 		Move(destiny, dt);
 
