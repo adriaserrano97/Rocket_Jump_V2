@@ -18,8 +18,8 @@ public:
 
 	Entity* CreateEntity(Entity::EntityTypes type, int x, int y);
 	void DestroyDeletedEntity();
-	void Save();
-	void Load();
+	bool Save(pugi::xml_node& data) const;
+	bool Load(pugi::xml_node& data);
 
 	bool Awake(pugi::xml_node&);
 	bool Start();

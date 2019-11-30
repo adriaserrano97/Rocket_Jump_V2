@@ -14,13 +14,7 @@ Enemy::~Enemy()
 {
 	collider = nullptr;
 
-	if (animation != nullptr)
-	{
-		*animation = Animation();
-		animation = nullptr;
-	}
-
-	if (path->Count() != 0)
+	if (path != nullptr)
 	{
 		path->Clear();
 	}
@@ -36,15 +30,11 @@ void Enemy::Destroy() {
 		collider = nullptr;
 	}
 
-	if (animation != nullptr) {
 
-		*animation = Animation(); 
-		animation = nullptr;
+	if (path!= nullptr)
+	{
+		path->Clear();
 	}
-
-
-	path->Clear();
-	
 	
 }
 

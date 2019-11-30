@@ -2,6 +2,7 @@
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
 #include "j1Textures.h"
+#include "p2SString.h"
 #include "p2Log.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
@@ -106,8 +107,6 @@ void j1EntityManager::DestroyDeletedEntity() {
 
 bool j1EntityManager::PreUpdate() {
 
-	
-
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
 		entity_array[i]->HandleInput();
@@ -185,7 +184,7 @@ COLLISION_WALL_DIRECTION j1EntityManager::checkDirection(SDL_Rect enemy, SDL_Rec
 
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (uint i = 0; i < MAX_ENEMIES && entity_array[i] != nullptr; ++i)
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
 	{
 		Collider* col = entity_array[i]->GetCollider();
 		if (entity_array[i] != nullptr &&  col== c1)
@@ -194,4 +193,57 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 	}
+}
+
+
+bool j1EntityManager::Load(pugi::xml_node& data)
+{
+	int i = 0;
+	for (pugi::xml_node iterator = data.first_child(); iterator != NULL; iterator = iterator.next_sibling(), i++)
+	{
+		p2SString type(iterator.attribute("type").as_string());
+
+		if (type == "fly_enemy")
+		{
+			CreateEntity(Entity::EntityTypes::FLY_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+		}
+
+		if (type == "walk_enemy")
+		{
+			CreateEntity(Entity::EntityTypes::WALK_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+		}
+
+		entity_array[i]->Start();
+	}
+
+	
+
+	return true;
+}
+
+// Save Game State
+bool j1EntityManager::Save(pugi::xml_node& data) const
+{
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	{
+		pugi::xml_node iterator = data.append_child("entity");
+
+		switch (entity_array[i]->type)
+		{
+		case Entity::EntityTypes::FLY_ENEMY:
+			iterator.append_attribute("type") = "fly_enemy";
+			break;
+
+		case Entity::EntityTypes::WALK_ENEMY:
+			iterator.append_attribute("type") = "walk_enemy";
+			break;
+		}
+		
+		iterator.append_attribute("x") = entity_array[i]->position.x;
+		iterator.append_attribute("y") = entity_array[i]->position.y;
+	}
+	
+	
+
+	return true;
 }
