@@ -12,22 +12,39 @@
 
 Enemy::~Enemy()
 {
-	if (collider != nullptr) {
+	collider = nullptr;
 
-		collider = nullptr;
-	}
-
-	if (animation != nullptr) {
-
+	if (animation != nullptr)
+	{
 		*animation = Animation();
 		animation = nullptr;
 	}
-	path->Clear();
+
+	if (path->Count() != 0)
+	{
+		path->Clear();
+	}
 }
 
 void Enemy::Destroy() {
 
 	to_delete = true;
+
+	if (collider != nullptr) {
+
+		collider->to_delete = true;
+		collider = nullptr;
+	}
+
+	if (animation != nullptr) {
+
+		*animation = Animation(); 
+		animation = nullptr;
+	}
+
+
+	path->Clear();
+	
 	
 }
 
