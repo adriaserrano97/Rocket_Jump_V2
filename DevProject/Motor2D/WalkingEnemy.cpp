@@ -32,7 +32,8 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 
 void Walking_Enemy::Move(iPoint destiny, float dt)
 {
-	position.x = App->render->Lerp(position.x, destiny.x, dt);
+	position.x = App->render->Full_Lerp(position.x, destiny.x, 0.03, dt);
+	
 }
 
 void Walking_Enemy::OnCollision(Collider* collider) {
@@ -47,18 +48,22 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
 
-
+		
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
 			position.x = collider->rect.x + collider->rect.w +1;
-			
+			path = nullptr;
+			in_path = false;
+
 
 			break;
 
 		case DIRECTION_RIGHT:
 
-			position.x = collider->rect.x - collider->rect.w -1;
+			position.x = collider->rect.x - this->collider->rect.w -1;
+			path = nullptr;
+			in_path = false;
 
 		
 
@@ -94,7 +99,7 @@ bool Walking_Enemy::Start() {
 
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
-	position.x = App->render->Lerp(position.x, destiny.x, dt); 
+	position.x = App->render->Full_Lerp(position.x, destiny.x, 0.03, dt); //nerfed speed
 
 }
 
@@ -131,25 +136,32 @@ bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	
 	bool ret = false;
 
-	if ((abs(position.x - destiny.x) <= 1.3*App->map->data.tile_width)) { ret = true; }
+	if ((abs(position.x - destiny.x) <= App->map->data.tile_width)) { ret = true; } //only if in melee
 
 	return ret;
 
 }
 
 void Walking_Enemy::AvoidStuck(iPoint destiny) {
-
-	//Nothing to do here. We can't teleport around a ground enemy
+	
+	iPoint aux;
+	while (path->Count() != 0) {
+		
+		path->Pop(aux);
+	
+	}
+	
+	in_path = true;
 
 }
 
 void Walking_Enemy::CheckStuck() {
 
-	if (abs(position.x - position_buffer.x) < App->entityManager->delta_move && in_path == true) {
+	if (abs(position.x - position_buffer.x) <= 2*App->entityManager->delta_move && in_path == true) {
 
 		frames_stuck++;
 	}
-	if (frames_stuck > 30) {
+	if (frames_stuck > 5) {
 
 		AvoidStuck(App->player->position);
 

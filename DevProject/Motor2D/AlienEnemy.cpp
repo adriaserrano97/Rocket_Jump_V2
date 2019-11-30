@@ -48,16 +48,19 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 		{
 		case DIRECTION_LEFT:
 			position.x = collider->rect.x + collider->rect.w + 1;
-			in_path = false;
-
+			
+			path = nullptr;
+			in_path = true;
+			
 			break;
 
 		case DIRECTION_RIGHT:
 
 			position.x = collider->rect.x - this->collider->rect.w - 1;
 
-			in_path = false;
-
+			path = nullptr;
+			in_path = true;
+			
 			break;
 
 		case DIRECTION_DOWN:
@@ -96,7 +99,8 @@ bool Alien_Enemy::CheckLockOn(iPoint destiny) {
 	
 	bool ret = false;
 
-	if (position.DistanceTo(destiny) <= 1.3*App->map->data.tile_width) { ret = true; }
+	if (position.DistanceTo(destiny) <= 2*App->map->data.tile_width) { 
+		ret = true; }
 
 	return ret;
 }

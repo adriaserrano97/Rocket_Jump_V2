@@ -46,6 +46,7 @@ public:
 
 	//General lerp function
 	int Lerp(int a, int b, float dt);
+	int Full_Lerp(int a, int b, float lerp, float dt);
 
 private:
 	//Camera control functions

@@ -61,7 +61,7 @@ void Enemy::Pathfind(float dt) {
 	if (CheckLockOn(App->player->position)) {
 		
 		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w/2, App->player->collider->rect.y - App->player->collider->rect.h/2);
-		Move(aux, dt);
+		LockOn(aux, dt);
 
 	}else if (position.DistanceTo(App->player->position) < App->entityManager->aggro_range && in_path == false) {
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
@@ -86,7 +86,7 @@ void Enemy::FollowPath(float dt) {
 
 		int tilenum = (path->Count() - 1); // -1 because this returns count, we want to access to array position
 		iPoint destiny = App->map->PosConverter(path->At(tilenum)->x,path->At(tilenum)->y);
-		destiny.y += App->map->data.tile_height / 3; // slight adjustment so the enemy chases the player, not the corner
+		destiny.y -= 1 ; // slight adjustment so the enemy chases the player, not the corner
 		Move(destiny, dt);
 
 		iPoint last_tile;
@@ -95,11 +95,12 @@ void Enemy::FollowPath(float dt) {
 
 		if (position.DistanceTo(destiny) <= round(App->entityManager->delta_move/3) || position.DistanceTo(destiny) <= round(App->entityManager->delta_move/3) + collider->rect.w) {
 			
-			
 				path->Pop(last_tile);
 			
 			//done pathfinding? Try to pathfind again
-			if (path->Count() == 0) { in_path = false; }
+			if (path->Count() == 0) { 
+				in_path = false; 
+			}
 
 		}
 	}
@@ -109,13 +110,15 @@ void Enemy::ResetPathCounter(float dt) {
 
 	path_counter += 1 + dt;
 
-	if (path_counter > 300) {
+	if (path_counter > 100) {
 	
 		path_counter = 0;
 
 		path = nullptr;
 
 		in_path = false;
+
+		frames_stuck = 0;
 	}
 }
 

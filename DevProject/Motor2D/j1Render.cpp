@@ -379,16 +379,18 @@ void j1Render::Vertical_Look(float dt) {
 //Returns lerp% distance from a to b
 int j1Render::CamLerp(int a, int b, float dt) {
 	if (abs(b - a)* dt >= 5)
-		return (int)(lerp * (b - a)) * dt;
+		return round((lerp * (b - a)) * dt);
 	else return (b-a) * dt;
 	//if destination is close enough, snap to it
 }
 
 //General Lerp function
 int j1Render::Lerp(int a, int b, float dt){
-		return (int)(a + lerp * (b - a) * dt);
+		return round((a + lerp * (b - a) * dt));
 }
-
+int j1Render::Full_Lerp(int a, int b, float lerp, float dt) {
+	return round((a + lerp * (b - a) * dt));
+}
 //Define where does our camera have triggers to change perspective
 void j1Render::AdjustAnchorPoints() {
 	
