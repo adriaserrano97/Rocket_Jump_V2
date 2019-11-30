@@ -17,6 +17,16 @@ Enemy::~Enemy()
 	{
 		path->Clear();
 	}
+
+	
+	iPoint lmao;
+	
+	while (path != nullptr && path->Count() != 0) {
+	
+		path->Pop(lmao);
+	
+	}
+	
 }
 
 void Enemy::Destroy() {

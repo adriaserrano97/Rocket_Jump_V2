@@ -28,6 +28,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
+
 	return ret;
 }
 
@@ -389,6 +390,7 @@ bool j1Map::LoadMap()
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
+		
 
 		data.background_color.r = 0;
 		data.background_color.g = 0;

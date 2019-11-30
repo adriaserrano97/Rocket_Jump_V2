@@ -15,6 +15,7 @@ class j1EntityManager : public j1Module
 public:
 	j1EntityManager();
 	~j1EntityManager();
+	void Destroy_all();
 
 	Entity* CreateEntity(Entity::EntityTypes type, int x, int y);
 	void DestroyDeletedEntity();
