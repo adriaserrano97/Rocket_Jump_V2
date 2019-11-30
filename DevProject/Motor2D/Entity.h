@@ -23,7 +23,8 @@ public:
 	
 	iPoint position;
 	EntityTypes type;
-	SDL_Texture* texture;
+	SDL_Texture* texture = nullptr;
+	bool to_delete = false;
 
 
 public:

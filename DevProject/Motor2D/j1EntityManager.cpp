@@ -90,14 +90,23 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 }
 
 
-void j1EntityManager::DestroyEntity(Entity* entity) {
+void j1EntityManager::DestroyDeletedEntity() {
 
-	
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	{
+		if (entity_array[i]->to_delete)
+		{
+			delete entity_array[i];
+			entity_array[i] = nullptr;
+		}
+	}
 
 }
 
 
 bool j1EntityManager::PreUpdate() {
+
+	
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
@@ -129,6 +138,8 @@ bool j1EntityManager::PostUpdate() {
 
 		entity_array[i]->Draw(deltaTime);
 	}
+
+	DestroyDeletedEntity();
 
 	return true;
 }
@@ -174,7 +185,7 @@ COLLISION_WALL_DIRECTION j1EntityManager::checkDirection(SDL_Rect enemy, SDL_Rec
 
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	for (uint i = 0; i < MAX_ENEMIES && entity_array[i] != nullptr; ++i)
 	{
 		Collider* col = entity_array[i]->GetCollider();
 		if (entity_array[i] != nullptr &&  col== c1)

@@ -12,16 +12,10 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 
 	position.x = x;
 	position.y = y;
-
-	fly = App->entityManager->alienAnimation;
-
 	
-	animation = &fly;
+	animation = &App->entityManager->alienAnimation;
 
-	My_ID = 1; //pls fix
-	//App->enemy->enemies[My_ID - 1];
-
-	collider = App->colliders->AddCollider({ x, y, fly.frames->frame.w, fly.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
+	collider = App->colliders->AddCollider({ x, y, animation->GetRect().w, animation->GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 	
 	type = EntityTypes::FLY_ENEMY;
 }

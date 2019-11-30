@@ -7,7 +7,6 @@ class Walking_Enemy : public Enemy
 {
 private:
 	bool going_up = true;
-	Animation run;
 
 public:
 

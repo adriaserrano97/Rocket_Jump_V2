@@ -12,22 +12,15 @@
 Walking_Enemy::Walking_Enemy(int x, int y) 
 {
 	//load the animation
-
-	run = App->entityManager->walkingAlien;
-
 	position.x = x;
 	position.y = y;
 
-	animation = &run;
+	animation = &App->entityManager->walkingAlien;;
 
-	My_ID = 1; //pls fix
-	//App->entityManager->enemies[My_ID - 1];
-
-	collider = App->colliders->AddCollider({ x, y, run.frames->frame.w, run.frames->frame.h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
+	collider = App->colliders->AddCollider({ x, y, animation->GetRect().w, animation->GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
 
 	type = EntityTypes::WALK_ENEMY;
-
 }
 
 void Walking_Enemy::Move(iPoint destiny, float dt)
@@ -40,9 +33,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 	if (collider->type == COLLIDER_EXPLOSION)
 	{
-
 		Destroy();
-
 	}
 
 	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)

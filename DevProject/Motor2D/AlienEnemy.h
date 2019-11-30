@@ -8,7 +8,6 @@ class Alien_Enemy : public Enemy
 private:
 	float wave = -1.0f;
 	bool going_up = true;
-	Animation fly;
 
 public:
 

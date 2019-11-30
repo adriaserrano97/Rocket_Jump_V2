@@ -17,7 +17,7 @@ public:
 	~j1EntityManager();
 
 	Entity* CreateEntity(Entity::EntityTypes type, int x, int y);
-	void DestroyEntity(Entity* entity);
+	void DestroyDeletedEntity();
 	void Save();
 	void Load();
 
