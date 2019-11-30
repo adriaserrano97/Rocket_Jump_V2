@@ -46,8 +46,10 @@ public:
 
 	bool Update(float dt);
 	bool HandleInput();
+
 	//Render fucntion
 	void Draw(float dt);
+	bool myflip = false;
 
 	//Enemy managment between games
 	bool Save(pugi::xml_node&) const;

@@ -7,6 +7,7 @@ class Walking_Enemy : public Enemy
 {
 private:
 	bool going_up = true;
+	float speed;
 
 public:
 
