@@ -12,27 +12,23 @@
 
 Enemy::~Enemy()
 {
-	collider = nullptr;
+	if (collider != nullptr) {
 
-	if (animation != nullptr)
-	{
-		*animation = Animation();
+		collider = nullptr;
 	}
+
+	if (animation != nullptr) {
+
+		*animation = Animation();
+		animation = nullptr;
+	}
+	path->Clear();
 }
 
 void Enemy::Destroy() {
 
 	to_delete = true;
-
-	if (collider != nullptr) {
-
-		collider->to_delete = true;
-	}
-
-	if (animation != nullptr) {
-
-		*animation = Animation(); 
-	}
+	
 }
 
 //Pathfinding 
