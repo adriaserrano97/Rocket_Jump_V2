@@ -1,10 +1,8 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
-#define MAX_ENEMIES 100
-
 #include "p2Point.h"
-#include "Animation.h"
+
 #include "p2DynArray.h"
 #include "Entity.h"
 
@@ -17,7 +15,7 @@ class Enemy: public Entity
 public:
 	//general info
 	iPoint position_buffer; //position last frame
-	Animation* animation = nullptr;
+	
 	Collider* collider = nullptr;
 	uint My_ID; //position in enemy array
 
@@ -29,7 +27,7 @@ public:
 public:
 	
 
-	virtual ~Enemy();
+	~Enemy();
 	void Destroy();
 
 
@@ -49,9 +47,6 @@ public:
 	//Render fucntion
 	void Draw(float dt);
 
-	//Enemy managment between games
-	bool Save(pugi::xml_node&) const;
-	/* ----------------Load function. yikes----------------------*/
 
 	//Collision managment
 	

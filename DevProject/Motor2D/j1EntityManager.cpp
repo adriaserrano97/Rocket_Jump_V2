@@ -47,6 +47,17 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	aggro_range = entity_config.child("values").attribute("aggro_range").as_int();
 	delta_move = entity_config.child("values").attribute("delta_move").as_float();
 
+	//Particles
+	entity_config = entity_config.next_sibling();
+
+	particle_folder.create(entity_config.child("particle_folder").child_value());
+
+	explosionAnimation = explosionAnimation.PushAnimation(entity_config, "explosion");
+	explosion_life = entity_config.child("Animations").child("explosion").attribute("life").as_int();
+
+	dustAnimation = dustAnimation.PushAnimation(entity_config, "dust");
+	dust_life = entity_config.child("Animations").child("dust").attribute("life").as_int();
+
 
 	return ret;
 }
@@ -55,6 +66,7 @@ bool j1EntityManager::Start() {
 
 	spritesFlyAlien = App->tex->Load(PATH(enemy_folder.GetString(), "AlienSprites.png"));
 	spritesWalkAlien = App->tex->Load(PATH(enemy_folder.GetString(), "WalkingEnemySprites.png"));
+	spritesDust = App->tex->Load(PATH(particle_folder.GetString(), "particles.png"));
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
 	{
@@ -83,10 +95,8 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 			entity_array[i] = ret;
 			break;
 		}
-
 	}
 	
-
 	return ret;
 }
 

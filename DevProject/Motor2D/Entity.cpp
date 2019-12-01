@@ -17,12 +17,6 @@ bool Entity::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
-bool Entity::PostUpdate()
-{
-	return true;
-}
-
 void Entity::Draw(float dt) {}
 
 void Entity::OnCollision(Collider* collider) {

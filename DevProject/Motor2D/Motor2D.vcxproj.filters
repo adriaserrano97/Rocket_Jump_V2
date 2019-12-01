@@ -70,6 +70,12 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -169,6 +175,12 @@
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
   </ItemGroup>

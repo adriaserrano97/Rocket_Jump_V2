@@ -12,9 +12,9 @@
 
 j1Particles::j1Particles()
 {
-	name.create("particles");
+	name.create("Particles");
 
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	for (uint i = 0; i < MAX_ACTIVE_Particles; ++i)
 		active[i] = nullptr;
 }
 
@@ -24,7 +24,7 @@ j1Particles::~j1Particles()
 // Load assets
 bool j1Particles::Start() {
 
-	graphics = App->tex->Load(PATH(folder.GetString(), "particles.png"));
+	graphics = App->tex->Load(PATH(folder.GetString(), "Particless.png"));
 
 	return true;
 }
@@ -45,12 +45,12 @@ bool j1Particles::Awake(pugi::xml_node& node) {
 // Unload assets
 bool j1Particles::CleanUp()
 {
-	LOG("Unloading particles");
+	LOG("Unloading Particless");
 	App->tex->UnLoad(graphics);
 
 	graphics = nullptr;
 
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	for (uint i = 0; i < MAX_ACTIVE_Particles; ++i)
 	{
 		if (active[i] != nullptr)
 		{
@@ -76,9 +76,9 @@ bool j1Particles::CleanUp()
 // Update: draw background
 bool j1Particles::Update(float dt)
 {
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	for (uint i = 0; i < MAX_ACTIVE_Particles; ++i)
 	{
-		Particle* p = active[i];
+		Particles* p = active[i];
 
 		if (p == nullptr)
 			continue;
@@ -112,13 +112,13 @@ bool j1Particles::Update(float dt)
 }
 
 
-void j1Particles::AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type=COLLIDER_NONE, uint sound = 0, uint delay = 0)
+void j1Particles::AddParticles(const Particles& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type=COLLIDER_NONE, uint sound = 0, uint delay = 0)
 {
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
+	for (uint i = 0; i < MAX_ACTIVE_Particles; ++i)
 	{
 		if (active[i] == nullptr)
 		{
-			Particle* p = new Particle(particle);
+			Particles* p = new Particles(particle);
 			p->position.x = x;
 			p->position.y = y;
 			p->sfx = sound;
@@ -153,18 +153,18 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 	c1 = nullptr;*/
 }
 
-Particle::Particle()
+Particles::Particles()
 {
 	position.SetToZero();
 	speed.SetToZero();
 }
 
-Particle::Particle(const Particle& p) :
+Particles::Particles(const Particles& p) :
 	anim(p.anim), position(p.position), speed(p.speed),
 	fx(p.fx), life(p.life)
 {}
 
-bool Particle::Update()
+bool Particles::Update()
 {
 	bool ret = true;
 

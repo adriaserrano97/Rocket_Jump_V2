@@ -41,6 +41,13 @@ public:
 	Animation alienAnimation;
 	Animation walkingAlien;
 
+	//Particles
+	SDL_Texture* spritesDust = nullptr;
+	Animation dustAnimation;
+	Animation explosionAnimation;
+	int explosion_life;
+	int dust_life;
+
 
 private:
 	Entity* entity_array[MAX_ENTITYES];
@@ -49,6 +56,7 @@ private:
 
 	p2SString			entity_doc;
 	p2SString			enemy_folder;
+	p2SString			particle_folder;
 
 	float deltaTime;
 

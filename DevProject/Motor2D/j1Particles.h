@@ -4,14 +4,14 @@
 #include "j1Module.h"
 #include "Animation.h"
 #include "p2Point.h"
-#define MAX_ACTIVE_PARTICLES 150
+#define MAX_ACTIVE_Particles 150
 
 struct SDL_Texture;
 struct Mix_Chunk;
 struct Collider;
 enum COLLIDER_TYPE;
 
-struct Particle
+struct Particles
 {
 	Collider* collider = nullptr;
 	Animation anim;
@@ -21,8 +21,8 @@ struct Particle
 	float life = 0.0f;
 	bool flip;
 	uint sfx = 0u;
-	Particle();
-	Particle(const Particle& p);
+	Particles();
+	Particles(const Particles& p);
 	bool Update();
 };
 
@@ -38,23 +38,23 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type, uint sound, uint delay);
+	void AddParticles(const Particles& Particles, bool flip, int x, int y, int vx, int vy, COLLIDER_TYPE collider_type, uint sound, uint delay);
 	void OnCollision(Collider* c1, Collider* c2);
 
 private:
 
 	
-	Particle* active[MAX_ACTIVE_PARTICLES];
-	uint last_particle = 0;
+	Particles* active[MAX_ACTIVE_Particles];
+	uint last_Particles = 0;
 	p2SString			folder;
 	SDL_Texture* graphics = nullptr;
 
 public:
-	//list of particles
-	Particle explosion;
-	Particle dust;
+	//list of Particless
+	Particles explosion;
+	Particles dust;
 
-	//list of animations of such particles 
+	//list of animations of such Particless 
 	Animation dust_animation;
 };
 

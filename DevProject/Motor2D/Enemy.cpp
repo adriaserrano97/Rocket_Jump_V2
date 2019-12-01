@@ -131,7 +131,7 @@ bool Enemy::CheckLockOn(iPoint destiny) {
 
 	//each enemy has its own conditions
 
-	return false;
+	return true;
 
 }
 
@@ -146,24 +146,6 @@ void Enemy::Draw(float dt)
 		App->render->Blit(texture, position.x, position.y, &animation->GetCurrentFrameBox(dt));
 	}
 }
-
-//Enemy managment between games
-bool Enemy::Save(pugi::xml_node& data) const {
-
-
-	//TODO: REWRITE THIS ONCE WE HAVE ENTITY MANAGER
-
-	data.append_attribute("x") = position.x;
-	data.append_attribute("y") = position.y;
-	//remember type too
-	
-
-	return true;
-	
-}
-
-
-
 
 
 Collider* Enemy::GetCollider() const
