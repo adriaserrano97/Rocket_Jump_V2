@@ -591,7 +591,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="41"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3900,7 +3900,7 @@
    <tile gid="42"/>
   </data>
  </layer>
- <layer name="parallax first" width="75" height="25">
+ <layer name="parallax first" width="75" height="25" visible="0">
   <properties>
    <property name="layer_speed" type="float" value="0.7"/>
   </properties>
