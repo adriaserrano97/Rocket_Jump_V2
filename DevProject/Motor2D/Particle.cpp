@@ -2,8 +2,10 @@
 #include "j1Render.h"
 
 Particle::~Particle() {
-	texture = nullptr;
 	
+	texture = nullptr;
+
+	animation = Animation();
 }
 
 void Particle::Draw(float dt)

@@ -42,6 +42,8 @@ Currently there is no installation required, just open the .exe provided in the 
         D: Move left 
 		While jumping, slightly adjust jump reach
 	Left mouse click: Create explosion
+				-> colliding with player it will lauch it across the map!
+				-> colliding with enemies, it will kill them!
 
 
 ## Innovation

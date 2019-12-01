@@ -18,6 +18,20 @@ Explosion::Explosion(int x, int y) {
 
 }
 
+Explosion::~Explosion() {
+
+	texture = nullptr;
+
+	animation = Animation();
+
+	if (collider != nullptr) {
+	
+		collider = nullptr;
+
+	}
+
+}
+
 bool Explosion::Start() {
 
 	texture = App->entityManager->spritesDust;
