@@ -15,7 +15,7 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 	position.x = x;
 	position.y = y;
 
-	animation = App->entityManager->walkingAlien;;
+	animation = App->entityManager->walkingAlien;
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
@@ -93,7 +93,7 @@ bool Walking_Enemy::Start() {
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt); //nerfed speed
-
+	//position.x = App->render->Lerp(position.x, destiny.x, dt);
 }
 
 void Walking_Enemy::FollowPath(float dt) {
@@ -128,8 +128,10 @@ void Walking_Enemy::FollowPath(float dt) {
 bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	
 	bool ret = false;
-
-	if ((abs(position.x - destiny.x) <= App->map->data.tile_width)) { ret = true; } //only if in melee
+	iPoint aux(position.x + this->collider->rect.w, position.y);
+	//if ((abs(position.x - destiny.x) <= App->map->data.tile_width)) { ret = true; } //only if in melee
+	if (position.DistanceTo(App->player->position) <= App->map->data.tile_width) { ret = true; } //only if in melee
+	else if (aux.DistanceTo(App->player->position) <= App->map->data.tile_width) { ret = true; } //only if in melee
 
 	return ret;
 

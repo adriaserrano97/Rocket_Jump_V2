@@ -8,10 +8,11 @@
 	<scene sceneNumber="1" />
 	<player x="20" y="551" />
 	<entity_manager>
-		<entity type="fly_enemy" x="688" y="86" />
-		<entity type="walk_enemy" x="688" y="517" />
+		<entity type="fly_enemy" x="172" y="1548" />
+		<entity type="walk_enemy" x="896" y="517" />
+		<entity type="fly_enemy" x="2494" y="1634" />
+		<entity type="walk_enemy" x="4644" y="259" />
 	</entity_manager>
-	<particles />
 	<colliders />
 	<:anonymous />
 	<pathfinding />
