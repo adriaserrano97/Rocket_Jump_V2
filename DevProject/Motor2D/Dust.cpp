@@ -9,7 +9,6 @@ Dust::Dust(int x, int y) {
 	position.y = y;
 
 	animation = App->entityManager->dustAnimation;
-
 	
 
 	life = App->entityManager->dust_life;

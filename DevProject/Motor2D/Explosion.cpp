@@ -41,8 +41,6 @@ bool Explosion::Start() {
 }
 
 
-
-
 Collider* Explosion::GetCollider() const
 {
 	return collider;

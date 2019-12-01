@@ -682,7 +682,7 @@ void Player::playerJump(PLAYER_STATES state, float dt) {
 		time_spent_jumping += dt;
 		//Play jump sound and add appropiate particles
 		App->audio->PlayFx(App->audio->jump_sound, 0);
-		//App->entityManager->CreateEntity(Entity::EntityTypes::DUST_PARTICLE, position.x, position.y);
+		App->entityManager->CreateEntity(Entity::EntityTypes::DUST_PARTICLE, position.x, playerBuffer.y);
 	}
 
 	switch (state) {
@@ -1073,8 +1073,6 @@ void Player::OnCollision(Collider* c2) {
 			inputs.Push(IN_RIGHT_DOWN_ROCKET_JUMP);
 			break;
 		}
-
-
 	}
 
 
@@ -1083,6 +1081,11 @@ void Player::OnCollision(Collider* c2) {
 		inputs.Push(IN_DEAD);
 		deadTimerBuffer++;
 	}	
+
+	if (c2->type == COLLIDER_END_LEVEL && godMode == false)
+	{
+		godMode = true;
+	}
 }
 
 
