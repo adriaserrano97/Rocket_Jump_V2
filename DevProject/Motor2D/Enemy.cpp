@@ -34,6 +34,8 @@ void Enemy::Destroy() {
 	{
 		path->Clear();
 	}
+
+	animation = Animation();
 	
 }
 
@@ -175,7 +177,7 @@ bool Enemy::Update(float dt) {
 
 	Pathfind(dt);
 	FollowPath(dt);
-	App->pathfinding->PrintLastPath();
+	//App->pathfinding->PrintLastPath();
 
 	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
 

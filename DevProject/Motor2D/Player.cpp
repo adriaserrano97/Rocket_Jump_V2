@@ -127,6 +127,7 @@ bool Player::Update(float dt) {
 		case ST_FALLING:
 			current_animation = &jump;
 			playerFall(dt);
+			PlayerMov(dt, JumpAdjustMargin);
 			break;
 
 		case ST_LEFT_ROCKET_JUMP:
