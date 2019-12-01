@@ -19,7 +19,7 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
-	speed = 0.03;
+	speed = 0.04;
 
 	type = EntityTypes::WALK_ENEMY;
 }
@@ -45,18 +45,20 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		{
 		case DIRECTION_LEFT:
 			position.x = collider->rect.x + collider->rect.w +1;
-			path = nullptr;
-			in_path = false;
-
+			if (this->myflip == false) {
+				path = nullptr;
+				in_path = false;
+			}
 
 			break;
 
 		case DIRECTION_RIGHT:
 
 			position.x = collider->rect.x - this->collider->rect.w -1;
-			path = nullptr;
-			in_path = false;
-
+			if (this->myflip == true) {
+				path = nullptr;
+				in_path = false;
+			}
 		
 
 			break;

@@ -3,6 +3,7 @@
 
 Particle::~Particle() {
 	texture = nullptr;
+	
 }
 
 void Particle::Draw(float dt)
