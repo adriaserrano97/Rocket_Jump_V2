@@ -7,15 +7,14 @@
 	<map />
 	<scene sceneNumber="1" />
 	<entity_manager>
-		<entity type="player" x="4140" y="465" />
+		<entity type="player" x="620" y="551" />
 		<entity type="fly_enemy" x="172" y="1548" />
 		<entity type="fly_enemy" x="2494" y="1634" />
-		<entity type="walk_enemy" x="4300" y="603" />
 	</entity_manager>
 	<colliders />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-4000" y="0" />
+		<camera x="0" y="-83" />
 	</renderer>
 </game_state>

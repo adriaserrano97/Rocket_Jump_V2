@@ -84,28 +84,31 @@ void Enemy::Pathfind(float dt) {
 
 void Enemy::FollowPath(float dt) {
 
-	if (in_path == true && path->Count() != 0) {
+	if (in_path == true && path != nullptr) {
 
 		//make them follow their path
+		if (path->Count() != 0)
+		{
 
-		int tilenum = (path->Count() - 1); // -1 because this returns count, we want to access to array position
-		iPoint destiny = App->map->PosConverter(path->At(tilenum)->x,path->At(tilenum)->y);
-		destiny.y -= 1 ; // slight adjustment so the enemy chases the player, not the corner
-		Move(destiny, dt);
+			int tilenum = (path->Count() - 1); // -1 because this returns count, we want to access to array position
+			iPoint destiny = App->map->PosConverter(path->At(tilenum)->x, path->At(tilenum)->y);
+			destiny.y -= 1; // slight adjustment so the enemy chases the player, not the corner
+			Move(destiny, dt);
 
-		iPoint last_tile;
+			iPoint last_tile;
 
-		//if they reached a tile on their path, pop it from their current path
+			//if they reached a tile on their path, pop it from their current path
 
-		if (position.DistanceTo(destiny) <= round(App->entityManager->delta_move/3) || position.DistanceTo(destiny) <= round(App->entityManager->delta_move/3) + collider->rect.w) {
-			
+			if (position.DistanceTo(destiny) <= round(App->entityManager->delta_move / 3) || position.DistanceTo(destiny) <= round(App->entityManager->delta_move / 3) + collider->rect.w) {
+
 				path->Pop(last_tile);
-			
-			//done pathfinding? Try to pathfind again
-			if (path->Count() == 0) { 
-				in_path = false; 
-			}
 
+				//done pathfinding? Try to pathfind again
+				if (path->Count() == 0) {
+					in_path = false;
+				}
+
+			}
 		}
 	}
 }
