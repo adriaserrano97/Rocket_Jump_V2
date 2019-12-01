@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "j1Textures.h"
 #include "p2SString.h"
+#include "j1Scene.h"
 #include "p2Log.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
@@ -286,30 +287,33 @@ void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 
 bool j1EntityManager::Load(pugi::xml_node& data)
 {
-	int i = 0;
-	for (pugi::xml_node iterator = data.first_child(); iterator != NULL; iterator = iterator.next_sibling(), i++)
-	{
-		p2SString type(iterator.attribute("type").as_string());
-
-		if (type == "fly_enemy")
+	if (App->scene->load_from_save == true) {
+		int i = 0;
+		for (pugi::xml_node iterator = data.first_child(); iterator != NULL; iterator = iterator.next_sibling(), i++)
 		{
-			CreateEntity(Entity::EntityTypes::FLY_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+			p2SString type(iterator.attribute("type").as_string());
+
+			if (type == "fly_enemy")
+			{
+				CreateEntity(Entity::EntityTypes::FLY_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+			}
+
+			if (type == "walk_enemy")
+			{
+				CreateEntity(Entity::EntityTypes::WALK_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+			}
+
+			if (type == "player")
+			{
+				CreateEntity(Entity::EntityTypes::PLAYER, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+			}
+
+			entity_array[i]->Start();
 		}
 
-		if (type == "walk_enemy")
-		{
-			CreateEntity(Entity::EntityTypes::WALK_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
-		}
+		App->scene->load_from_save = false;
 
-		if (type == "player")
-		{
-			CreateEntity(Entity::EntityTypes::PLAYER, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
-		}
-
-		entity_array[i]->Start();
 	}
-
-	
 
 	return true;
 }
