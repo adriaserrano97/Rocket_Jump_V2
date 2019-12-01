@@ -19,13 +19,14 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 
 	collider = App->colliders->AddCollider({ x, y, animation->GetRect().w, animation->GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
+	speed = 0.03;
 
 	type = EntityTypes::WALK_ENEMY;
 }
 
 void Walking_Enemy::Move(iPoint destiny, float dt)
 {
-	position.x = App->render->Full_Lerp(position.x, destiny.x, 0.03, dt);
+	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
 	
 }
 
@@ -90,7 +91,7 @@ bool Walking_Enemy::Start() {
 
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
-	position.x = App->render->Full_Lerp(position.x, destiny.x, 0.03, dt); //nerfed speed
+	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt); //nerfed speed
 
 }
 

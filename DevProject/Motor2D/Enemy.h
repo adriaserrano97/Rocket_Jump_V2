@@ -44,8 +44,10 @@ public:
 
 	bool Update(float dt);
 	bool HandleInput();
+
 	//Render fucntion
 	void Draw(float dt);
+	bool myflip = false;
 
 
 	//Collision managment

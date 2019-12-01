@@ -105,6 +105,7 @@ bool j1App::Awake()
 		organization.create(app_config.child("organization").child_value());
 
 		frameRate = app_config.attribute("framerate_cap").as_int();
+		cap_frames = true;
 	}
 
 	if(ret == true)
@@ -192,7 +193,7 @@ void j1App::PrepareUpdate()
 
 	// TODO 4: Calculate the dt: differential time since last frame
 	dt = frame_time.ReadSec() * TIME_CONST;
-	LOG("%f", dt);
+	LOG(" dt this step was %f", dt);
 
 	//just to when we debug, the player doesnt trespass the floor
 	if (dt > MAX_DT)
@@ -234,6 +235,12 @@ void j1App::FinishUpdate()
 	App->win->SetTitle(title);
 
 
+	//actuvate / deactivate framrate cap
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+		
+		cap_frames = !cap_frames;
+	}
+
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
 	int delay;
 	int averageFrame = ((1.0f / frameRate) * 1000);
@@ -243,7 +250,7 @@ void j1App::FinishUpdate()
 	LOG("Last_frame_ms: %i", last_frame_ms);
 	LOG("Delay %i", delay);
 
-	if (delay > 0)
+	if (delay > 0 && cap_frames == true)
 	{
 		SDL_Delay(delay);
 		

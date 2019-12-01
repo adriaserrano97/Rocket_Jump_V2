@@ -2,7 +2,6 @@
 #include "Enemy.h"
 #include "j1Collision.h"
 #include "j1Particles.h"
-
 #include "j1Player.h"
 #include "j1Render.h"
 #include "j1Map.h"
@@ -18,6 +17,16 @@ Enemy::~Enemy()
 	{
 		path->Clear();
 	}
+
+	
+	iPoint lmao;
+	
+	while (path != nullptr && path->Count() != 0) {
+	
+		path->Pop(lmao);
+	
+	}
+	
 }
 
 void Enemy::Destroy() {
@@ -143,7 +152,10 @@ void Enemy::Draw(float dt)
 	}
 
 	if (animation != nullptr) {
-		App->render->Blit(texture, position.x, position.y, &animation->GetCurrentFrameBox(dt));
+		
+		App->render->Blit(texture, position.x, position.y, &animation->GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
+		
+	
 	}
 }
 
@@ -157,8 +169,11 @@ Collider* Enemy::GetCollider() const
 bool Enemy::HandleInput() {
 
 	CheckStuck();
-	position_buffer = position; 
-
+	position_buffer = position;
+	if (position.x - App->player->position.x >= 0) {
+		myflip = false;
+	}
+	else { myflip = true; }
 	return true;
 }
 

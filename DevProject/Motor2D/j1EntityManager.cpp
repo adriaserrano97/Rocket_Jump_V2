@@ -20,6 +20,17 @@ j1EntityManager::j1EntityManager() : j1Module() {
 
 j1EntityManager::~j1EntityManager() {}
 
+void j1EntityManager::Destroy_all()
+{
+
+	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+
+		
+		delete entity_array[i];
+		entity_array[i] = nullptr;
+	}
+}
+
 
 bool j1EntityManager::Awake(pugi::xml_node& config) {
 	LOG("Loading Map Parser");

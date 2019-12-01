@@ -151,13 +151,13 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	SDL_Rect rect;
 	if (speed != NULL)
 	{
-		rect.x = (int)(camera.x * speed) + x * scale;
-		rect.y = (int)(camera.y * speed) + y * scale;
+		rect.x = round((camera.x * speed) + x * scale);
+		rect.y = round((camera.y * speed) + y * scale);
 	}
 	else
 	{
-		rect.x = (int)(camera.x * 1.0f) + x * scale;
-		rect.y = (int)(camera.y * 1.0f) + y * scale;
+		rect.x = round((camera.x * 1.0f) + x * scale);
+		rect.y = round((camera.y * 1.0f) + y * scale);
 	}
 	
 

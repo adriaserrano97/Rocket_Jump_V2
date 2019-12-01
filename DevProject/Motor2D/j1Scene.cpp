@@ -12,6 +12,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
+#include "j1EntityManager.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -23,10 +24,15 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
+	folder.create(config.child("folder").child_value());
+
+	map1 = (config.child("map1").attribute("path").as_string());
+	map2 = (config.child("map2").attribute("path").as_string());
 
 	return ret;
 }
@@ -34,23 +40,27 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
+	
 	//Our different maps. We only load the one we're currently using.
+	map1;
+	map2;
+	
 	switch (scene_number) {
 
 	case 1:
-		App->map->Load("first_map_v2.tmx");
+		App->map->Load(map1.GetString());
 
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
 	case 2:
-		App->map->Load("second_map.tmx");
+		App->map->Load(map2.GetString());
 		App->audio->PlayMusic("audio/music/down_under_flopdisk.ogg", 4.0F);
 		break;
 
 	default:
 		scene_number = 1;
-		App->map->Load("first_map_v2.tmx"); 
+		App->map->Load(map1.GetString());
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
@@ -183,9 +193,8 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+	App->entityManager->Destroy_all();
 	LOG("Freeing scene");
-	
-
 	return true;
 }
 

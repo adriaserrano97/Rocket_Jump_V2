@@ -6,17 +6,16 @@
 	<audio />
 	<map />
 	<scene sceneNumber="1" />
-	<player x="1635" y="551" />
+	<player x="20" y="551" />
 	<entity_manager>
-		<entity type="walk_enemy" x="1324" y="517" />
-		<entity type="walk_enemy" x="1324" y="517" />
-		<entity type="walk_enemy" x="1324" y="517" />
+		<entity type="fly_enemy" x="688" y="86" />
+		<entity type="walk_enemy" x="688" y="517" />
 	</entity_manager>
 	<particles />
 	<colliders />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-754" y="-90" />
+		<camera x="0" y="-86" />
 	</renderer>
 </game_state>
