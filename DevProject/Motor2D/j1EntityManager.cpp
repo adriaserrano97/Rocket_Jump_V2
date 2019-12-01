@@ -161,9 +161,6 @@ bool j1EntityManager::Update(float dt) {
 
 
 	}
-
-	
-
 	deltaTime = dt;
 
 	return true;
