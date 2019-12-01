@@ -8,7 +8,7 @@ Dust::Dust(int x, int y) {
 	position.x = x;
 	position.y = y;
 
-	animation = &App->entityManager->dustAnimation;
+	animation = App->entityManager->dustAnimation;
 
 	
 
