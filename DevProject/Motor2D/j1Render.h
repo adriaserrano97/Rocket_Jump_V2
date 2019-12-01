@@ -51,6 +51,7 @@ public:
 private:
 	//Camera control functions
 	void AdjustCamera(float dt);
+	void CD_Manager(float dt);
 	void AdjustAnchorPoints();
 	int GetSideOfScreen(int x);
 	int CamLerp(int a, int b, float dt = 1.f); //adjusted to work with our camera, with our prefered default value
@@ -77,7 +78,9 @@ public:
 	int camera_speed;
 	bool snapping_to_right = false;
 	bool snapping_to_left = false;
-	float lerp = 0.07;//default lerp value. All lerps shall default to this value unless specified otherwise
+	int cameraCD;
+	float lerp;//default lerp value. All lerps shall default to this value unless specified otherwise
+	float fast_lerp; //value to use for faster movement
 
 	enum PLAYER_SIDE
 	{
