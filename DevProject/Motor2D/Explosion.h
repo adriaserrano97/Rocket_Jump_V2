@@ -12,6 +12,7 @@ private:
 	Collider* collider = nullptr;
 public:
 
+	~Explosion();
 	Explosion(int x, int y);
 	Collider* GetCollider() const;
 
