@@ -27,6 +27,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	bool to_delete = false;
 	Animation* animation = nullptr;
+	bool started = false;
 
 
 public:

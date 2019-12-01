@@ -83,6 +83,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 bool Walking_Enemy::Start() {
 
 	texture = App->entityManager->spritesWalkAlien;
+	started = true;
 
 	return true;
 }

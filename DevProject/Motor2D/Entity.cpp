@@ -14,6 +14,7 @@ bool Entity::HandleInput()
 // Called each loop iteration
 bool Entity::Update(float dt)
 {
+	started = true;
 	return true;
 }
 

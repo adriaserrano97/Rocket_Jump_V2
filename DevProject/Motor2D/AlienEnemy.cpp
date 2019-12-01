@@ -79,6 +79,7 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 bool Alien_Enemy::Start() {
 
 	texture = App->entityManager->spritesFlyAlien;
+	started = true;
 
 	return true;
 }

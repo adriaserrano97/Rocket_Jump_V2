@@ -10,7 +10,7 @@
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
 #include "j1Render.h"
-
+#include "j1EntityManager.h"
 
 
 j1Player::j1Player()
@@ -550,6 +550,7 @@ void j1Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 		{
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
+			App->entityManager->Destroy_all();
 			App->LoadGame(); //go back to last checkpoint	
 		}
 	}

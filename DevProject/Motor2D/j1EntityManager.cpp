@@ -25,7 +25,11 @@ void j1EntityManager::Destroy_all()
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
-		
+		if (entity_array[i]->GetCollider() != nullptr)
+		{
+			entity_array[i]->GetCollider()->to_delete = true;
+		}
+
 		delete entity_array[i];
 		entity_array[i] = nullptr;
 	}
@@ -129,7 +133,10 @@ void j1EntityManager::DestroyDeletedEntity() {
 bool j1EntityManager::PreUpdate() {
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
-
+		if (entity_array[i]->started == false)
+		{
+			entity_array[i]->Start();
+		}
 		entity_array[i]->HandleInput();
 	}
 
