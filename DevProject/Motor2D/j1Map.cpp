@@ -573,6 +573,9 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 
 				switch (tile_id - 1) //compensating for TILED nomenclature, not a magic number
 				{
+				case 40:
+					App->entityManager->CreateEntity(Entity::EntityTypes::PLAYER, spawn.x, spawn.y);
+					break;
 
 				case 42:
 					App->entityManager->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);

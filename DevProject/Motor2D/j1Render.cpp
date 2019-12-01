@@ -2,7 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Window.h"
-#include "j1Player.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Render.h"
@@ -288,28 +288,28 @@ void j1Render::AdjustCamera(float dt) {
 	//---------------------------------
 
 	if (snap_state != SNAP_NONE) { SnapAxis(dt); }
-	switch (GetSideOfScreen(App->player->position.x)) { //where is the player?
+	switch (GetSideOfScreen(App->entityManager->playerPosition.x)) { //where is the player?
 
 	case LEFT://player on left side
 		//going right
-		if (App->player->position.x > left_trigger_camera) {
-			auxCam.x += abs(CamLerp(App->player->position.x, left_trigger_camera, dt))  ;
+		if (App->entityManager->playerPosition.x > left_trigger_camera) {
+			auxCam.x += abs(CamLerp(App->entityManager->playerPosition.x, left_trigger_camera, dt))  ;
 		} //follow player
 
 		//going left enough
-		if (App->player->position.x <= left_trigger_change && manual == false) {
+		if (App->entityManager->playerPosition.x <= left_trigger_change && manual == false) {
 			snap_state = SNAP_TO_RIGHT;//produce change of perspective
 		}
 		break;
 
 	case RIGHT://player on right side
 		//going left
-		if (App->player->position.x < right_trigger_camera && manual == false) {
-			auxCam.x -= abs(CamLerp(right_trigger_camera, App->player->position.x, dt)) ;
+		if (App->entityManager->playerPosition.x < right_trigger_camera && manual == false) {
+			auxCam.x -= abs(CamLerp(right_trigger_camera, App->entityManager->playerPosition.x, dt)) ;
 		}//follow player
 
 		//going right enough
-		if (App->player->position.x >= right_trigger_change) {
+		if (App->entityManager->playerPosition.x >= right_trigger_change) {
 			snap_state = SNAP_TO_LEFT;//produce change of perspective
 		}
 
@@ -317,7 +317,7 @@ void j1Render::AdjustCamera(float dt) {
 	}	
 	//manual camera logic
 	if (manual == true && (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)) {
-		switch (GetSideOfScreen(App->player->position.x)) {
+		switch (GetSideOfScreen(App->entityManager->playerPosition.x)) {
 		
 		case LEFT:
 			snap_state = SNAP_TO_RIGHT;
@@ -345,12 +345,12 @@ void j1Render::AdjustCamera(float dt) {
 	//---------------------------------
 
 	//adjust up
-	if (App->player->position.y < up_trigger) { //high enough
-		auxCam.y -= abs(CamLerp(App->player->position.y, up_trigger, dt));//adjust down
+	if (App->entityManager->playerPosition.y < up_trigger) { //high enough
+		auxCam.y -= abs(CamLerp(App->entityManager->playerPosition.y, up_trigger, dt));//adjust down
 	} 
 	
-	if ((App->player->position.y + App->player->collider->rect.h) > down_trigger) {//low enough
-		auxCam.y += abs(CamLerp(App->player->position.y + App->player->collider->rect.h, down_trigger, dt));//adjust high
+	if ((App->entityManager->playerPosition.y + App->entityManager->playerColRect.h) > down_trigger) {//low enough
+		auxCam.y += abs(CamLerp(App->entityManager->playerPosition.y + App->entityManager->playerColRect.h, down_trigger, dt));//adjust high
 	} 
 
 	//respect margins	
@@ -382,10 +382,10 @@ void j1Render::CD_Manager(float dt)
 
 void j1Render::Vertical_Look(float dt) {
 	
-	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 		camera.y -= camera_speed;
 	}
-	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 		camera.y += camera_speed;
 	}
 	//TODO
@@ -453,8 +453,8 @@ void j1Render::SnapAxis(float dt) {
 		case SNAP_TO_RIGHT:
 			auxCam.x -= abs(CamLerp(right_trigger_camera, left_trigger_change)) * dt;
 
-			if (App->player->position.x >= right_trigger_camera) {
-				auxCam.x = App->player->position.x - (int)((5 * App->win->width / 6)); 
+			if (App->entityManager->playerPosition.x >= right_trigger_camera) {
+				auxCam.x = App->entityManager->playerPosition.x - (int)((5 * App->win->width / 6));
 				
 				snap_state = SNAP_NONE;
 			}
@@ -463,8 +463,8 @@ void j1Render::SnapAxis(float dt) {
 		case SNAP_TO_LEFT:
 			auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera)) * dt;
 			
-			if (App->player->position.x <= left_trigger_camera) {
-				auxCam.x = App->player->position.x - (int)((App->win->width / 6)); 
+			if (App->entityManager->playerPosition.x <= left_trigger_camera) {
+				auxCam.x = App->entityManager->playerPosition.x - (int)((App->win->width / 6));
 				snap_state = SNAP_NONE;
 			}
 			break;

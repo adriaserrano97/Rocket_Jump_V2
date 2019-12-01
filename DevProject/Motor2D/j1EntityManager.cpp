@@ -3,6 +3,7 @@
 #include "WalkingEnemy.h"
 #include "Explosion.h"
 #include "Dust.h"
+#include "Player.h"
 #include "j1Textures.h"
 #include "p2SString.h"
 #include "p2Log.h"
@@ -80,7 +81,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	//Player
 	entity_config = entity_config.next_sibling();
 
-	player_folder.create(config.child("player_folder").child_value());
+	player_folder.create(entity_config.child("player_folder").child_value());
 
 	speed = entity_config.child("playerData").attribute("speed").as_int();
 	jumpspeed = entity_config.child("playerData").attribute("jumpspeed").as_int();
@@ -95,14 +96,13 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 
 
 	//player collider information
-	SDL_Rect rect;
-	rect.x = entity_config.child("collider").attribute("rectX").as_int();
-	rect.y = entity_config.child("collider").attribute("rectY").as_int();
-	rect.w = entity_config.child("collider").attribute("rectW").as_int();
-	rect.h = entity_config.child("collider").attribute("rectH").as_int();
-	COLLIDER_TYPE type = COLLIDER_PLAYER;
-	j1Module* callback = this;
-	collider = App->colliders->AddCollider(rect, type, callback);
+	
+	playerColRect.x = entity_config.child("collider").attribute("rectX").as_int();
+	playerColRect.y = entity_config.child("collider").attribute("rectY").as_int();
+	playerColRect.w = entity_config.child("collider").attribute("rectW").as_int();
+	playerColRect.h = entity_config.child("collider").attribute("rectH").as_int();
+	
+	
 
 	//Player animations, loaded from xml
 	player_walk = player_walk.PushAnimation(entity_config, "run");
@@ -132,6 +132,8 @@ bool j1EntityManager::Start() {
 	spritesFlyAlien = App->tex->Load(PATH(enemy_folder.GetString(), "AlienSprites.png"));
 	spritesWalkAlien = App->tex->Load(PATH(enemy_folder.GetString(), "WalkingEnemySprites.png"));
 	spritesDust = App->tex->Load(PATH(particle_folder.GetString(), "particles.png"));
+	graphics = App->tex->Load(PATH(player_folder.GetString(), "stickman_spritesheet.png"));
+	bazooka = App->tex->Load(PATH(player_folder.GetString(), "bazooka.png"));
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
 	{
@@ -152,6 +154,7 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	case Entity::EntityTypes::WALK_ENEMY:	ret = new Walking_Enemy(x, y);	break;
 	case Entity::EntityTypes::EXPLOSION_PARTICLE: ret = new Explosion(x, y); break;
 	case Entity::EntityTypes::DUST_PARTICLE: ret = new Dust(x, y); break;
+	case Entity::EntityTypes::PLAYER: ret = new Player(x, y); break;
 	}
 
 

@@ -81,11 +81,11 @@ enum PLAYER_INPUTS
 class Player: public Entity
 {
 public:
-	Player();
+	Player(int x, int y);
 	~Player();
 
-	/*bool Start();
-	bool HandleInput();
+	bool Start();
+	
 	bool Update(float dt);
 
 	void Draw(float dt);
@@ -106,7 +106,9 @@ public:
 	void Check_if_falling();
 
 	void PlayerMov(float dt, float factor = 1); //if not told otherwise, does not alter any speed
-	void Stay_in_map(SDL_Rect rect);*/
+	void Stay_in_map(SDL_Rect rect);
+
+	Collider* GetCollider() const;
 
 public:
 	
@@ -134,7 +136,7 @@ public:
 	int speedcap;
 	int grav;
 	int deadFall;
-	int deadAnimation;
+	int deadAnimationTime;
 	int deadTimer;
 	int explosion_CD;
 	int JumpingDelta;
@@ -155,11 +157,8 @@ public:
 
 	PLAYER_STATES state;
 	p2Qeue<PLAYER_INPUTS> inputs;
-	iPoint	position;
-	iPoint	startPos;
-	int cursorX, cursorY;
 
-	float dtAnimation = 0.f;
+	int cursorX, cursorY;
 
 
 };

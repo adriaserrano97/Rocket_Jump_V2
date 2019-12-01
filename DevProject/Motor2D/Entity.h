@@ -31,6 +31,7 @@ public:
 		WALK_ENEMY,
 		EXPLOSION_PARTICLE,
 		DUST_PARTICLE,
+		PLAYER,
 		MAX
 	};
 	
