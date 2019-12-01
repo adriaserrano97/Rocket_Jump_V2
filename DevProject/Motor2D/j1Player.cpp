@@ -494,7 +494,7 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && time_from_last_explosion * dt >= explosion_CD * dt) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
 			time_from_last_explosion = 0;
 			App->input->GetMousePosition(cursorX, cursorY);
-			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursorX - App->render->camera.x) - (App->particles->explosion.anim.frames->frame.w/2), (cursorY - App->render->camera.y) - (App->particles->explosion.anim.frames->frame.h / 2));
+			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursorX - App->render->camera.x) - (App->entityManager->explosionAnimation.GetRect().w/2), (cursorY - App->render->camera.y) - (App->entityManager->explosionAnimation.GetRect().h / 2 / 2));
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 
