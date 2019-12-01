@@ -132,8 +132,8 @@ bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	bool ret = false;
 	iPoint aux(position.x + this->collider->rect.w, position.y);
 	//if ((abs(position.x - destiny.x) <= App->map->data.tile_width)) { ret = true; } //only if in melee
-	if (position.DistanceTo(App->player->position) <= App->map->data.tile_width) { ret = true; } //only if in melee
-	else if (aux.DistanceTo(App->player->position) <= App->map->data.tile_width) { ret = true; } //only if in melee
+	if (position.DistanceTo(App->entityManager->playerPosition) <= App->map->data.tile_width) { ret = true; } //only if in melee
+	else if (aux.DistanceTo(App->entityManager->playerPosition) <= App->map->data.tile_width) { ret = true; } //only if in melee
 
 	return ret;
 
@@ -160,7 +160,7 @@ void Walking_Enemy::CheckStuck() {
 	}
 	if (frames_stuck > 5) {
 
-		AvoidStuck(App->player->position);
+		AvoidStuck(App->entityManager->playerPosition);
 
 		frames_stuck = 0;
 	}

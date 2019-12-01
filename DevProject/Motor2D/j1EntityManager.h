@@ -50,11 +50,12 @@ public:
 	float dust_life;
 
 	//Player
-	Collider* collider = nullptr;
+	
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
 
+	SDL_Rect playerColRect;
 	SDL_Rect bazookaRect;
 	SDL_Rect cursorRect;
 
@@ -72,11 +73,12 @@ public:
 	int speedcap;
 	int grav;
 	int deadFall;
-	int deadAnimation;
 	int deadTimer;
 	int explosion_CD;
 	int JumpingDelta;
 	float JumpAdjustMargin;
+
+	iPoint playerPosition;
 
 private:
 	Entity* entity_array[MAX_ENTITYES];

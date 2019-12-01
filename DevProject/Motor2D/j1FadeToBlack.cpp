@@ -62,8 +62,6 @@ bool j1FadeToBlack::PostUpdate() {
 
 		if (now >= total_time) {
 			current_step = fade_step::none;
-			App->player->godMode = false;
-			App->player->freeze = false;
 		}
 	} break;
 	}
@@ -90,8 +88,6 @@ void j1FadeToBlack::FadeToBlack(j1Module* module_off, j1Module* module_on, float
 		to_disable = module_off;
 		to_enable = module_on;
 
-		App->player->godMode = true;
-		App->player->freeze = true;
 	}
 
 
@@ -109,8 +105,6 @@ void j1FadeToBlack::FadeToBlack(float time) {
 		to_disable = nullptr;
 		to_enable = nullptr;
 
-		App->player->godMode = true;
-		App->player->freeze = true;
 	}
 
 

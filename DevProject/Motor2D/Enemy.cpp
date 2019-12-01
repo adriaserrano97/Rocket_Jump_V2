@@ -54,7 +54,7 @@ void Enemy::CheckStuck() {
 	}
 	if (frames_stuck > 30) {
 
-		AvoidStuck(App->player->position);	
+		AvoidStuck(App->entityManager->playerPosition);	
 
 		frames_stuck = 0;
 	}
@@ -62,17 +62,17 @@ void Enemy::CheckStuck() {
 
 void Enemy::Pathfind(float dt) {
 
-	if (CheckLockOn(App->player->position)) {
+	if (CheckLockOn(App->entityManager->playerPosition)) {
 		
-		iPoint aux(App->player->collider->rect.x + App->player->collider->rect.w/2, App->player->collider->rect.y - App->player->collider->rect.h/2);
+		iPoint aux(App->entityManager->playerPosition.x + App->entityManager->playerColRect.w/2, App->entityManager->playerPosition.y - App->entityManager->playerColRect.h/2);
 		LockOn(aux, dt);
 
-	}else if (position.DistanceTo(App->player->position) < App->entityManager->aggro_range && in_path == false) {
+	}else if (position.DistanceTo(App->entityManager->playerPosition) < App->entityManager->aggro_range && in_path == false) {
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
 
 		//Prepare our inputs to create Path
 		iPoint o = App->map->WorldToMap(position.x, position.y);
-		iPoint d = App->map->WorldToMap(App->player->position.x, App->player->position.y);
+		iPoint d = App->map->WorldToMap(App->entityManager->playerPosition.x, App->entityManager->playerPosition.y);
 
 		//We dont want our enemies creating one path a frame
 		App->pathfinding->CreatePath(o, d);
@@ -160,7 +160,7 @@ bool Enemy::HandleInput() {
 
 	CheckStuck();
 	position_buffer = position;
-	if (position.x - App->player->position.x >= 0) {
+	if (position.x - App->entityManager->playerPosition.x >= 0) {
 		myflip = false;
 	}
 	else { myflip = true; }
@@ -177,7 +177,7 @@ bool Enemy::Update(float dt) {
 	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
 
 	if (type != EntityTypes::FLY_ENEMY) {
-		position.y += round(App->player->grav * dt);
+		position.y += round(App->entityManager->grav * dt);
 	}
 	return true;
 }
