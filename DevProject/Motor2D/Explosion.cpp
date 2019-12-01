@@ -18,6 +18,7 @@ Explosion::Explosion(int x, int y) {
 
 }
 
+
 bool Explosion::Start() {
 
 	texture = App->entityManager->spritesDust;
@@ -25,8 +26,6 @@ bool Explosion::Start() {
 
 	return true;
 }
-
-
 
 
 Collider* Explosion::GetCollider() const

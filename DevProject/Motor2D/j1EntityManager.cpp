@@ -135,9 +135,13 @@ bool j1EntityManager::Start() {
 	graphics = App->tex->Load(PATH(player_folder.GetString(), "stickman_spritesheet.png"));
 	bazooka = App->tex->Load(PATH(player_folder.GetString(), "bazooka.png"));
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
-		entity_array[i]->Start();
+		if (entity_array[i] != nullptr)
+		{
+			entity_array[i]->Start();
+		}
+		
 	}
 
 	return true;
@@ -173,29 +177,33 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 
 void j1EntityManager::DestroyDeletedEntity() {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
-		if (entity_array[i]->to_delete)
+		if (entity_array[i] != nullptr)
 		{
-			delete entity_array[i];
-			entity_array[i] = nullptr;
+			if (entity_array[i]->to_delete)
+			{
+				delete entity_array[i];
+				entity_array[i] = nullptr;
+			}
 		}
 	}
-
 }
 
 
 bool j1EntityManager::PreUpdate() {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+	for (int i = 0; i < MAX_ENTITYES; i++) {
 		
-		if (entity_array[i]->started == false)
+		if (entity_array[i] != nullptr)
 		{
-			entity_array[i]->Start();
-		}
+			if (entity_array[i]->started == false)
+			{
+				entity_array[i]->Start();
+			}
 
-		entity_array[i]->HandleInput();
-		
+			entity_array[i]->HandleInput();
+		}
 	}
 
 	return true;
@@ -206,11 +214,13 @@ bool j1EntityManager::Update(float dt) {
 
 	BROFILER_CATEGORY("Update_Entity_Manager", Profiler::Color::CornflowerBlue)
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
-
-		entity_array[i]->Update(dt);
-
-
+	for (int i = 0; i < MAX_ENTITYES; i++) {
+		
+		if (entity_array[i] != nullptr)
+		{
+			entity_array[i]->Update(dt);
+		}
+		
 	}
 	deltaTime = dt;
 
@@ -220,10 +230,12 @@ bool j1EntityManager::Update(float dt) {
 
 bool j1EntityManager::PostUpdate() {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+	for (int i = 0; i < MAX_ENTITYES; i++) {
 		
-		entity_array[i]->Draw(deltaTime);
+		if (entity_array[i] != nullptr) {
 
+			entity_array[i]->Draw(deltaTime);
+		}
 	}
 
 	DestroyDeletedEntity();
@@ -233,12 +245,15 @@ bool j1EntityManager::PostUpdate() {
 
 bool j1EntityManager::CleanUp() {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+	for (int i = 0; i < MAX_ENTITYES; i++) {
 
-		delete entity_array[i];
-		entity_array[i] = nullptr;
+		if (entity_array[i] != nullptr)
+		{
+			delete entity_array[i];
+			entity_array[i] = nullptr;
+		}
+		
 	}
-
 
 	return true;
 }
@@ -272,13 +287,16 @@ COLLISION_WALL_DIRECTION j1EntityManager::checkDirection(SDL_Rect enemy, SDL_Rec
 
 void j1EntityManager::OnCollision(Collider* c1, Collider* c2)
 {
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
-		Collider* col = entity_array[i]->GetCollider();
-		if (entity_array[i] != nullptr &&  col== c1)
+		if (entity_array[i] != nullptr)
 		{
-			entity_array[i]->OnCollision(c2);
-			break;
+			Collider* col = entity_array[i]->GetCollider();
+			if (entity_array[i] != nullptr &&  col == c1)
+			{
+				entity_array[i]->OnCollision(c2);
+				break;
+			}
 		}
 	}
 }
@@ -317,7 +335,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 // Save Game State
 bool j1EntityManager::Save(pugi::xml_node& data) const
 {
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++)
+	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
 		pugi::xml_node iterator = data.append_child("entity");
 

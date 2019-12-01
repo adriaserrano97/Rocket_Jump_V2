@@ -3,7 +3,7 @@
 #ifndef __J1ENTITY_MANAGER_H__
 #define __J1ENTITY_MANAGER_H__
 
-#define MAX_ENTITYES 50
+#define MAX_ENTITYES 35
 
 #include "j1Module.h"
 #include "Entity.h"

@@ -45,7 +45,7 @@ bool j1Collision::Awake(pugi::xml_node& node) {
 	matrix[COLLIDER_PLAYER][COLLIDER_TRANSPASSABLE_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_EXPLOSION] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_END_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 
 
