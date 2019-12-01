@@ -558,36 +558,39 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 	}
 	bool ret = true;
 	
+	//40 is gid for player
 	//42 is the gid that coresponds to flying enemies
 	//43 is for walking enemy
-
-	for (int i = 0; i < set->width; i++)
+	if (!App->scene->load_from_save)
 	{
-		for (int j = 0; j < set->height; j++)
+		for (int i = 0; i < set->width; i++)
 		{
-			int tile_id = set->gid[set->Get(i, j)];
-			if (tile_id != 0)
+			for (int j = 0; j < set->height; j++)
 			{
-				
-				iPoint spawn = PosConverter(i, j);
-
-				switch (tile_id - 1) //compensating for TILED nomenclature, not a magic number
+				int tile_id = set->gid[set->Get(i, j)];
+				if (tile_id != 0)
 				{
-				case 40:
-					App->entityManager->CreateEntity(Entity::EntityTypes::PLAYER, spawn.x, spawn.y);
-					break;
 
-				case 42:
-					App->entityManager->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
-					break;
+					iPoint spawn = PosConverter(i, j);
 
-				case 43:
-					App->entityManager->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
-					break;
+					switch (tile_id - 1) //compensating for TILED nomenclature, not a magic number
+					{
+					case 40:
+						App->entityManager->CreateEntity(Entity::EntityTypes::PLAYER, spawn.x, spawn.y);
+						break;
 
-				default:
+					case 42:
+						App->entityManager->CreateEntity(Entity::EntityTypes::FLY_ENEMY, spawn.x, spawn.y);
+						break;
 
-					break;
+					case 43:
+						App->entityManager->CreateEntity(Entity::EntityTypes::WALK_ENEMY, spawn.x, spawn.y);
+						break;
+
+					default:
+
+						break;
+					}
 				}
 			}
 		}

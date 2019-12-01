@@ -6,6 +6,7 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 
 Player::Player(int x, int y)
 {
@@ -293,6 +294,7 @@ void Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
 			App->entityManager->Destroy_all();
+			App->scene->load_from_save = true;
 			App->LoadGame(); //go back to last checkpoint	
 		}
 	}
