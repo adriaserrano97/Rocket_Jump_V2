@@ -33,10 +33,14 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 
 	if (collider->type == COLLIDER_EXPLOSION)
 	{
-
 		Destroy();
-
 	}
+
+	if (collider->type == COLLIDER_PLAYER)
+	{
+		Destroy();
+	}
+
 	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
 		//OnCollision(c2);

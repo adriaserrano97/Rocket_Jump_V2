@@ -37,6 +37,11 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		Destroy();
 	}
 
+	if (collider->type == COLLIDER_PLAYER)
+	{
+		Destroy();
+	}
+
 	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
 
