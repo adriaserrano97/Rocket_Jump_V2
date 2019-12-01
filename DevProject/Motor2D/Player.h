@@ -1,15 +1,24 @@
-#ifndef __ModulePlayer1_H__
-#define __ModulePlayer1_H__
-
-#include "j1Module.h"
-#include "Animation.h"
-#include "p2Point.h"
+#ifndef __PLAYER_H__
+#define __PLAYER_H__
+#include "Entity.h"
 #include "p2Qeue.h"
-#include"Entity.h"
 
+struct SDL_Texture;
+struct Collider;
 
-
-struct Mix_Chunk;
+enum COLLISION_EXPLOSION_DIRECTION
+{
+	R_DIRECTION_NONE = -1,
+	R_DIRECTION_UP,
+	R_DIRECTION_DOWN,
+	R_DIRECTION_LEFT,
+	R_DIRECTION_RIGHT,
+	R_DIRECTION_LEFT_UP,
+	R_DIRECTION_LEFT_DOWN,
+	R_DIRECTION_RIGHT_UP,
+	R_DIRECTION_RIGHT_DOWN,
+	R_DIRECTION_MAX
+};
 
 enum PLAYER_STATES
 {
@@ -45,11 +54,11 @@ enum PLAYER_INPUTS
 	IN_RIGHT_DOWN,
 	IN_JUMP_DOWN,
 	IN_LEFT_JUMP_DOWN,
-	IN_RIGHT_JUMP_DOWN,	
+	IN_RIGHT_JUMP_DOWN,
 
 	IN_LEFT_UP,
 	IN_RIGHT_UP,
-	
+
 	IN_JUMP_FINISH,
 	IN_FALLING,
 
@@ -69,76 +78,54 @@ enum PLAYER_INPUTS
 	IN_ALIVE
 };
 
-
-
-enum COLLISION_EXPLOSION_DIRECTION
-{
-	R_DIRECTION_NONE = -1,
-	R_DIRECTION_UP,
-	R_DIRECTION_DOWN,
-	R_DIRECTION_LEFT,
-	R_DIRECTION_RIGHT,
-	R_DIRECTION_LEFT_UP,
-	R_DIRECTION_LEFT_DOWN,
-	R_DIRECTION_RIGHT_UP,
-	R_DIRECTION_RIGHT_DOWN,
-	R_DIRECTION_MAX
-};
-
-struct SDL_Texture;
-
-class j1Player : public j1Module
+class Player: public Entity
 {
 public:
-	j1Player();
-	~j1Player();
+	Player();
+	~Player();
 
-	bool Awake(pugi::xml_node& config);
-	bool Start();
-	bool PreUpdate();
+	/*bool Start();
+	bool HandleInput();
 	bool Update(float dt);
-	bool PostUpdate();
-	bool CleanUp();
+
+	void Draw(float dt);
 
 	void internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
 	bool external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
 	PLAYER_STATES process_fsm(p2Qeue<PLAYER_INPUTS>& inputs);
-	void OnCollision(Collider* c1, Collider* c2);
-	void BlitCharacterAndAddColliders(Animation* current_animation, SDL_Texture* texture);
 
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
+
+	void OnCollision(Collider* c2);
+	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
+	COLLISION_EXPLOSION_DIRECTION checkDirectionExplosion(SDL_Rect player, SDL_Rect collision);
+
 
 	void playerJump(PLAYER_STATES state, float dt);
 	void playerFall(float dt);
 	bool ResetJumpCheck(SDL_Rect player, SDL_Rect collision);
 	void Check_if_falling();
-	
+
 	void PlayerMov(float dt, float factor = 1); //if not told otherwise, does not alter any speed
-	void Stay_in_map(SDL_Rect rect);
-
-	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect player, SDL_Rect collision);
-	COLLISION_EXPLOSION_DIRECTION checkDirectionExplosion(SDL_Rect player, SDL_Rect collision);
-
+	void Stay_in_map(SDL_Rect rect);*/
 
 public:
-	int max_colliders_per_frame = 50;
-	Collider* collider = nullptr;  
+	
+	bool myflip = false;
+
+	Collider* collider = nullptr;
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
 	bool godMode = false;
 
 	SDL_Rect bazookaRect;
 	SDL_Rect cursorRect;
-	
+
 	Animation walk;
 	Animation idle;
 	Animation jump;
 	Animation dead;
 
 	Animation* current_animation;
-
-	uint fsx = 0u;
 
 	iPoint playerBuffer;
 	int speed;
@@ -164,7 +151,7 @@ public:
 	bool up = false;
 	bool flip = false;
 	bool vertical;
-	
+
 
 	PLAYER_STATES state;
 	p2Qeue<PLAYER_INPUTS> inputs;
@@ -174,7 +161,10 @@ public:
 
 	float dtAnimation = 0.f;
 
-	p2SString	folder;
+
 };
 
-#endif
+
+
+
+#endif  //__PLAYER_H__

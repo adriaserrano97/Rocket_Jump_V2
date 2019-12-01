@@ -8,7 +8,6 @@
 
 struct SDL_Texture;
 struct Collider;
-enum COLLISION_WALL_DIRECTION;
 
 class Enemy: public Entity
 {

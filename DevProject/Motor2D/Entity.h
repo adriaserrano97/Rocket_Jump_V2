@@ -9,6 +9,16 @@
 struct Collider;
 struct SDL_Texture;
 
+enum COLLISION_WALL_DIRECTION
+{
+	DIRECTION_NONE = -1,
+	DIRECTION_UP,
+	DIRECTION_DOWN,
+	DIRECTION_LEFT,
+	DIRECTION_RIGHT,
+	DIRECTION_MAX
+};
+
 class Entity
 {
 

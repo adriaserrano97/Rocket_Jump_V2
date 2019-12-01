@@ -76,6 +76,54 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	dust_life = entity_config.child("Animations").child("dust").attribute("life").as_int();
 
 
+
+	//Player
+	entity_config = entity_config.next_sibling();
+
+	player_folder.create(config.child("player_folder").child_value());
+
+	speed = entity_config.child("playerData").attribute("speed").as_int();
+	jumpspeed = entity_config.child("playerData").attribute("jumpspeed").as_int();
+	rocketJumpSpeed = entity_config.child("playerData").attribute("rocketJumpSpeed").as_int();
+	speedcap = entity_config.child("playerData").attribute("speedcap").as_int();
+	grav = entity_config.child("playerData").attribute("gravity").as_int();
+	deadFall = entity_config.child("playerData").attribute("deadFall").as_int();
+	explosion_CD = entity_config.child("playerData").attribute("explosion_CD").as_int();
+	deadTimer = entity_config.child("Animations").child("dead").attribute("time").as_int();
+	JumpAdjustMargin = entity_config.child("playerData").attribute("JumpAdjustMargin").as_float();
+	JumpingDelta = entity_config.child("playerData").attribute("JumpingDelta").as_int();
+
+
+	//player collider information
+	SDL_Rect rect;
+	rect.x = entity_config.child("collider").attribute("rectX").as_int();
+	rect.y = entity_config.child("collider").attribute("rectY").as_int();
+	rect.w = entity_config.child("collider").attribute("rectW").as_int();
+	rect.h = entity_config.child("collider").attribute("rectH").as_int();
+	COLLIDER_TYPE type = COLLIDER_PLAYER;
+	j1Module* callback = this;
+	collider = App->colliders->AddCollider(rect, type, callback);
+
+	//Player animations, loaded from xml
+	player_walk = player_walk.PushAnimation(entity_config, "run");
+	player_idle = player_idle.PushAnimation(entity_config, "idle");
+	player_jump = player_jump.PushAnimation(entity_config, "jump");
+	player_dead = player_dead.PushAnimation(entity_config, "dead");
+
+
+	//player's firearm position information
+	bazookaRect.x = entity_config.child("bazooka").attribute("x").as_int();
+	bazookaRect.y = entity_config.child("bazooka").attribute("y").as_int();
+	bazookaRect.w = entity_config.child("bazooka").attribute("w").as_int();
+	bazookaRect.h = entity_config.child("bazooka").attribute("h").as_int();
+
+	//image used as cursor information
+	cursorRect.x = entity_config.child("cursor").attribute("x").as_int();
+	cursorRect.y = entity_config.child("cursor").attribute("y").as_int();
+	cursorRect.w = entity_config.child("cursor").attribute("w").as_int();
+	cursorRect.h = entity_config.child("cursor").attribute("h").as_int();
+
+
 	return ret;
 }
 

@@ -49,6 +49,34 @@ public:
 	float explosion_life;
 	float dust_life;
 
+	//Player
+	Collider* collider = nullptr;
+	SDL_Texture* graphics = nullptr;
+	SDL_Texture* bazooka = nullptr;
+	bool godMode = false;
+
+	SDL_Rect bazookaRect;
+	SDL_Rect cursorRect;
+
+	Animation player_walk;
+	Animation player_idle;
+	Animation player_jump;
+	Animation player_dead;
+
+
+	uint fsx = 0u;
+
+	int speed;
+	int jumpspeed;
+	int rocketJumpSpeed;
+	int speedcap;
+	int grav;
+	int deadFall;
+	int deadAnimation;
+	int deadTimer;
+	int explosion_CD;
+	int JumpingDelta;
+	float JumpAdjustMargin;
 
 private:
 	Entity* entity_array[MAX_ENTITYES];
@@ -58,6 +86,7 @@ private:
 	p2SString			entity_doc;
 	p2SString			enemy_folder;
 	p2SString			particle_folder;
+	p2SString			player_folder;
 
 	float deltaTime;
 
