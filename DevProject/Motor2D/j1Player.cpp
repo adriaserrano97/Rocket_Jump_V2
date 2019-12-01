@@ -3,7 +3,6 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Player.h"
-#include "j1Particles.h"
 #include "j1Map.h"
 #include "j1Audio.h"
 #include "p2Qeue.h"
@@ -491,10 +490,10 @@ bool j1Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 			left = false;
 
 
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && time_from_last_explosion * dt >= explosion_CD * dt) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && round(time_from_last_explosion * dt) >= round(explosion_CD * dt)) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
 			time_from_last_explosion = 0;
 			App->input->GetMousePosition(cursorX, cursorY);
-			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursorX - App->render->camera.x) - (App->entityManager->explosionAnimation.GetRect().w/2), (cursorY - App->render->camera.y) - (App->entityManager->explosionAnimation.GetRect().h / 2 / 2));
+			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursorX - App->render->camera.x) - (App->entityManager->explosionAnimation.GetRect().w/2), (cursorY - App->render->camera.y) - (App->entityManager->explosionAnimation.GetRect().h / 2));
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 
@@ -956,7 +955,7 @@ void j1Player::playerJump(PLAYER_STATES state, float dt) {
 		time_spent_jumping += dt; 
 		//Play jump sound and add appropiate particles
 		App->audio->PlayFx(App->audio->jump_sound, 0);
-		App->particles->AddParticles(App->particles->dust, false, position.x, position.y + collider->rect.h, 0, 0, COLLIDER_NONE, 0, 0);
+		App->entityManager->CreateEntity(Entity::EntityTypes::DUST_PARTICLE, position.x, position.y);
 	}
 
 	switch (state) {

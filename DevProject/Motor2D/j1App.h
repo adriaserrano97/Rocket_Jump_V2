@@ -21,7 +21,6 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Collision;
-class j1Particles;
 class j1Player;
 class j1FadeToBlack;
 class j1PathFinding;
@@ -98,7 +97,6 @@ public:
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Collision*		colliders;
-	j1Particles*		particles;
 	j1Player*			player;
 	j1FadeToBlack*		fade;
 	j1PathFinding*		pathfinding;

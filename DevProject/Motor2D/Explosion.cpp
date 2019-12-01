@@ -12,8 +12,6 @@ Explosion::Explosion(int x, int y) {
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);;
 
-	fx = App->audio->bomb_sound;
-
 	life = App->entityManager->explosion_life;
 
 	type = EntityTypes::EXPLOSION_PARTICLE;
@@ -40,7 +38,6 @@ bool Explosion::Update(float dt) {
 
 	if (life * dt <= 0)
 	{
-
 		collider->to_delete = true;
 		collider = nullptr;
 

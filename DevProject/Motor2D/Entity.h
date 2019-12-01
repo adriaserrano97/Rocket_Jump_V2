@@ -33,7 +33,6 @@ public:
 
 
 public:
-	Entity(EntityTypes type);
 	Entity() {};
 	//virtual ~Entity();
 	virtual bool HandleInput();

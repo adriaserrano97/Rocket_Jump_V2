@@ -10,12 +10,8 @@ struct SDL_Texture;
 class Particle: public Entity
 {
 public:
-
-	uint fx = 0u;
 	float life = 0.0f;
-	uint sfx = 0u;
 	
-
 public:
 	~Particle();
 	
