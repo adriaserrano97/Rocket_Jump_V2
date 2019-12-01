@@ -46,9 +46,15 @@ public:
 	//maps
 	p2SString map1;
 	p2SString map2;
+
+public:
+
+	bool				load_from_save;
+
 private:
 
 	p2SString			folder;
+	
 };
 
 #endif // __j1SCENE_H__

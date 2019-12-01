@@ -34,13 +34,15 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	map1 = (config.child("map1").attribute("path").as_string());
 	map2 = (config.child("map2").attribute("path").as_string());
 
+	//Saving valve
+	load_from_save = false;
+
 	return ret;
 }
 
 // Called before the first frame
 bool j1Scene::Start()
 {
-	
 	//Our different maps. We only load the one we're currently using.
 	map1;
 	map2;
@@ -115,6 +117,7 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->entityManager->Destroy_all();
+		load_from_save = true;
 		App->LoadGame();
 	}
 		
@@ -149,8 +152,6 @@ bool j1Scene::Update(float dt)
 
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
 		scene_number = 2;
-		
-		
 		App->map->Unload();;
 		App->fade->FadeToBlack(this, this, 2);
 	}
