@@ -301,6 +301,11 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 			CreateEntity(Entity::EntityTypes::WALK_ENEMY, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
 		}
 
+		if (type == "player")
+		{
+			CreateEntity(Entity::EntityTypes::PLAYER, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+		}
+
 		entity_array[i]->Start();
 	}
 
@@ -324,6 +329,10 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 
 		case Entity::EntityTypes::WALK_ENEMY:
 			iterator.append_attribute("type") = "walk_enemy";
+			break;
+
+		case Entity::EntityTypes::PLAYER:
+			iterator.append_attribute("type") = "player";
 			break;
 		}
 		
