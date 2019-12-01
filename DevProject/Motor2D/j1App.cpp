@@ -245,13 +245,13 @@ void j1App::FinishUpdate()
 
 		if (App->render->vsinc == true)
 		{
-			sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap off Vsinc On",
+			sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap Off Vsinc On",
 				avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 		}
 
 		else
 		{
-			sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap Off  Vsin Off",
+			sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap Off  Vsinc Off",
 				avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 		}
 		
