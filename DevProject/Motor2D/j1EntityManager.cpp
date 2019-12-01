@@ -2,6 +2,7 @@
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
 #include "Explosion.h"
+#include "Dust.h"
 #include "j1Textures.h"
 #include "p2SString.h"
 #include "p2Log.h"
@@ -102,6 +103,7 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	case Entity::EntityTypes::FLY_ENEMY:	ret = new Alien_Enemy(x, y);	break;
 	case Entity::EntityTypes::WALK_ENEMY:	ret = new Walking_Enemy(x, y);	break;
 	case Entity::EntityTypes::EXPLOSION_PARTICLE: ret = new Explosion(x, y); break;
+	case Entity::EntityTypes::DUST_PARTICLE: ret = new Dust(x, y); break;
 	}
 
 

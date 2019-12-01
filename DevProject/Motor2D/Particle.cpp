@@ -1,7 +1,9 @@
 #include "Particle.h"
 #include "j1Render.h"
 
-Particle::~Particle() {}
+Particle::~Particle() {
+	texture = nullptr;
+}
 
 void Particle::Draw(float dt)
 {

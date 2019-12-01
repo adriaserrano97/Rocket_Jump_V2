@@ -46,8 +46,8 @@ public:
 	SDL_Texture* spritesDust = nullptr;
 	Animation dustAnimation;
 	Animation explosionAnimation;
-	int explosion_life;
-	int dust_life;
+	float explosion_life;
+	float dust_life;
 
 
 private:

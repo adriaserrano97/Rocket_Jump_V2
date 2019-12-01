@@ -13,7 +13,7 @@ private:
 public:
 
 	Explosion(int x, int y);
-	Collider* Explosion::GetCollider() const;
+	Collider* GetCollider() const;
 
 	bool Start();
 	bool Update(float dt);
