@@ -64,7 +64,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	walkingAlien = walkingAlien.PushAnimation(entity_config, "alienRun");
 	aggro_range = entity_config.child("values").attribute("aggro_range").as_int();
 	delta_move = entity_config.child("values").attribute("delta_move").as_float();
-
+	enemy_speed = entity_config.child("values").attribute("speed").as_float();
 	//Particles
 	entity_config = entity_config.next_sibling();
 

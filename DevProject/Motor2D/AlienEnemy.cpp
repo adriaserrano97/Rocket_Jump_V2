@@ -13,17 +13,20 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 	position.x = x;
 	position.y = y;
 	
+	
 	animation = App->entityManager->alienAnimation;
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 	
+	speed = App->entityManager->enemy_speed;
+
 	type = EntityTypes::FLY_ENEMY;
 }
 
 void Alien_Enemy::Move(iPoint destiny, float dt)
-{
-	position.x = App->render->Lerp(position.x, destiny.x, dt);
-	position.y = App->render->Lerp(position.y, destiny.y, dt);
+{	
+	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
+	position.y = App->render->Full_Lerp(position.y, destiny.y, speed, dt);
 }
 
 void Alien_Enemy::OnCollision(Collider* collider) {

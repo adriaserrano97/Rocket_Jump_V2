@@ -19,7 +19,7 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 																															//not enemies >:(
-	speed = 0.04;
+	speed = App->entityManager->enemy_speed;
 
 	type = EntityTypes::WALK_ENEMY;
 }

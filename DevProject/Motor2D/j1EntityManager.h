@@ -39,6 +39,7 @@ public:
 	SDL_Texture* spritesWalkAlien = nullptr;
 	int aggro_range;
 	float delta_move; //defines when do enemies correct their pathfinding
+	float enemy_speed;
 	Animation alienAnimation;
 	Animation walkingAlien;
 

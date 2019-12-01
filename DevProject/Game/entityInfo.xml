@@ -2,7 +2,7 @@
 <entity_info>
 	<enemy>
 	<enemy_folder>textures/enemy</enemy_folder>
-	<values aggro_range="600" delta_move="1"></values>
+	<values aggro_range="600" delta_move="1" speed="0.04"></values>
 	<Animations>
 		<alien frames="9" name="alienFly">
 			<frame
