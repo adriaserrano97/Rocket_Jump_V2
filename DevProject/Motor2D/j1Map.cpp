@@ -561,7 +561,7 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 	//40 is gid for player
 	//42 is the gid that coresponds to flying enemies
 	//43 is for walking enemy
-	if (!App->scene->load_from_save)
+	if (App->scene->load_from_save == false)
 	{
 		for (int i = 0; i < set->width; i++)
 		{

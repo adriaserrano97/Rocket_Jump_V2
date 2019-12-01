@@ -27,15 +27,19 @@ j1EntityManager::~j1EntityManager() {}
 void j1EntityManager::Destroy_all()
 {
 
-	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+	for (int i = 0; i < MAX_ENTITYES; i++) {
 
-		if (entity_array[i]->GetCollider() != nullptr)
+		if (entity_array[i] != nullptr)
 		{
-			entity_array[i]->GetCollider()->to_delete = true;
-		}
+			if (entity_array[i]->GetCollider() != nullptr)
+			{
+				entity_array[i]->GetCollider()->to_delete = true;
+			}
 
-		delete entity_array[i];
-		entity_array[i] = nullptr;
+			delete entity_array[i];
+			entity_array[i] = nullptr;
+		}
+		
 	}
 }
 

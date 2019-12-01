@@ -78,14 +78,14 @@ const p2DynArray<iPoint>* j1PathFinding::GetLastPath() const
 
 void j1PathFinding::PrintLastPath() {
 
-	//Print the path, just debug
+	/*//Print the path, just debug
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = App->map->PosConverter(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
-	}
+	}*/
 
 }
 
