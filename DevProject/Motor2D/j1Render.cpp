@@ -394,18 +394,18 @@ void j1Render::Vertical_Look(float dt) {
 //Returns lerp% distance from a to b
 int j1Render::CamLerp(int a, int b, float dt) {
 	if (abs(b - a)* dt >= 5)
-		return round((lerp * (b - a)) * dt);
-	else return (b-a) * dt;
+		return (int)((lerp * (b - a)) * dt);
+	else return (int)((b-a) * dt);
 	//if destination is close enough, snap to it
 }
 
 //General Lerp function
 int j1Render::Lerp(int a, int b, float dt){
-		return round((a + lerp * (b - a) * dt));
+		return (int)((a + lerp * (b - a) * dt));
 }
 
 int j1Render::Full_Lerp(int a, int b, float lerp, float dt) {
-	return round((a + lerp * (b - a) * dt));			
+	return (int)((a + lerp * (b - a) * dt));			
 }
 //Define where does our camera have triggers to change perspective
 void j1Render::AdjustAnchorPoints() {
@@ -447,30 +447,29 @@ int j1Render::GetSideOfScreen(int x){
 void j1Render::SnapAxis(float dt) {
 	
 	//Check if we need to change camera perspective
-	//if (cameraCD <= 0) {
+	
 		switch (snap_state) {
 
 		case SNAP_TO_RIGHT:
 			auxCam.x -= abs(CamLerp(right_trigger_camera, left_trigger_change)) * dt;
-			//auxCam.x -= abs(Full_Lerp(right_trigger_camera, left_trigger_change, lerp, dt));// *dt;
+
 			if (App->player->position.x >= right_trigger_camera) {
-				App->player->position.x = right_trigger_camera; //It would solve a lot, but it allows player to basically clip into the walls
+				auxCam.x = App->player->position.x - (int)((5 * App->win->width / 6)); 
+				
 				snap_state = SNAP_NONE;
-				//cameraCD = 300;
 			}
 			break;
 
 		case SNAP_TO_LEFT:
 			auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera)) * dt;
-			//auxCam.x += abs(Full_Lerp(right_trigger_change, left_trigger_camera, lerp, dt));// *dt;
+			
 			if (App->player->position.x <= left_trigger_camera) {
-				App->player->position.x = left_trigger_camera;
+				auxCam.x = App->player->position.x - (int)((App->win->width / 6)); 
 				snap_state = SNAP_NONE;
-				//cameraCD = 100;
 			}
 			break;
 		}
-	//}
+	
 }
 
 iPoint j1Render::ScreenToWorld(int x, int y) const
