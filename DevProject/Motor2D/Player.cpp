@@ -10,6 +10,9 @@
 Player::Player(int x, int y)
 {
 
+	position.x = x;
+	position.y = y;
+
 	collider = App->colliders->AddCollider({ x, y, App->entityManager->playerColRect.w, App->entityManager->playerColRect.h }, COLLIDER_PLAYER, (j1Module*)App->entityManager);;
 	bazookaRect = App->entityManager->bazookaRect;
 	cursorRect = App->entityManager->cursorRect;
