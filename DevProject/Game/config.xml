@@ -10,6 +10,7 @@
   <renderer>
     <vsync value="false"/>
     <lerp value="0.085"/>
+    <fast_lerp value="0.1"/>
     <speedcamera value="12"/>
   </renderer>
 

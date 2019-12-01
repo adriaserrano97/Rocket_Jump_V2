@@ -1162,13 +1162,21 @@ bool j1Player::ResetJumpCheck(SDL_Rect player, SDL_Rect collision) {
 void j1Player::Stay_in_map(SDL_Rect rect) {
 	
 	//always adjust with 1 of diference so it the collision detction smoother
-
+	//adjust left
 	if (rect.x < 0) { 
-		position.x = 1;} //adjust left
+		position.x = 1;
+	}
+	else if (rect.x < App->render->camera.x) {
+		position.x = App->render->camera.x;
+	}
 	
-	
+	//right
 	if ((rect.x+rect.w) > (App->map->data.width*App->map->data.tile_width)) { 
-		position.x = (App->map->data.width*App->map->data.tile_width) - (rect.w + 1); } //right
+		//position.x = (App->map->data.width*App->map->data.tile_width) - (rect.w + 1);
+	}
+	else if ((rect.x + rect.w) > (App->render->camera.x + App->render->camera.w )) {
+	//position.x = (App->render->camera.x + App->render->camera.w) - rect.w -1;
+	}
 
 	if (rect.y < 0) { 
 		position.y = 1; } //up

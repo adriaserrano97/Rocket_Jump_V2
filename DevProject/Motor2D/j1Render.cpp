@@ -38,7 +38,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	camera_speed = (config.child("speedcamera").attribute("value").as_int());
 	lerp = (config.child("lerp").attribute("value").as_float());
-
+	fast_lerp = (config.child("fast_lerp").attribute("value").as_float());
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 
 	if(renderer == NULL)
@@ -52,6 +52,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.h = App->win->screen_surface->h;
 		camera.x = 0;
 		camera.y = 0;
+		cameraCD = 0;
 	}
 	return ret;
 }
@@ -81,6 +82,7 @@ bool j1Render::Update(float dt)
 	//Make Camera movement
 	AdjustCamera(dt);
 	Vertical_Look(dt);
+	CD_Manager(dt);
 
 	return true;
 }
@@ -365,6 +367,17 @@ void j1Render::AdjustCamera(float dt) {
 	camera.y = -auxCam.y;
 }
 
+void j1Render::CD_Manager(float dt)
+{
+	if (cameraCD >= 0) {
+		cameraCD -= (1+dt);
+	}
+	else if (cameraCD < 0) {
+		snap_state = SNAP_NONE;
+		cameraCD = 0;
+	}
+}
+
 void j1Render::Vertical_Look(float dt) {
 	
 	if (App->player->godMode == false && App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
@@ -388,8 +401,9 @@ int j1Render::CamLerp(int a, int b, float dt) {
 int j1Render::Lerp(int a, int b, float dt){
 		return round((a + lerp * (b - a) * dt));
 }
+
 int j1Render::Full_Lerp(int a, int b, float lerp, float dt) {
-	return round((a + lerp * (b - a) * dt));
+	return round((a + lerp * (b - a) * dt));			
 }
 //Define where does our camera have triggers to change perspective
 void j1Render::AdjustAnchorPoints() {
@@ -400,9 +414,9 @@ void j1Render::AdjustAnchorPoints() {
 
 	right_trigger_camera = (-1)*(int)(camera.x - (3 * App->win->width / 4)); 
 
-	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 12));
+	left_trigger_change = (-1)*(int)(camera.x - (App->win->width / 100));
 
-	right_trigger_change = (-1)*(int)(camera.x - (11 * App->win->width / 12));
+	right_trigger_change = (-1)*(int)(camera.x - (99 * App->win->width / 100));
 
 	up_trigger = (-1)*(int)(camera.y - App->win->height / 3);
 
@@ -431,26 +445,29 @@ int j1Render::GetSideOfScreen(int x){
 void j1Render::SnapAxis(float dt) {
 	
 	//Check if we need to change camera perspective
+	if (cameraCD <= 0) {
+		switch (snap_state) {
 
-	switch (snap_state) {
+		case SNAP_TO_RIGHT:
 
-	case SNAP_TO_RIGHT:
-	
-		auxCam.x -= abs(CamLerp(right_trigger_camera,left_trigger_change)) * dt;
-		if (App->player->position.x >= right_trigger_camera) { 
-			App->player->position.x = right_trigger_camera;
-			snap_state = SNAP_NONE;
+			auxCam.x -= abs(Full_Lerp(right_trigger_camera, left_trigger_change, fast_lerp, dt)) /** dt*/;
+			if (App->player->position.x >= right_trigger_camera) {
+				//App->player->position.x = right_trigger_camera; //It would solve a lot, but it allows player to basically clip into the walls
+				//snap_state = SNAP_NONE;
+				cameraCD = 300;
+			}
+			break;
+
+		case SNAP_TO_LEFT:
+
+			auxCam.x += abs(Full_Lerp(right_trigger_change, left_trigger_camera, fast_lerp, dt)) /** dt*/;
+			if (App->player->position.x <= left_trigger_camera) {
+				//App->player->position.x = left_trigger_camera;
+				//snap_state = SNAP_NONE;
+				cameraCD = 100;
+			}
+			break;
 		}
-		break;
-
-	case SNAP_TO_LEFT:
-
-		auxCam.x += abs(CamLerp(right_trigger_change, left_trigger_camera)) * dt;
-		if (App->player->position.x <= left_trigger_camera) { 
-			App->player->position.x = left_trigger_camera;
-			snap_state = SNAP_NONE; 
-		}
-		break;	
 	}
 }
 

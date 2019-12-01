@@ -29,6 +29,10 @@ Currently there is no installation required, just open the .exe provided in the 
 	F6 Load the previous state 
 	F9 To view colliders 
 	F10 God Mode 
+	F11 Toggle framerate cap at 30 fps	
+
+	Q: Toggle auto / manual control of camera
+	TAB: If on manual control of camera, trigger side switch
 
 ### Player Controls: <br>
         W: Look up 
