@@ -341,25 +341,33 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 {
 	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
-		pugi::xml_node iterator = data.append_child("entity");
-
-		switch (entity_array[i]->type)
+		if (entity_array[i] != nullptr)
 		{
-		case Entity::EntityTypes::FLY_ENEMY:
-			iterator.append_attribute("type") = "fly_enemy";
-			break;
+			if (entity_array[i]->type != Entity::EntityTypes::DUST_PARTICLE && entity_array[i]->type != Entity::EntityTypes::EXPLOSION_PARTICLE)
+			{
 
-		case Entity::EntityTypes::WALK_ENEMY:
-			iterator.append_attribute("type") = "walk_enemy";
-			break;
+				pugi::xml_node iterator = data.append_child("entity");
 
-		case Entity::EntityTypes::PLAYER:
-			iterator.append_attribute("type") = "player";
-			break;
+				switch (entity_array[i]->type)
+				{
+				case Entity::EntityTypes::FLY_ENEMY:
+					iterator.append_attribute("type") = "fly_enemy";
+					break;
+
+				case Entity::EntityTypes::WALK_ENEMY:
+					iterator.append_attribute("type") = "walk_enemy";
+					break;
+
+				case Entity::EntityTypes::PLAYER:
+					iterator.append_attribute("type") = "player";
+					break;
+
+				}
+
+				iterator.append_attribute("x") = entity_array[i]->position.x;
+				iterator.append_attribute("y") = entity_array[i]->position.y;
+			}
 		}
-		
-		iterator.append_attribute("x") = entity_array[i]->position.x;
-		iterator.append_attribute("y") = entity_array[i]->position.y;
 	}
 	
 	
