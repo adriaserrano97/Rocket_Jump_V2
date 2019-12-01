@@ -19,6 +19,8 @@ public:
 		FAIL = -1,
 		FLY_ENEMY,
 		WALK_ENEMY,
+		EXPLOSION_PARTICLE,
+		DUST_PARTICLE,
 		MAX
 	};
 	

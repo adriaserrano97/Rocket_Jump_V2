@@ -19,7 +19,8 @@ public:
 
 public:
 	~Particle();
-
+	
+	void Draw(float dt);
 };
 
 

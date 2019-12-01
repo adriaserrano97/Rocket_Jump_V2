@@ -8,16 +8,15 @@ struct Collider;
 class Explosion : public Particle
 {
 private:
-	float wave = -1.0f;
-	bool going_up = true;
+
 	Collider* collider = nullptr;
 public:
 
 	Explosion(int x, int y);
-	bool Update(float dt) { return true; }
-	void Draw(float dt) {  }
+	Collider* Explosion::GetCollider() const;
 
-	bool Start() { return true; }
+	bool Start();
+	bool Update(float dt);
 };
 
 #endif // __EXPLOSION_H__

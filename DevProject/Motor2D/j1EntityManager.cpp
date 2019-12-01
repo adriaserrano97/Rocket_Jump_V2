@@ -1,6 +1,7 @@
 #include "j1EntityManager.h"
 #include "AlienEnemy.h"
 #include "WalkingEnemy.h"
+#include "Explosion.h"
 #include "j1Textures.h"
 #include "p2SString.h"
 #include "p2Log.h"
@@ -100,6 +101,7 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	{
 	case Entity::EntityTypes::FLY_ENEMY:	ret = new Alien_Enemy(x, y);	break;
 	case Entity::EntityTypes::WALK_ENEMY:	ret = new Walking_Enemy(x, y);	break;
+	case Entity::EntityTypes::EXPLOSION_PARTICLE: ret = new Explosion(x, y); break;
 	}
 
 
@@ -133,11 +135,14 @@ void j1EntityManager::DestroyDeletedEntity() {
 bool j1EntityManager::PreUpdate() {
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
+		
 		if (entity_array[i]->started == false)
 		{
 			entity_array[i]->Start();
 		}
+
 		entity_array[i]->HandleInput();
+		
 	}
 
 	return true;
@@ -151,7 +156,11 @@ bool j1EntityManager::Update(float dt) {
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
 
 		entity_array[i]->Update(dt);
+
+
 	}
+
+	
 
 	deltaTime = dt;
 
@@ -162,8 +171,9 @@ bool j1EntityManager::Update(float dt) {
 bool j1EntityManager::PostUpdate() {
 
 	for (int i = 0; i < MAX_ENTITYES && entity_array[i] != nullptr; i++) {
-
+		
 		entity_array[i]->Draw(deltaTime);
+
 	}
 
 	DestroyDeletedEntity();
