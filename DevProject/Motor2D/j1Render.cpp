@@ -35,6 +35,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 		LOG("Using vsync");
+		vsinc = true;
 	}
 	camera_speed = (config.child("speedcamera").attribute("value").as_int());
 	lerp = (config.child("lerp").attribute("value").as_float());

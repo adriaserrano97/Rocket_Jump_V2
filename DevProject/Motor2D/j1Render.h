@@ -98,6 +98,7 @@ public:
 
 	SNAP_STATE snap_state = SNAP_NONE;
 
+	bool vsinc = false;
 
 };
 
