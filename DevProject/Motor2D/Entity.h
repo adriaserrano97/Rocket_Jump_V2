@@ -28,7 +28,7 @@ public:
 	EntityTypes type;
 	SDL_Texture* texture = nullptr;
 	bool to_delete = false;
-	Animation* animation = nullptr;
+	Animation animation;
 	bool started = false;
 
 

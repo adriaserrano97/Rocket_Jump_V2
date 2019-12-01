@@ -13,9 +13,9 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 	position.x = x;
 	position.y = y;
 	
-	animation = &App->entityManager->alienAnimation;
+	animation = App->entityManager->alienAnimation;
 
-	collider = App->colliders->AddCollider({ x, y, animation->GetRect().w, animation->GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
+	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
 	
 	type = EntityTypes::FLY_ENEMY;
 }

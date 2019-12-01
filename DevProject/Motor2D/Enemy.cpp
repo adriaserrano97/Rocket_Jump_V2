@@ -151,12 +151,12 @@ void Enemy::Draw(float dt)
 		collider->SetPos(position.x, position.y);
 	}
 
-	if (animation != nullptr) {
+
 		
-		App->render->Blit(texture, position.x, position.y, &animation->GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
+		App->render->Blit(texture, position.x, position.y, &animation.GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
 		
 	
-	}
+	
 }
 
 

@@ -8,9 +8,9 @@ Explosion::Explosion(int x, int y) {
 	position.x = x;
 	position.y = y;
 
-	animation = &App->entityManager->explosionAnimation;
+	animation = App->entityManager->explosionAnimation;
 
-	collider = App->colliders->AddCollider({ x, y, animation->GetRect().w, animation->GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);;
+	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);;
 
 	fx = App->audio->bomb_sound;
 
