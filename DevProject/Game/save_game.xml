@@ -7,9 +7,10 @@
 	<map />
 	<scene sceneNumber="1" />
 	<entity_manager>
-		<entity type="player" x="620" y="551" />
+		<entity type="player" x="0" y="551" />
 		<entity type="fly_enemy" x="172" y="1548" />
 		<entity type="fly_enemy" x="2494" y="1634" />
+		<entity type="walk_enemy" x="4644" y="259" />
 	</entity_manager>
 	<colliders />
 	<:anonymous />

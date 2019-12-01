@@ -1082,7 +1082,7 @@ void Player::OnCollision(Collider* c2) {
 	{
 		inputs.Push(IN_DEAD);
 		deadTimerBuffer++;
-	}
+	}	
 }
 
 

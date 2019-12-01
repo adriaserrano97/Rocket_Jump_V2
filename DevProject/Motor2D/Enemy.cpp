@@ -14,9 +14,12 @@ Enemy::~Enemy()
 	if (path != nullptr)
 	{
 		path->Clear();
+		path = nullptr;
 	}
 	
 	texture = nullptr;
+
+	animation = Animation();
 }
 
 void Enemy::Destroy() {

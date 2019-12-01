@@ -200,6 +200,9 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 
 	if (c1->type == COLLIDER_END_LEVEL && c2->type == COLLIDER_PLAYER)
 	{
+		
+		App->entityManager->godMode = true;
+		
 		if (scene_number == 1)
 		{
 			scene_number = 2;
