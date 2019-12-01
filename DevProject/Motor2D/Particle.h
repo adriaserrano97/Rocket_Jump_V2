@@ -13,7 +13,6 @@ public:
 
 	uint fx = 0u;
 	float life = 0.0f;
-	bool flip = false;
 	uint sfx = 0u;
 	
 
