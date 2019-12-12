@@ -5,20 +5,17 @@
 
 class Alien_Enemy : public Enemy
 {
-private:
-	float wave = -1.0f;
-	bool going_up = true;
-	float speed;
 
 public:
-
 	Alien_Enemy(int x, int y);
+	bool Start();
 
+private:
 	void Move(iPoint destiny, float dt);
 	void LockOn(iPoint destiny, float dt);
 	void OnCollision(Collider* collider);
 	bool CheckLockOn(iPoint destiny);
-	bool Start();
+	
 };
 
 #endif // __ALIEN_ENEMY_H__

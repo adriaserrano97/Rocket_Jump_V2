@@ -5,17 +5,13 @@
 
 class Walking_Enemy : public Enemy
 {
-private:
-	bool going_up = true;
-	float speed;
-
 public:
 
 	Walking_Enemy(int x, int y);
-
-	void Move(iPoint destiny, float dt);
-	void OnCollision(Collider* collider);
 	bool Start();
+	
+private:
+	void Move(iPoint destiny, float dt);
 
 	//Pathfinding walking specific
 	void LockOn(iPoint destiny, float dt);
@@ -24,6 +20,8 @@ public:
 	void CheckStuck();
 	bool CheckLockOn(iPoint destiny);
 	//void Jump();
+
+	void OnCollision(Collider* collider);
 };
 
 #endif // __ALIEN_ENEMY_H__

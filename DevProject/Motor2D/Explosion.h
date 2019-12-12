@@ -8,8 +8,8 @@ struct Collider;
 class Explosion : public Particle
 {
 private:
+	Collider* collider;
 
-	Collider* collider = nullptr;
 public:
 
 	~Explosion();

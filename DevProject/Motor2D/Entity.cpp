@@ -1,5 +1,9 @@
 #include "Entity.h"
 
+Entity::Entity() {}
+
+Entity::~Entity() {}
+
 bool Entity::Start()
 {
 	return true;
@@ -20,9 +24,7 @@ bool Entity::Update(float dt)
 
 void Entity::Draw(float dt) {}
 
-void Entity::OnCollision(Collider* collider) {
-
-}
+void Entity::OnCollision(Collider* collider) {}
 
 Collider* Entity::GetCollider() const {
 	return nullptr;

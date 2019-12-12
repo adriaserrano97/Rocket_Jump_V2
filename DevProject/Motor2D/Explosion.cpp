@@ -8,6 +8,13 @@ Explosion::Explosion(int x, int y) {
 	position.x = x;
 	position.y = y;
 
+	to_delete = false;
+	started = false;
+
+	texture = nullptr;
+
+	life = 0.0f;
+
 	animation = App->entityManager->explosionAnimation;
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);;

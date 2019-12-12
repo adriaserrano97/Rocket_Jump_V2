@@ -1,5 +1,6 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
+
 #include "Entity.h"
 #include "p2Qeue.h"
 
@@ -90,6 +91,9 @@ public:
 
 	void Draw(float dt);
 
+	Collider* GetCollider() const;
+
+private:
 	void internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
 	bool external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt);
 	PLAYER_STATES process_fsm(p2Qeue<PLAYER_INPUTS>& inputs);
@@ -108,16 +112,13 @@ public:
 	void PlayerMov(float dt, float factor = 1); //if not told otherwise, does not alter any speed
 	void Stay_in_map(SDL_Rect rect);
 
-	Collider* GetCollider() const;
-
-public:
 	
-	bool myflip = false;
+
+private:
 
 	Collider* collider = nullptr;
-	SDL_Texture* graphics = nullptr;
 	SDL_Texture* bazooka = nullptr;
-	bool godMode = false;
+	bool godMode;
 
 	SDL_Rect bazookaRect;
 	SDL_Rect cursorRect;
@@ -141,17 +142,17 @@ public:
 	int explosion_CD;
 	int JumpingDelta;
 	float time_from_last_explosion;
-	float deadTimerBuffer = 0;
-	int buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
-	float time_spent_jumping = 1; //we always start our maps airborne
-	float time_spent_falling = 1;
+	float deadTimerBuffer;
+	int buffer_jump_sign; 
+	float time_spent_jumping;
+	float time_spent_falling;
 	float JumpAdjustMargin;
 
-	bool freeze = false;
-	bool right = false;
-	bool left = false;
-	bool up = false;
-	bool flip = false;
+	bool freeze;
+	bool right;
+	bool left;
+	bool up;
+	bool flip;
 	bool vertical;
 
 

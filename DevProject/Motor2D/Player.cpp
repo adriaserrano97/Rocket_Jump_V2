@@ -13,6 +13,27 @@ Player::Player(int x, int y)
 
 	position.x = x;
 	position.y = y;
+	playerBuffer = { 0, 0 };
+
+	to_delete = false;
+	started = false;
+	godMode = false;
+	freeze = false;
+	right = false;
+	left = false;
+	up = false;
+	flip = false;
+	vertical = false;
+
+	texture = nullptr;
+	bazooka = nullptr;
+
+	deadTimerBuffer = 0.0f;
+	buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
+	time_spent_jumping = 1.0f; //we always start our maps airborne
+	time_spent_falling = 1.0f;
+	cursorX = 0;
+	cursorY = 0;
 
 	collider = App->colliders->AddCollider({ x, y, App->entityManager->playerColRect.w, App->entityManager->playerColRect.h }, COLLIDER_PLAYER, (j1Module*)App->entityManager);;
 	bazookaRect = App->entityManager->bazookaRect;
@@ -48,6 +69,9 @@ Player::~Player()
 	dead = Animation();
 	current_animation = nullptr;
 
+	texture = nullptr;
+	bazooka = nullptr;
+
 	//Set all colliders to nullptr
 	collider = nullptr;
 }
@@ -74,9 +98,6 @@ bool Player::Update(float dt) {
 	//If no changes apply to player, this is its default state
 	PLAYER_STATES current_state = ST_UNKNOWN;
 	current_animation = &idle;
-
-	//get player spritesheet
-	SDL_Texture *texture = graphics;
 
 	//check inputs to traverse state matrix
 	external_input(inputs, dt);

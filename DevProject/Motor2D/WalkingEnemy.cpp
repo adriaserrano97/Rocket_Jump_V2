@@ -15,6 +15,19 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 	position.x = x;
 	position.y = y;
 
+	position_buffer = { 0, 0 };
+
+	to_delete = false;
+	started = false;
+	in_path = false;
+	myflip = false;
+
+	texture = nullptr;
+	path = nullptr;
+
+	frames_stuck = 0.0f;
+	path_counter = 0.0f;
+
 	animation = App->entityManager->walkingAlien;
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
@@ -23,6 +36,16 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 
 	type = EntityTypes::WALK_ENEMY;
 }
+
+
+bool Walking_Enemy::Start() {
+
+	texture = App->entityManager->spritesWalkAlien;
+	started = true;
+
+	return true;
+}
+
 
 void Walking_Enemy::Move(iPoint destiny, float dt)
 {
@@ -85,14 +108,6 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 			break;
 		}
 	}
-}
-
-bool Walking_Enemy::Start() {
-
-	texture = App->entityManager->spritesWalkAlien;
-	started = true;
-
-	return true;
 }
 
 //Pathfinding, specific of walking enemy

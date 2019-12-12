@@ -12,8 +12,22 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 
 	position.x = x;
 	position.y = y;
+
+	position_buffer = { 0, 0 };
 	
-	
+	to_delete = false;
+	started = false;
+	in_path = false;
+	myflip = false;
+
+
+	texture = nullptr;
+	path = nullptr;
+
+	frames_stuck = 0.0f;
+	path_counter = 0.0f;
+
+
 	animation = App->entityManager->alienAnimation;
 
 	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
@@ -23,11 +37,22 @@ Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
 	type = EntityTypes::FLY_ENEMY;
 }
 
+
+bool Alien_Enemy::Start() {
+
+	texture = App->entityManager->spritesFlyAlien;
+	started = true;
+
+	return true;
+}
+
+
 void Alien_Enemy::Move(iPoint destiny, float dt)
 {	
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
 	position.y = App->render->Full_Lerp(position.y, destiny.y, speed, dt);
 }
+
 
 void Alien_Enemy::OnCollision(Collider* collider) {
 
@@ -83,19 +108,14 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 	}
 }
 
-bool Alien_Enemy::Start() {
 
-	texture = App->entityManager->spritesFlyAlien;
-	started = true;
-
-	return true;
-}
 
 void Alien_Enemy::LockOn(iPoint destiny, float dt) {
 
 	position.x = App->render->Lerp(position.x, destiny.x, dt);
 	position.y = App->render->Lerp(position.y, destiny.y, dt);
 }
+
 
 bool Alien_Enemy::CheckLockOn(iPoint destiny) {
 	

@@ -42,6 +42,10 @@ void Enemy::Destroy() {
 	
 }
 
+void Enemy::Move(iPoint pos, float dt) {}
+
+void Enemy::LockOn(iPoint destiny, float dt) {}
+
 //Pathfinding 
 
 void Enemy::AvoidStuck(iPoint destiny) {

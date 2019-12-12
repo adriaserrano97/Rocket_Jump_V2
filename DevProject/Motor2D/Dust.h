@@ -8,7 +8,7 @@ class Dust : public Particle
 public:
 
 	Dust(int x, int y);
-	
+	~Dust();
 
 	bool Start();
 	bool Update(float dt);

@@ -37,15 +37,15 @@ public:
 	
 	iPoint position;
 	EntityTypes type;
-	SDL_Texture* texture = nullptr;
-	bool to_delete = false;
+	SDL_Texture* texture;
+	bool to_delete;
 	Animation animation;
-	bool started = false;
+	bool started;
 
 
 public:
-	Entity() {};
-	//virtual ~Entity();
+	Entity();
+	virtual ~Entity();
 	virtual bool HandleInput();
 	virtual bool Update(float);
 	virtual bool Start();

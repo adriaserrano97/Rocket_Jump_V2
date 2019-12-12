@@ -9,11 +9,10 @@ struct SDL_Texture;
 
 class Particle: public Entity
 {
-public:
-	float life = 0.0f;
+protected:
+	float life;
 	
 public:
-	~Particle();
 	
 	void Draw(float dt);
 };
