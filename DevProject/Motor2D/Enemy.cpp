@@ -22,6 +22,7 @@ Enemy::~Enemy()
 	animation = Animation();
 }
 
+
 void Enemy::Destroy() {
 
 	to_delete = true;
@@ -61,6 +62,8 @@ void Enemy::CheckStuck() {
 
 		frames_stuck++;
 	}
+
+
 	if (frames_stuck > 30) {
 
 		AvoidStuck(App->entityManager->playerPosition);	
@@ -76,7 +79,10 @@ void Enemy::Pathfind(float dt) {
 		iPoint aux(App->entityManager->playerPosition.x + App->entityManager->playerColRect.w/2, App->entityManager->playerPosition.y - App->entityManager->playerColRect.h/2);
 		LockOn(aux, dt);
 
-	}else if (position.DistanceTo(App->entityManager->playerPosition) < App->entityManager->aggro_range && in_path == false) {
+	}
+	
+	else if (position.DistanceTo(App->entityManager->playerPosition) < App->entityManager->aggro_range && in_path == false) 
+	{
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
 
 		//Prepare our inputs to create Path
@@ -122,11 +128,12 @@ void Enemy::FollowPath(float dt) {
 	}
 }
 
+
 void Enemy::ResetPathCounter(float dt) {
 
 	path_counter += 1 + dt;
 
-	if (path_counter > 100) {
+	if (path_counter > PATH_COUNTER_MAX) {
 	
 		path_counter = 0;
 
@@ -137,6 +144,7 @@ void Enemy::ResetPathCounter(float dt) {
 		frames_stuck = 0;
 	}
 }
+
 
 bool Enemy::CheckLockOn(iPoint destiny) {
 
@@ -153,12 +161,7 @@ void Enemy::Draw(float dt)
 		collider->SetPos(position.x, position.y);
 	}
 
-
-		
 		App->render->Blit(texture, position.x, position.y, &animation.GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
-		
-	
-	
 }
 
 
@@ -172,10 +175,17 @@ bool Enemy::HandleInput() {
 
 	CheckStuck();
 	position_buffer = position;
+
 	if (position.x - App->entityManager->playerPosition.x >= 0) {
+
 		myflip = false;
 	}
-	else { myflip = true; }
+
+	else {
+		
+		myflip = true; 
+	}
+
 	return true;
 }
 
@@ -188,9 +198,6 @@ bool Enemy::Update(float dt) {
 
 	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
 
-	if (type != EntityTypes::FLY_ENEMY) {
-		position.y += round(App->entityManager->grav * dt);
-	}
 	return true;
 }
 

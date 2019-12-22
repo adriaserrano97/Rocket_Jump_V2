@@ -47,9 +47,11 @@ bool Dust::Update(float dt) {
 		to_delete = true;
 	}
 
-	if (life * dt > 0) {
+	else 
+	{
 		life -= dt;
 	}
+	
 
 	return true;
 }

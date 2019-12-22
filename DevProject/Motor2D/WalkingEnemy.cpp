@@ -50,6 +50,7 @@ bool Walking_Enemy::Start() {
 void Walking_Enemy::Move(iPoint destiny, float dt)
 {
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
+	position.y += round(App->entityManager->grav * dt);
 	
 }
 
@@ -72,6 +73,7 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
+
 			position.x = collider->rect.x + collider->rect.w +1;
 			if (this->myflip == false) {
 				path = nullptr;
@@ -88,22 +90,17 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 				in_path = false;
 			}
 		
-
 			break;
 
 		case DIRECTION_DOWN:
 
 			position.y = collider->rect.y - collider->rect.h + 1;
 
-			
-
 			break;
 
 		case DIRECTION_UP:
 
 			position.y = collider->rect.y - collider->rect.h -1;
-
-			
 
 			break;
 		}

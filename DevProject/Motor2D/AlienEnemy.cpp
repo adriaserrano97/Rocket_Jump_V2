@@ -122,7 +122,9 @@ bool Alien_Enemy::CheckLockOn(iPoint destiny) {
 	bool ret = false;
 
 	if (position.DistanceTo(destiny) <= 2*App->map->data.tile_width) { 
-		ret = true; }
+		
+		ret = true;
+	}
 
 	return ret;
 }
