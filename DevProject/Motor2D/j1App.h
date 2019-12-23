@@ -24,6 +24,8 @@ class j1Collision;
 class j1FadeToBlack;
 class j1PathFinding;
 class j1EntityManager;
+class j1Fonts;
+class j1Gui;
 
 
 class j1App
@@ -99,6 +101,8 @@ public:
 	j1FadeToBlack*		fade;
 	j1PathFinding*		pathfinding;
 	j1EntityManager*	entityManager;
+	j1Fonts*			font;
+	j1Gui*				gui;
 
 	//timers
 	SimpleTimer* simple_time = NULL;

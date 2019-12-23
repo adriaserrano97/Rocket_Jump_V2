@@ -42,6 +42,11 @@
 	<map2 path="second_map.tmx"></map2>	
   </scene>
 
+  <gui>
+
+	<atlas file="gui/atlas.png"/>
+
+  </gui>
 
   <player>
 	<folder>textures/player</folder>

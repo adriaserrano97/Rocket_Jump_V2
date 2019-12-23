@@ -10,6 +10,8 @@
 #include "j1Map.h"
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
+#include "j1Fonts.h"
+#include "j1Gui.h"
 #include "j1App.h"
 
 #include "j1Pathfinding.h"
@@ -35,16 +37,21 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new j1EntityManager();
 	fade = new j1FadeToBlack();
 	pathfinding = new j1PathFinding();
+	font = new j1Fonts();
+	gui = new j1Gui();
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
+	AddModule(font);
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
 
+
 	AddModule(entityManager);
+	AddModule(gui);
 	AddModule(colliders);
 	AddModule(fade);
 	AddModule(pathfinding);

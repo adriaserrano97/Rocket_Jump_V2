@@ -79,6 +79,24 @@
     <ClCompile Include="Player.cpp">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -189,6 +207,24 @@
     <ClInclude Include="Player.h">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
+    <ClInclude Include="UIElement.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -214,6 +250,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entitys">
       <UniqueIdentifier>{3756719f-27e0-4955-9411-a4c12ad1db24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\UIElements">
+      <UniqueIdentifier>{408d7c25-afc7-48f2-ac77-451e0deb6d48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
