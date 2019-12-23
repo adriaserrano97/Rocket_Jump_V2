@@ -12,6 +12,7 @@ public:
 	~Window();
 
 	bool Start();
+	bool Update();
 	bool Draw();
 
 private:

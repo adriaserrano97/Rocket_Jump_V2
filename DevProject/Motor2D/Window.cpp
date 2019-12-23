@@ -51,10 +51,28 @@ bool Window::Start() {
 }
 
 
+bool Window::Update() {
+
+	if (father == nullptr)
+	{
+		position.x = local_position.x - App->render->camera.x;
+		position.y = local_position.y - App->render->camera.y;
+	}
+
+	else
+	{
+		position.x = local_position.x + father->position.x;
+		position.y = local_position.y + father->position.y;
+	}
+
+
+	return true;
+}
+
 
 bool Window::Draw() {
 
-	App->render->Blit(texture, position.x + App->render->camera.x, position.y + App->render->camera.y, rect);
+	App->render->Blit(texture, position.x, position.y, rect);
 
 	return true;
 }

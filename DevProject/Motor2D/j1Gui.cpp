@@ -159,14 +159,15 @@ void j1Gui::CheckFocusedElements() {
 	}
 
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
+	iPoint pos;
+	App->input->GetMousePosition(pos.x, pos.y);
+	pos = App->render->ScreenToWorld(pos.x, pos.y);
 
 	for (int i = MAX_ELEMENTS - 1; i >= 0; i--)
 	{
 		if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
 		{
-			if (elementArray[i]->MouseUnderElement(x, y))
+			if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
 			{
 				break;
 			}
