@@ -6,7 +6,7 @@
 #include "p2DynArray.h"
 #include "Entity.h"
 
-#define PATH_COUNTER_MAX 100
+#define PATH_COUNTER_MAX 150
 
 struct SDL_Texture;
 struct Collider;

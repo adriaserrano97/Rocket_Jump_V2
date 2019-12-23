@@ -4,6 +4,7 @@
 #include "j1Collision.h"
 #include "j1Map.h"
 #include"j1EntityManager.h"
+#include "j1Pathfinding.h"
 #include "j1Render.h"
 
 Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
@@ -49,8 +50,10 @@ bool Alien_Enemy::Start() {
 
 void Alien_Enemy::Move(iPoint destiny, float dt)
 {	
+	
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
 	position.y = App->render->Full_Lerp(position.y, destiny.y, speed, dt);
+
 }
 
 

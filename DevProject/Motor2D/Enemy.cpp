@@ -45,6 +45,7 @@ void Enemy::Destroy() {
 
 void Enemy::Move(iPoint pos, float dt) {}
 
+
 void Enemy::LockOn(iPoint destiny, float dt) {}
 
 //Pathfinding 
@@ -74,6 +75,7 @@ void Enemy::CheckStuck() {
 
 void Enemy::Pathfind(float dt) {
 
+	
 	if (CheckLockOn(App->entityManager->playerPosition)) {
 		
 		iPoint aux(App->entityManager->playerPosition.x + App->entityManager->playerColRect.w/2, App->entityManager->playerPosition.y - App->entityManager->playerColRect.h/2);
@@ -81,7 +83,7 @@ void Enemy::Pathfind(float dt) {
 
 	}
 	
-	else if (position.DistanceTo(App->entityManager->playerPosition) < App->entityManager->aggro_range && in_path == false) 
+	else if (position.DistanceTo(App->entityManager->playerPosition) < App->entityManager->aggro_range && in_path == false)
 	{
 		//remember to turn in-path to true every 60 frames or so, so enemies can re-calculate their path
 
@@ -173,8 +175,8 @@ Collider* Enemy::GetCollider() const
 
 bool Enemy::HandleInput() {
 
-	CheckStuck();
-	position_buffer = position;
+	//CheckStuck();
+	//position_buffer = position;
 
 	if (position.x - App->entityManager->playerPosition.x >= 0) {
 
@@ -194,8 +196,7 @@ bool Enemy::Update(float dt) {
 
 	Pathfind(dt);
 	FollowPath(dt);
-	//App->pathfinding->PrintLastPath();
-
+	App->pathfinding->PrintLastPath();
 	ResetPathCounter(dt); //just reset all paths each X frames. It looks way smoother
 
 	return true;

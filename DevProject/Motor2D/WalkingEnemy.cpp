@@ -15,7 +15,8 @@ Walking_Enemy::Walking_Enemy(int x, int y)
 	position.x = x;
 	position.y = y;
 
-	position_buffer = { 0, 0 };
+
+	position_buffer = position;
 
 	to_delete = false;
 	started = false;
@@ -49,9 +50,24 @@ bool Walking_Enemy::Start() {
 
 void Walking_Enemy::Move(iPoint destiny, float dt)
 {
+	iPoint pos_aux = position; //pos before moving
+
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt);
 	position.y += round(App->entityManager->grav * dt);
-	
+
+	iPoint pos_prevision = position; //pos after moving
+
+	if (sgn(position.x - destiny.x) == 1) {
+		pos_prevision.x -=App->map->data.tile_width/3 ; //next tile you're expected to reach
+	}
+	else {
+      		pos_prevision.x += (App->map->data.tile_width/3 + collider->rect.w); //next tile you're expected to reach
+	}
+
+	if ((App->pathfinding->IsWalkable(App->map->WorldToMap(pos_prevision.x, pos_prevision.y))) != true) {
+		position.x = pos_aux.x;
+		
+	}
 }
 
 void Walking_Enemy::OnCollision(Collider* collider) {
@@ -75,21 +91,23 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		case DIRECTION_LEFT:
 
 			position.x = collider->rect.x + collider->rect.w +1;
+			
 			if (this->myflip == false) {
 				path = nullptr;
 				in_path = false;
 			}
-
+			
 			break;
 
 		case DIRECTION_RIGHT:
 
 			position.x = collider->rect.x - this->collider->rect.w -1;
+			
 			if (this->myflip == true) {
 				path = nullptr;
 				in_path = false;
 			}
-		
+			
 			break;
 
 		case DIRECTION_DOWN:
@@ -111,8 +129,8 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
-	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt); //nerfed speed
-	//position.x = App->render->Lerp(position.x, destiny.x, dt);
+	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt); 
+
 }
 
 void Walking_Enemy::FollowPath(float dt) {
@@ -125,7 +143,8 @@ void Walking_Enemy::FollowPath(float dt) {
 
 		iPoint destiny = App->map->PosConverter(path->At(tilenum)->x, path->At(tilenum)->y);
 
-		destiny.y += round(App->map->data.tile_height / 3); // slight adjustment so the enemy chases the player, not the corner
+		destiny.y += round(App->map->data.tile_height / 2); // we want enemy to chase the center of the tile
+		destiny.x += round(App->map->data.tile_width / 2);
 
 		Move(destiny, dt);
 
@@ -138,7 +157,8 @@ void Walking_Enemy::FollowPath(float dt) {
 			path->Pop(last_tile);
 
 			//done pathfinding? Try to pathfind again
-			if (path->Count() == 0) { in_path = false; }
+   			if (path->Count() == 0) {
+				in_path = false; }
 
 		}
 	}
