@@ -39,6 +39,9 @@ public:
 
 	SDL_Texture* GetAtlas() const;
 
+	//UI_Listener
+	void ListenerUI(UIElement* UI_element);
+
 private:
 
 	void DragElement();

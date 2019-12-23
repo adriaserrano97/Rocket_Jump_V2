@@ -13,6 +13,7 @@
 #include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
+#include "UIElement.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -222,6 +223,17 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 			
 		}
 	}
+}
+
+void j1Scene::ListenerUI(UIElement * UI_element)
+{
+	/*check what UI_element are you getting and do whatevs you want.
+
+	if(UI_element.name == "button to change map"){change scene;}
+
+	etc.
+	*/
+
 }
 
 bool j1Scene::Load(pugi::xml_node& data) {

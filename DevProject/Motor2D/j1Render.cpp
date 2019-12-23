@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "UIElement.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 #define VSYNC true
@@ -407,6 +408,15 @@ int j1Render::Lerp(int a, int b, float dt){
 
 int j1Render::Full_Lerp(int a, int b, float lerp, float dt) {
 	return (int)((a + lerp * (b - a) * dt));			
+}
+void j1Render::ListenerUI(UIElement * UI_element)
+{
+	/*check what UI_element are you getting and do whatevs you want.
+
+	if(UI_element.name == "button to change menus"){fade to black;}
+
+	etc.
+	*/
 }
 //Define where does our camera have triggers to change perspective
 void j1Render::AdjustAnchorPoints() {

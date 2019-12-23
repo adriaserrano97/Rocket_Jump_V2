@@ -48,6 +48,9 @@ public:
 	int Lerp(int a, int b, float dt);
 	int Full_Lerp(int a, int b, float lerp, float dt);
 
+	//UI_Listener
+	void ListenerUI(UIElement* UI_element);
+
 private:
 	//Camera control functions
 	void AdjustCamera(float dt);

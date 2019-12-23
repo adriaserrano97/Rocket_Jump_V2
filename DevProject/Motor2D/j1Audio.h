@@ -38,6 +38,9 @@ public:
 	uint jump_sound;
 	uint bomb_sound;
 
+	//UI_Listener
+	void ListenerUI(UIElement* UI_element);
+
 private:
 	p2SString			fxFolder;
 

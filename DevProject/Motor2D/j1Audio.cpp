@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1Audio.h"
 #include "p2List.h"
+#include "UIElement.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -180,4 +181,15 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+void j1Audio::ListenerUI(UIElement * UI_element)
+{
+	/*check what UI_element are you getting and do whatevs you want.
+
+	if(UI_element.name == "button that mutes the game"){volume = 0;}
+	if(UI_element.name == "button that increases volume"){volume++;}
+	
+	etc.
+	*/
 }

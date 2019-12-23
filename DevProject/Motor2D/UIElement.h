@@ -5,8 +5,11 @@
 
 #include "p2Point.h"
 
+
+
 struct SDL_Texture;
 struct SDL_Rect;
+class j1Module;
 
 enum class UI_type
 {
@@ -34,6 +37,7 @@ public:
 	bool MouseUnderElement(int x, int y);
 
 	void Drag(int x, int y);
+	void Speaker(j1Module* listener);
 
 public:
 	SDL_Rect* my_box;

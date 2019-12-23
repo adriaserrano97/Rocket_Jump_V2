@@ -8,6 +8,7 @@
 #include "j1Gui.h"
 #include "Text.h"
 #include "Button.h"
+#include "UIElement.h"
 #include "Window.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -98,6 +99,16 @@ bool j1Gui::CleanUp()
 SDL_Texture* j1Gui::GetAtlas() const
 {
 	return atlas;
+}
+
+void j1Gui::ListenerUI(UIElement * UI_element)
+{
+	/*check what UI_element are you getting and do whatevs you want.
+
+	if(UI_element.name == "button to change scene"){delete this button;}
+
+	etc.
+	*/
 }
 
 void j1Gui::CreateGUIElement(UI_type type, int x, int y, UIElement* father, p2SString text) {

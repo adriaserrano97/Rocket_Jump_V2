@@ -1112,7 +1112,6 @@ void Player::OnCollision(Collider* c2) {
 }
 
 
-
 //Check which side did player collide to
 COLLISION_WALL_DIRECTION Player::checkDirection(SDL_Rect player, SDL_Rect collision) {
 
