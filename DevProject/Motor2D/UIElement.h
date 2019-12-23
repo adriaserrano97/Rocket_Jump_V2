@@ -37,7 +37,7 @@ public:
 	bool MouseUnderElement(int x, int y);
 
 	void Drag(int x, int y);
-	void Speaker(j1Module* listener);
+
 
 public:
 	SDL_Rect* my_box;

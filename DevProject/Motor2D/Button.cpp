@@ -41,6 +41,13 @@ Button::Button(int x, int y, UIElement* father) {
 	type = UI_type::BUTTON;
 }
 
+Button::Button(int x, int y, UIElement * father, j1Module* listeners[10])
+{
+	
+	
+	//llename pls
+}
+
 
 Button::~Button() {
 
@@ -91,6 +98,25 @@ bool Button::Draw() {
 		App->render->Blit(texture, position.x, position.y, button_idle);
 
 	return true;
+}
+
+void Button::Speaker(j1Module * listener)
+{
+
+	listener->ListenerUI(this);
+
+}
+
+void Button::SpeakToAll()
+{
+	uint i = 0;
+	
+	while(listeners[0] != nullptr){	
+
+		listeners[i]->ListenerUI(this);
+	
+	}
+
 }
 
 

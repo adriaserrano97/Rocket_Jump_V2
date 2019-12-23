@@ -79,8 +79,4 @@ void UIElement::Drag(int x, int y) {
 
 }
 
-void UIElement::Speaker(j1Module * listener)
-{
-	listener->ListenerUI(this);
-}
 
