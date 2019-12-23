@@ -15,6 +15,8 @@ struct Collider;
 
 class j1App;
 
+//class UI_Element;
+
 class j1Module
 {
 public:
@@ -76,6 +78,7 @@ public:
 public:
 
 	virtual void OnCollision(Collider*, Collider*) {}
+	//virtual void Listener_UI(Entity* UI_element, j1Module* listener) {}
 	p2SString	name;
 	bool		active;
 

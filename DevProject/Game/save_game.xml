@@ -5,19 +5,17 @@
 	<textures />
 	<audio />
 	<map />
-	<scene sceneNumber="2" />
+	<scene sceneNumber="1" />
 	<entity_manager>
-		<entity type="player" x="60" y="1583" />
-		<entity type="fly_enemy" x="1195" y="-85" />
-		<entity type="fly_enemy" x="1290" y="1462" />
-		<entity type="fly_enemy" x="2752" y="1548" />
-		<entity type="walk_enemy" x="4816" y="1775" />
-		<entity type="walk_enemy" x="4902" y="1291" />
+		<entity type="player" x="4090" y="394" />
+		<entity type="fly_enemy" x="1118" y="1290" />
+		<entity type="fly_enemy" x="2494" y="1634" />
+		<entity type="walk_enemy" x="4389" y="603" />
 	</entity_manager>
 	<colliders />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="0" y="-1122" />
+		<camera x="-3307" y="-129" />
 	</renderer>
 </game_state>
