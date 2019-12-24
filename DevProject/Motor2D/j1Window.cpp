@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 
 j1Window::j1Window() : j1Module()
@@ -20,6 +21,7 @@ j1Window::~j1Window()
 // Called before render is available
 bool j1Window::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Window Awake", Profiler::Color::Crimson)
 	LOG("Init SDL window & surface");
 	bool ret = true;
 

@@ -21,6 +21,7 @@ j1PathFinding::~j1PathFinding()
 
 //called at start
 bool j1PathFinding::Start() {
+	BROFILER_CATEGORY("Pathfinding Start", Profiler::Color::DarkOrange)
 	LOG("Started Pathfinding module");
 
 	return true;
@@ -267,7 +268,7 @@ float PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	BROFILER_CATEGORY("Pathfinder", Profiler::Color::Orchid)
+	BROFILER_CATEGORY("Pathfinder create path", Profiler::Color::Orchid)
 	// TODO 1: if origin or destination are not walkable, return -1
 	if (IsWalkable(origin) == false || IsWalkable(destination) == false) {
 		return -1;

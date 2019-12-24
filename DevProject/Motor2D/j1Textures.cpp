@@ -19,6 +19,7 @@ j1Textures::~j1Textures()
 // Called before render is available
 bool j1Textures::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Textures Awake", Profiler::Color::Cyan)
 	LOG("Init Image library");
 	bool ret = true;
 	// load support for the PNG image format
@@ -37,6 +38,7 @@ bool j1Textures::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Textures::Start()
 {
+	BROFILER_CATEGORY("Textures Start", Profiler::Color::DarkOrchid)
 	LOG("start textures");
 	bool ret = true;
 	return ret;
@@ -61,7 +63,6 @@ bool j1Textures::CleanUp()
 // Load new texture from file path
 SDL_Texture* const j1Textures::Load(const char* path)
 {
-
 	BROFILER_CATEGORY("Loading_Textures", Profiler::Color::BlanchedAlmond);
 
 	

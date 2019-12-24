@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Textures.h"
 #include "j1Fonts.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 #include "SDL\include\SDL.h"
 #include "SDL_TTF\include\SDL_ttf.h"
@@ -20,6 +21,8 @@ j1Fonts::~j1Fonts()
 // Called before render is available
 bool j1Fonts::Awake(pugi::xml_node& conf)
 {
+	BROFILER_CATEGORY("Fonts Awake", Profiler::Color::DarkGray)
+	
 	LOG("Init True Type Font library");
 	bool ret = true;
 

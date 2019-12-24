@@ -23,6 +23,7 @@ j1Map::~j1Map()
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Map Awake", Profiler::Color::BlueViolet)
 	LOG("Loading Map Parser");
 	bool ret = true;
 
@@ -33,6 +34,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 }
 
 bool j1Map::Start() {
+	BROFILER_CATEGORY("Map Start", Profiler::Color::CadetBlue)
 
 	for (int i = 0; i < MAX_MAP_COLLIDERS; i++)
 	{
@@ -44,6 +46,7 @@ bool j1Map::Start() {
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map Draw", Profiler::Color::Brown)
 	if (map_loaded == false) {
 		LOG("Tried do draw map, but no map was loaded");
 		return;
@@ -375,6 +378,7 @@ bool j1Map::Load(const char* file_name)
 // Load map general properties
 bool j1Map::LoadMap()
 {
+	BROFILER_CATEGORY("Load map properties", Profiler::Color::BurlyWood)
 	bool ret = true;
 	pugi::xml_node map = map_file.child("map");
 

@@ -27,6 +27,7 @@ j1Render::~j1Render()
 // Called before render is available
 bool j1Render::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Render Awake", Profiler::Color::Chartreuse)
 	LOG("Create SDL rendering context");
 	bool ret = true;
 	// load flags
@@ -62,6 +63,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Render::Start()
 {
+	BROFILER_CATEGORY("Render Start", Profiler::Color::Chocolate)
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
@@ -71,6 +73,7 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("Render Pre-Update", Profiler::Color::Coral)
 	SDL_RenderClear(renderer);
 	//defining our anchor points for camera control
 	
@@ -81,6 +84,7 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("Render Update", Profiler::Color::Cornsilk)
 	//Make Camera movement
 	AdjustCamera(dt);
 	Vertical_Look(dt);

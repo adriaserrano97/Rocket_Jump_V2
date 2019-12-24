@@ -4,6 +4,7 @@
 #include "j1Collision.h"
 #include "j1Player.h"
 #include "p2Log.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 #include "j1Scene.h"
 
 
@@ -19,11 +20,11 @@ j1Collision::j1Collision()
 j1Collision::~j1Collision()
 {}
 
-bool j1Collision::Awake(pugi::xml_node& node) {
-
-	LOG("Preparinc collision module");
+bool j1Collision::Awake(pugi::xml_node& node) 
+{
+	
 	bool ret = true;
-
+	LOG("Preparinc collision module");
 	//Here goes the matrix of collider interactions
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_TRANSPASSABLE_WALL] = false;
@@ -81,6 +82,7 @@ bool j1Collision::Start() {
 
 bool j1Collision::PreUpdate() {
 
+	BROFILER_CATEGORY("Collision pre-update", Profiler::Color::AliceBlue)
 	RemoveDeletedColliders();
 
 	return true;
@@ -89,12 +91,14 @@ bool j1Collision::PreUpdate() {
 // Called before render is available
 bool j1Collision::Update(float dt) {
 	
+	BROFILER_CATEGORY("Collision update", Profiler::Color::Aqua)
 	CalculateCollisions();
 
 	return true;
 }
 
 bool j1Collision::PostUpdate() {
+	BROFILER_CATEGORY("Collision post-update", Profiler::Color::AliceBlue)
 	DebugDraw();
 
 	return true;

@@ -14,6 +14,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "UIElement.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -27,6 +28,7 @@ j1Scene::~j1Scene()
 // Called before render is available
 bool j1Scene::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Scene Awake", Profiler::Color::DarkRed)
 	LOG("Loading Scene");
 	bool ret = true;
 
@@ -44,6 +46,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
+	BROFILER_CATEGORY("Scene Start", Profiler::Color::DarkSalmon)
 	//Our different maps. We only load the one we're currently using.
 	map1;
 	map2;
@@ -85,7 +88,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
+	BROFILER_CATEGORY("Scene Pre-update", Profiler::Color::Tomato)
 	static iPoint origin;
 	static bool origin_selected = false;
 
@@ -115,7 +118,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-
+	BROFILER_CATEGORY("Scene Update", Profiler::Color::MintCream)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->entityManager->Destroy_all();
 		load_from_save = true;
@@ -182,6 +185,7 @@ bool j1Scene::Update(float dt)
 // Called each loop iteration
 bool j1Scene::PostUpdate()
 {
+	BROFILER_CATEGORY("Scene Post-Update", Profiler::Color::MediumSlateBlue)
 	bool ret = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

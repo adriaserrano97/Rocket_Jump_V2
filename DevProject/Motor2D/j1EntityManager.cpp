@@ -45,6 +45,7 @@ void j1EntityManager::Destroy_all()
 
 
 bool j1EntityManager::Awake(pugi::xml_node& config) {
+	BROFILER_CATEGORY("Entity Manager Awake", Profiler::Color::DarkCyan)
 	LOG("Loading Map Parser");
 	bool ret = true;
 
@@ -134,6 +135,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 
 bool j1EntityManager::Start() {
 
+	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::DarkBlue)
 	spritesFlyAlien = App->tex->Load(PATH(enemy_folder.GetString(), "AlienSprites.png"));
 	spritesWalkAlien = App->tex->Load(PATH(enemy_folder.GetString(), "WalkingEnemySprites.png"));
 	spritesDust = App->tex->Load(PATH(particle_folder.GetString(), "particles.png"));
@@ -197,6 +199,7 @@ void j1EntityManager::DestroyDeletedEntity() {
 
 
 bool j1EntityManager::PreUpdate() {
+	BROFILER_CATEGORY("Entity manager pre-update", Profiler::Color::Azure)
 
 	for (int i = 0; i < MAX_ENTITYES; i++) {
 		
@@ -235,6 +238,7 @@ bool j1EntityManager::Update(float dt) {
 
 bool j1EntityManager::PostUpdate() {
 
+	BROFILER_CATEGORY("Entity manager post-update", Profiler::Color::Beige)
 	for (int i = 0; i < MAX_ENTITYES; i++) {
 		
 		if (entity_array[i] != nullptr) {

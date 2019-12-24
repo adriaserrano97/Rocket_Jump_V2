@@ -3,7 +3,7 @@
 #include "j1Audio.h"
 #include "p2List.h"
 #include "UIElement.h"
-
+#include "Brofiler/Brofiler/Brofiler.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -21,6 +21,8 @@ j1Audio::~j1Audio()
 // Called before render is available
 bool j1Audio::Awake(pugi::xml_node& config)
 {
+	BROFILER_CATEGORY("Audio Awake", Profiler::Color::AliceBlue)
+
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);

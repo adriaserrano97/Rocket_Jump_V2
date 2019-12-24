@@ -6,6 +6,7 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 
 j1FadeToBlack::j1FadeToBlack()
@@ -20,6 +21,7 @@ j1FadeToBlack::~j1FadeToBlack()
 // Load assets
 bool j1FadeToBlack::Start()
 {
+	BROFILER_CATEGORY("Fade to black start", Profiler::Color::DarkGoldenRod)
 	LOG("Preparing Fade Screen");
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
@@ -27,6 +29,7 @@ bool j1FadeToBlack::Start()
 
 // Update: draw background
 bool j1FadeToBlack::PostUpdate() {
+	BROFILER_CATEGORY("Fade to black post-update", Profiler::Color::Bisque)
 
 	if (current_step == fade_step::none)
 		return true;

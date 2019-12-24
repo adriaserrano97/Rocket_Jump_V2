@@ -10,6 +10,7 @@
 #include "Button.h"
 #include "UIElement.h"
 #include "Window.h"
+#include "Brofiler/Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -31,6 +32,7 @@ j1Gui::~j1Gui()
 // Called before render is available
 bool j1Gui::Awake(pugi::xml_node& conf)
 {
+	BROFILER_CATEGORY("GUI Awake", Profiler::Color::DarkGreen)
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
@@ -42,6 +44,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
+	BROFILER_CATEGORY("GUI Start", Profiler::Color::DarkKhaki)
 	atlas = App->tex->Load(atlasFileName.GetString());
 
 	CreateGUIElement(UI_type::TEXT, 50, 50, nullptr, "YEEEEEE BOY");
@@ -54,6 +57,7 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	BROFILER_CATEGORY("GUI pre-update", Profiler::Color::Black)
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
@@ -75,6 +79,7 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	BROFILER_CATEGORY("GUI post-update", Profiler::Color::BlanchedAlmond)
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] != nullptr)
