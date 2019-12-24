@@ -32,6 +32,7 @@ public:
 		EXPLOSION_PARTICLE,
 		DUST_PARTICLE,
 		PLAYER,
+		COIN,
 		MAX
 	};
 	

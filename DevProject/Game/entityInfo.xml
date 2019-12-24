@@ -146,7 +146,44 @@
 	</Animations>
 
   </enemy>
-
+  <powerups>
+	<powerups_folder>textures/powerups</powerups_folder>
+	<Animations>       
+ 		<coin frames="6" name="coin">
+		
+  		<frame
+				rposX="0" rposY="0" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		<frame
+				rposX="100" rposY="0" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		<frame
+				rposX="200" rposY="0" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		<frame
+				rposX="300" rposY="0" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		<frame
+				rposX="0" rposY="100" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		<frame
+				rposX="100" rposY="100" rwidth="100" rheight="100"
+				time="3"
+				pivotX="0" pivotY="0">
+		</frame>
+		</coin>
+	</Animations>
+  </powerups>
   <particles>
 	<particle_folder>textures/particles</particle_folder>
 	

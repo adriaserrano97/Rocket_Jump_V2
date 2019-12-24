@@ -3,6 +3,7 @@
 #include "WalkingEnemy.h"
 #include "Explosion.h"
 #include "Dust.h"
+#include "Coin.h"
 #include "Player.h"
 #include "j1Textures.h"
 #include "p2SString.h"
@@ -71,6 +72,14 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	aggro_range = entity_config.child("values").attribute("aggro_range").as_int();
 	delta_move = entity_config.child("values").attribute("delta_move").as_float();
 	enemy_speed = entity_config.child("values").attribute("speed").as_float();
+	
+	//Powerups
+	entity_config = entity_config.next_sibling();
+	powerups_folder.create(entity_config.child("powerups_folder").child_value());
+
+	coinanimation = coinanimation.PushAnimation(entity_config, "coin");
+
+	
 	//Particles
 	entity_config = entity_config.next_sibling();
 
@@ -81,8 +90,6 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 
 	dustAnimation = dustAnimation.PushAnimation(entity_config, "dust");
 	dust_life = entity_config.child("Animations").child("dust").attribute("life").as_int();
-
-
 
 	//Player
 	entity_config = entity_config.next_sibling();
@@ -138,6 +145,7 @@ bool j1EntityManager::Start() {
 	BROFILER_CATEGORY("Entity Manager Start", Profiler::Color::DarkBlue)
 	spritesFlyAlien = App->tex->Load(PATH(enemy_folder.GetString(), "AlienSprites.png"));
 	spritesWalkAlien = App->tex->Load(PATH(enemy_folder.GetString(), "WalkingEnemySprites.png"));
+	powerups = App->tex->Load(PATH(powerups_folder.GetString(), "powerups_sheet.png"));
 	spritesDust = App->tex->Load(PATH(particle_folder.GetString(), "particles.png"));
 	graphics = App->tex->Load(PATH(player_folder.GetString(), "stickman_spritesheet.png"));
 	bazooka = App->tex->Load(PATH(player_folder.GetString(), "bazooka.png"));
@@ -166,9 +174,10 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	case Entity::EntityTypes::EXPLOSION_PARTICLE: ret = new Explosion(x, y); break;
 	case Entity::EntityTypes::DUST_PARTICLE: ret = new Dust(x, y); break;
 	case Entity::EntityTypes::PLAYER: ret = new Player(x, y); break;
+	case Entity::EntityTypes::COIN: ret = new Coin(x, y); break;
 	}
 
-
+	
 	for (int i = 0; i < MAX_ENTITYES; i++)
 	{
 		if (entity_array[i] == nullptr)

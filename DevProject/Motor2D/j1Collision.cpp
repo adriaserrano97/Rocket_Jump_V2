@@ -32,7 +32,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_WALL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_WALL][COLLIDER_END_LEVEL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = false;
-
+	matrix[COLLIDER_WALL][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_TRANSPASSABLE_WALL] = false;
@@ -40,7 +40,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_END_LEVEL] = false;
 	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_ENEMY] = false;
-
+	matrix[COLLIDER_TRANSPASSABLE_WALL][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_TRANSPASSABLE_WALL] = true;
@@ -48,7 +48,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_PLAYER][COLLIDER_EXPLOSION] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_END_LEVEL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
-
+	matrix[COLLIDER_PLAYER][COLLIDER_COIN] = true;
 
 	matrix[COLLIDER_EXPLOSION][COLLIDER_WALL] = false;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_TRANSPASSABLE_WALL] = false;
@@ -56,7 +56,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_EXPLOSION][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_END_LEVEL] = false;
 	matrix[COLLIDER_EXPLOSION][COLLIDER_ENEMY] = false;
-
+	matrix[COLLIDER_EXPLOSION][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_END_LEVEL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_TRANSPASSABLE_WALL] = false;
@@ -64,7 +64,7 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_END_LEVEL][COLLIDER_EXPLOSION] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_END_LEVEL] = false;
 	matrix[COLLIDER_END_LEVEL][COLLIDER_ENEMY] = false;
-
+	matrix[COLLIDER_END_LEVEL][COLLIDER_COIN] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_TRANSPASSABLE_WALL] = true;
@@ -72,6 +72,15 @@ bool j1Collision::Awake(pugi::xml_node& node)
 	matrix[COLLIDER_ENEMY][COLLIDER_EXPLOSION] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_END_LEVEL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_COIN] = false;
+
+	matrix[COLLIDER_COIN][COLLIDER_WALL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_TRANSPASSABLE_WALL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_COIN][COLLIDER_EXPLOSION] = false;
+	matrix[COLLIDER_COIN][COLLIDER_END_LEVEL] = false;
+	matrix[COLLIDER_COIN][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_COIN][COLLIDER_COIN] = false;
 
 	return ret;
 }
@@ -196,9 +205,12 @@ void j1Collision::DebugDraw()
 		case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
+
+		case COLLIDER_COIN: //greenish
+			App->render->DrawQuad(colliders[i]->rect, 60, 255, 0, alpha);
+			break;
 		}
 	}
-
 }
 
 // Called before quitting

@@ -43,6 +43,10 @@ public:
 	Animation alienAnimation;
 	Animation walkingAlien;
 
+	//Powerups
+	SDL_Texture* powerups = nullptr;
+	Animation coinanimation;
+
 	//Particles
 	SDL_Texture* spritesDust = nullptr;
 	Animation dustAnimation;
@@ -90,6 +94,7 @@ private:
 	p2SString			enemy_folder;
 	p2SString			particle_folder;
 	p2SString			player_folder;
+	p2SString			powerups_folder;
 
 	float deltaTime;
 

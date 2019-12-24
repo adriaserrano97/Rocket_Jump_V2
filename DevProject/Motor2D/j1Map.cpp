@@ -547,21 +547,22 @@ bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 		set->gid[i] = tilesgid.attribute("gid").as_uint();
 	}
 	
-	if (LoadEnemies(layer, set)) {
+	if (LoadEntitiesFromTiled(layer, set)) {
 		LOG("Spawning enemies");
 	};
 	return ret;
 }
 
-bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
+bool j1Map::LoadEntitiesFromTiled(pugi::xml_node& layer, Layer* set) {
 
-	if (set->name != ("enemies")) {
+	if (set->name != ("entities")) {
 
 		return false;
 
 	}
 	bool ret = true;
 	
+	//36 is gid for coin
 	//40 is gid for player
 	//42 is the gid that coresponds to flying enemies
 	//43 is for walking enemy
@@ -579,6 +580,10 @@ bool j1Map::LoadEnemies(pugi::xml_node& layer, Layer* set) {
 
 					switch (tile_id - 1) //compensating for TILED nomenclature, not a magic number
 					{
+					case 36:
+						App->entityManager->CreateEntity(Entity::EntityTypes::COIN, spawn.x, spawn.y);
+						break;
+
 					case 40:
 						App->entityManager->CreateEntity(Entity::EntityTypes::PLAYER, spawn.x, spawn.y);
 						break;
