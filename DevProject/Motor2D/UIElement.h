@@ -26,6 +26,7 @@ class UIElement
 {
 public:
 	UIElement();
+	UIElement(int x, int y, UIElement* father, bool dragable, UI_type type);
 	virtual ~UIElement();
 
 	virtual bool Start();

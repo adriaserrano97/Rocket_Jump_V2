@@ -8,6 +8,8 @@
 
 #define CURSOR_WIDTH 2
 
+struct _TTF_Font;
+
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -33,9 +35,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// TODO 2: Create the factory methods
 	// Gui creation functions
-	void CreateGUIElement(UI_type type, int x, int y, UIElement* father, p2SString text = "");
+
+	UIElement* CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable);
+	UIElement* CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable);
+	UIElement* CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable);
 
 	SDL_Texture* GetAtlas() const;
 

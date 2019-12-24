@@ -3,26 +3,32 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 
-Window::Window(int x, int y, UIElement* father) {
 
+Window::Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable) :
+	
+	UIElement(x, y, father, dragable, UI_type::WINDOW),
+	rect(rect)
+{
 	texture = nullptr;
 
 	started = false;
 	to_delete = false;
-	dragable = true;
+
 	focused = false;
 
-	this->father = father;
+	if (father == nullptr)
+	{
+		local_position = { 0, 0 };
+	}
 
-	position.x = x;
-	position.y = y;
+	else
+	{
+		position.x += father->position.x;
+		position.y += father->position.y;
+		local_position = { x, y };
+	}
 
-
-	rect = nullptr;
-
-	type = UI_type::WINDOW;
 }
-
 
 Window::~Window() {
 
@@ -39,11 +45,7 @@ bool Window::Start() {
 
 	texture = App->gui->GetAtlas();
 
-	rect = new SDL_Rect{ 32, 543, 419, 449 };
-
 	my_box = new SDL_Rect{ position.x, position.y, rect->w , rect->h };
-
-	App->gui->CreateGUIElement(UI_type::BUTTON, 150, 150, this);
 
 	started = true;
 

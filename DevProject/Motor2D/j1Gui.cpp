@@ -47,9 +47,9 @@ bool j1Gui::Start()
 	BROFILER_CATEGORY("GUI Start", Profiler::Color::DarkKhaki)
 	atlas = App->tex->Load(atlasFileName.GetString());
 
-	CreateGUIElement(UI_type::TEXT, 50, 50, nullptr, "YEEEEEE BOY");
+	SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
+	CreateUIWindow(50, 50, nullptr, rect, true);
 
-	CreateGUIElement(UI_type::WINDOW, 50, 50, nullptr);
 
 	return true;
 }
@@ -116,40 +116,46 @@ void j1Gui::ListenerUI(UIElement * UI_element)
 	*/
 }
 
-void j1Gui::CreateGUIElement(UI_type type, int x, int y, UIElement* father, p2SString text) {
+
+UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
-		if (elementArray[i] == nullptr)
-		{
-			switch (type)
-			{
-			case UI_type::FAIL:
-				LOG("Incorrect element, that type doesnt exist");
-				break;
-			case UI_type::BUTTON:
-				elementArray[i] = new Button(x, y, father);
-				break;
-			case UI_type::TEXT:
-				elementArray[i] = new Text(x, y, text, father);
-				break;
+		if (elementArray[i] == nullptr) {
 
-			case UI_type::WINDOW:
-				elementArray[i] = new Window(x, y, father);
-				break;
-
-			case UI_type::STATIC_IMAGE:
-				break;
-			case UI_type::MAX:
-				break;
-			default:
-				break;
-			}
-
-			break;
+			elementArray[i] = new Button(x, y, father, listeners, buttonIdle, buttonSelected, buttonPressed, dragable);
+				
+			return elementArray[i];
 		}
 	}
+}
 
+
+UIElement* j1Gui::CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable) {
+
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] == nullptr) {
+
+			elementArray[i] = new Window(x, y, father, rect, dragable);
+
+			return elementArray[i];
+		}
+	}
+}
+
+
+UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable) {
+
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] == nullptr) {
+
+			elementArray[i] = new Text(x, y, father, font, text, dragable);
+
+			return elementArray[i];
+		}
+	}
 }
 
 

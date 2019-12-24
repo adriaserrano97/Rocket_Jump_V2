@@ -12,6 +12,14 @@ UIElement::~UIElement()
 {
 }
 
+UIElement::UIElement(int x, int y, UIElement* father, bool dragable, UI_type type) :
+	position(x, y),
+	father(father),
+	dragable(dragable),
+	type(type)
+{
+}
+
 
 bool UIElement::Start() {
 	return true;

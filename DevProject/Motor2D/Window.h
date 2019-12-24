@@ -8,7 +8,8 @@ struct SDL_Rect;
 class Window : public UIElement
 {
 public:
-	Window(int x, int y, UIElement* father);
+
+	Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable);
 	~Window();
 
 	bool Start();

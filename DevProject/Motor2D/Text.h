@@ -9,7 +9,7 @@ struct _TTF_Font;
 class Text : public UIElement
 {
 public:
-	Text(int x, int y, p2SString &text, UIElement* father);
+	Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable);
 	~Text();
 
 	bool Start();

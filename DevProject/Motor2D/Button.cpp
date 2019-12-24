@@ -5,47 +5,38 @@
 #include "j1Input.h"
 
 
-Button::Button(int x, int y, UIElement* father) {
+Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable) : 
 
+	UIElement(x, y, father, dragable, UI_type::BUTTON),
+	button_idle(buttonIdle),
+	button_selected(buttonSelected),
+	button_pressed(buttonPressed)
+
+{
 	texture = nullptr;
-
-	button_idle = nullptr;
-	button_pressed = nullptr;
-	button_selected = nullptr;
-
+	
 	started = false;
 	to_delete = false;
-
-	dragable = true;
-	focused = false;
 
 	pressed = false;
 	focused = false;
 
-	this->father = father;
-
 	if (father == nullptr)
 	{
-		position.x = x;
-		position.y = y;
 		local_position = { 0, 0 };
 	}
 
 	else
 	{
-		position.x = x + father->position.x;
-		position.y = y + father->position.y;
+		position.x += father->position.x;
+		position.y += father->position.y;
 		local_position = { x, y };
 	}
 
-	type = UI_type::BUTTON;
-}
-
-Button::Button(int x, int y, UIElement * father, j1Module* listeners[10])
-{
-	
-	
-	//llename pls
+	for (int i = 0; i <= 10; i++)
+	{
+		this->listeners[i] = listeners[i];
+	}
 }
 
 
@@ -69,9 +60,7 @@ bool Button::Start() {
 
 	texture = App->gui->GetAtlas();
 
-	button_idle = new SDL_Rect{ 0, 113, 229, 69 };
-	button_pressed = new SDL_Rect{ 411,169,229, 69 };
-	button_selected = new SDL_Rect{ 642,169,229, 69 };
+	
 
 	my_box = new SDL_Rect{ position.x, position.y, button_idle->w, button_idle->h };
 

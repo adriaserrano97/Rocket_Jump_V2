@@ -3,25 +3,28 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 
-Text::Text(int x, int y, p2SString &text, UIElement* father) {
 
-	texture = nullptr;
+Text::Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable) :
+	UIElement(x, y, father, dragable, UI_type::TEXT),
+	string(text),
+	font_Tex(font)
+{
 
 	started = false;
 	to_delete = false;
-	dragable = true;
-	focused = false;
 
-	string = text;
+	if (father == nullptr)
+	{
+		local_position = { 0, 0 };
+	}
 
-	this->father = father;
+	else
+	{
+		position.x += father->position.x;
+		position.y += father->position.y;
+		local_position = { x, y };
+	}
 
-	position.x = x;
-	position.y = y;
-
-
-
-	type = UI_type::TEXT;
 }
 
 
@@ -34,8 +37,6 @@ Text::~Text() {
 
 
 bool Text::Start() {
-
-	font_Tex = App->font->default;
 
 	texture = App->font->Print(string.GetString(), { 200 }, font_Tex);
 
