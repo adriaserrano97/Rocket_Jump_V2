@@ -1202,9 +1202,10 @@ COLLISION_EXPLOSION_DIRECTION Player::checkDirectionExplosion(SDL_Rect player, S
 void Player::Draw(float dt) {
 
 	//Assign definitive values to pos and collider
-	collider->SetPos(position.x, position.y);
-	Stay_in_map(collider->rect);
-
+	if (collider != nullptr) {
+		collider->SetPos(position.x, position.y);
+		Stay_in_map(collider->rect);
+	}
 
 	//Once our positions are set, draw everything player related
 	App->input->GetMousePosition(cursorX, cursorY);
