@@ -14,6 +14,7 @@ UIElement::~UIElement()
 
 UIElement::UIElement(int x, int y, UIElement* father, bool dragable, UI_type type) :
 	position(x, y),
+	local_position(x, y),
 	father(father),
 	dragable(dragable),
 	type(type)

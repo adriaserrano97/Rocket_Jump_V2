@@ -18,6 +18,7 @@ enum class UI_type
 	TEXT,
 	STATIC_IMAGE,
 	WINDOW,
+	SCROLL_BAR,
 	MAX
 };
 

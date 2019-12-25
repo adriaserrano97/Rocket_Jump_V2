@@ -100,6 +100,9 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClCompile>
+    <ClCompile Include="ScrollBar.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Desenvolupament  ========\Entitys</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollBar.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

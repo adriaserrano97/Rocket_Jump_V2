@@ -6,10 +6,11 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "UIElement.h"
 #include "Text.h"
 #include "Button.h"
-#include "UIElement.h"
 #include "Window.h"
+#include "ScrollBar.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -47,9 +48,10 @@ bool j1Gui::Start()
 	BROFILER_CATEGORY("GUI Start", Profiler::Color::DarkKhaki)
 	atlas = App->tex->Load(atlasFileName.GetString());
 
-	SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
-	CreateUIWindow(50, 50, nullptr, rect, true);
+	/*SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
+	CreateUIWindow(50, 50, nullptr, rect, true);*/
 
+	CreateScrollBar(80, 80, nullptr, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 });
 
 	return true;
 }
@@ -159,6 +161,22 @@ UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p
 }
 
 
+UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed) {
+
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] == nullptr) {
+
+			elementArray[i] = new Window(x, y, father, bar, false);
+			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed);
+
+			return elementArray[i+1];
+		}
+	}
+
+}
+
+
 void j1Gui::CheckFocusedElements() {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
@@ -168,7 +186,6 @@ void j1Gui::CheckFocusedElements() {
 			elementArray[i]->focused = false;
 		}
 	}
-
 
 	iPoint pos;
 	App->input->GetMousePosition(pos.x, pos.y);

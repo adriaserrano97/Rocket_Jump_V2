@@ -105,6 +105,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="SimpleTimer.cpp" />
+    <ClCompile Include="ScrollBar.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="WalkingEnemy.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="ScrollBar.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="UIElement.h" />

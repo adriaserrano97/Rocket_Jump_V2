@@ -13,10 +13,9 @@ public:
 	~Window();
 
 	bool Start();
-	bool Update();
 	bool Draw();
 
-private:
+public:
 	SDL_Rect* rect;
 
 };
