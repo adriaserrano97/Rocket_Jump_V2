@@ -72,8 +72,9 @@ bool ScrollBar::Update() {
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)) {
 		pressed = true;
 
-		value = local_position.y * 128 / father->my_box->h;
-		Mix_VolumeMusic(value);
+		value = -local_position.y * MAX_VOLUME / father->my_box->h;
+		Mix_VolumeMusic(value + MAX_VOLUME);
+		Mix_Volume(-1, value + MAX_VOLUME);
 	}
 	else
 		pressed = false;

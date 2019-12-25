@@ -5,8 +5,6 @@
 
 #include "p2Point.h"
 
-
-
 struct SDL_Texture;
 struct SDL_Rect;
 class j1Module;

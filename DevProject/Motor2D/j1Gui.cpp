@@ -52,6 +52,11 @@ bool j1Gui::Start()
 	CreateUIWindow(50, 50, nullptr, rect, true);*/
 
 	CreateScrollBar(80, 80, nullptr, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 });
+	
+	j1Module* listeners[10];
+	memset(listeners, NULL, 10);
+	
+	CreateButton(120, 100, nullptr, listeners, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true);
 
 	return true;
 }
@@ -199,7 +204,6 @@ void j1Gui::CheckFocusedElements() {
 			{
 				break;
 			}
-
 		}
 	}
 
@@ -221,7 +225,6 @@ void j1Gui::DragElement() {
 					elementDragged = elementArray[i];
 					break;
 				}
-
 			}
 		}
 	}
