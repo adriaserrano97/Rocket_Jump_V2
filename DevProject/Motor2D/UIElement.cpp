@@ -29,6 +29,15 @@ bool UIElement::Start() {
 
 bool UIElement::Update() {
 
+	Move();
+	HandleInput();
+
+	return true;
+}
+
+
+void UIElement::Move() {
+
 	if (father == nullptr)
 	{
 		position.x = local_position.x - App->render->camera.x;
@@ -41,8 +50,12 @@ bool UIElement::Update() {
 		position.y = local_position.y + father->position.y;
 	}
 
-	return true;
 }
+
+
+void UIElement::HandleInput() {
+}
+
 
 bool UIElement::PostUpdate()
 {
@@ -57,6 +70,8 @@ bool UIElement::PostUpdate()
 	}
 	return true;
 }
+
+
 
 bool UIElement::Draw() {
 	return true;

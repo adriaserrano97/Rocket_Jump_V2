@@ -58,16 +58,21 @@ bool ScrollBar::Start() {
 }
 
 
-bool ScrollBar::Update() {
+void ScrollBar::Move() {
 
 	if (local_position.y > father->my_box->h)
 		local_position.y = father->my_box->h;
-	
+
 	if (local_position.y < 0)
 		local_position.y = 0;
 
 	position.y = local_position.y + father->position.y;
 	position.x = father->position.x;
+
+}
+
+
+void ScrollBar::HandleInput() {
 
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)) {
 		pressed = true;
@@ -78,9 +83,6 @@ bool ScrollBar::Update() {
 	}
 	else
 		pressed = false;
-
-
-	return true;
 }
 
 

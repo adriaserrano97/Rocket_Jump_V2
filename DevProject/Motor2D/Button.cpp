@@ -108,27 +108,10 @@ void Button::SpeakToAll()
 
 }
 
-
-bool Button::Update() {
-
-	if (father == nullptr)
-	{
-		position.x = local_position.x - App->render->camera.x;
-		position.y = local_position.y - App->render->camera.y;
-	}
-
-	else
-	{
-		position.x = local_position.x + father->position.x;
-		position.y = local_position.y + father->position.y;
-	}
-
+void Button::HandleInput() {
 
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT))
 		pressed = true;
 	else
 		pressed = false;
-
-
-	return true;
 }

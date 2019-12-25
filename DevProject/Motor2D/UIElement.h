@@ -29,7 +29,7 @@ public:
 	virtual ~UIElement();
 
 	virtual bool Start();
-	virtual bool Update();
+	bool Update();
 	virtual bool PostUpdate();
 	virtual bool Draw();
 
@@ -37,6 +37,10 @@ public:
 	bool MouseUnderElement(int x, int y);
 
 	void Drag(int x, int y);
+
+protected:
+	virtual void Move();
+	virtual void HandleInput();
 
 
 public:

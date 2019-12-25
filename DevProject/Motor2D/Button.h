@@ -25,11 +25,13 @@ public:
 	~Button();
 
 	bool Start();
-	bool Update();
 	bool Draw();
 
 	void Speaker(j1Module* listener);
 	void SpeakToAll();
+
+private:
+	void HandleInput();
 
 public:
 	bool pressed;

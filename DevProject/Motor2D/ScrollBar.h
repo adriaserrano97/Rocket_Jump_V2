@@ -14,10 +14,13 @@ public:
 	~ScrollBar();
 
 	bool Start();
-	bool Update();
 	bool Draw();
 
 	void Speak();
+
+private:
+	void Move();
+	void HandleInput();
 
 public:
 	bool pressed;
