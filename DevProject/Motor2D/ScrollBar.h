@@ -17,16 +17,17 @@ public:
 	bool Update();
 	bool Draw();
 
-	void Speaker(j1Module* listener);
+	void Speak();
 
 public:
 	bool pressed;
 	SDL_Rect* thumbIdle;
 	SDL_Rect* thumbPressed;
-
+	int value;
 
 private:
 	j1Module* listener;
+
 
 };
 

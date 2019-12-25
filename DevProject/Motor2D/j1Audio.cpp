@@ -187,6 +187,8 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 void j1Audio::ListenerUI(UIElement * UI_element)
 {
+
+	
 	/*check what UI_element are you getting and do whatevs you want.
 
 	if(UI_element.name == "button that mutes the game"){volume = 0;}

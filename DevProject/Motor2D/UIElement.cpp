@@ -31,8 +31,8 @@ bool UIElement::Update() {
 
 	if (father == nullptr)
 	{
-		position.x = local_position.x;
-		position.y = local_position.y;
+		position.x = local_position.x - App->render->camera.x;
+		position.y = local_position.y - App->render->camera.y;
 	}
 
 	else

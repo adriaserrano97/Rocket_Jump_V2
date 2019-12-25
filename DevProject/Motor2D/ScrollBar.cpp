@@ -3,14 +3,14 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 #include "j1Input.h"
-
+#include "j1Audio.h"
 
 ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed) :
 
 	UIElement(x, y, father, true, UI_type::SCROLL_BAR),
 	thumbIdle(thumbsIdle),
-	thumbPressed(thumbsPressed)
-
+	thumbPressed(thumbsPressed),
+	value(0)
 {
 
 	texture = nullptr;
@@ -21,10 +21,8 @@ ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Re
 	pressed = false;
 	focused = false;
 
-
 	if (father == nullptr)
 		assert("Must have a father");
-	
 
 	position.x += father->position.x;
 	position.y += father->position.y;
@@ -60,6 +58,31 @@ bool ScrollBar::Start() {
 }
 
 
+bool ScrollBar::Update() {
+
+	if (local_position.y > father->my_box->h)
+		local_position.y = father->my_box->h;
+	
+	if (local_position.y < 0)
+		local_position.y = 0;
+
+	position.y = local_position.y + father->position.y;
+	position.x = father->position.x;
+
+	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)) {
+		pressed = true;
+
+		value = local_position.y * 128 / father->my_box->h;
+		Mix_VolumeMusic(value);
+	}
+	else
+		pressed = false;
+
+
+	return true;
+}
+
+
 bool ScrollBar::Draw() {
 
 	if (pressed == true)
@@ -73,29 +96,8 @@ bool ScrollBar::Draw() {
 	return true;
 }
 
-void ScrollBar::Speaker(j1Module * listener)
+
+void ScrollBar::Speak()
 {
-
 	listener->ListenerUI(this);
-
-}
-
-
-bool ScrollBar::Update() {
-
-	if (local_position.y > father->my_box->h)
-		local_position.y = father->my_box->h;
-	
-	if (local_position.y < 0)
-		local_position.y = 0;
-
-	position.y = local_position.y + father->position.y;
-
-	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT))
-		pressed = true;
-	else
-		pressed = false;
-
-
-	return true;
 }
