@@ -38,6 +38,12 @@ public:
 	// List of sfx
 	uint jump_sound;
 	uint bomb_sound;
+			//UI_related
+	uint button_1; uint button_2; uint button_3;
+	uint coin;
+	uint option_denied; uint option_denied_2; uint option_denied_3; uint option_denied_4;
+	uint option_selected; uint option_selected_2; uint option_selected_3;
+	uint powerup; uint powerup_2; uint powerup_3;
 
 	//UI_Listener
 	void ListenerUI(UIElement* UI_element);
