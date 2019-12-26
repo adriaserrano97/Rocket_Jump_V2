@@ -1,7 +1,6 @@
 #include "j1App.h"
 #include "WalkingEnemy.h"
 #include "j1Collision.h"
-#include "j1Player.h"
 #include "j1Map.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"

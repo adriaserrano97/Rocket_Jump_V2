@@ -51,7 +51,7 @@ bool j1Gui::Start()
 	/*SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
 	CreateUIWindow(50, 50, nullptr, rect, true);*/
 
-	CreateScrollBar(80, 80, nullptr, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 });
+	CreateScrollBar(80, 80, nullptr, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true);
 	
 	j1Module* listeners[10];
 	memset(listeners, NULL, 10);
@@ -166,14 +166,14 @@ UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p
 }
 
 
-UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed) {
+UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
 			elementArray[i] = new Window(x, y, father, bar, false);
-			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed);
+			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed, vertical);
 
 			return elementArray[i+1];
 		}

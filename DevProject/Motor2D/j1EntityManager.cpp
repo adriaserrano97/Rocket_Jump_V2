@@ -342,6 +342,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 			{
 				CreateEntity(Entity::EntityTypes::PLAYER, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
 			}
+
 			if (type == "coin")
 			{
 				CreateEntity(Entity::EntityTypes::COIN, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());

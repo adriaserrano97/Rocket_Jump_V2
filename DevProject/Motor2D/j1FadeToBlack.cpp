@@ -5,7 +5,6 @@
 #include "j1Map.h"
 #include "p2Log.h"
 #include "j1Window.h"
-#include "j1Player.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 

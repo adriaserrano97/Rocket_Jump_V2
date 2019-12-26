@@ -5,12 +5,14 @@
 #include "j1Input.h"
 #include "j1Audio.h"
 
-ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed) :
+ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical) :
 
 	UIElement(x, y, father, true, UI_type::SCROLL_BAR),
 	thumbIdle(thumbsIdle),
 	thumbPressed(thumbsPressed),
-	value(0)
+	listener(listener),
+	value(0),
+	vertical(vertical)
 {
 
 	texture = nullptr;
@@ -24,8 +26,8 @@ ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Re
 	if (father == nullptr)
 		assert("Must have a father");
 
-	position.x += father->position.x;
-	position.y += father->position.y;
+	position += father->position;
+
 	local_position = { x, y };
 	
 }
@@ -60,14 +62,30 @@ bool ScrollBar::Start() {
 
 void ScrollBar::Move() {
 
-	if (local_position.y > father->my_box->h)
-		local_position.y = father->my_box->h;
+	if (vertical == true)
+	{
+		if (local_position.y > father->my_box->h - thumbIdle->h)
+			local_position.y = father->my_box->h - thumbIdle->h;
 
-	if (local_position.y < 0)
-		local_position.y = 0;
+		else if (local_position.y < 0)
+			local_position.y = 0;
 
-	position.y = local_position.y + father->position.y;
-	position.x = father->position.x;
+		position.y = local_position.y + father->position.y;
+		position.x = father->position.x;
+	}
+
+	else
+	{
+		if (local_position.x > father->my_box->w - thumbIdle->w)
+			local_position.x = father->my_box->w - thumbIdle->w;
+
+		else if (local_position.x < 0)
+			local_position.x = 0;
+
+		position.x = local_position.x + father->position.x;
+		position.y = father->position.y;
+	}
+	
 
 }
 
@@ -75,9 +93,19 @@ void ScrollBar::Move() {
 void ScrollBar::HandleInput() {
 
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)) {
+		
 		pressed = true;
+		
+		if (vertical == true)
+		{
+			value = -local_position.y * MAX_VOLUME / father->my_box->h;
+		}
 
-		value = -local_position.y * MAX_VOLUME / father->my_box->h;
+		else
+		{
+			value = -local_position.x * MAX_VOLUME / father->my_box->w;
+		}
+		
 		Mix_VolumeMusic(value + MAX_VOLUME);
 		Mix_Volume(-1, value + MAX_VOLUME);
 	}

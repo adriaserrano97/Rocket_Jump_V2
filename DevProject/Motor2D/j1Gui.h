@@ -40,7 +40,7 @@ public:
 	UIElement* CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable);
 	UIElement* CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable);
 	UIElement* CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable);
-	UIElement* CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed);
+	UIElement* CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical);
 
 	SDL_Texture* GetAtlas() const;
 

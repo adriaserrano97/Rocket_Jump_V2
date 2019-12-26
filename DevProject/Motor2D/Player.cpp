@@ -223,8 +223,10 @@ bool Player::Update(float dt) {
 	}
 
 	// Set collider
-
-	collider->SetPos(position.x, position.y);
+	if (collider != nullptr)
+	{
+		collider->SetPos(position.x, position.y);
+	}
 
 	return true;
 }

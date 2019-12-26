@@ -8,7 +8,6 @@
 #include "j1Module.h"
 #include "Entity.h"
 #include "p2DynArray.h"
-#include "j1Player.h"
 
 class j1EntityManager : public j1Module
 {

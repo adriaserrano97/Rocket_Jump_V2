@@ -2,7 +2,6 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "j1Collision.h"
-#include "j1Player.h"
 #include "p2Log.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 #include "j1Scene.h"
