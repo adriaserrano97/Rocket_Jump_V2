@@ -342,6 +342,10 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 			{
 				CreateEntity(Entity::EntityTypes::PLAYER, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
 			}
+			if (type == "coin")
+			{
+				CreateEntity(Entity::EntityTypes::COIN, iterator.attribute("x").as_int(), iterator.attribute("y").as_int());
+			}
 
 			entity_array[i]->Start();
 		}
@@ -377,6 +381,11 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 
 				case Entity::EntityTypes::PLAYER:
 					iterator.append_attribute("type") = "player";
+					//we should store 2 ints: player lifes, player coins TODO
+					break;
+
+				case Entity::EntityTypes::COIN:
+					iterator.append_attribute("type") = "coin";
 					break;
 
 				}
