@@ -10,7 +10,6 @@
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "j1Scene.h"
-#include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "UIElement.h"
@@ -65,9 +64,8 @@ bool j1Scene::Start()
 		break;
 
 	default:
-		scene_number = 1;
-		App->map->Load(map1.GetString());
-		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
+		scene_number = 0;
+		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
 		break;
 
 	}

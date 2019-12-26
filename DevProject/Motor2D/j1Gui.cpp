@@ -23,7 +23,6 @@ j1Gui::j1Gui() : j1Module()
 	}
 
 	elementDragged = nullptr;
-
 }
 
 // Destructor
@@ -104,6 +103,15 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] != nullptr)
+		{
+			delete  elementArray[i];
+			elementArray[i] = nullptr;
+		}
+
+	}
 	return true;
 }
 
@@ -178,7 +186,6 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 			return elementArray[i+1];
 		}
 	}
-
 }
 
 
