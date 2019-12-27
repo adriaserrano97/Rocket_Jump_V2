@@ -25,14 +25,10 @@ Text::Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bo
 }
 
 
-Text::~Text() {
-
+Text::~Text() 
+{
 	font_Tex = nullptr;
 	string.Clear();
-	texture = nullptr;
-
-	delete my_box;
-	my_box = nullptr;
 }
 
 

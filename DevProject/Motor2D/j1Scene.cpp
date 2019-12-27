@@ -201,12 +201,8 @@ bool j1Scene::PostUpdate()
 		uiElements[0] = principalWindow;
 
 		uiElements[1] = App->gui->CreateScrollBar(80, 80, principalWindow, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{ 136, 600, 30, 120 }, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true, p2SString("audioScrollBar"));
-
-		j1Module* listeners[10];
-		memset(listeners, NULL, 10);
-
 		
-		uiElements[2] = App->gui->CreateButton(120, 100, principalWindow, listeners, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true, p2SString("uselessButon"));
+		uiElements[2] = App->gui->CreateButton(120, 100, principalWindow, nullptr, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true, p2SString("uselessButon"));
 
 		inGameMenu = true;
 	}

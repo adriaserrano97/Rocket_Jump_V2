@@ -34,12 +34,6 @@ ScrollBar::~ScrollBar() {
 	thumbPressed = nullptr;
 
 	App->gui->DeleteElement(father);
-	
-	father = nullptr;
-	texture = nullptr;
-
-	delete my_box;
-	my_box = nullptr;
 }
 
 

@@ -10,7 +10,15 @@ UIElement::UIElement()
 
 UIElement::~UIElement()
 {
+	father = nullptr;
+	texture = nullptr;
+
+	delete my_box;
+	my_box = nullptr;
+
+	name.Clear();
 }
+
 
 UIElement::UIElement(int x, int y, UIElement* father, bool dragable, UI_type type, p2SString &name) :
 	position(x, y),

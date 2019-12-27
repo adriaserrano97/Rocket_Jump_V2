@@ -148,13 +148,13 @@ void j1Gui::ListenerUI(UIElement * UI_element)
 }
 
 
-UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString& name) {
+UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
-			elementArray[i] = new Button(x, y, father, listeners, buttonIdle, buttonSelected, buttonPressed, dragable, name);
+			elementArray[i] = new Button(x, y, father, listener, buttonIdle, buttonSelected, buttonPressed, dragable, name);
 				
 			return elementArray[i];
 		}

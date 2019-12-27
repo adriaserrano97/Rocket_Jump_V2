@@ -18,18 +18,11 @@ Window::Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable, p
 
 }
 
-Window::~Window() {
-
-	father = nullptr;
-	texture = nullptr;
-
+Window::~Window() 
+{
 	delete rect;
 	rect = nullptr;
-
-	delete my_box;
-	my_box = nullptr;
 }
-
 
 
 bool Window::Start() {
