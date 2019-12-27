@@ -28,6 +28,8 @@ public:
 	UIElement(int x, int y, UIElement* father, bool dragable, UI_type type);
 	virtual ~UIElement();
 
+	bool operator==(UIElement* element);
+
 	virtual bool Start();
 	bool Update();
 	virtual bool PostUpdate();

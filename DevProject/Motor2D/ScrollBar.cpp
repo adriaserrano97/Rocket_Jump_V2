@@ -42,6 +42,7 @@ ScrollBar::~ScrollBar() {
 	thumbIdle = nullptr;
 	thumbPressed = nullptr;
 
+	App->gui->DeleteElement(father);
 	father = nullptr;
 	texture = nullptr;
 

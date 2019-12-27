@@ -1,6 +1,4 @@
-#include "p2Defs.h"
 #include "p2Log.h"
-#include "p2List.h"
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Textures.h"
@@ -12,11 +10,12 @@
 #include "j1Scene.h"
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
-#include "UIElement.h"
+#include "j1Gui.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
+	inGameMenu = false;
 	name.create("scene");
 }
 
@@ -64,7 +63,9 @@ bool j1Scene::Start()
 		break;
 
 	default:
-		scene_number = 0;
+		scene_number = 1;
+		App->map->Load(map1.GetString());
+
 		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
 		break;
 
@@ -87,7 +88,7 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene Pre-update", Profiler::Color::Tomato)
-	static iPoint origin;
+	/*static iPoint origin;
 	static bool origin_selected = false;
 
 	int x, y;
@@ -109,6 +110,7 @@ bool j1Scene::PreUpdate()
 		}
 	}
 
+	*/
 
 	return true;
 }
@@ -186,8 +188,42 @@ bool j1Scene::PostUpdate()
 	BROFILER_CATEGORY("Scene Post-Update", Profiler::Color::MediumSlateBlue)
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
 		ret = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
+		
+		SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
+		UIElement* principalWindow = App->gui->CreateUIWindow(50, 50, nullptr, rect, true);
+		
+		uiElements[0] = principalWindow;
+
+		uiElements[1] = App->gui->CreateScrollBar(80, 80, principalWindow, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{ 136, 600, 30, 120 }, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true);
+
+		j1Module* listeners[10];
+		memset(listeners, NULL, 10);
+
+		uiElements[2] = App->gui->CreateButton(120, 100, principalWindow, listeners, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true);
+
+		inGameMenu = true;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
+
+		for (int i = 0; i < 15; i++)
+		{
+			if (uiElements[i] != nullptr)
+			{
+				App->gui->DeleteElement(uiElements[i]);
+				uiElements[i] = nullptr;
+			}
+		}
+		
+		inGameMenu = false;
+	}
+	
 
 	return ret;
 }

@@ -48,15 +48,15 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlasFileName.GetString());
 
 	/*SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
-	CreateUIWindow(50, 50, nullptr, rect, true);*/
+	CreateUIWindow(50, 50, nullptr, rect, true);
 
-	CreateScrollBar(80, 80, nullptr, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true);
+	CreateScrollBar(80, 80, nullptr, nullptr, new SDL_Rect{136, 600, 30, 120}, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true);
 	
 	j1Module* listeners[10];
 	memset(listeners, NULL, 10);
 	
 	CreateButton(120, 100, nullptr, listeners, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true);
-
+	*/
 	return true;
 }
 
@@ -114,6 +114,22 @@ bool j1Gui::CleanUp()
 	}
 	return true;
 }
+
+
+void j1Gui::DeleteElement(UIElement* element) {
+
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] == element)
+		{
+			delete elementArray[i];
+			elementArray[i] = nullptr;
+			return;
+		}
+	}
+
+}
+
 
 // const getter for atlas
 SDL_Texture* j1Gui::GetAtlas() const

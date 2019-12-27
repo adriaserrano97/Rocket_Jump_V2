@@ -42,6 +42,8 @@ public:
 	UIElement* CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable);
 	UIElement* CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical);
 
+	void DeleteElement(UIElement* element);
+
 	SDL_Texture* GetAtlas() const;
 
 	//UI_Listener

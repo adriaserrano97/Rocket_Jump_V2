@@ -104,3 +104,14 @@ void UIElement::Drag(int x, int y) {
 }
 
 
+bool UIElement::operator==(UIElement* element) {
+	
+	if (position == element->position && local_position == element->local_position && type == element->type && texture == element->texture && father == element->father && dragable == element->dragable)
+	{
+		return true;
+	}
+
+	return false;
+
+}
+

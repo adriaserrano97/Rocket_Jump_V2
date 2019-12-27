@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "p2DynArray.h"
 
 struct SDL_Texture;
 
@@ -52,13 +53,13 @@ public:
 	p2SString map2;
 
 public:
-
 	bool				load_from_save;
 
 private:
-
-	p2SString			folder;
 	
+	bool				inGameMenu;
+	p2SString			folder;
+	UIElement*			uiElements[15];
 };
 
 #endif // __j1SCENE_H__
