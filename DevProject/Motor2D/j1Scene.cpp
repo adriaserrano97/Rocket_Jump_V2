@@ -34,9 +34,11 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	map1 = (config.child("map1").attribute("path").as_string());
 	map2 = (config.child("map2").attribute("path").as_string());
+	intro_menu = (config.child("intro_menu").attribute("path").as_string());
 
 	//Saving valve
 	load_from_save = false;
+	MainMenu = false;
 
 	return ret;
 }
@@ -48,12 +50,12 @@ bool j1Scene::Start()
 	//Our different maps. We only load the one we're currently using.
 	map1;
 	map2;
+	intro_menu;
 	
 	switch (scene_number) {
 
 	case 1:
 		App->map->Load(map1.GetString());
-
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
@@ -62,10 +64,18 @@ bool j1Scene::Start()
 		App->audio->PlayMusic("audio/music/down_under_flopdisk.ogg", 4.0F);
 		break;
 
-	default:
-		scene_number = 1;
-		App->map->Load(map1.GetString());
+	case 3:
+		LoadIntroMenu();
+		load_from_save = false;
+		
+		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
+		break;
 
+	default:
+		scene_number = 3;
+		LoadIntroMenu();
+		load_from_save = false;
+		
 		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
 		break;
 
@@ -148,22 +158,21 @@ bool j1Scene::Update(float dt)
 	//Change scene logic
 	if ((App->input->GetKey(SDL_SCANCODE_F1)) == KEY_DOWN) {
 		scene_number = 1;
-		
-		
 		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_F2)) == KEY_DOWN) {
 		scene_number = 2;
-		App->map->Unload();;
+		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 	}
 
+
 	if ((App->input->GetKey(SDL_SCANCODE_F3)) == KEY_DOWN) {
-		
-		App->fade->FadeToBlack(2);
-		App->render->camera.x = App->render->camera.y = 0;
+		scene_number = 3;
+		App->map->Unload();
+		App->fade->FadeToBlack(this, this, 2);
 	}
 
 
@@ -224,8 +233,11 @@ bool j1Scene::PostUpdate()
 		
 		inGameMenu = false;
 	}
-	
-
+	/*
+	if (MainMenu) {
+		
+	}
+	*/
 	return ret;
 }
 
@@ -273,6 +285,42 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 	etc.
 	*/
 
+}
+
+bool j1Scene::LoadIntroMenu()
+{
+	//Clear the array before filling it
+	for (int i = 0; i < 15; i++)
+	{
+		if (uiElements[i] != nullptr)
+		{
+			App->gui->DeleteElement(uiElements[i]);
+			uiElements[i] = nullptr;
+		}
+	}
+	//Load background
+	//App->tex->Load(menu_background.GetString());
+	
+	App->map->Load(intro_menu.GetString());
+	//Activate flag to render the menu
+	MainMenu = true;
+
+
+
+	//create UI
+	//SDL_Rect* rect = new SDL_Rect{ 208, 0, 570, 363 };
+	SDL_Rect* rect = new SDL_Rect{ 208, 0, 0, 0 };
+	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, rect, true, p2SString("InGameWindow"));
+	uiElements[0] = principalWindow;
+
+	j1Module* listeners[10];
+	memset(listeners, NULL, 10);
+	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, listeners, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
+	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, listeners, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
+	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, listeners, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, listeners, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, listeners, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	return true;
 }
 
 bool j1Scene::Load(pugi::xml_node& data) {

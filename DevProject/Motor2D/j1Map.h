@@ -33,7 +33,7 @@ It represents the culmination of our knowledge, focused in two of the most unlik
 
 Rejoyce, and ascend with us to a higher plane of understanding.
 
-Take our had,
+Take our hand,
 	Leave Mongolia
 
 */

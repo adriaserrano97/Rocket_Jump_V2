@@ -24,7 +24,14 @@
 
   <audio>
 	<folder>audio/fx/</folder>
-	<fx jump="jump_sound.wav" bomb="bomb.wav"></fx>
+	<fx jump="jump_sound.wav" bomb="bomb.wav"
+	    button_1="button_1.wav" button_2="button_2.wav" button_3="button_3.wav"
+	    coin = "coin.wav" option_denied="option_denied.wav" option_denied_2="option_denied_2.wav" 
+            option_denied_3="option_denied_3.wav" option_denied_4="option_denied_4.wav"
+	    option_selected="option_selected.wav" option_selected_2="option_selected_2.wav" option_selected_3="option_selected_3.wav"
+	    powerup="powerup.wav" powerup_2="powerup_2.wav" powerup_3="powerup_3.wav"
+	>
+	</fx>
   </audio>
 
   <file_system>
@@ -39,12 +46,13 @@
   <scene>
 	<folder>maps/</folder>
 	<map1 path="first_map_v2.tmx"></map1>
-	<map2 path="second_map.tmx"></map2>	
+	<map2 path="second_map.tmx"></map2>
+	<intro_menu path="intro_menu.tmx"></intro_menu>
   </scene>
 
   <gui>
 
-	<atlas file="gui/atlas.png"/>
+	<atlas file="gui/UI_Atlas_definitive.png"/>
 
   </gui>
 

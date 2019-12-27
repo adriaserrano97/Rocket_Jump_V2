@@ -51,12 +51,17 @@ public:
 	//maps
 	p2SString map1;
 	p2SString map2;
+	
 
+	//Main Menu
+	bool LoadIntroMenu();
+	p2SString intro_menu;
+	
 public:
 	bool				load_from_save;
 
 private:
-	
+	bool				MainMenu;
 	bool				inGameMenu;
 	p2SString			folder;
 	UIElement*			uiElements[15];

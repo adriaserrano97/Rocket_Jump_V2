@@ -26,7 +26,7 @@ Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rec
 		local_position = { x, y };
 	}
 
-	for (int i = 0; i <= 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		this->listeners[i] = listeners[i];
 	}
