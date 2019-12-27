@@ -9,7 +9,7 @@ class Window : public UIElement
 {
 public:
 
-	Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable);
+	Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable, p2SString &name);
 	~Window();
 
 	bool Start();

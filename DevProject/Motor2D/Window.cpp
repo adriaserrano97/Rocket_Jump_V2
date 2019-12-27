@@ -4,18 +4,11 @@
 #include "j1Gui.h"
 
 
-Window::Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable) :
+Window::Window(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable, p2SString &name) :
 	
-	UIElement(x, y, father, dragable, UI_type::WINDOW),
+	UIElement(x, y, father, dragable, UI_type::WINDOW, name),
 	rect(rect)
 {
-	texture = nullptr;
-
-	started = false;
-	to_delete = false;
-
-	focused = false;
-
 	if (father != nullptr)
 	{
 		position.x += father->position.x;
@@ -32,6 +25,9 @@ Window::~Window() {
 
 	delete rect;
 	rect = nullptr;
+
+	delete my_box;
+	my_box = nullptr;
 }
 
 

@@ -5,23 +5,15 @@
 #include "j1Input.h"
 #include "j1Audio.h"
 
-ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical) :
+ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical, p2SString &name) :
 
-	UIElement(x, y, father, true, UI_type::SCROLL_BAR),
+	UIElement(x, y, father, true, UI_type::SCROLL_BAR, name),
 	thumbIdle(thumbsIdle),
 	thumbPressed(thumbsPressed),
 	listener(listener),
 	value(0),
 	vertical(vertical)
 {
-
-	texture = nullptr;
-
-	started = false;
-	to_delete = false;
-
-	pressed = false;
-	focused = false;
 
 	if (father == nullptr)
 		assert("Must have a father");
@@ -38,14 +30,16 @@ ScrollBar::~ScrollBar() {
 	delete thumbIdle;
 	delete thumbPressed;
 
-
 	thumbIdle = nullptr;
 	thumbPressed = nullptr;
 
 	App->gui->DeleteElement(father);
+	
 	father = nullptr;
 	texture = nullptr;
 
+	delete my_box;
+	my_box = nullptr;
 }
 
 

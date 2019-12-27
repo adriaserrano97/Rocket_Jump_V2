@@ -21,7 +21,7 @@ enum class BUTTON_STATE {
 class Button : public UIElement
 {
 public:
-	Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable);
+	Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name);
 	~Button();
 
 	bool Start();

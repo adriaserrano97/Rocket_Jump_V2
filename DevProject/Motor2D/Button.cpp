@@ -5,21 +5,14 @@
 #include "j1Input.h"
 
 
-Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable) : 
+Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name) : 
 
-	UIElement(x, y, father, dragable, UI_type::BUTTON),
+	UIElement(x, y, father, dragable, UI_type::BUTTON, name),
 	button_idle(buttonIdle),
 	button_selected(buttonSelected),
 	button_pressed(buttonPressed)
 
 {
-	texture = nullptr;
-	
-	started = false;
-	to_delete = false;
-
-	pressed = false;
-	focused = false;
 
 	if (father == nullptr)
 	{
@@ -53,14 +46,15 @@ Button::~Button() {
 	father = nullptr;
 	texture = nullptr;
 
+	delete my_box;
+	my_box = nullptr;
+
 }
 
 
 bool Button::Start() {
 
 	texture = App->gui->GetAtlas();
-
-	
 
 	my_box = new SDL_Rect{ position.x, position.y, button_idle->w, button_idle->h };
 

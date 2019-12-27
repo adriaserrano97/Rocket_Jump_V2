@@ -148,13 +148,13 @@ void j1Gui::ListenerUI(UIElement * UI_element)
 }
 
 
-UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable) {
+UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
-			elementArray[i] = new Button(x, y, father, listeners, buttonIdle, buttonSelected, buttonPressed, dragable);
+			elementArray[i] = new Button(x, y, father, listeners, buttonIdle, buttonSelected, buttonPressed, dragable, name);
 				
 			return elementArray[i];
 		}
@@ -162,13 +162,13 @@ UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listen
 }
 
 
-UIElement* j1Gui::CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable) {
+UIElement* j1Gui::CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect, bool dragable, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
-			elementArray[i] = new Window(x, y, father, rect, dragable);
+			elementArray[i] = new Window(x, y, father, rect, dragable, name);
 
 			return elementArray[i];
 		}
@@ -176,13 +176,13 @@ UIElement* j1Gui::CreateUIWindow(int x, int y, UIElement* father, SDL_Rect* rect
 }
 
 
-UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable) {
+UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
-			elementArray[i] = new Text(x, y, father, font, text, dragable);
+			elementArray[i] = new Text(x, y, father, font, text, dragable, name);
 
 			return elementArray[i];
 		}
@@ -190,14 +190,14 @@ UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p
 }
 
 
-UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical) {
+UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] == nullptr) {
 
-			elementArray[i] = new Window(x, y, father, bar, false);
-			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed, vertical);
+			elementArray[i] = new Window(x, y, father, bar, false, name);
+			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed, vertical, name);
 
 			return elementArray[i+1];
 		}

@@ -4,6 +4,7 @@
 // TODO 1: Create your structure of classes
 
 #include "p2Point.h"
+#include "p2SString.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -25,7 +26,7 @@ class UIElement
 {
 public:
 	UIElement();
-	UIElement(int x, int y, UIElement* father, bool dragable, UI_type type);
+	UIElement(int x, int y, UIElement* father, bool dragable, UI_type type, p2SString& name);
 	virtual ~UIElement();
 
 	bool operator==(UIElement* element);
@@ -50,7 +51,6 @@ public:
 	//F8 to display UI "colliders"
 	bool show_my_box;
 
-
 	iPoint position;
 	iPoint local_position;
 	UI_type type;
@@ -64,6 +64,7 @@ public:
 	SDL_Texture* texture;
 	UIElement* father;
 
+	p2SString name;
 };
 
 #endif  //__ELEMENT_H__

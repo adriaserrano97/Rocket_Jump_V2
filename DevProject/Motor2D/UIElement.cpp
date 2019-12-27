@@ -12,12 +12,19 @@ UIElement::~UIElement()
 {
 }
 
-UIElement::UIElement(int x, int y, UIElement* father, bool dragable, UI_type type) :
+UIElement::UIElement(int x, int y, UIElement* father, bool dragable, UI_type type, p2SString &name) :
 	position(x, y),
 	local_position(x, y),
 	father(father),
 	dragable(dragable),
-	type(type)
+	type(type),
+	name(name),
+	focused(false),
+	started(false),
+	to_delete(false),
+	show_my_box(false),
+	texture(nullptr),
+	my_box(nullptr)
 {
 }
 

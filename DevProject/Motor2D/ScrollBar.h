@@ -10,7 +10,7 @@ struct SDL_Rect;
 class ScrollBar : public UIElement
 {
 public:
-	ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical);
+	ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical, p2SString &name);
 	~ScrollBar();
 
 	bool Start();

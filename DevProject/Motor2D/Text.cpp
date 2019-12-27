@@ -4,14 +4,11 @@
 #include "j1Fonts.h"
 
 
-Text::Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable) :
-	UIElement(x, y, father, dragable, UI_type::TEXT),
+Text::Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable, p2SString &name) :
+	UIElement(x, y, father, dragable, UI_type::TEXT, name),
 	string(text),
 	font_Tex(font)
 {
-
-	started = false;
-	to_delete = false;
 
 	if (father == nullptr)
 	{
@@ -33,6 +30,9 @@ Text::~Text() {
 	font_Tex = nullptr;
 	string.Clear();
 	texture = nullptr;
+
+	delete my_box;
+	my_box = nullptr;
 }
 
 
