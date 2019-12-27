@@ -89,7 +89,10 @@ void Button::Speaker(j1Module * listener)
 void Button::HandleInput() {
 
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT))
+	{
 		pressed = true;
+		Speaker(listener);
+	}
 	else
 		pressed = false;
 }

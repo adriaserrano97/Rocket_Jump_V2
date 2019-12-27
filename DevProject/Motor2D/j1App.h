@@ -113,8 +113,8 @@ public:
 	
 
 private:
-	
 	p2List<j1Module*>	modules;
+
 	int					argc;
 	char**				args;
 

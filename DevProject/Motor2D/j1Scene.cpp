@@ -274,13 +274,25 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 
 void j1Scene::ListenerUI(UIElement * UI_element)
 {
-	/*check what UI_element are you getting and do whatevs you want.
-
-	if(UI_element.name == "button to change map"){change scene;}
-
-	etc.
+	if (UI_element->name == "PLAY") {
+		for (int i = 0; i < 15; i++)
+		{
+			if (uiElements[i] != nullptr)
+			{
+				App->gui->DeleteElement(uiElements[i]);
+				uiElements[i] = nullptr;
+			}
+		}
+		scene_number = 1;
+		App->map->Unload();
+		App->fade->FadeToBlack(this, this, 2);
+	}
+	/*
+	("CONTINUE") == Same as play, but activate "load from save". Check if there is a save?
+	("SETTINGS") == Create new scrollbar to control sound
+	("EXITGAME") == blit 1.000.000 colliders
+	("CREDITS") == Link to the web?
 	*/
-
 }
 
 bool j1Scene::LoadIntroMenu()
@@ -309,13 +321,11 @@ bool j1Scene::LoadIntroMenu()
 	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, rect, true, p2SString("InGameWindow"));
 	uiElements[0] = principalWindow;
 
-	j1Module* listeners[10];
-	memset(listeners, NULL, 10);
-	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, listeners, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
-	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, listeners, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
-	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, listeners, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
-	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, listeners, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
-	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, listeners, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, App->scene, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
+	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, nullptr, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
+	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, nullptr, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 	return true;
 }
 
