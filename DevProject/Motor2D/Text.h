@@ -15,6 +15,7 @@ public:
 	bool Start();
 	bool Draw();
 
+
 public:
 	_TTF_Font* font_Tex;
 	p2SString string;

@@ -5,13 +5,13 @@
 #include "j1Input.h"
 
 
-Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name) : 
+Button::Button(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name) : 
 
 	UIElement(x, y, father, dragable, UI_type::BUTTON, name),
 	button_idle(buttonIdle),
 	button_selected(buttonSelected),
-	button_pressed(buttonPressed)
-
+	button_pressed(buttonPressed),
+	listener(listener)
 {
 
 	if (father == nullptr)
@@ -28,13 +28,13 @@ Button::Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rec
 
 	for (int i = 0; i < 10; i++)
 	{
-		this->listeners[i] = listeners[i];
+	
 	}
 }
 
 
-Button::~Button() {
-
+Button::~Button() 
+{
 	delete button_idle;
 	delete button_pressed;
 	delete button_selected;
@@ -43,12 +43,7 @@ Button::~Button() {
 	button_pressed = nullptr;
 	button_selected = nullptr;
 
-	father = nullptr;
-	texture = nullptr;
-
-	delete my_box;
-	my_box = nullptr;
-
+	listener = nullptr;
 }
 
 
@@ -90,17 +85,6 @@ void Button::Speaker(j1Module * listener)
 
 }
 
-void Button::SpeakToAll()
-{
-	uint i = 0;
-	
-	while(listeners[0] != nullptr){	
-
-		listeners[i]->ListenerUI(this);
-	
-	}
-
-}
 
 void Button::HandleInput() {
 

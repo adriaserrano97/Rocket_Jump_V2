@@ -21,14 +21,13 @@ enum class BUTTON_STATE {
 class Button : public UIElement
 {
 public:
-	Button(int x, int y, UIElement* father, j1Module* listeners[10], SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name);
+	Button(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString &name);
 	~Button();
 
 	bool Start();
 	bool Draw();
 
 	void Speaker(j1Module* listener);
-	void SpeakToAll();
 
 private:
 	void HandleInput();
@@ -41,7 +40,7 @@ public:
 
 private:
 
-	j1Module* listeners[10];
+	j1Module* listener;
 
 };
 

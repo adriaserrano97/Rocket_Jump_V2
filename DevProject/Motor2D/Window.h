@@ -15,6 +15,7 @@ public:
 	bool Start();
 	bool Draw();
 
+
 public:
 	const SDL_Rect* rect;
 
