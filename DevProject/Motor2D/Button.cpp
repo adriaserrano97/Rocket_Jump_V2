@@ -25,11 +25,6 @@ Button::Button(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bu
 		position.y += father->position.y;
 		local_position = { x, y };
 	}
-
-	for (int i = 0; i < 10; i++)
-	{
-	
-	}
 }
 
 

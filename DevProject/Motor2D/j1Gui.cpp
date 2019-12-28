@@ -96,7 +96,6 @@ bool j1Gui::PostUpdate()
 			elementArray[i]->PostUpdate();
 			elementArray[i]->Draw();
 		}
-
 	}
 
 	ManageInGameMenu();
@@ -152,7 +151,7 @@ void j1Gui::ListenerUI(UIElement * element)
 
 	else if (element->name == "SETTINGS")
 	{
-		CreateSettingsWindow();
+		CreateSettingsWindow(element);
 	}
 	
 	else if (element->name == "CROSS")
@@ -313,9 +312,9 @@ void j1Gui::CreateInGameMenu() {
 
 	InGameMenuUIElements[1] = App->gui->CreateButton(120, 100, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
 
-	InGameMenuUIElements[2] = App->gui->CreateButton(360, 310, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
-	InGameMenuUIElements[3] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
-	InGameMenuUIElements[4] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	InGameMenuUIElements[2] = App->gui->CreateButton(120, 150, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	InGameMenuUIElements[3] = App->gui->CreateButton(120, 200, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	InGameMenuUIElements[4] = App->gui->CreateButton(120, 250, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 
 	inGameMenu = true;
 }
@@ -336,9 +335,9 @@ void j1Gui::DestroyInGameMenu() {
 }
 
 
-void j1Gui::CreateSettingsWindow() {
+void j1Gui::CreateSettingsWindow(UIElement* father) {
 
-	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(540, 290, nullptr, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
+	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(120, -70, father, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
 
 	InGameMenuUIElements[6] = App->gui->CreateButton(120, 5, settingsWindow, this, new SDL_Rect{ 892,620,32,30 }, new SDL_Rect{ 892,1557,32,30 }, new SDL_Rect{ 892,2495,32,30 }, false, p2SString("CROSS"));
 }

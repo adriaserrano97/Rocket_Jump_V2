@@ -58,7 +58,7 @@ private:
 	void CreateInGameMenu();
 	void DestroyInGameMenu();
 
-	void CreateSettingsWindow();
+	void CreateSettingsWindow(UIElement* father);
 	void DestroySettingsWindow();
 
 private:
