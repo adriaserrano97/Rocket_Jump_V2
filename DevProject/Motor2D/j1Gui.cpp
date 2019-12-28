@@ -145,8 +145,8 @@ SDL_Texture* j1Gui::GetAtlas() const
 
 void j1Gui::ListenerUI(UIElement * element)
 {
-	if(element->name == "RETRY") {
-	
+	if (element->name == "RETRY") {
+
 		DestroyInGameMenu();
 	}
 
