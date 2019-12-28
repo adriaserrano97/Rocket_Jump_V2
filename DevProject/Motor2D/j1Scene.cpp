@@ -16,8 +16,9 @@
 
 j1Scene::j1Scene() : j1Module()
 {
-	inGameMenu = false;
 	name.create("scene");
+
+	memset(uiElements, NULL, 15);
 }
 
 // Destructor
@@ -205,17 +206,6 @@ bool j1Scene::PostUpdate()
 
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
 
-		for (int i = 0; i < 15; i++)
-		{
-			if (uiElements[i] != nullptr)
-			{
-				App->gui->DeleteElement(uiElements[i]);
-				uiElements[i] = nullptr;
-			}
-		}
-		
-		inGameMenu = false;
-	}
 	/*
 	if (MainMenu) {
 		
@@ -304,8 +294,7 @@ bool j1Scene::LoadIntroMenu()
 
 	//create UI
 	//SDL_Rect* rect = new SDL_Rect{ 208, 0, 570, 363 };
-	SDL_Rect* rect = new SDL_Rect{ 208, 0, 0, 0 };
-	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, rect, true, p2SString("InGameWindow"));
+	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, new SDL_Rect{ 208, 0, 0, 0 }, true, p2SString("IntroWindow"));
 	uiElements[0] = principalWindow;
 
 	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, App->scene, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
