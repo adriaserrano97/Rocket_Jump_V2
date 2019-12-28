@@ -3,7 +3,6 @@
 #include "j1Render.h"
 #include "j1Gui.h"
 #include "j1Input.h"
-#include "j1Audio.h"
 
 ScrollBar::ScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical, p2SString &name) :
 
@@ -85,18 +84,7 @@ void ScrollBar::HandleInput() {
 		
 		pressed = true;
 		
-		if (vertical == true)
-		{
-			value = -local_position.y * MAX_VOLUME / father->my_box->h;
-		}
-
-		else
-		{
-			value = -local_position.x * MAX_VOLUME / father->my_box->w;
-		}
-		
-		Mix_VolumeMusic(value + MAX_VOLUME);
-		Mix_Volume(-1, value + MAX_VOLUME);
+		Speak();	
 	}
 	else
 		pressed = false;

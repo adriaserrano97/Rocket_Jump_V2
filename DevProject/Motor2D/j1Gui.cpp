@@ -6,6 +6,8 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "j1Scene.h"
+#include "j1Audio.h"
 #include "UIElement.h"
 #include "Text.h"
 #include "Button.h"
@@ -211,7 +213,7 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 		if (elementArray[i] == nullptr) {
 
 			elementArray[i] = new Window(x, y, father, bar, false, name);
-			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], nullptr, thumbsIdle, thumbsPressed, vertical, name);
+			elementArray[i + 1] = new ScrollBar(0, 0, elementArray[i], listener, thumbsIdle, thumbsPressed, vertical, name);
 
 			return elementArray[i+1];
 		}
@@ -313,7 +315,7 @@ void j1Gui::CreateInGameMenu() {
 	InGameMenuUIElements[1] = App->gui->CreateButton(120, 100, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
 
 	InGameMenuUIElements[2] = App->gui->CreateButton(120, 150, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
-	InGameMenuUIElements[3] = App->gui->CreateButton(120, 200, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	InGameMenuUIElements[3] = App->gui->CreateButton(120, 200, principalWindow, App->scene, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
 	InGameMenuUIElements[4] = App->gui->CreateButton(120, 250, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 
 	inGameMenu = true;
@@ -340,6 +342,8 @@ void j1Gui::CreateSettingsWindow(UIElement* father) {
 	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(120, -70, father, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
 
 	InGameMenuUIElements[6] = App->gui->CreateButton(120, 5, settingsWindow, this, new SDL_Rect{ 892,620,32,30 }, new SDL_Rect{ 892,1557,32,30 }, new SDL_Rect{ 892,2495,32,30 }, false, p2SString("CROSS"));
+	InGameMenuUIElements[7] = App->gui->CreateText(20, 60, settingsWindow, App->font->default, p2SString("Game volume"), false, p2SString("VolumeText"));
+	InGameMenuUIElements[8] = App->gui->CreateScrollBar(20, 120, settingsWindow, App->audio, new SDL_Rect{ 2, 621, 120, 17 }, new SDL_Rect{ 226, 2709, 20, 22 }, new SDL_Rect{ 226, 1772, 20, 22 }, false, p2SString("HorizontalVolumeScrollBar"));
 }
 
 
@@ -347,7 +351,11 @@ void j1Gui::DestroySettingsWindow() {
 
 	DeleteElement(InGameMenuUIElements[5]);
 	DeleteElement(InGameMenuUIElements[6]);
+	DeleteElement(InGameMenuUIElements[7]);
+	DeleteElement(InGameMenuUIElements[8]);
 
 	InGameMenuUIElements[5] = nullptr;
 	InGameMenuUIElements[6] = nullptr;
+	InGameMenuUIElements[7] = nullptr;
+	InGameMenuUIElements[8] = nullptr;
 }
