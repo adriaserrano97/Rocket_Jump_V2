@@ -7,7 +7,7 @@ Welcome to Rocket Jump, an original platformer game which focus on fast paced sc
 Platformer game made by 2 students at CITM, Terrassa, Spain: 
 
 José Luís Redondo Tello: <https://github.com/jose-tello> <br>
-Adriá Serrano López: <https://github.com/adriaserrano97> <br>
+Adrià Serrano López: <https://github.com/adriaserrano97> <br>
 
 Credit given to "dklon" for the sound effects used. Find them at: https://opengameart.org/users/dklon. <br>
 Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t
@@ -29,7 +29,9 @@ Currently there is no installation required, just open the .exe provided in the 
 	F6 Load the previous state 
 	F9 To view colliders 
 	F10 God Mode 
-	F11 Toggle framerate cap at 30 fps	
+	F11 Toggle framerate cap at 30 fps
+	6 Add coin
+	7 Add Life
 
 	Q: Toggle auto / manual control of camera
 	TAB: If on manual control of camera, trigger side switch
@@ -55,7 +57,7 @@ Currently there is no installation required, just open the .exe provided in the 
 ## Team roles:
 José Tello: Rocket Jump implementation, state matrix managment, memory managment, player collisions, debug implementation, particles.<br>
 
-Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions, camera, player fall managment, sound music and sound sfx, player-map navegation.<br>
+Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions, camera, player fall managment, sound music and sound sfx, player-map navegation. UI: Atlas creation, sound managment, intro menu configuration, ingame UI.<br>
 
 DISCLAIMER: Mostly everything was done in cooperation. The statements above reflect who was the one to take responsability for the section, as well as supervision and final implementation.<br>
 
