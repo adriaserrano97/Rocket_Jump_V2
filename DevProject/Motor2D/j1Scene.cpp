@@ -253,6 +253,7 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 	}
+
 	if (UI_element->name == "CONTINUE") {
 		App->audio->PlayFx(App->audio->button_3);
 		ClearUIArray();
@@ -260,9 +261,11 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		load_from_save = true;
 		App->LoadGame();
 	}
+
 	if (UI_element->name == "EXITGAME") {
 		CloseGameFromMenu = true;
 	}
+
 	if (UI_element->name == "CREDITS") {
 		App->audio->PlayFx(App->audio->button_3);
 		ShellExecuteA(NULL,"open","https://wiki.libsdl.org",NULL,NULL,SW_SHOWNORMAL);

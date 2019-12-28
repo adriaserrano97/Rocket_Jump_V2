@@ -201,12 +201,19 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 void j1Audio::ListenerUI(UIElement * UI_element)
 {
 
-	
-	/*check what UI_element are you getting and do whatevs you want.
+	if(UI_element->name == "VerticalVolumeScrollBar") {
+		
+		int value = -UI_element->local_position.y * MAX_VOLUME / (UI_element->father->my_box->h - UI_element->my_box->h);
 
-	if(UI_element.name == "button that mutes the game"){volume = 0;}
-	if(UI_element.name == "button that increases volume"){volume++;}
-	
-	etc.
-	*/
+		Mix_VolumeMusic(value + MAX_VOLUME);
+		Mix_Volume(-1, value + MAX_VOLUME);
+	}
+
+	else if (UI_element->name == "HorizontalVolumeScrollBar") {
+
+		int value = -UI_element->local_position.x * MAX_VOLUME / (UI_element->father->my_box->w - UI_element->my_box->w);
+
+		Mix_VolumeMusic(value + MAX_VOLUME);
+		Mix_Volume(-1, value + MAX_VOLUME);
+	}
 }
