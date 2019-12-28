@@ -6,11 +6,12 @@ Welcome to Rocket Jump, an original platformer game which focus on fast paced sc
 ## Credits
 Platformer game made by 2 students at CITM, Terrassa, Spain:
 
-![](SDL_pls.png)
-<br>
-José Luís Redondo Tello: <https://github.com/jose-tello> <br>
-Adrià Serrano López: <https://github.com/adriaserrano97> <br>
 
+
+José Luís Redondo Tello: <https://github.com/jose-tello> <br>
+![](Jose_git.png) <br>
+Adrià Serrano López: <https://github.com/adriaserrano97> <br>
+![](adri_git.png) <br>
 Credit given to "dklon" for the sound effects used. Find them at: https://opengameart.org/users/dklon. <br>
 Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t
 Credit given to "Omni_Theorem" for the walking alien art used in this game. Find his work at: https://opengameart.org/users/omnitheorem
