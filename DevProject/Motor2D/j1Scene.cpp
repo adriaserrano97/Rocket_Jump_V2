@@ -268,7 +268,7 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 
 	if (UI_element->name == "CREDITS") {
 		App->audio->PlayFx(App->audio->button_3);
-		ShellExecuteA(NULL,"open","https://wiki.libsdl.org",NULL,NULL,SW_SHOWNORMAL);
+		ShellExecuteA(NULL,"open","https://adriaserrano97.github.io/Rocket_Jump_V2/",NULL,NULL,SW_SHOWNORMAL);
 	}
 
 
