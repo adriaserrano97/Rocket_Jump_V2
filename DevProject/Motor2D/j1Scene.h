@@ -62,8 +62,15 @@ public:
 
 private:
 	bool				MainMenu;
+	bool				inGameMenu;
+	bool				CloseGameFromMenu;
 	p2SString			folder;
 	UIElement*			uiElements[15];
+private:
+	void				ClearUIArray();
+	bool				AddUIElementToArray(UIElement* element);
+	int					FindElementinArray(UIElement* element); //returns position if found, -1 if not.
+	int					FindElementinArrayName(p2SString* name);
 };
 
 #endif // __j1SCENE_H__
