@@ -57,16 +57,24 @@ bool j1Scene::Start()
 	switch (scene_number) {
 
 	case 1:
+		//scene_number = 1;
+		App->gui->DestroyHUD();
 		App->map->Load(map1.GetString());
+		App->gui->CreateHUD();
 		App->audio->PlayMusic("audio/music/ace_of_flopdisks.ogg", 4.0F);
 		break;
 
 	case 2:
+		//scene_number = 2;
+		App->gui->DestroyHUD();
 		App->map->Load(map2.GetString());
+		App->gui->CreateHUD();
 		App->audio->PlayMusic("audio/music/down_under_flopdisk.ogg", 4.0F);
 		break;
 
 	case 3:
+		//scene_number = 3;
+		App->gui->DestroyHUD();
 		LoadIntroMenu();
 		load_from_save = false;
 		
@@ -75,6 +83,7 @@ bool j1Scene::Start()
 
 	default:
 		scene_number = 3;
+		App->gui->DestroyHUD();
 		LoadIntroMenu();
 		load_from_save = false;
 		
@@ -160,6 +169,16 @@ bool j1Scene::Update(float dt)
 		scene_number = 3;
 		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
+	}
+
+	if ((App->input->GetKey(SDL_SCANCODE_6)) == KEY_DOWN) {
+		App->gui->PlayerCoinsCounter++;
+		App->audio->PlayFx(App->audio->coin);
+		App->gui->UpdateLifesNCoins();
+	}
+	if ((App->input->GetKey(SDL_SCANCODE_7)) == KEY_DOWN) {
+		App->gui->PlayerLifesCounter++;
+		App->gui->UpdateLifesNCoins();
 	}
 
 

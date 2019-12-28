@@ -49,6 +49,16 @@ public:
 	//UI_Listener
 	void ListenerUI(UIElement* UI_element);
 
+	void CreateHUD();
+	void DestroyHUD();
+
+	void UpdateLifesNCoins();
+
+public:
+
+	int PlayerLifesCounter;
+	int PlayerCoinsCounter;
+
 private:
 
 	void DragElement();
@@ -57,6 +67,8 @@ private:
 	void ManageInGameMenu();
 	void CreateInGameMenu();
 	void DestroyInGameMenu();
+
+	void ManageHUD();
 
 	void CreateSettingsWindow(UIElement* father);
 	void DestroySettingsWindow();
@@ -77,6 +89,11 @@ private:
 	//In game menu
 	bool inGameMenu;
 	UIElement* InGameMenuUIElements[15];
+	UIElement* HUDUIElements[15];
+
+private:
+	UIElement* CoinsWindow;
+	UIElement* LifesWindow;
 };
 
 #endif // __j1GUI_H__

@@ -2,6 +2,8 @@
 #include "j1EntityManager.h"
 #include "j1Collision.h"
 #include "j1Render.h"
+#include "j1Audio.h"
+#include "j1Gui.h"
 
 
 Coin::Coin(int x, int y)
@@ -64,7 +66,10 @@ void Coin::OnCollision(Collider * collider)
 {
 	if (collider->type == COLLIDER_PLAYER)
 	{
-		//whatevs you want to do with this
+		App->audio->PlayFx(App->audio->coin);
+		App->gui->PlayerCoinsCounter++;
+		App->gui->UpdateLifesNCoins();
+		Destroy();
 	}
 }
 
