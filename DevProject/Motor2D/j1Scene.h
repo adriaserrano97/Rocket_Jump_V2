@@ -62,7 +62,6 @@ public:
 
 private:
 	bool				MainMenu;
-	bool				inGameMenu;
 	p2SString			folder;
 	UIElement*			uiElements[15];
 };

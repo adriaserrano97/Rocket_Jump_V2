@@ -15,8 +15,9 @@
 
 j1Scene::j1Scene() : j1Module()
 {
-	inGameMenu = false;
 	name.create("scene");
+
+	memset(uiElements, NULL, 15);
 }
 
 // Destructor
@@ -100,7 +101,7 @@ bool j1Scene::PreUpdate()
 	BROFILER_CATEGORY("Scene Pre-update", Profiler::Color::Tomato)
 	/*static iPoint origin;
 	static bool origin_selected = false;
-
+	
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
@@ -201,34 +202,8 @@ bool j1Scene::PostUpdate()
 	{
 		ret = false;
 	}
+	
 
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
-		
-		SDL_Rect* rect = new SDL_Rect{ 32, 543, 419, 449 };
-		UIElement* principalWindow = App->gui->CreateUIWindow(50, 50, nullptr, rect, true, p2SString("InGameWindow"));
-		
-		uiElements[0] = principalWindow;
-
-		uiElements[1] = App->gui->CreateScrollBar(80, 80, principalWindow, nullptr, /*new SDL_Rect{ 975, 788, 6, 163 }*/new SDL_Rect{ 136, 600, 30, 120 }, new SDL_Rect{ 842, 328, 16, 13 }, new SDL_Rect{ 1003, 437, 16, 13 }, true, p2SString("audioScrollBar"));
-		
-		uiElements[2] = App->gui->CreateButton(120, 100, principalWindow, nullptr, new SDL_Rect{ 642,169,229,69 }, new SDL_Rect{ 0,113,229,69 }, new SDL_Rect{ 411,169,229,69 }, true, p2SString("uselessButon"));
-
-		inGameMenu = true;
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
-
-		for (int i = 0; i < 15; i++)
-		{
-			if (uiElements[i] != nullptr)
-			{
-				App->gui->DeleteElement(uiElements[i]);
-				uiElements[i] = nullptr;
-			}
-		}
-		
-		inGameMenu = false;
-	}
 	/*
 	if (MainMenu) {
 		
@@ -317,8 +292,7 @@ bool j1Scene::LoadIntroMenu()
 
 	//create UI
 	//SDL_Rect* rect = new SDL_Rect{ 208, 0, 570, 363 };
-	SDL_Rect* rect = new SDL_Rect{ 208, 0, 0, 0 };
-	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, rect, true, p2SString("InGameWindow"));
+	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, new SDL_Rect{ 208, 0, 0, 0 }, true, p2SString("IntroWindow"));
 	uiElements[0] = principalWindow;
 
 	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, App->scene, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
@@ -326,6 +300,8 @@ bool j1Scene::LoadIntroMenu()
 	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, nullptr, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
 	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
 	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+
+
 	return true;
 }
 

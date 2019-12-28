@@ -81,8 +81,11 @@ bool Button::Draw() {
 void Button::Speaker(j1Module * listener)
 {
 
-	listener->ListenerUI(this);
-
+	if (listener != nullptr)
+	{
+		listener->ListenerUI(this);
+	}
+	
 }
 
 

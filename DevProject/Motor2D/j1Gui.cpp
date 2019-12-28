@@ -21,6 +21,9 @@ j1Gui::j1Gui() : j1Module()
 	{
 		elementArray[i] = nullptr;
 	}
+	
+	memset(InGameMenuUIElements, NULL, 15);
+	inGameMenu = false;
 
 	elementDragged = nullptr;
 }
@@ -95,6 +98,9 @@ bool j1Gui::PostUpdate()
 		}
 
 	}
+
+	ManageInGameMenu();
+
 	return true;
 }
 
@@ -137,14 +143,13 @@ SDL_Texture* j1Gui::GetAtlas() const
 	return atlas;
 }
 
-void j1Gui::ListenerUI(UIElement * UI_element)
+void j1Gui::ListenerUI(UIElement * element)
 {
-	/*check what UI_element are you getting and do whatevs you want.
+	if(element->name == "RETRY") {
+	
+		DestroyInGameMenu();
+	}
 
-	if(UI_element.name == "button to change scene"){delete this button;}
-
-	etc.
-	*/
 }
 
 
@@ -275,3 +280,47 @@ void j1Gui::DragElement() {
 	}
 }
 
+
+void j1Gui::ManageInGameMenu() {
+
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
+
+		CreateInGameMenu();
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
+
+		DestroyInGameMenu();
+	}
+}
+
+
+void j1Gui::CreateInGameMenu() {
+	
+	UIElement* principalWindow = App->gui->CreateUIWindow(50, 50, nullptr, new SDL_Rect{ 206, 0, 668, 364 }, true, p2SString("InGameWindow"));
+
+	InGameMenuUIElements[0] = principalWindow;
+
+	InGameMenuUIElements[1] = App->gui->CreateButton(120, 100, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
+
+	InGameMenuUIElements[2] = App->gui->CreateButton(360, 310, principalWindow, nullptr, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	InGameMenuUIElements[3] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	InGameMenuUIElements[4] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+
+	inGameMenu = true;
+}
+
+
+void j1Gui::DestroyInGameMenu() {
+
+	for (int i = 0; i < 15; i++)
+	{
+		if (InGameMenuUIElements[i] != nullptr)
+		{
+			App->gui->DeleteElement(InGameMenuUIElements[i]);
+			InGameMenuUIElements[i] = nullptr;
+		}
+	}
+
+	inGameMenu = false;
+}

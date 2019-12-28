@@ -8,8 +8,8 @@
 	<map />
 	<scene sceneNumber="1" />
 	<entity_manager>
-		<entity type="player" x="1011" y="551" />
-		<entity x="774" y="516" />
+		<entity type="player" x="0" y="551" />
+		<entity type="coin" x="774" y="516" />
 		<entity type="fly_enemy" x="1118" y="1290" />
 		<entity type="fly_enemy" x="2494" y="1634" />
 		<entity type="walk_enemy" x="4644" y="259" />
@@ -19,6 +19,6 @@
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-841" y="-83" />
+		<camera x="0" y="-83" />
 	</renderer>
 </game_state>

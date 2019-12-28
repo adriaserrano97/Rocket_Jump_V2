@@ -54,17 +54,26 @@ private:
 	void DragElement();
 	void CheckFocusedElements();
 
+	void ManageInGameMenu();
+	void CreateInGameMenu();
+	void DestroyInGameMenu();
+
 private:
 
 	UIElement* elementArray[MAX_ELEMENTS];
 
-	UIElement* elementDragged;
-
 	SDL_Texture* atlas;
 	p2SString atlasFileName;
 
+	//For drag logic
+	UIElement* elementDragged;
+
 	int mouseDragX;
 	int mouseDragY;
+
+	//In game menu
+	bool inGameMenu;
+	UIElement* InGameMenuUIElements[15];
 };
 
 #endif // __j1GUI_H__
