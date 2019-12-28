@@ -6,7 +6,7 @@ Welcome to Rocket Jump, an original platformer game which focus on fast paced sc
 ## Credits
 Platformer game made by 2 students at CITM, Terrassa, Spain:
 
-![Does this even work](https://github.com/adriaserrano97/Rocket_Jump_V2/blob/master/docs/SDL_pls.png)
+![](SDL_pls.png)
 <br>
 José Luís Redondo Tello: <https://github.com/jose-tello> <br>
 Adrià Serrano López: <https://github.com/adriaserrano97> <br>
