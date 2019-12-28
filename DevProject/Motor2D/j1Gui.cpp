@@ -150,6 +150,16 @@ void j1Gui::ListenerUI(UIElement * element)
 		DestroyInGameMenu();
 	}
 
+	else if (element->name == "SETTINGS")
+	{
+		CreateSettingsWindow();
+	}
+	
+	else if (element->name == "CROSS")
+	{
+		DestroySettingsWindow();
+	}
+
 }
 
 
@@ -303,7 +313,7 @@ void j1Gui::CreateInGameMenu() {
 
 	InGameMenuUIElements[1] = App->gui->CreateButton(120, 100, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
 
-	InGameMenuUIElements[2] = App->gui->CreateButton(360, 310, principalWindow, nullptr, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	InGameMenuUIElements[2] = App->gui->CreateButton(360, 310, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
 	InGameMenuUIElements[3] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
 	InGameMenuUIElements[4] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 
@@ -323,4 +333,22 @@ void j1Gui::DestroyInGameMenu() {
 	}
 
 	inGameMenu = false;
+}
+
+
+void j1Gui::CreateSettingsWindow() {
+
+	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(540, 290, nullptr, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
+
+	InGameMenuUIElements[6] = App->gui->CreateButton(120, 5, settingsWindow, this, new SDL_Rect{ 892,620,32,30 }, new SDL_Rect{ 892,1557,32,30 }, new SDL_Rect{ 892,2495,32,30 }, false, p2SString("CROSS"));
+}
+
+
+void j1Gui::DestroySettingsWindow() {
+
+	DeleteElement(InGameMenuUIElements[5]);
+	DeleteElement(InGameMenuUIElements[6]);
+
+	InGameMenuUIElements[5] = nullptr;
+	InGameMenuUIElements[6] = nullptr;
 }

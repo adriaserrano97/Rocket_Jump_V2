@@ -78,8 +78,7 @@ bool Button::Draw() {
 	return true;
 }
 
-void Button::Speaker(j1Module * listener)
-{
+void Button::Speaker(j1Module * listener) {
 
 	if (listener != nullptr)
 	{
@@ -94,8 +93,13 @@ void Button::HandleInput() {
 	if (focused == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN || App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT))
 	{
 		pressed = true;
+	}
+
+	else if (focused == true && pressed == true && (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP))
+	{
 		Speaker(listener);
 	}
+
 	else
 		pressed = false;
 }

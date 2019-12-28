@@ -58,6 +58,9 @@ private:
 	void CreateInGameMenu();
 	void DestroyInGameMenu();
 
+	void CreateSettingsWindow();
+	void DestroySettingsWindow();
+
 private:
 
 	UIElement* elementArray[MAX_ELEMENTS];
