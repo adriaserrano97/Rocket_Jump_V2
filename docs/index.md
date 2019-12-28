@@ -1,5 +1,6 @@
 # Rocket_Jump_V2
 ## Game can be found on the following repository: https://github.com/adriaserrano97/Rocket_Jump_V2 <br>
+## Release can be found on the following link: https://github.com/adriaserrano97/Rocket_Jump_V2/releases <br>
 Welcome to Rocket Jump, an original platformer game which focus on fast paced scrolling though a level. Combine your jump and your rocket jump to pull off amazing moves! Fly trough the map as quickly as possible and get to the PC at the end of the level: it will take yu to the following one.
 
 
