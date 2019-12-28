@@ -1,4 +1,4 @@
-#include "p2Log.h"
+﻿#include "p2Log.h"
 #include "j1App.h"
 #include "j1Input.h"
 #include "j1Textures.h"
@@ -11,6 +11,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityManager.h"
 #include "j1Gui.h"
+#include "j1Fonts.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -39,7 +40,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	//Saving valve
 	load_from_save = false;
 	MainMenu = false;
-
+	CloseGameFromMenu = false;
 	return ret;
 }
 
@@ -98,31 +99,16 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("Scene Pre-update", Profiler::Color::Tomato)
-	/*static iPoint origin;
-	static bool origin_selected = false;
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
+	bool ret = true;
 
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+	if (CloseGameFromMenu)
 	{
-		if (origin_selected == true)
-		{
-			App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
+		ret = false;
+		ClearUIArray();
 	}
 
-	*/
-
-	return true;
+	return ret;
 }
 
 // Called each loop iteration
@@ -201,6 +187,7 @@ bool j1Scene::PostUpdate()
 	{
 		ret = false;
 	}
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
 		
@@ -275,37 +262,37 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 void j1Scene::ListenerUI(UIElement * UI_element)
 {
 	if (UI_element->name == "PLAY") {
-		for (int i = 0; i < 15; i++)
-		{
-			if (uiElements[i] != nullptr)
-			{
-				App->gui->DeleteElement(uiElements[i]);
-				uiElements[i] = nullptr;
-			}
-		}
+		App->audio->PlayFx(App->audio->button_3);
+		ClearUIArray();
 		scene_number = 1;
 		App->map->Unload();
 		App->fade->FadeToBlack(this, this, 2);
 	}
+	if (UI_element->name == "CONTINUE") {
+		App->audio->PlayFx(App->audio->button_3);
+		ClearUIArray();
+		App->entityManager->Destroy_all();
+		load_from_save = true;
+		App->LoadGame();
+	}
+	if (UI_element->name == "EXITGAME") {
+		CloseGameFromMenu = true;
+	}
+	if (UI_element->name == "CREDITS") {
+		App->audio->PlayFx(App->audio->button_3);
+		ShellExecuteA(NULL,"open","https://wiki.libsdl.org",NULL,NULL,SW_SHOWNORMAL);
+	}
+
+
 	/*
-	("CONTINUE") == Same as play, but activate "load from save". Check if there is a save?
-	("SETTINGS") == Create new scrollbar to control sound
-	("EXITGAME") == blit 1.000.000 colliders
-	("CREDITS") == Link to the web?
+	("SETTINGS") == Jose
 	*/
 }
 
 bool j1Scene::LoadIntroMenu()
 {
 	//Clear the array before filling it
-	for (int i = 0; i < 15; i++)
-	{
-		if (uiElements[i] != nullptr)
-		{
-			App->gui->DeleteElement(uiElements[i]);
-			uiElements[i] = nullptr;
-		}
-	}
+	ClearUIArray();
 	//Load background
 	//App->tex->Load(menu_background.GetString());
 	
@@ -322,11 +309,75 @@ bool j1Scene::LoadIntroMenu()
 	uiElements[0] = principalWindow;
 
 	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, App->scene, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
-	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, nullptr, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
+	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, App->scene, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
 	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, nullptr, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
-	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, nullptr, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
-	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, App->scene, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
+	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, App->scene, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 	return true;
+}
+
+void j1Scene::ClearUIArray()
+{
+	for (int i = 0; i < 15; i++)
+	{
+		if (uiElements[i] != nullptr)
+		{
+			App->gui->DeleteElement(uiElements[i]);
+			uiElements[i] = nullptr;
+		}
+	}
+}
+
+bool j1Scene::AddUIElementToArray(UIElement * element)
+{
+	bool ret = false;
+	for (int i = 0; i < 15; i++)
+	{
+		if (uiElements[i] != nullptr)
+		{
+			continue;
+		}
+		else {
+			uiElements[i] = element;
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
+
+int j1Scene::FindElementinArray(UIElement * element)
+{
+	int ret = -1;
+	for (int i = 0; i < 15; i++)
+	{
+		if (uiElements[i] != element)
+		{
+			continue;
+		}
+		else {
+			ret = i;
+			break;
+		}
+	}
+	return ret;
+}
+
+int j1Scene::FindElementinArrayName(p2SString * name)
+{
+	int ret = -1;
+	for (int i = 0; i < 15; i++)
+	{
+		if (uiElements[i]->name != *name)
+		{
+			continue;
+		}
+		else {
+			ret = i;
+			break;
+		}
+	}
+	return ret;
 }
 
 bool j1Scene::Load(pugi::xml_node& data) {
