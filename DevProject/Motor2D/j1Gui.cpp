@@ -43,6 +43,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	bool ret = true;
 	PlayerLifesCounter = 1;
 	PlayerCoinsCounter = 0;
+	PlayerScoreCounter = 0;
 
 	atlasFileName = conf.child("atlas").attribute("file").as_string("");
 
@@ -351,11 +352,9 @@ void j1Gui::ManageHUD() {
 		UpdateLifesNCoins();
 		App->audio->PlayFx(App->audio->powerup);
 	}
-	/*
-	App->gui->DeleteElement(HUDUIElements[4]);
-	HUDUIElements[4] = nullptr;
 	
-	score ? timer?
+	/*
+	timer?
 	
 	*/
 }
@@ -377,6 +376,15 @@ void j1Gui::CreateHUD() {
 	sprintf_s(lifes_text, 10, "%02d", PlayerLifesCounter);
 	UIElement* LifesText = App->gui->CreateText(30, 8, LifesWindow, App->font->default, p2SString(lifes_text), false, p2SString("LifesText"));
 	HUDUIElements[3] = LifesText;
+
+	ScoreWindow = App->gui->CreateUIWindow(190, 50, nullptr, new SDL_Rect{ 676, 1410, 49, 26 }, false, p2SString("ScoreWindow"));
+	HUDUIElements[4] = ScoreWindow;
+
+	char score_text[] = "fillingspace";
+	sprintf_s(score_text, 10, "%03d", PlayerScoreCounter);
+	UIElement* ScoreText = App->gui->CreateText(25, 8, ScoreWindow, App->font->default, p2SString(score_text), false, p2SString("ScoreText"));
+	HUDUIElements[5] = ScoreText;
+	
 }
 
 void j1Gui::DestroyHUD() {
@@ -394,27 +402,32 @@ void j1Gui::DestroyHUD() {
 
 void j1Gui::UpdateLifesNCoins()
 {
+	PlayerScoreCounter += 10;
+	
 	App->gui->DeleteElement(HUDUIElements[2]);
 	HUDUIElements[2] = nullptr;
 
 	App->gui->DeleteElement(HUDUIElements[3]);
 	HUDUIElements[3] = nullptr;
 
+	App->gui->DeleteElement(HUDUIElements[5]);
+	HUDUIElements[5] = nullptr;
+
+
 	char coins_text[] = "fillingspace";
-
 	sprintf_s(coins_text, 10, "%02d", PlayerCoinsCounter);
-
 	UIElement* CoinsText = App->gui->CreateText(30, 8, CoinsWindow, App->font->default, p2SString(coins_text), false, p2SString("CoinsText"));
-
 	HUDUIElements[2] = CoinsText;
 
 	char lifes_text[] = "fillingspace";
-
 	sprintf_s(lifes_text, 10, "%02d", PlayerLifesCounter);
-
 	UIElement* LifesText = App->gui->CreateText(30, 8, LifesWindow, App->font->default, p2SString(lifes_text), false, p2SString("LifesText"));
-
 	HUDUIElements[3] = LifesText;
+
+	char score_text[] = "fillingspace";
+	sprintf_s(score_text, 10, "%03d", PlayerScoreCounter);
+	UIElement* ScoreText = App->gui->CreateText(25, 8, ScoreWindow, App->font->default, p2SString(score_text), false, p2SString("ScoreText"));
+	HUDUIElements[5] = ScoreText;
 }
 
 void j1Gui::CreateSettingsWindow(UIElement* father) {

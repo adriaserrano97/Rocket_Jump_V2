@@ -58,6 +58,7 @@ public:
 
 	int PlayerLifesCounter;
 	int PlayerCoinsCounter;
+	int PlayerScoreCounter;
 
 private:
 
@@ -94,6 +95,7 @@ private:
 private:
 	UIElement* CoinsWindow;
 	UIElement* LifesWindow;
+	UIElement* ScoreWindow;
 };
 
 #endif // __j1GUI_H__
