@@ -58,15 +58,15 @@ public:
 	void UpdateLifesNCoins();
 
 
-
+	void CreateInGameMenu();
+	void DestroyInGameMenu();
 private:
 
 	void DragElement();
 	void CheckFocusedElements();
 
 	void ManageInGameMenu();
-	void CreateInGameMenu();
-	void DestroyInGameMenu();
+	
 
 	void ManageHUD();
 

@@ -6,42 +6,53 @@
 	<fonts />
 	<audio />
 	<map />
-	<scene sceneNumber="1" />
+	<scene sceneNumber="2" />
 	<:anonymous />
 	<entity_manager>
-		<entity type="player" x="266" y="551" />
-		<entity type="coin" x="516" y="1892" />
-		<entity type="coin" x="602" y="1892" />
-		<entity type="coin" x="774" y="516" />
-		<entity type="coin" x="1892" y="1376" />
-		<entity type="coin" x="2150" y="602" />
-		<entity type="coin" x="2236" y="1548" />
-		<entity type="coin" x="2494" y="774" />
-		<entity type="coin" x="2580" y="1720" />
-		<entity type="coin" x="3354" y="1892" />
+		<entity type="player" x="836" y="1841" />
+		<entity type="coin" x="1032" y="172" />
+		<entity type="coin" x="1118" y="172" />
+		<entity type="coin" x="1548" y="344" />
+		<entity type="coin" x="1634" y="1462" />
+		<entity type="coin" x="1720" y="1634" />
+		<entity type="coin" x="1806" y="1376" />
+		<entity type="coin" x="1892" y="1548" />
+		<entity type="coin" x="1978" y="516" />
+		<entity type="coin" x="2408" y="774" />
+		<entity type="coin" x="2666" y="1978" />
+		<entity type="coin" x="2752" y="516" />
+		<entity type="coin" x="2838" y="516" />
+		<entity type="coin" x="3268" y="774" />
+		<entity type="coin" x="3354" y="774" />
 		<entity type="coin" x="3440" y="1892" />
-		<entity type="coin" x="3698" y="430" />
-		<entity type="coin" x="3956" y="430" />
-		<entity type="coin" x="4128" y="1720" />
-		<entity type="coin" x="4816" y="0" />
-		<entity type="coin" x="4816" y="1978" />
-		<entity type="coin" x="5418" y="1118" />
-		<entity type="coin" x="5504" y="0" />
-		<entity type="coin" x="5504" y="1118" />
-		<entity type="coin" x="5590" y="1118" />
-		<entity type="coin" x="5676" y="1118" />
-		<entity type="coin" x="6192" y="1720" />
-		<entity type="coin" x="6278" y="1720" />
+		<entity type="coin" x="3526" y="430" />
+		<entity type="coin" x="4214" y="1548" />
+		<entity type="coin" x="4902" y="1032" />
+		<entity type="coin" x="4902" y="1118" />
+		<entity type="coin" x="4902" y="1204" />
+		<entity type="coin" x="4988" y="1032" />
+		<entity type="coin" x="4988" y="1204" />
+		<entity type="coin" x="5074" y="1032" />
+		<entity type="coin" x="5074" y="1204" />
+		<entity type="coin" x="5160" y="1032" />
+		<entity type="coin" x="5160" y="1118" />
+		<entity type="coin" x="5160" y="1204" />
+		<entity type="coin" x="5160" y="1892" />
+		<entity type="coin" x="6020" y="344" />
+		<entity type="coin" x="6020" y="860" />
+		<entity type="coin" x="6020" y="1376" />
+		<entity type="coin" x="6278" y="172" />
+		<entity type="coin" x="6278" y="602" />
 	</entity_manager>
 	<gui>
-		<gui_counter type="coins" value="0" />
-		<gui_counter type="lifes" value="9" />
-		<gui_counter type="score" value="220" />
+		<gui_counter type="coins" value="1" />
+		<gui_counter type="lifes" value="7" />
+		<gui_counter type="score" value="165" />
 	</gui>
 	<colliders />
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="0" y="-83" />
+		<camera x="0" y="-1373" />
 	</renderer>
 </game_state>
