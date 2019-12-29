@@ -20,7 +20,6 @@ j1Textures::~j1Textures()
 bool j1Textures::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Textures Awake", Profiler::Color::Cyan)
-	LOG("Init Image library");
 	bool ret = true;
 	// load support for the PNG image format
 	int flags = IMG_INIT_PNG;
@@ -28,7 +27,6 @@ bool j1Textures::Awake(pugi::xml_node& config)
 
 	if((init & flags) != flags)
 	{
-		LOG("Could not initialize Image lib. IMG_Init: %s", IMG_GetError());
 		ret = false;
 	}
 
@@ -39,7 +37,6 @@ bool j1Textures::Awake(pugi::xml_node& config)
 bool j1Textures::Start()
 {
 	BROFILER_CATEGORY("Textures Start", Profiler::Color::DarkOrchid)
-	LOG("start textures");
 	bool ret = true;
 	return ret;
 }
@@ -47,7 +44,6 @@ bool j1Textures::Start()
 // Called before quitting
 bool j1Textures::CleanUp()
 {
-	LOG("Freeing textures and Image library");
 	p2List_item<SDL_Texture*>* item;
 
 	for(item = textures.start; item != NULL; item = item->next)
@@ -71,7 +67,6 @@ SDL_Texture* const j1Textures::Load(const char* path)
 
 	if(surface == NULL)
 	{
-		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
 	else
 	{
@@ -106,7 +101,6 @@ SDL_Texture* const j1Textures::LoadSurface(SDL_Surface* surface)
 
 	if(texture == NULL)
 	{
-		LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
 	}
 	else
 	{

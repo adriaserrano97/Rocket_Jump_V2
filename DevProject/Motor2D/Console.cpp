@@ -83,6 +83,15 @@ void j1Console::DestroyConsole() {
 		}
 	}
 
+	for (int i = 0; i < MAX_CONSOLE_TEXTS; i++)
+	{
+		if (consoleText[i] != nullptr)
+		{
+			App->gui->DeleteElement(consoleText[i]);
+			consoleText[i] = nullptr;
+		}
+	}
+
 	consoleOpen = false;
 }
 
@@ -94,8 +103,12 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	if (UI_element->name == ("list"))
 	{
-		//LOG("list, god_mode, quit, fps<number>, map<number>");
 		LOG("list, god_mode, quit, fps<number>, map<number>");
+	}
+
+	if (UI_element->name == ("quit"))
+	{
+		
 	}
 
 	else if (UI_element->name == ("god_mode"))

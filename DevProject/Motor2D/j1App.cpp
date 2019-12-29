@@ -180,9 +180,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 
 	pugi::xml_parse_result result = config_file.load_file("config.xml");
 
-	if(result == NULL)
-		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
-	else
+	if(result != NULL)
 		ret = config_file.child("config");
 
 	return ret;
@@ -196,7 +194,6 @@ void j1App::PrepareUpdate()
 
 	// TODO 4: Calculate the dt: differential time since last frame
 	dt = frame_time.ReadSec() * TIME_CONST;
-	LOG(" dt this step was %f", dt);
 
 	//just to when we debug, the player doesnt trespass the floor
 	if (dt > MAX_DT)
@@ -281,19 +278,11 @@ void j1App::FinishUpdate()
 	int averageFrame = ((1.0f / frameRate) * 1000);
 	delay = averageFrame - last_frame_ms;
 
-	LOG("Average Frame: %i", averageFrame);
-	LOG("Last_frame_ms: %i", last_frame_ms);
-	LOG("Delay %i", delay);
-
 	if (delay > 0 && cap_frames == true)
 	{
 		SDL_Delay(delay);
 		
 	}
-
-
-	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
-	PERF_PEEK(ptimer);
 
 }
 
@@ -443,7 +432,6 @@ bool j1App::LoadGameNow()
 
 	if(result != NULL)
 	{
-		LOG("Loading new Game State from %s...", load_game.GetString());
 
 		root = data.child("game_state");
 
@@ -457,13 +445,8 @@ bool j1App::LoadGameNow()
 		}
 
 		data.reset();
-		if(ret == true)
-			LOG("...finished loading");
-		else
-			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
-	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
+	
 
 	want_to_load = false;
 	return ret;
@@ -472,8 +455,6 @@ bool j1App::LoadGameNow()
 bool j1App::SavegameNow() const
 {
 	bool ret = true;
-
-	LOG("Saving Game State to %s...", save_game.GetString());
 
 	// xml object were we will store all data
 	pugi::xml_document data;
@@ -492,10 +473,7 @@ bool j1App::SavegameNow() const
 	if(ret == true)
 	{
 		data.save_file(save_game.GetString());
-		LOG("... finished saving", );
 	}
-	else
-		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 
 	data.reset();
 	want_to_save = false;

@@ -863,10 +863,6 @@ void Player::playerJump(PLAYER_STATES state, float dt) {
 			time_spent_jumping += dt;
 		}
 		break;
-
-	default:
-		LOG("Player state was not valid to perform a jump from");
-		break;
 	}
 
 	// speed cap check, to prevent player from tunneling

@@ -28,7 +28,6 @@ j1Render::~j1Render()
 bool j1Render::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Render Awake", Profiler::Color::Chartreuse)
-	LOG("Create SDL rendering context");
 	bool ret = true;
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
@@ -36,7 +35,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 	if(config.child("vsync").attribute("value").as_bool(true) == true)
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
-		LOG("Using vsync");
 		vsinc = true;
 	}
 	camera_speed = (config.child("speedcamera").attribute("value").as_int());
@@ -46,7 +44,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	if(renderer == NULL)
 	{
-		LOG("Could not create the renderer! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
@@ -64,7 +61,6 @@ bool j1Render::Awake(pugi::xml_node& config)
 bool j1Render::Start()
 {
 	BROFILER_CATEGORY("Render Start", Profiler::Color::Chocolate)
-	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
@@ -106,7 +102,6 @@ bool j1Render::PostUpdate()
 // Called before quitting
 bool j1Render::CleanUp()
 {
-	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	
 	renderer = nullptr;
@@ -194,7 +189,6 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 
 	if (SDL_RenderCopyEx(renderer, texture, section, &rect, NULL, NULL, (flip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE)) != 0)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -222,7 +216,6 @@ bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -246,7 +239,6 @@ bool j1Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -276,7 +268,6 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -454,7 +445,6 @@ int j1Render::GetSideOfScreen(int x){
 	}
 
 	else { 
-		LOG("Unable to assert position of object on screen"); 
 		return NONE; 
 	}
 }

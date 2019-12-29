@@ -29,7 +29,6 @@ j1Scene::~j1Scene()
 bool j1Scene::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Scene Awake", Profiler::Color::DarkRed)
-	LOG("Loading Scene");
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
@@ -219,7 +218,6 @@ bool j1Scene::PostUpdate() {
 bool j1Scene::CleanUp()
 {
 	App->entityManager->Destroy_all();
-	LOG("Freeing scene");
 	return true;
 }
 

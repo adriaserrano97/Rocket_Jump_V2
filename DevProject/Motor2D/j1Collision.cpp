@@ -23,7 +23,6 @@ bool j1Collision::Awake(pugi::xml_node& node)
 {
 	
 	bool ret = true;
-	LOG("Preparinc collision module");
 	//Here goes the matrix of collider interactions
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_TRANSPASSABLE_WALL] = false;
@@ -215,8 +214,6 @@ void j1Collision::DebugDraw()
 // Called before quitting
 bool j1Collision::CleanUp()
 {
-	LOG("Freeing all colliders");
-
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{

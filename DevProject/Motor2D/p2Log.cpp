@@ -20,7 +20,7 @@ void log(const char file[], int line, const char* format, ...)
 	{
 		if (App->console->consoleOpen == true)
 		{
-		//	App->console->AddTextToConsole(p2SString(tmp_string2));
+			App->console->AddTextToConsole(p2SString(tmp_string2));
 		}
 	}
 }

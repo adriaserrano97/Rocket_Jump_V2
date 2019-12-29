@@ -22,7 +22,6 @@ j1PathFinding::~j1PathFinding()
 //called at start
 bool j1PathFinding::Start() {
 	BROFILER_CATEGORY("Pathfinding Start", Profiler::Color::DarkOrange)
-	LOG("Started Pathfinding module");
 
 	return true;
 }
@@ -30,7 +29,6 @@ bool j1PathFinding::Start() {
 // Called before quitting
 bool j1PathFinding::CleanUp()
 {
-	LOG("Freeing pathfinding library");
 
 	last_path.Clear();
 	RELEASE_ARRAY(map);

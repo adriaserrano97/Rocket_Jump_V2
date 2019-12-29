@@ -22,12 +22,10 @@ j1Window::~j1Window()
 bool j1Window::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Window Awake", Profiler::Color::Crimson)
-	LOG("Init SDL window & surface");
 	bool ret = true;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
@@ -67,7 +65,6 @@ bool j1Window::Awake(pugi::xml_node& config)
 
 		if(window == NULL)
 		{
-			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 			ret = false;
 		}
 		else
@@ -83,7 +80,6 @@ bool j1Window::Awake(pugi::xml_node& config)
 // Called before quitting
 bool j1Window::CleanUp()
 {
-	LOG("Destroying SDL window and quitting all SDL systems");
 
 	//Destroy window
 	if(window != NULL)

@@ -47,7 +47,6 @@ void j1EntityManager::Destroy_all()
 
 bool j1EntityManager::Awake(pugi::xml_node& config) {
 	BROFILER_CATEGORY("Entity Manager Awake", Profiler::Color::DarkCyan)
-	LOG("Loading Map Parser");
 	bool ret = true;
 
 	entity_doc.create(config.child("entity_doc").child_value());
@@ -58,7 +57,6 @@ bool j1EntityManager::Awake(pugi::xml_node& config) {
 	pugi::xml_parse_result result = entity_file.load_file(entity_doc.GetString());
 
 	if (result == NULL) {
-		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 		ret = false;
 	}
 

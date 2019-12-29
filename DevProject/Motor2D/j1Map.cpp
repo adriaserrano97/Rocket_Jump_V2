@@ -24,7 +24,6 @@ j1Map::~j1Map()
 bool j1Map::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Map Awake", Profiler::Color::BlueViolet)
-	LOG("Loading Map Parser");
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
@@ -48,7 +47,6 @@ void j1Map::Draw()
 {
 	BROFILER_CATEGORY("Map Draw", Profiler::Color::Brown)
 	if (map_loaded == false) {
-		LOG("Tried do draw map, but no map was loaded");
 		return;
 	}
 
@@ -144,7 +142,6 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 // Called before quitting
 bool j1Map::CleanUp()
 {
-	LOG("Cleaning map");
 	//Clean all map colliders
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -191,7 +188,6 @@ bool j1Map::CleanUp()
 
 void j1Map::Unload()
 {
-	LOG("Cleaning map");
 	//Clean all map colliders
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -251,7 +247,6 @@ bool j1Map::Load(const char* file_name)
 
 	if(result == NULL)
 	{
-		LOG("Could not load map xml file %s. pugi error: %s", file_name, result.description());
 		ret = false;
 	}
 
@@ -301,18 +296,11 @@ bool j1Map::Load(const char* file_name)
 
 	if(ret == true)
 	{
-		LOG("Successfully parsed map XML file: %s", file_name);
-		LOG("width: %d height: %d", data.width, data.height);
-		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
 		p2List_item<TileSet*>* item = data.tilesets.start;
 		while(item != NULL)
 		{
 			TileSet* s = item->data;
-			LOG("Tileset ----");
-			LOG("name: %s firstgid: %d", s->name.GetString(), s->firstgid);
-			LOG("tile width: %d tile height: %d", s->tile_width, s->tile_height);
-			LOG("spacing: %d margin: %d", s->spacing, s->margin);
 			item = item->next;
 		}
 		
@@ -320,9 +308,6 @@ bool j1Map::Load(const char* file_name)
 		while(item_layer != NULL)
 		{
 			Layer* l = item_layer->data;
-			LOG("Layer ----");
-			LOG("name: %s", l->name.GetString());
-			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
 		}
 	}
@@ -384,7 +369,6 @@ bool j1Map::LoadMap()
 
 	if(map == NULL)
 	{
-		LOG("Error parsing map xml file: Cannot find 'map' tag.");
 		ret = false;
 	}
 	else
@@ -500,7 +484,6 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 
 	if(image == NULL)
 	{
-		LOG("Error parsing tileset xml file: Cannot find 'image' tag.");
 		ret = false;
 	}
 	else
@@ -548,7 +531,6 @@ bool j1Map::LoadLayer(pugi::xml_node& layer, Layer* set)
 	}
 	
 	if (LoadEntitiesFromTiled(layer, set)) {
-		LOG("Spawning enemies");
 	};
 	return ret;
 }

@@ -40,7 +40,6 @@ j1Gui::~j1Gui()
 bool j1Gui::Awake(pugi::xml_node& conf)
 {
 	BROFILER_CATEGORY("GUI Awake", Profiler::Color::DarkGreen)
-	LOG("Loading GUI atlas");
 	bool ret = true;
 	PlayerLifesCounter = 1;
 	PlayerCoinsCounter = 0;
@@ -115,7 +114,6 @@ bool j1Gui::PostUpdate()
 // Called before quitting
 bool j1Gui::CleanUp()
 {
-	LOG("Freeing GUI");
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{

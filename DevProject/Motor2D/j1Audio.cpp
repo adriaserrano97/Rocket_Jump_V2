@@ -23,7 +23,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 {
 	BROFILER_CATEGORY("Audio Awake", Profiler::Color::AliceBlue)
 
-	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
 
@@ -31,7 +30,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
-		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		active = false;
 		ret = true;
 	}
@@ -42,7 +40,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 
 	if((init & flags) != flags)
 	{
-		LOG("Could not initialize Mixer lib. Mix_Init: %s", Mix_GetError());
 		active = false;
 		ret = true;
 	}
@@ -50,7 +47,6 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	//Initialize SDL_mixer
 	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
-		LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		active = false;
 		ret = true;
 	}
@@ -83,7 +79,6 @@ bool j1Audio::CleanUp()
 	if(!active)
 		return true;
 
-	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
 	if(music != NULL)
 	{
@@ -130,7 +125,6 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 	if(music == NULL)
 	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
 		ret = false;
 	}
 	else
@@ -139,7 +133,6 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		{
 			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
 			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
 			}
 		}
@@ -147,13 +140,11 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		{
 			if(Mix_PlayMusic(music, -1) < 0)
 			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
 				ret = false;
 			}
 		}
 	}
 
-	LOG("Successfully playing %s", path);
 	return ret;
 }
 
@@ -169,8 +160,8 @@ unsigned int j1Audio::LoadFx(const char* path)
 
 	if(chunk == NULL)
 	{
-		LOG("Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
 	}
+
 	else
 	{
 		fx.add(chunk);

@@ -10,7 +10,6 @@
 
 j1FadeToBlack::j1FadeToBlack()
 {
-	LOG("FadeToBlack constructor activated");
 }
 
 
@@ -21,7 +20,6 @@ j1FadeToBlack::~j1FadeToBlack()
 bool j1FadeToBlack::Start()
 {
 	BROFILER_CATEGORY("Fade to black start", Profiler::Color::DarkGoldenRod)
-	LOG("Preparing Fade Screen");
 	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
 	return true;
 }
