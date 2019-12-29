@@ -55,6 +55,7 @@ public:
 
 	//Main Menu
 	bool LoadIntroMenu();
+	void DisplayCredits();
 	p2SString intro_menu;
 	
 public:
@@ -63,6 +64,7 @@ public:
 private:
 	bool				MainMenu;
 	bool				inGameMenu;
+	bool				credits;
 	bool				CloseGameFromMenu;
 	p2SString			folder;
 	UIElement*			uiElements[15];

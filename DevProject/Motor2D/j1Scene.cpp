@@ -42,6 +42,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	load_from_save = false;
 	MainMenu = false;
 	CloseGameFromMenu = false;
+	credits = false;
 	return ret;
 }
 
@@ -266,9 +267,13 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		CloseGameFromMenu = true;
 	}
 
-	if (UI_element->name == "CREDITS") {
+	if (UI_element->name == "WEB") {
 		App->audio->PlayFx(App->audio->button_3);
 		ShellExecuteA(NULL,"open","https://adriaserrano97.github.io/Rocket_Jump_V2/",NULL,NULL,SW_SHOWNORMAL);
+	}
+	if (UI_element->name == "CREDITS") {
+		App->audio->PlayFx(App->audio->button_3);
+		DisplayCredits();
 	}
 
 
@@ -292,15 +297,50 @@ bool j1Scene::LoadIntroMenu()
 
 	//create UI
 	//SDL_Rect* rect = new SDL_Rect{ 208, 0, 570, 363 };
-	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, new SDL_Rect{ 208, 0, 0, 0 }, true, p2SString("IntroWindow"));
+	UIElement* principalWindow = App->gui->CreateUIWindow(100, 100, nullptr, new SDL_Rect{ 208, 0, 0, 0 }, false, p2SString("IntroWindow"));
 	uiElements[0] = principalWindow;
 
 	uiElements[1] = App->gui->CreateButton(310, 150, principalWindow, App->scene, new SDL_Rect{ 1040,413,207,49 }, new SDL_Rect{ 1040,1351,207,49 }, new SDL_Rect{ 1040,2289,207,49 }, false, p2SString("PLAY"));
 	uiElements[2] = App->gui->CreateButton(310, 230, principalWindow, App->scene, new SDL_Rect{ 1040,483,207,49 }, new SDL_Rect{ 1040,1407,207,49 }, new SDL_Rect{ 1040,2361,207,49 }, false, p2SString("CONTINUE"));
 	uiElements[3] = App->gui->CreateButton(360, 310, principalWindow, App->gui, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
 	uiElements[4] = App->gui->CreateButton(360, 390, principalWindow, App->scene, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
-	uiElements[5] = App->gui->CreateButton(385, 470, principalWindow, App->scene, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	uiElements[5] = App->gui->CreateButton(360, 470, principalWindow, App->scene, new SDL_Rect{ 1120,347,113,36 }, new SDL_Rect{ 1120,1076,113,36 }, new SDL_Rect{ 1120,2013,113,36 }, false, p2SString("CREDITS"));
+	uiElements[6] = App->gui->CreateButton(385, 540, principalWindow, App->scene, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("WEB"));
 	return true;
+}
+
+void j1Scene::DisplayCredits()
+{
+	if (!credits) {
+		credits = true;
+		UIElement* creditWIndows = App->gui->CreateUIWindow(600, 550, nullptr, new SDL_Rect{ 738, 413, 204, 48 }, false, p2SString("creditWIndows"));
+		uiElements[7] = creditWIndows;
+		UIElement* CreditsText = App->gui->CreateText(5, 0, creditWIndows, App->font->default, p2SString("License: Simple DirectMedia Layer"), false, p2SString("CreditsText"));
+		uiElements[8] = CreditsText;
+		UIElement* CreditsText2 = App->gui->CreateText(5, 9, creditWIndows, App->font->default, p2SString("Done by Adria Serrano"), false, p2SString("CreditsText2"));
+		uiElements[9] = CreditsText2;
+		UIElement* CreditsText3 = App->gui->CreateText(5, 18, creditWIndows, App->font->default, p2SString("& Jose Luis Redondo"), false, p2SString("CreditsText3"));
+		uiElements[10] = CreditsText3;
+		UIElement* CreditsText4 = App->gui->CreateText(5, 27, creditWIndows, App->font->default, p2SString("Click on the star to know more!"), false, p2SString("CreditsText4"));
+		uiElements[11] = CreditsText4;
+		
+	}
+	else {
+		credits = false;
+		App->gui->DeleteElement(uiElements[7]);
+		App->gui->DeleteElement(uiElements[8]);
+		App->gui->DeleteElement(uiElements[9]);
+		App->gui->DeleteElement(uiElements[10]);
+		App->gui->DeleteElement(uiElements[11]);
+
+		uiElements[7] = nullptr;
+		uiElements[8] = nullptr;
+		uiElements[9] = nullptr;
+		uiElements[10] = nullptr;
+		uiElements[11] = nullptr;
+	
+	}
+
 }
 
 void j1Scene::ClearUIArray()
