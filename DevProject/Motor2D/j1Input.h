@@ -75,6 +75,7 @@ public:
 
 private:
 //	bool TextHasSpace();
+	void HandleTextInput();
 
 public:
 	bool inputTexActivated;
@@ -89,6 +90,7 @@ private:
 	int			mouse_y;
 	
 	p2SString	text;
+	int			cursorPos;
 };
 
 #endif // __j1INPUT_H__

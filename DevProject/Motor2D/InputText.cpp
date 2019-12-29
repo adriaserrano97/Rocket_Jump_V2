@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1Textures.h"
 
 
 InputText::InputText(int x, int y, UIElement* father, _TTF_Font* font, p2SString& text, bool dragable, p2SString& name) :
@@ -27,13 +28,26 @@ void InputText::HandleInput() {
 	{
 		if (previousText != App->input->getInputText())
 		{
-			previousText = string = App->input->getInputText();
-			texture = App->font->Print(string.GetString(), { 200 }, font_Tex);
+			string = App->input->getInputText();
 
-			int w, h;
-			App->font->CalcSize(string.GetString(), w, h, font_Tex);
+			App->tex->UnLoad(texture);
+			texture = App->font->Print(string.GetString());
+
+
+			cursorPos += string.Length() - previousText.Length();
+
+			previousText = string;
 		}
-		
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
+		{
+			cursorPos--;
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < string.Length())
+		{
+			cursorPos++;
+		}
 	}
 
 	else
@@ -41,6 +55,8 @@ void InputText::HandleInput() {
 		App->input->DesactivateTextInput();
 	}
 
+
+	
 }
 
 

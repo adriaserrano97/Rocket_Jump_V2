@@ -118,10 +118,17 @@ bool j1Input::PreUpdate()
 
 			case SDL_TEXTINPUT:
 				/* Add new text onto the end of our text */
-				//if (HandleTextInput() == true)
+				if (cursorPos == text.Length())
 				{
 					text += event.text.text;
+					cursorPos = text.Length();
 				}
+
+				else if (cursorPos < text.Length())
+				{
+					text.Insert(event.text.text, cursorPos);
+				}
+
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
@@ -144,6 +151,8 @@ bool j1Input::PreUpdate()
 			break;
 		}
 	}
+
+	HandleTextInput();
 
 	return true;
 }
@@ -192,15 +201,24 @@ void j1Input::DesactivateTextInput() {
 
 
 
-/*bool j1Input::TextHasSpace() {
+void j1Input::HandleTextInput() {
 
-	if (text[TEXT_INPUT_MAX_LENGHT - 2] == NULL)
+	if (GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
 	{
-		return true;
+		cursorPos--;
+	}
+
+	if (GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < text.Length())
+	{
+		cursorPos++;
 	}
 	
-	return false;
-}*/
+	//if (GetKey())
+	{
+
+	}
+	
+}
 
 const char* j1Input::getInputText() {
 

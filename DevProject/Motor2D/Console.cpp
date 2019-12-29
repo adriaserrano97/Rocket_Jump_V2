@@ -72,7 +72,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	else if (UI_element->name == ("god_mode"))
 	{
-
+		
 	}
 
 	else if (UI_element->name == ("fps<number>"))
@@ -83,6 +83,11 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	else if (UI_element->name == ("map<number>"))
 	{
+		
+	}
 
+	else
+	{
+		LOG("Command doestn't exist");
 	}
 }
