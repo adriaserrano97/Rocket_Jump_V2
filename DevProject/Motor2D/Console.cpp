@@ -154,6 +154,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 			LOG("LOADING_MAP_2");
 
 			App->scene->scene_number = 2;
+			App->scene->ClearUIArray();
 			App->map->Unload();
 			App->fade->FadeToBlack(App->scene, App->scene, 2);
 		}
@@ -163,6 +164,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 			LOG("LOADING_MAP_3");
 
 			App->scene->scene_number = 3;
+			App->scene->ClearUIArray();
 			App->map->Unload();
 			App->fade->FadeToBlack(App->scene, App->scene, 2);
 		}
