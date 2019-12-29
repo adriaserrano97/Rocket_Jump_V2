@@ -33,7 +33,11 @@
 		<entity type="coin" x="6192" y="1720" />
 		<entity type="coin" x="6278" y="1720" />
 	</entity_manager>
-	<gui />
+	<gui>
+		<gui_counter type="coins" value="3" />
+		<gui_counter type="lifes" value="4" />
+		<gui_counter type="score" value="210" />
+	</gui>
 	<colliders />
 	<:anonymous />
 	<pathfinding />

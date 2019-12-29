@@ -465,6 +465,7 @@ bool j1App::LoadGameNow()
 	else
 		LOG("Could not parse game state xml file %s. pugi error: %s", load_game.GetString(), result.description());
 
+	App->scene->load_from_save = false;
 	want_to_load = false;
 	return ret;
 }

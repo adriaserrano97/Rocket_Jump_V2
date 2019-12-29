@@ -507,3 +507,46 @@ void j1Gui::DestroySettingsWindow() {
 	InGameMenuUIElements[7] = nullptr;
 	InGameMenuUIElements[8] = nullptr;
 }
+
+bool j1Gui::Save(pugi::xml_node & data) const
+{
+	pugi::xml_node coin = data.append_child("gui_counter");
+	coin.append_attribute("type") = "coins";
+	coin.append_attribute("value") = PlayerCoinsCounter;
+	pugi::xml_node lifes = data.append_child("gui_counter");
+	lifes.append_attribute("type") = "lifes";
+	lifes.append_attribute("value") = PlayerLifesCounter;
+	pugi::xml_node score = data.append_child("gui_counter");
+	score.append_attribute("type") = "score";
+	score.append_attribute("value") = PlayerScoreCounter;
+	
+	return true;
+				
+}
+
+bool j1Gui::Load(pugi::xml_node & data)
+{
+	if (App->scene->load_from_save == true) {
+		for (pugi::xml_node iterator = data.first_child(); iterator != NULL; iterator = iterator.next_sibling())
+		{
+			p2SString type(iterator.attribute("type").as_string());
+			int value(iterator.attribute("value").as_int());
+
+			if (type == "coins")
+			{
+				PlayerCoinsCounter = value;
+			}
+
+			if (type == "lifes")
+			{
+				PlayerLifesCounter = value;
+			}
+
+			if (type == "score")
+			{
+				PlayerScoreCounter = value;
+			}
+		}
+	}
+	return true;
+}

@@ -73,6 +73,10 @@ private:
 	void CreateSettingsWindow(UIElement* father);
 	void DestroySettingsWindow();
 
+	//we save the values of life, coins and score
+	bool Save(pugi::xml_node& data) const;
+	bool Load(pugi::xml_node& data);
+
 public:
 	int PlayerLifesCounter;
 	int PlayerCoinsCounter;
