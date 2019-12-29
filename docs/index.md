@@ -3,12 +3,11 @@
 ## Release can be found on the following link: https://github.com/adriaserrano97/Rocket_Jump_V2/releases <br>
 Welcome to Rocket Jump, an original platformer game which focus on fast paced scrolling though a level. Combine your jump and your rocket jump to pull off amazing moves! Fly trough the map as quickly as possible and get to the PC at the end of the level: it will take you to the following one.
 
-This project was done for the 2nd grade Development Subject at CITM university of Terrassa, Barcelona, Spain. The objective was to make a 2D platformer from scratch, adding more content to it with each iteration. Find those past iterations in older releases! <br>
-<p align="center"> 
- 	<video src="https://github.com/adriaserrano97/Rocket_Jump_V2/blob/master/docs/demo.mp4?raw=true" width="640" height="360" controls preload></video>	
-</p>
+This project was done for the 2nd grade Development Subject at CITM university of Terrassa, Barcelona, Spain. The objective was to make a 2D platformer from scratch, adding more content to it with each iteration. Find those past iterations in older releases!
 
-<p align="center">
+<p align="center"> 
+ 	<video src="https://github.com/adriaserrano97/Rocket_Jump_V2/blob/master/docs/demo.mp4?raw=true" width="1280" height="720" controls preload></video>	
+</p>
 
 ## Credits
 Platformer game made by 2 students at CITM, Terrassa, Spain:
