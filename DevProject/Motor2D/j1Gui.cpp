@@ -169,6 +169,17 @@ void j1Gui::ListenerUI(UIElement * element)
 
 }
 
+void j1Gui::RemoveAllFocus()
+{
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] != NULL && elementArray[i]->focused == true)
+		{
+			elementArray[i]->focused = false;
+		}
+	}
+}
+
 
 UIElement* j1Gui::CreateButton(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* buttonIdle, SDL_Rect* buttonSelected, SDL_Rect* buttonPressed, bool dragable, p2SString& name) {
 
@@ -229,6 +240,7 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 
 void j1Gui::CheckFocusedElements() {
 
+	/*
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] != nullptr)
@@ -236,7 +248,7 @@ void j1Gui::CheckFocusedElements() {
 			elementArray[i]->focused = false;
 		}
 	}
-
+	*/
 	iPoint pos;
 	App->input->GetMousePosition(pos.x, pos.y);
 	pos = App->render->ScreenToWorld(pos.x, pos.y);
@@ -245,10 +257,8 @@ void j1Gui::CheckFocusedElements() {
 	{
 		if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
 		{
-			if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
-			{
-				break;
-			}
+			elementArray[i]->MouseUnderElement(pos.x, pos.y);
+			
 		}
 	}
 

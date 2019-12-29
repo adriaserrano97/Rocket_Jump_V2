@@ -49,6 +49,8 @@ public:
 	//UI_Listener
 	void ListenerUI(UIElement* UI_element);
 
+	void RemoveAllFocus();
+
 	void CreateHUD();
 	void DestroyHUD();
 
