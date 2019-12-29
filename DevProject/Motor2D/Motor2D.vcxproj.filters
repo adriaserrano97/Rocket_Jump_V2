@@ -103,6 +103,9 @@
     <ClCompile Include="InputText.cpp">
       <Filter>Desenvolupament  ========\UIElements</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="InputText.h">
       <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

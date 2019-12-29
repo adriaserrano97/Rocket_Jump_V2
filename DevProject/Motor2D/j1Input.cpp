@@ -16,9 +16,6 @@ j1Input::j1Input() : j1Module()
 
 	keyboard = new j1KeyState[MAX_KEYS];
 
-	text = new char[TEXT_INPUT_MAX_LENGHT];
-	memset(text, NULL, TEXT_INPUT_MAX_LENGHT);
-
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
 }
@@ -121,11 +118,10 @@ bool j1Input::PreUpdate()
 
 			case SDL_TEXTINPUT:
 				/* Add new text onto the end of our text */
-				if (TextHasSpace() == true)
+				//if (HandleTextInput() == true)
 				{
-					strcat_s(text, TEXT_INPUT_MAX_LENGHT, event.text.text);
+					text += event.text.text;
 				}
-				
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
@@ -147,11 +143,6 @@ bool j1Input::PreUpdate()
 				//LOG("Mouse motion x %d y %d", mouse_motion_x, mouse_motion_y);
 			break;
 		}
-	}
-
-	if (GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-	{
-		ActivateTextInput();
 	}
 
 	return true;
@@ -184,9 +175,10 @@ void j1Input::GetMouseMotion(int& x, int& y)
 }
 
 
-void j1Input::ActivateTextInput() {
+void j1Input::ActivateTextInput(SDL_Rect &rect) {
 
 	SDL_StartTextInput();
+	SDL_SetTextInputRect(&rect);
 	inputTexActivated = true;
 }
 
@@ -194,18 +186,13 @@ void j1Input::ActivateTextInput() {
 void j1Input::DesactivateTextInput() {
 
 	SDL_StopTextInput();
+	text.Clear();
 	inputTexActivated = false;
 }
 
 
-void j1Input::HandleTextInput() {
 
-
-
-}
-
-
-bool j1Input::TextHasSpace() {
+/*bool j1Input::TextHasSpace() {
 
 	if (text[TEXT_INPUT_MAX_LENGHT - 2] == NULL)
 	{
@@ -213,9 +200,9 @@ bool j1Input::TextHasSpace() {
 	}
 	
 	return false;
-}
+}*/
 
-char* j1Input::getInputText() {
+const char* j1Input::getInputText() {
 
-	return text;
+	return text.GetString();
 }

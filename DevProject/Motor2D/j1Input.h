@@ -68,14 +68,13 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
-	void ActivateTextInput();
+	void ActivateTextInput(SDL_Rect& rect);
 	void DesactivateTextInput();
-	void HandleTextInput();
 
-	char* getInputText();
+	const char* getInputText();
 
 private:
-	bool TextHasSpace();
+//	bool TextHasSpace();
 
 public:
 	bool inputTexActivated;
@@ -89,7 +88,7 @@ private:
 	int			mouse_x;
 	int			mouse_y;
 	
-	char*	text;
+	p2SString	text;
 };
 
 #endif // __j1INPUT_H__

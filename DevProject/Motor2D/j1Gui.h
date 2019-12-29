@@ -57,11 +57,7 @@ public:
 
 	void UpdateLifesNCoins();
 
-public:
 
-	int PlayerLifesCounter;
-	int PlayerCoinsCounter;
-	int PlayerScoreCounter;
 
 private:
 
@@ -76,6 +72,11 @@ private:
 
 	void CreateSettingsWindow(UIElement* father);
 	void DestroySettingsWindow();
+
+public:
+	int PlayerLifesCounter;
+	int PlayerCoinsCounter;
+	int PlayerScoreCounter;
 
 private:
 
@@ -95,7 +96,6 @@ private:
 	UIElement* InGameMenuUIElements[15];
 	UIElement* HUDUIElements[15];
 
-private:
 	UIElement* CoinsWindow;
 	UIElement* LifesWindow;
 	UIElement* ScoreWindow;

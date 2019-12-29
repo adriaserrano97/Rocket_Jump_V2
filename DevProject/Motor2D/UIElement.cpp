@@ -103,11 +103,16 @@ bool UIElement::MouseUnderElement(int x, int y) {
 
 	if (!(position.x + my_box->w < x || position.y + my_box->h < y || x < position.x || y < position.y))
 	{
-		if (focused == false) {
+		/*if (focused == false) {
 			App->gui->RemoveAllFocus();
 			focused = true;
-		}
+		}*/
+		focused = true;
 	}
+
+	else
+		focused = false;
+
 	return focused;
 }
 

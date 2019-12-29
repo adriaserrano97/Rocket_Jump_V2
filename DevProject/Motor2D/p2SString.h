@@ -225,6 +225,11 @@ public:
 		return str;
 	}
 
+	char* GetCharArray() const
+	{
+		return str;
+	}
+
 	unsigned int GetCapacity() const
 	{
 		return size;

@@ -26,6 +26,7 @@ class j1PathFinding;
 class j1EntityManager;
 class j1Fonts;
 class j1Gui;
+class j1Console;
 
 
 class j1App
@@ -103,6 +104,7 @@ public:
 	j1EntityManager*	entityManager;
 	j1Fonts*			font;
 	j1Gui*				gui;
+	j1Console*			console;
 
 	//timers
 	SimpleTimer* simple_time = NULL;

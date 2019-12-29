@@ -12,7 +12,7 @@ Text::Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bo
 
 	if (father == nullptr)
 	{
-		local_position = { 0, 0 };
+		local_position = { x, y };
 	}
 
 	else

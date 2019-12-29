@@ -255,7 +255,7 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 
 void j1Gui::CheckFocusedElements() {
 
-	/*
+	
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] != nullptr)
@@ -263,7 +263,7 @@ void j1Gui::CheckFocusedElements() {
 			elementArray[i]->focused = false;
 		}
 	}
-	*/
+	
 	iPoint pos;
 	App->input->GetMousePosition(pos.x, pos.y);
 	pos = App->render->ScreenToWorld(pos.x, pos.y);
@@ -272,7 +272,11 @@ void j1Gui::CheckFocusedElements() {
 	{
 		if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
 		{
-			elementArray[i]->MouseUnderElement(pos.x, pos.y);
+			if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
+			{
+				break;
+			}
+			//elementArray[i]->MouseUnderElement(pos.x, pos.y);
 			
 		}
 	}

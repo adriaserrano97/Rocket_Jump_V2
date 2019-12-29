@@ -12,7 +12,7 @@ public:
 	
 	void HandleInput();
 	
-	//bool Draw();
+	bool Draw();
 
 private:
 	int cursorPos;
