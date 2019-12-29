@@ -282,7 +282,7 @@ void j1Gui::CheckFocusedElements() {
 
 		for (int i = MAX_ELEMENTS - 1; i >= 0; i--)
 		{
-			if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
+			if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr && elementArray[i]->type != UI_type::WINDOW)
 			{
 				//if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
 				//{
@@ -487,7 +487,7 @@ void j1Gui::UpdateLifesNCoins()
 
 void j1Gui::CreateSettingsWindow(UIElement* father) {
 
-	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(120, -70, father, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
+	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(120, -70, father, new SDL_Rect{ 682, 620, 154, 192 }, false, p2SString("SettingsWindow"));
 
 	InGameMenuUIElements[6] = App->gui->CreateButton(120, 5, settingsWindow, this, new SDL_Rect{ 892,620,32,30 }, new SDL_Rect{ 892,1557,32,30 }, new SDL_Rect{ 892,2495,32,30 }, false, p2SString("CROSS"));
 	InGameMenuUIElements[7] = App->gui->CreateInputText(20, 60, settingsWindow, App->font->default, p2SString("Game volume"), false, p2SString("VolumeText"));

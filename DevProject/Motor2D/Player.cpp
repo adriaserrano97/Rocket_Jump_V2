@@ -56,6 +56,7 @@ Player::Player(int x, int y)
 	JumpingDelta = App->entityManager->JumpingDelta;
 	JumpAdjustMargin = App->entityManager->JumpAdjustMargin;
 
+
 	type = Entity::EntityTypes::PLAYER;
 
 }
@@ -80,6 +81,8 @@ bool Player::Start() {
 
 	texture = App->entityManager->graphics;
 	bazooka = App->entityManager->bazooka;
+	deadTimerBuffer = 0;
+	inputs.Push(IN_ALIVE);
 
 	return true;
 }
@@ -306,7 +309,7 @@ void Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
-		deadTimerBuffer += dt;
+ 		deadTimerBuffer += dt;
 	}
 
 	if (deadTimerBuffer > 0)
