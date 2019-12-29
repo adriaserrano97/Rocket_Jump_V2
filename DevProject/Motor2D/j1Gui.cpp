@@ -411,6 +411,13 @@ void j1Gui::ManageHUD() {
 		UpdateLifesNCoins();
 		App->audio->PlayFx(App->audio->powerup);
 	}
+	for (int i = 0; i < 15; i++)
+	{
+		if (HUDUIElements[i] != nullptr && HUDUIElements[i]->focused == true)
+		{
+			HUDUIElements[i]->focused = false;
+		}
+	}
 	
 	/*
 	timer?
@@ -443,7 +450,9 @@ void j1Gui::CreateHUD() {
 	sprintf_s(score_text, 10, "%03d", PlayerScoreCounter);
 	UIElement* ScoreText = App->gui->CreateText(25, 8, ScoreWindow, App->font->default, p2SString(score_text), false, p2SString("ScoreText"));
 	HUDUIElements[5] = ScoreText;
-	
+
+	UIElement* Savepls = App->gui->CreateButton(75, -20, ScoreWindow, App->scene, new SDL_Rect{ 0,222,79,79 }, new SDL_Rect{ 0,1162,79,79 }, new SDL_Rect{ 0,2099,79,79 }, false, p2SString("SAVE"));
+	HUDUIElements[6] = Savepls;
 }
 
 void j1Gui::DestroyHUD() {

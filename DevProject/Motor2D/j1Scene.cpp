@@ -250,6 +250,11 @@ void j1Scene::OnCollision(Collider* c1, Collider* c2) {
 
 void j1Scene::ListenerUI(UIElement * UI_element)
 {
+	if (UI_element->name == "SAVE") {
+		App->audio->PlayFx(App->audio->button_3);
+		App->SaveGame();
+	}
+	
 	if (UI_element->name == "PLAY") {
 		App->audio->PlayFx(App->audio->button_3);
 		ClearUIArray();
