@@ -333,7 +333,7 @@ void j1Render::AdjustCamera(float dt) {
 			break;
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN) {
 		manual = !manual;
 	}
 
