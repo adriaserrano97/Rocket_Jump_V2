@@ -6,6 +6,9 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "j1Scene.h"
+#include "j1Map.h"
+#include "j1FadeToBlack.h"
 #include "Console.h"
 
 #include "Brofiler/Brofiler/Brofiler.h"
@@ -91,7 +94,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 	if (UI_element->name == ("list"))
 	{
 		//LOG("list, god_mode, quit, fps<number>, map<number>");
-		AddTextToConsole(p2SString("list, god_mode, quit, fps<number>, map<number>"));
+		LOG("list, god_mode, quit, fps<number>, map<number>");
 	}
 
 	else if (UI_element->name == ("god_mode"))
@@ -121,12 +124,43 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	else if (aux == ("map"))
 	{
+		if (UI_element->name == "map<1>")
+		{
+			LOG("LOADING_MAP_1");
+			
+			App->scene->scene_number = 1;
+			App->scene->ClearUIArray();
+			App->map->Unload();
+			App->fade->FadeToBlack(App->scene, App->scene, 2);
+		}
 
+		else if (UI_element->name == "map<2>")
+		{
+			LOG("LOADING_MAP_2");
+
+			App->scene->scene_number = 2;
+			App->map->Unload();
+			App->fade->FadeToBlack(App->scene, App->scene, 2);
+		}
+
+		else if (UI_element->name == "map<3>")
+		{
+			LOG("LOADING_MAP_3");
+
+			App->scene->scene_number = 3;
+			App->map->Unload();
+			App->fade->FadeToBlack(App->scene, App->scene, 2);
+		}
+
+		else
+		{
+			LOG("That map doesnt exist");
+		}
 	}
 
 	else
 	{
-		AddTextToConsole(p2SString("Command doestn't exist"));
+		LOG("Command doestn't exist");
 	}
 }
 

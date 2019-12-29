@@ -58,6 +58,8 @@ public:
 	void DisplayCredits();
 	p2SString intro_menu;
 	void PlayerNoLifes();
+
+	void	ClearUIArray();
 	
 public:
 	bool				load_from_save;
@@ -72,7 +74,7 @@ private:
 	p2SString			folder;
 	UIElement*			uiElements[15];
 private:
-	void				ClearUIArray();
+
 	bool				AddUIElementToArray(UIElement* element);
 	int					FindElementinArray(UIElement* element); //returns position if found, -1 if not.
 	int					FindElementinArrayName(p2SString* name);
