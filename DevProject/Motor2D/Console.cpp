@@ -114,7 +114,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	if (UI_element->name == ("quit"))
 	{
-		
+		App->scene->CloseGameFromMenu = true;
 	}
 
 	else if (UI_element->name == ("god_mode"))

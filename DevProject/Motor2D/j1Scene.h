@@ -60,7 +60,8 @@ public:
 	void PlayerNoLifes();
 
 	void	ClearUIArray();
-	
+	bool				CloseGameFromMenu;
+
 public:
 	bool				load_from_save;
 	bool				load_lifes_from_save;
@@ -70,7 +71,6 @@ private:
 	bool				MainMenu;
 	bool				inGameMenu;
 	bool				credits;
-	bool				CloseGameFromMenu;
 	p2SString			folder;
 	UIElement*			uiElements[15];
 private:
