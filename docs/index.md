@@ -37,10 +37,7 @@ Currently there is no installation required, just open the .exe provided in the 
 	F11 Toggle framerate cap at 30 fps
 	6 Add coin
 	7 Add Life
-
-	Q: Toggle auto / manual control of camera
-	TAB: If on manual control of camera, trigger side switch
-
+	
 ### Player Controls: <br>
         W: Look up 
         A: Move right
@@ -48,8 +45,11 @@ Currently there is no installation required, just open the .exe provided in the 
         S: Look down 
         D: Move left 
 		While jumping, slightly adjust jump reach
-	Left mouse click: Create explosion
-				colliding with player it will lauch it across the map!
+	Left mouse click: Create explosion: colliding with player it will lauch it across the map!
+	Q: Open / close ingame menu
+
+## How to play
+Try to complete the levels by reaching the PC at the end without falling! Collecting coins gives score points, and upon collecting 5 of them you will get an extra life. Try to complete the levels as fast as possible collecting all the coins!
 
 ## Main core subsystems
 ### Quick Explanation
