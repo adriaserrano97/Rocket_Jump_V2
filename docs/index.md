@@ -17,10 +17,10 @@ José Luís Redondo Tello: <https://github.com/jose-tello> <br>
 Adrià Serrano López: <https://github.com/adriaserrano97> <br>
 ![](adri_git.png) <br>
 Credit given to "dklon" for the sound effects used. Find them at: https://opengameart.org/users/dklon. <br>
-Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t
+Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t<br>
 Credit given to "Omni_Theorem" for the walking alien art used in this game. Find his work at: https://opengameart.org/users/omnitheorem
  <br>
-Credit given to fellow student "Alex Melenchon" for the emotional support and unprecedented technical help. Find his repository at: https://github.com/AlexMelenchon
+Credit given to fellow student "Alex Melenchon" for the emotional support and unprecedented technical help. Find his repository at: https://github.com/AlexMelenchon<br>
 
 ## Installation
 
