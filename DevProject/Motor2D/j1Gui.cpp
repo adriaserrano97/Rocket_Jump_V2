@@ -155,16 +155,19 @@ void j1Gui::ListenerUI(UIElement * element)
 {
 	if (element->name == "RETRY") {
 
+		App->audio->PlayFx(App->audio->button_3);
 		DestroyInGameMenu();
 	}
 
 	else if (element->name == "SETTINGS")
 	{
+		App->audio->PlayFx(App->audio->button_3);
 		CreateSettingsWindow(element);
 	}
 	
 	else if (element->name == "CROSS")
 	{
+		App->audio->PlayFx(App->audio->button_3);
 		DestroySettingsWindow();
 	}
 
@@ -357,12 +360,14 @@ void j1Gui::ManageInGameMenu() {
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && inGameMenu == false) {
 
+		App->audio->PlayFx(App->audio->button_3);
 		CreateInGameMenu();
 		
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && inGameMenu == true) {
 
+		App->audio->PlayFx(App->audio->button_3);
 		DestroyInGameMenu();
 		
 	}
@@ -371,15 +376,15 @@ void j1Gui::ManageInGameMenu() {
 
 void j1Gui::CreateInGameMenu() {
 	
-	UIElement* principalWindow = App->gui->CreateUIWindow(50, 50, nullptr, new SDL_Rect{ 206, 0, 668, 364 }, true, p2SString("InGameWindow"));
+	UIElement* principalWindow = App->gui->CreateUIWindow(50, 50, nullptr, new SDL_Rect{ 893, 0, 150, 176 }, true, p2SString("InGameWindow"));
 
 	InGameMenuUIElements[0] = principalWindow;
 
-	InGameMenuUIElements[1] = App->gui->CreateButton(120, 100, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
+	InGameMenuUIElements[1] = App->gui->CreateButton(0, 30, principalWindow, this, new SDL_Rect{ 955,413,80,36 }, new SDL_Rect{ 955,1350,80,36 }, new SDL_Rect{ 955,2288,80,36 }, false, p2SString("RETRY"));
 
-	InGameMenuUIElements[2] = App->gui->CreateButton(120, 150, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
-	InGameMenuUIElements[3] = App->gui->CreateButton(120, 200, principalWindow, App->scene, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("EXITGAME"));
-	InGameMenuUIElements[4] = App->gui->CreateButton(120, 250, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
+	InGameMenuUIElements[2] = App->gui->CreateButton(0, 80, principalWindow, this, new SDL_Rect{ 1120,205,113,36 }, new SDL_Rect{ 1120,1142,113,36 }, new SDL_Rect{ 1120,2087,113,36 }, false, p2SString("SETTINGS"));
+	InGameMenuUIElements[3] = App->gui->CreateButton(0, 130, principalWindow, App->scene, new SDL_Rect{ 1120,309,113,36 }, new SDL_Rect{ 1120,1038,113,36 }, new SDL_Rect{ 1120,1975,113,36 }, false, p2SString("BACKTOMAIN"));
+	//InGameMenuUIElements[4] = App->gui->CreateButton(0, 250, principalWindow, nullptr, new SDL_Rect{ 608,413,60,55 }, new SDL_Rect{ 608,1351,60,55 }, new SDL_Rect{ 608,2288,60,55 }, false, p2SString("CREDITS"));
 
 	inGameMenu = true;
 }

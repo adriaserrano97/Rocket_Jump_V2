@@ -83,6 +83,7 @@ bool Player::Start() {
 	texture = App->entityManager->graphics;
 	bazooka = App->entityManager->bazooka;
 	inputs.Push(IN_ALIVE);
+	started = true;
 
 	return true;
 }

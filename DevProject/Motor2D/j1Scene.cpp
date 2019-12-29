@@ -266,11 +266,19 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		App->entityManager->Destroy_all();
 		load_from_save = true;
 		load_lifes_from_save = true;
+		
 		App->LoadGame();
 	}
-
 	if (UI_element->name == "EXITGAME") {
 		CloseGameFromMenu = true;
+	}
+	if (UI_element->name == "BACKTOMAIN") {
+		App->audio->PlayFx(App->audio->button_3);
+		ClearUIArray();
+		App->gui->DestroyInGameMenu();
+		scene_number = 3;
+		App->map->Unload();
+		App->fade->FadeToBlack(this, this, 2);
 	}
 
 	if (UI_element->name == "WEB") {
@@ -281,11 +289,6 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		App->audio->PlayFx(App->audio->button_3);
 		DisplayCredits();
 	}
-
-
-	/*
-	("SETTINGS") == Jose
-	*/
 }
 
 bool j1Scene::LoadIntroMenu()
