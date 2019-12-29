@@ -360,6 +360,36 @@ public:
 			return 0;
 	}
 
+	void Insert(const char* string, unsigned int position = 0)
+	{
+		if (string != NULL)
+		{
+			//Make room----
+			unsigned int need_size = strlen(string) + Length() + 1;
+
+			if (need_size > size)
+			{
+				char* tmp = str;
+				Alloc(need_size);
+				strcpy_s(str, size, tmp);
+				delete[] tmp;
+			}
+
+			//Copy into a buffer the amount of String that we need to move
+			int nToMove = this->Length() - position;
+			const char* toMove = &str[nToMove];
+			p2SString buffer(toMove);
+
+			//Remove the content we just copied into a buffer from the original
+			this->Cut(nToMove);
+
+			//Add the new string + what we removed
+			this->operator+=(string);
+			this->operator+=(buffer.GetString());
+		}
+
+	}
+
 private:
 
 	void Alloc(unsigned int requiered_memory)
