@@ -172,11 +172,22 @@ void j1Gui::ListenerUI(UIElement * element)
 
 void j1Gui::RemoveAllFocus()
 {
-	for (int i = 0; i < MAX_ELEMENTS; i++)
-	{
-		if (elementArray[i] != NULL && elementArray[i]->focused == true)
+	if (!inGameMenu) {
+		for (int i = 0; i < MAX_ELEMENTS; i++)
 		{
-			elementArray[i]->focused = false;
+			if (elementArray[i] != NULL && elementArray[i]->focused == true)
+			{
+				elementArray[i]->focused = false;
+			}
+		}
+	}
+	if (inGameMenu) {
+		for (int i = 0; i < 15; i++)
+		{
+			if (InGameMenuUIElements[i] != NULL && InGameMenuUIElements[i]->focused == true)
+			{
+				InGameMenuUIElements[i]->focused = false;
+			}
 		}
 	}
 }
@@ -255,29 +266,44 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 
 void j1Gui::CheckFocusedElements() {
 
-	
-	for (int i = 0; i < MAX_ELEMENTS; i++)
-	{
-		if (elementArray[i] != nullptr)
+	if (!inGameMenu) {
+		/*
+		for (int i = 0; i < MAX_ELEMENTS; i++)
 		{
-			elementArray[i]->focused = false;
+			if (elementArray[i] != nullptr)
+			{
+				elementArray[i]->focused = false;
+			}
+		}
+		*/
+		iPoint pos;
+		App->input->GetMousePosition(pos.x, pos.y);
+		pos = App->render->ScreenToWorld(pos.x, pos.y);
+
+		for (int i = MAX_ELEMENTS - 1; i >= 0; i--)
+		{
+			if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
+			{
+				//if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
+				//{
+					//break;
+				//}
+				elementArray[i]->MouseUnderElement(pos.x, pos.y);
+
+			}
 		}
 	}
-	
-	iPoint pos;
-	App->input->GetMousePosition(pos.x, pos.y);
-	pos = App->render->ScreenToWorld(pos.x, pos.y);
+	if (inGameMenu) {
+		iPoint pos;
+		App->input->GetMousePosition(pos.x, pos.y);
+		pos = App->render->ScreenToWorld(pos.x, pos.y);
 
-	for (int i = MAX_ELEMENTS - 1; i >= 0; i--)
-	{
-		if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
+		for (int i = 15 - 1; i >= 0; i--)
 		{
-			if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
+			if (InGameMenuUIElements[i] != nullptr && InGameMenuUIElements[i]->my_box != nullptr && InGameMenuUIElements[i]->type != UI_type::WINDOW)
 			{
-				break;
+				InGameMenuUIElements[i]->MouseUnderElement(pos.x, pos.y);
 			}
-			//elementArray[i]->MouseUnderElement(pos.x, pos.y);
-			
 		}
 	}
 
