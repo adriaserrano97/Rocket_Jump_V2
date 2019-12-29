@@ -155,16 +155,19 @@ void j1Gui::ListenerUI(UIElement * element)
 {
 	if (element->name == "RETRY") {
 
+		App->audio->PlayFx(App->audio->button_3);
 		DestroyInGameMenu();
 	}
 
 	else if (element->name == "SETTINGS")
 	{
+		App->audio->PlayFx(App->audio->button_3);
 		CreateSettingsWindow(element);
 	}
 	
 	else if (element->name == "CROSS")
 	{
+		App->audio->PlayFx(App->audio->button_3);
 		DestroySettingsWindow();
 	}
 
@@ -357,12 +360,14 @@ void j1Gui::ManageInGameMenu() {
 
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
 
+		App->audio->PlayFx(App->audio->button_3);
 		CreateInGameMenu();
 		
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
 
+		App->audio->PlayFx(App->audio->button_3);
 		DestroyInGameMenu();
 		
 	}

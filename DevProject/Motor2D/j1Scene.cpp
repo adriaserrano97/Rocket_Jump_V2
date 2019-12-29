@@ -285,11 +285,6 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		App->audio->PlayFx(App->audio->button_3);
 		DisplayCredits();
 	}
-
-
-	/*
-	("SETTINGS") == Jose
-	*/
 }
 
 bool j1Scene::LoadIntroMenu()
