@@ -19,22 +19,18 @@ Currently there is no installation required, just open the .exe provided in the 
 
 ## Usage
 
-### General Controls :
-	ESC: Close the game
 	
 ### Debug Controls:<br>
+	ESC Close game
 	F1/F2 Start from the first/second level 
 	F3 Start from the beginning of the current level
 	F5 Save the current state 
 	F6 Load the previous state 
-	F9 To view colliders 
-	F10 God Mode 
+	F9 View colliders 
+	F10 God Mode (fly without collisions)
 	F11 Toggle framerate cap at 30 fps
 	6 Add coin
 	7 Add Life
-
-	Q: Toggle auto / manual control of camera
-	TAB: If on manual control of camera, trigger side switch
 
 ### Player Controls: <br>
         W: Look up 
@@ -43,9 +39,9 @@ Currently there is no installation required, just open the .exe provided in the 
         S: Look down 
         D: Move left 
 		While jumping, slightly adjust jump reach
-	Left mouse click: Create explosion
-				-> colliding with player it will lauch it across the map!
-				-> colliding with enemies, it will kill them!
+	Left mouse click: Create explosion: colliding with player it will lauch it across the map!
+	Q: Open / close ingame menu of options
+				
 
 
 ## Innovation
@@ -55,7 +51,7 @@ Currently there is no installation required, just open the .exe provided in the 
 
 
 ## Team roles:
-José Tello: Rocket Jump implementation, state matrix managment, memory managment, player collisions, debug implementation, particles.<br>
+José Tello: Rocket Jump implementation, state matrix managment, memory managment, player collisions, debug implementation, particles.UI: coding structure, j1GUI module creation, UIEntity managment, creation of UI types and elements.<br>
 
 Adrià Serrano: Jump implementation, art adjustment, Map design, map collisions, camera, player fall managment, sound music and sound sfx, player-map navegation. UI: Atlas creation, sound managment, intro menu configuration, ingame UI.<br>
 
