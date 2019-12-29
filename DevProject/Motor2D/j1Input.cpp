@@ -198,21 +198,11 @@ void j1Input::DesactivateTextInput() {
 
 void j1Input::HandleTextInput() {
 
-	if (GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
+	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 	{
-		cursorPos++;
+		text.Cut(text.Length() - 2);
 	}
 
-	if (GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < text.Length())
-	{
-		cursorPos--;
-	}
-	
-	//if (GetKey())
-	{
-
-	}
-	
 }
 
 const char* j1Input::getInputText() {

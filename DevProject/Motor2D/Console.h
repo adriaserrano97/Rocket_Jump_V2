@@ -22,10 +22,6 @@ public:
 	// Called before all Updates
 	bool PreUpdate();
 
-	bool Update();
-
-	// Called after all Updates
-	bool PostUpdate();
 
 	// Called before quitting
 	//bool CleanUp();

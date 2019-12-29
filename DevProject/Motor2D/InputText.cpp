@@ -36,16 +36,6 @@ void InputText::HandleInput() {
 
 			previousText = string;
 		}
-
-		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
-		{
-			cursorPos++;
-		}
-
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < string.Length())
-		{
-			cursorPos--;
-		}
 	}
 
 	else
@@ -67,19 +57,6 @@ void InputText::HandleInput() {
 bool InputText::Draw() {
 
 	App->render->Blit(texture, position.x, position.y);
-
-	p2SString aux = string;
-	
-	aux.Cut(cursorPos, string.Length());
-
-	SDL_Rect rect{0, 0, 3, 10};
-
-	App->font->CalcSize(aux.GetString(), rect.x, rect.y , font_Tex);
-
-	rect.x += position.x;
-	rect.y += position.y - rect.h;
-
-	App->render->DrawQuad(rect, 0, 0, 0);
 
 	return true;
 }

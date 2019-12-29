@@ -30,6 +30,15 @@ j1Console::j1Console() : j1Module() {
 
 j1Console::~j1Console()
 {
+	for (int i = 0; i < CONSOLE_ELEMENTS; i++)
+	{
+		consoleElements[i] = nullptr;
+	}
+
+	for (int i = 0; i < MAX_CONSOLE_TEXTS; i++)
+	{
+		consoleText[i] = nullptr;
+	}
 }
 
 bool j1Console::PreUpdate() {
@@ -45,20 +54,6 @@ bool j1Console::PreUpdate() {
 	}
 
 
-	return true;
-}
-
-
-bool j1Console::Update() {
-	BROFILER_CATEGORY("CONSOLE UPDATE", Profiler::Color::PaleTurquoise)
-
-	return true;
-}
-
-
-bool j1Console::PostUpdate() {
-
-	BROFILER_CATEGORY("CONSOLE POSTUPDATE", Profiler::Color::WhiteSmoke)
 	return true;
 }
 
