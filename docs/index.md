@@ -86,6 +86,8 @@ Managing collisions between game elements.
 Managing transitions from different scenes: make sure everything loads/unloads correctly and fade to black the screen inbetween.
 #### Pathfinding
 Pathfinding logic and algorithm so enemies can track the player.
+#### Console
+Creates, destroys and operates our command console.
 #### Render
 Everything regarding blitting to screen.
 
