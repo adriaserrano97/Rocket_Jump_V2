@@ -81,7 +81,6 @@ bool Player::Start() {
 
 	texture = App->entityManager->graphics;
 	bazooka = App->entityManager->bazooka;
-	deadTimerBuffer = 0;
 	inputs.Push(IN_ALIVE);
 
 	return true;
