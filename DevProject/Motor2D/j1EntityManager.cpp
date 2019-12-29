@@ -350,7 +350,7 @@ bool j1EntityManager::Load(pugi::xml_node& data)
 
 			entity_array[i]->Start();
 		}
-
+		App->scene->load_from_save = false;
 	}
 
 	return true;

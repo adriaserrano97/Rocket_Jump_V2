@@ -57,9 +57,12 @@ public:
 	bool LoadIntroMenu();
 	void DisplayCredits();
 	p2SString intro_menu;
+	void PlayerNoLifes();
 	
 public:
 	bool				load_from_save;
+	bool				load_lifes_from_save;
+	bool				playerNoLifes;
 
 private:
 	bool				MainMenu;

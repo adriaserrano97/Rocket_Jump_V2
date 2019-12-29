@@ -9,7 +9,7 @@
 	<scene sceneNumber="1" />
 	<:anonymous />
 	<entity_manager>
-		<entity type="player" x="0" y="551" />
+		<entity type="player" x="266" y="551" />
 		<entity type="coin" x="516" y="1892" />
 		<entity type="coin" x="602" y="1892" />
 		<entity type="coin" x="774" y="516" />
@@ -34,9 +34,9 @@
 		<entity type="coin" x="6278" y="1720" />
 	</entity_manager>
 	<gui>
-		<gui_counter type="coins" value="3" />
-		<gui_counter type="lifes" value="4" />
-		<gui_counter type="score" value="210" />
+		<gui_counter type="coins" value="0" />
+		<gui_counter type="lifes" value="9" />
+		<gui_counter type="score" value="220" />
 	</gui>
 	<colliders />
 	<:anonymous />

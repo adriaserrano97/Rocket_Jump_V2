@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Gui.h"
 
 Player::Player(int x, int y)
 {
@@ -305,12 +306,18 @@ bool Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 
 void Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 
+	if (time_from_last_explosion*dt < explosion_CD*dt) {
+		time_from_last_explosion += dt;
+	}
 	if (position.y > deadFall && deadTimerBuffer == 0)
 	{
 		inputs.Push(IN_DEAD);
  		deadTimerBuffer += dt;
-	}
+		App->gui->PlayerLifesCounter--;
+		App->gui->UpdateLifesNCoins();
 
+	}
+	
 	if (deadTimerBuffer > 0)
 	{
 		deadTimerBuffer += dt;
@@ -319,14 +326,19 @@ void Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 			deadTimerBuffer = 0;
 			inputs.Push(IN_ALIVE);
 			App->entityManager->Destroy_all();
-			App->scene->load_from_save = true;
-			App->LoadGame(); //go back to last checkpoint	
+
+			if (App->gui->PlayerLifesCounter > 0) {
+				App->scene->load_from_save = true;
+				App->scene->load_lifes_from_save = false;
+				App->LoadGame();
+			} 	
+			if (App->gui->PlayerLifesCounter <= 0) {
+				App->scene->playerNoLifes = true;
+			}
 		}
 	}
 
-	if (time_from_last_explosion*dt < explosion_CD*dt) {
-		time_from_last_explosion += dt;
-	}
+	
 }
 
 

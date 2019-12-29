@@ -68,6 +68,7 @@ void Coin::OnCollision(Collider * collider)
 	{
 		App->audio->PlayFx(App->audio->coin);
 		App->gui->PlayerCoinsCounter++;
+		App->gui->PlayerScoreCounter += 10;
 		App->gui->UpdateLifesNCoins();
 		Destroy();
 	}

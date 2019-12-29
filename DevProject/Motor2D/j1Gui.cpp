@@ -404,6 +404,7 @@ void j1Gui::ManageHUD() {
 	if (PlayerCoinsCounter >= 5) {
 		PlayerCoinsCounter -= 5;
 		PlayerLifesCounter += 1;
+		PlayerScoreCounter += 15;
 		UpdateLifesNCoins();
 		App->audio->PlayFx(App->audio->powerup);
 	}
@@ -457,8 +458,6 @@ void j1Gui::DestroyHUD() {
 
 void j1Gui::UpdateLifesNCoins()
 {
-	PlayerScoreCounter += 10;
-	
 	App->gui->DeleteElement(HUDUIElements[2]);
 	HUDUIElements[2] = nullptr;
 
@@ -526,7 +525,7 @@ bool j1Gui::Save(pugi::xml_node & data) const
 
 bool j1Gui::Load(pugi::xml_node & data)
 {
-	if (App->scene->load_from_save == true) {
+	if (App->scene->load_lifes_from_save == true) {
 		for (pugi::xml_node iterator = data.first_child(); iterator != NULL; iterator = iterator.next_sibling())
 		{
 			p2SString type(iterator.attribute("type").as_string());
@@ -548,5 +547,7 @@ bool j1Gui::Load(pugi::xml_node & data)
 			}
 		}
 	}
+	App->scene->load_lifes_from_save = false;
+	UpdateLifesNCoins();
 	return true;
 }

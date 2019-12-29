@@ -40,6 +40,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	//Saving valve
 	load_from_save = false;
+	load_lifes_from_save = false;
 	MainMenu = false;
 	CloseGameFromMenu = false;
 	credits = false;
@@ -54,7 +55,8 @@ bool j1Scene::Start()
 	map1;
 	map2;
 	intro_menu;
-	
+	playerNoLifes = false;
+
 	switch (scene_number) {
 
 	case 1:
@@ -78,6 +80,7 @@ bool j1Scene::Start()
 		App->gui->DestroyHUD();
 		LoadIntroMenu();
 		load_from_save = false;
+		load_lifes_from_save = false;
 		
 		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
 		break;
@@ -87,6 +90,7 @@ bool j1Scene::Start()
 		App->gui->DestroyHUD();
 		LoadIntroMenu();
 		load_from_save = false;
+		load_lifes_from_save = false;
 		
 		App->audio->PlayMusic("audio/music/elevator_music.ogg", 4.0F);
 		break;
@@ -129,6 +133,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 		App->entityManager->Destroy_all();
 		load_from_save = true;
+		load_lifes_from_save = true;
 		App->LoadGame();
 	}
 		
@@ -174,13 +179,17 @@ bool j1Scene::Update(float dt)
 
 	if ((App->input->GetKey(SDL_SCANCODE_6)) == KEY_DOWN) {
 		App->gui->PlayerCoinsCounter++;
+		App->gui->PlayerScoreCounter += 10;
 		App->audio->PlayFx(App->audio->coin);
 		App->gui->UpdateLifesNCoins();
 	}
 	if ((App->input->GetKey(SDL_SCANCODE_7)) == KEY_DOWN) {
 		App->gui->PlayerLifesCounter++;
+		App->gui->PlayerScoreCounter += 15;
 		App->gui->UpdateLifesNCoins();
+		App->audio->PlayFx(App->audio->powerup);
 	}
+	if (playerNoLifes) { PlayerNoLifes(); }
 
 
 
@@ -260,6 +269,7 @@ void j1Scene::ListenerUI(UIElement * UI_element)
 		ClearUIArray();
 		App->entityManager->Destroy_all();
 		load_from_save = true;
+		load_lifes_from_save = true;
 		App->LoadGame();
 	}
 
@@ -341,6 +351,15 @@ void j1Scene::DisplayCredits()
 	
 	}
 
+}
+
+void j1Scene::PlayerNoLifes()
+{
+	scene_number = 3;
+	App->entityManager->Destroy_all();
+	App->map->Unload();
+	App->gui->PlayerLifesCounter = 1; App->gui->PlayerCoinsCounter = 0; App->gui->PlayerScoreCounter = 0;
+	App->fade->FadeToBlack(this, this, 2);
 }
 
 void j1Scene::ClearUIArray()
