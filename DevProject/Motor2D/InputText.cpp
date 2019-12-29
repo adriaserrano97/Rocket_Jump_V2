@@ -3,7 +3,8 @@
 #include "j1Render.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
-#include "j1Textures.h"
+#include "j1Textures.h"7
+#include "Console.h"
 
 
 InputText::InputText(int x, int y, UIElement* father, _TTF_Font* font, p2SString& text, bool dragable, p2SString& name) :
@@ -33,20 +34,17 @@ void InputText::HandleInput() {
 			App->tex->UnLoad(texture);
 			texture = App->font->Print(string.GetString());
 
-
-			cursorPos += string.Length() - previousText.Length();
-
 			previousText = string;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
 		{
-			cursorPos--;
+			cursorPos++;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < string.Length())
 		{
-			cursorPos++;
+			cursorPos--;
 		}
 	}
 
@@ -55,7 +53,13 @@ void InputText::HandleInput() {
 		App->input->DesactivateTextInput();
 	}
 
-
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		name = string;
+		Speak();
+		string.Clear();
+		App->input->DesactivateTextInput();
+	}
 	
 }
 
@@ -68,14 +72,24 @@ bool InputText::Draw() {
 	
 	aux.Cut(cursorPos, string.Length());
 
-	SDL_Rect rect{0, 0, 5, 10};
+	SDL_Rect rect{0, 0, 3, 10};
 
-	App->font->CalcSize(aux.GetString(), rect.x, rect.y, font_Tex);
+	App->font->CalcSize(aux.GetString(), rect.x, rect.y , font_Tex);
 
 	rect.x += position.x;
-	rect.y += position.y;
+	rect.y += position.y - rect.h;
 
 	App->render->DrawQuad(rect, 0, 0, 0);
 
 	return true;
+}
+
+
+void InputText::Speak() {
+
+	if (App->console)
+	{
+		App->console->ListenerUI(this);
+	}
+
 }

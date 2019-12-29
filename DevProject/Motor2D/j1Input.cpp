@@ -18,6 +18,8 @@ j1Input::j1Input() : j1Module()
 
 	memset(keyboard, KEY_IDLE, sizeof(j1KeyState) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(j1KeyState) * NUM_MOUSE_BUTTONS);
+
+	cursorPos = 0;
 }
 
 // Destructor
@@ -118,13 +120,12 @@ bool j1Input::PreUpdate()
 
 			case SDL_TEXTINPUT:
 				/* Add new text onto the end of our text */
-				if (cursorPos == text.Length())
+				if (cursorPos == 0)
 				{
 					text += event.text.text;
-					cursorPos = text.Length();
 				}
 
-				else if (cursorPos < text.Length())
+				else if (cursorPos > 0)
 				{
 					text.Insert(event.text.text, cursorPos);
 				}
@@ -205,12 +206,12 @@ void j1Input::HandleTextInput() {
 
 	if (GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN && cursorPos > 0)
 	{
-		cursorPos--;
+		cursorPos++;
 	}
 
 	if (GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN && cursorPos < text.Length())
 	{
-		cursorPos++;
+		cursorPos--;
 	}
 	
 	//if (GetKey())

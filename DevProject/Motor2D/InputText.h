@@ -15,6 +15,9 @@ public:
 	bool Draw();
 
 private:
+	void Speak();
+
+private:
 	int cursorPos;
 	p2SString previousText;
 
