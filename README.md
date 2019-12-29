@@ -12,6 +12,7 @@ Adrià Serrano López: <https://github.com/adriaserrano97> <br>
 Credit given to "dklon" for the sound effects used. Find them at: https://opengameart.org/users/dklon. <br>
 Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t
 Credit given to "Omni_Theorem" for the walking alien art used in this game. Find his work at: https://opengameart.org/users/omnitheorem
+Credit given to fellow student "Alex Melenchon" for the emotional support and unprecedented technical help. Find his repository at: https://github.com/AlexMelenchon
 
 ## Installation
 
@@ -21,11 +22,12 @@ Currently there is no installation required, just open the .exe provided in the 
 
 	
 ### Debug Controls:<br>
-	ESC Close game
+	º Opens Console (type and send "list" to know possible actions)
 	F1/F2 Start from the first/second level 
 	F3 Start from the beginning of the current level
 	F5 Save the current state 
 	F6 Load the previous state 
+	F8 View UI colliders
 	F9 View colliders 
 	F10 God Mode (fly without collisions)
 	F11 Toggle framerate cap at 30 fps
@@ -40,7 +42,7 @@ Currently there is no installation required, just open the .exe provided in the 
         D: Move left 
 		While jumping, slightly adjust jump reach
 	Left mouse click: Create explosion: colliding with player it will lauch it across the map!
-	Q: Open / close ingame menu of options
+	ESC: Open / close ingame menu of options
 				
 
 

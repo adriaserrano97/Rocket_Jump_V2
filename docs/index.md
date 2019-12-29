@@ -17,8 +17,10 @@ José Luís Redondo Tello: <https://github.com/jose-tello> <br>
 Adrià Serrano López: <https://github.com/adriaserrano97> <br>
 ![](adri_git.png) <br>
 Credit given to "dklon" for the sound effects used. Find them at: https://opengameart.org/users/dklon. <br>
-Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t
+Credit given to "Robert Brooks" for the platforms and stickman art used in this game. Find his work at: https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=1l4q737v077s1f8l3t<br>
 Credit given to "Omni_Theorem" for the walking alien art used in this game. Find his work at: https://opengameart.org/users/omnitheorem
+ <br>
+Credit given to fellow student "Alex Melenchon" for the emotional support and unprecedented technical help. Find his repository at: https://github.com/AlexMelenchon<br>
 
 ## Installation
 
@@ -27,13 +29,14 @@ Currently there is no installation required, just open the .exe provided in the 
 ## Usage
 	
 ### Debug Controls:<br>
-	ESC: Close the game
+	º Opens Console (type and send "list" to know possible actions)
 	F1/F2 Start from the first/second level 
 	F3 Start from the beginning of the current level
 	F5 Save the current state 
 	F6 Load the previous state 
-	F9 To view colliders 
-	F10 God Mode 
+	F8 View UI colliders
+	F9 View colliders 
+	F10 God Mode (fly without collisions)
 	F11 Toggle framerate cap at 30 fps
 	6 Add coin
 	7 Add Life
@@ -46,10 +49,15 @@ Currently there is no installation required, just open the .exe provided in the 
         D: Move left 
 		While jumping, slightly adjust jump reach
 	Left mouse click: Create explosion: colliding with player it will lauch it across the map!
-	Q: Open / close ingame menu
+	ESC: Open / close ingame menu of options
+				
 
 ## How to play
 Try to complete the levels by reaching the PC at the end without falling! Collecting coins gives score points, and upon collecting 5 of them you will get an extra life. Try to complete the levels as fast as possible collecting all the coins!
+
+Menu-wise, click Play to start a new Game. Continue will load your previous save (if there is not, it acts the same as Play), starting in the map you saved your game on but preserving coin, lifes and score. From settings, you can adjust volume. Exit will close the game. Credits will inform of creators and license. The star will open a browser with this webpage :)
+
+From the ingame menu, click Retry (or press ESC) to close the menu, settings to adjust volume or Exit Game to go back to the main menu.
 
 ## Main core subsystems
 ### Quick Explanation
@@ -79,6 +87,8 @@ Managing collisions between game elements.
 Managing transitions from different scenes: make sure everything loads/unloads correctly and fade to black the screen inbetween.
 #### Pathfinding
 Pathfinding logic and algorithm so enemies can track the player.
+#### Console
+Creates, destroys and operates our command console.
 #### Render
 Everything regarding blitting to screen.
 
@@ -98,7 +108,7 @@ DISCLAIMER: Mostly everything was done in cooperation. The statements above refl
 
 ## Worthwhile considerations:
 V2 was created because V1's poor repository managment caused unsolvable issues (gitignore was not implemented currently, causing certain files to corrupt if opened with certain versions of VisualStudio).
-
+This was done with blood and tears over a 4ish month period by two students at 2nd Grade of Game Development. Check our github pages to see how we've been improving!
 
 ## License
 
