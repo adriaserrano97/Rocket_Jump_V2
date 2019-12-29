@@ -34,6 +34,7 @@ Currently there is no installation required, just open the .exe provided in the 
 	F3 Start from the beginning of the current level
 	F5 Save the current state 
 	F6 Load the previous state 
+	F8 View UI colliders
 	F9 View colliders 
 	F10 God Mode (fly without collisions)
 	F11 Toggle framerate cap at 30 fps
