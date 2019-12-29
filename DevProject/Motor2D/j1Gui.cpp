@@ -355,13 +355,13 @@ void j1Gui::DragElement() {
 
 void j1Gui::ManageInGameMenu() {
 
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && inGameMenu == false) {
 
 		CreateInGameMenu();
 		
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
+	else if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && inGameMenu == true) {
 
 		DestroyInGameMenu();
 		

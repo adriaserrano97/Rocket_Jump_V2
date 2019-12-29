@@ -32,9 +32,13 @@ public:
 
 	void ListenerUI(UIElement* UI_element);
 
+	void AddTextToConsole(p2SString& string);
+
 private:
 	void CreateConsole();
+	void DestroyConsole();
 
+	
 
 public:
 	bool consoleOpen;

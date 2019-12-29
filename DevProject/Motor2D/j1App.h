@@ -112,7 +112,7 @@ public:
 	
 	uint32_t				frames;
 
-	
+	uint				frameRate = 0;
 
 private:
 	p2List<j1Module*>	modules;
@@ -136,7 +136,7 @@ private:
 	SimpleTimer			last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	uint				frameRate = 0;
+
 	bool				cap_frames;
 	float				dt;
 };
