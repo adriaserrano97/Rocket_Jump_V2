@@ -53,7 +53,7 @@ Currently there is no installation required, just open the .exe provided in the 
 ## How to play
 Try to complete the levels by reaching the PC at the end without falling! Collecting coins gives score points, and upon collecting 5 of them you will get an extra life. Try to complete the levels as fast as possible collecting all the coins!
 
-Menu-wise, click Play to start a new Game. Continue will load your previous save (if there is not, it acts the same as Play). From settings, you can adjust volume. Exit will close the game. Credits will inform of creators and license. The star will open a browser with this webpage :)
+Menu-wise, click Play to start a new Game. Continue will load your previous save (if there is not, it acts the same as Play), starting in the map you saved your game on but preserving coin, lifes and score. From settings, you can adjust volume. Exit will close the game. Credits will inform of creators and license. The star will open a browser with this webpage :)
 
 From the ingame menu, click Retry (or press ESC) to close the menu, settings to adjust volume or Exit Game to go back to the main menu.
 
