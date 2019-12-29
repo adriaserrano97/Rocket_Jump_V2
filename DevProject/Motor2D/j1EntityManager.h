@@ -9,6 +9,8 @@
 #include "Entity.h"
 #include "p2DynArray.h"
 
+class Player;
+
 class j1EntityManager : public j1Module
 {
 public:
@@ -32,6 +34,9 @@ public:
 	COLLISION_WALL_DIRECTION checkDirection(SDL_Rect enemy, SDL_Rect collision);
 
 	bool CleanUp();
+
+	void GodModePlayer();
+	Player* player;
 
 	//Enemy
 	SDL_Texture* spritesFlyAlien = nullptr;

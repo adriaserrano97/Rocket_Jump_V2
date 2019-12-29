@@ -112,13 +112,14 @@ private:
 	void PlayerMov(float dt, float factor = 1); //if not told otherwise, does not alter any speed
 	void Stay_in_map(SDL_Rect rect);
 
-	
+public:
+	bool godMode;
 
 private:
 
 	Collider* collider = nullptr;
 	SDL_Texture* bazooka = nullptr;
-	bool godMode;
+	
 
 	SDL_Rect bazookaRect;
 	SDL_Rect cursorRect;
