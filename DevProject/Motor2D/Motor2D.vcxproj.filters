@@ -100,6 +100,9 @@
     <ClCompile Include="ScrollBar.cpp">
       <Filter>Desenvolupament  ========\UIElements</Filter>
     </ClCompile>
+    <ClCompile Include="InputText.cpp">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -229,6 +232,9 @@
       <Filter>Desenvolupament  ========\Entitys</Filter>
     </ClInclude>
     <ClInclude Include="ScrollBar.h">
+      <Filter>Desenvolupament  ========\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="InputText.h">
       <Filter>Desenvolupament  ========\UIElements</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,7 @@ enum class UI_type
 	FAIL = -1,
 	BUTTON,
 	TEXT,
-	STATIC_IMAGE,
+	INPUT_TEXT,
 	WINDOW,
 	SCROLL_BAR,
 	MAX

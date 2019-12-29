@@ -16,8 +16,10 @@ public:
 	bool Draw();
 
 
-public:
+protected:
 	_TTF_Font* font_Tex;
+
+protected:
 	p2SString string;
 };
 

@@ -5,6 +5,7 @@
 
 
 #define NUM_MOUSE_BUTTONS 5
+#define TEXT_INPUT_MAX_LENGHT 100
 
 struct SDL_Rect;
 
@@ -67,6 +68,18 @@ public:
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
 
+	void ActivateTextInput();
+	void DesactivateTextInput();
+	void HandleTextInput();
+
+	char* getInputText();
+
+private:
+	bool TextHasSpace();
+
+public:
+	bool inputTexActivated;
+
 private:
 	bool		windowEvents[WE_COUNT];
 	j1KeyState*	keyboard;
@@ -75,6 +88,8 @@ private:
 	int			mouse_motion_y;
 	int			mouse_x;
 	int			mouse_y;
+	
+	char*	text;
 };
 
 #endif // __j1INPUT_H__

@@ -83,6 +83,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="InputText.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="InputText.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Fonts.h" />

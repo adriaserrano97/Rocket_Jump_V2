@@ -13,6 +13,7 @@
 #include "Button.h"
 #include "Window.h"
 #include "ScrollBar.h"
+#include "InputText.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -206,6 +207,20 @@ UIElement* j1Gui::CreateText(int x, int y, UIElement* father, _TTF_Font* font, p
 }
 
 
+UIElement* j1Gui::CreateInputText(int x, int y, UIElement* father, _TTF_Font* font, p2SString& text, bool dragable, p2SString& name) {
+
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] == nullptr) {
+
+			elementArray[i] = new InputText(x, y, father, font, text, dragable, name);
+
+			return elementArray[i];
+		}
+	}
+}
+
+
 UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* listener, SDL_Rect* bar, SDL_Rect* thumbsIdle, SDL_Rect* thumbsPressed, bool vertical, p2SString& name) {
 
 	for (int i = 0; i < MAX_ELEMENTS; i++)
@@ -342,7 +357,7 @@ void j1Gui::CreateSettingsWindow(UIElement* father) {
 	UIElement* settingsWindow = InGameMenuUIElements[5] = App->gui->CreateUIWindow(120, -70, father, new SDL_Rect{ 682, 620, 154, 192 }, true, p2SString("SettingsWindow"));
 
 	InGameMenuUIElements[6] = App->gui->CreateButton(120, 5, settingsWindow, this, new SDL_Rect{ 892,620,32,30 }, new SDL_Rect{ 892,1557,32,30 }, new SDL_Rect{ 892,2495,32,30 }, false, p2SString("CROSS"));
-	InGameMenuUIElements[7] = App->gui->CreateText(20, 60, settingsWindow, App->font->default, p2SString("Game volume"), false, p2SString("VolumeText"));
+	InGameMenuUIElements[7] = App->gui->CreateInputText(20, 60, settingsWindow, App->font->default, p2SString("Game volume"), false, p2SString("VolumeText"));
 	InGameMenuUIElements[8] = App->gui->CreateScrollBar(20, 120, settingsWindow, App->audio, new SDL_Rect{ 2, 621, 120, 17 }, new SDL_Rect{ 226, 2709, 20, 22 }, new SDL_Rect{ 226, 1772, 20, 22 }, false, p2SString("HorizontalVolumeScrollBar"));
 }
 
