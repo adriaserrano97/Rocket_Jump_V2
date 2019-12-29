@@ -58,8 +58,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	button_3 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_3").as_string()));
 	coin =				LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("coin").as_string()));
 	powerup =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup").as_string()));
+	option_denied = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied").as_string()));
 	/*
-	option_denied =		LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied").as_string()));
+	
 	option_denied_2 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_2").as_string()));
 	option_denied_3 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_3").as_string()));
 	option_denied_4 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_4").as_string()));

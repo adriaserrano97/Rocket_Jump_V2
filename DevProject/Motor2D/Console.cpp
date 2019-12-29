@@ -15,7 +15,7 @@
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Console::j1Console() : j1Module() {
-
+	
 	for (int i = 0; i < CONSOLE_ELEMENTS; i++)
 	{
 		consoleElements[i] = nullptr;
@@ -33,7 +33,7 @@ j1Console::~j1Console()
 }
 
 bool j1Console::PreUpdate() {
-
+	BROFILER_CATEGORY("CONSOLE PREUPDATE", Profiler::Color::RosyBrown)
 	if (App->input->GetKey(SDL_SCANCODE_GRAVE) == KEY_DOWN && consoleOpen == false)
 	{
 		CreateConsole();
@@ -43,12 +43,14 @@ bool j1Console::PreUpdate() {
 	{
 		DestroyConsole();
 	}
+
+
 	return true;
 }
 
 
 bool j1Console::Update() {
-
+	BROFILER_CATEGORY("CONSOLE UPDATE", Profiler::Color::PaleTurquoise)
 
 	return true;
 }
@@ -56,23 +58,27 @@ bool j1Console::Update() {
 
 bool j1Console::PostUpdate() {
 
-
+	BROFILER_CATEGORY("CONSOLE POSTUPDATE", Profiler::Color::WhiteSmoke)
 	return true;
 }
 
 
 void j1Console::CreateConsole() {
+	BROFILER_CATEGORY("CONSOLE CREATION", Profiler::Color::LawnGreen)
 
 	consoleElements[0] = App->gui->CreateUIWindow(0, 0, nullptr, new SDL_Rect{ 206, 0, 668, 364 }, false, p2SString("ConsoleWindow"));
 	consoleElements[1] = App->gui->CreateUIWindow(650, 0, nullptr, new SDL_Rect{ 206, 0, 668, 364 }, false, p2SString("ConsoleWindow"));
 	consoleElements[2] = App->gui->CreateUIWindow(0, 300, nullptr, new SDL_Rect{ 2, 621, 220, 17 }, false, p2SString("ConsoleWindow"));
 	consoleElements[3] = App->gui->CreateUIWindow(218, 300, nullptr, new SDL_Rect{ 2, 621, 220, 17 }, false, p2SString("ConsoleWindow"));
 	consoleElements[4] = App->gui->CreateInputText(20, 320, nullptr, App->font->default, p2SString("Write Here"), false, p2SString("ConsoleInpuText"));
-
+	
+	App->gui->RemoveAllFocus();
+	consoleElements[4]->focused = true;
 	consoleOpen = true;
 }
 
 void j1Console::DestroyConsole() {
+	BROFILER_CATEGORY("CONSOLE DESTRUCTION", Profiler::Color::RoyalBlue)
 
 	for (int i = 0; i < CONSOLE_ELEMENTS; i++)
 	{

@@ -7,6 +7,8 @@
 #include "j1Input.h"
 #include "j1Render.h"
 #include "UIElement.h"
+#include "Console.h"
+
 #include "Brofiler/Brofiler/Brofiler.h"
 
 #define VSYNC true
@@ -379,11 +381,13 @@ void j1Render::CD_Manager(float dt)
 
 void j1Render::Vertical_Look(float dt) {
 	
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		camera.y -= camera_speed;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-		camera.y += camera_speed;
+	if (App->console->consoleOpen == false) {
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+			camera.y -= camera_speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+			camera.y += camera_speed;
+		}
 	}
 	//TODO
 }

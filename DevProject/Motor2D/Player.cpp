@@ -315,6 +315,7 @@ void Player::internal_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 		inputs.Push(IN_DEAD);
  		deadTimerBuffer += dt;
 		App->gui->PlayerLifesCounter--;
+		App->audio->PlayFx(App->audio->option_denied);
 		App->gui->UpdateLifesNCoins();
 
 	}
