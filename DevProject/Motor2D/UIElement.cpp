@@ -2,6 +2,7 @@
 #include "j1Render.h"
 #include "j1App.h"
 #include "j1Input.h"
+#include "j1Gui.h"
 
 UIElement::UIElement()
 {
@@ -102,11 +103,11 @@ bool UIElement::MouseUnderElement(int x, int y) {
 
 	if (!(position.x + my_box->w < x || position.y + my_box->h < y || x < position.x || y < position.y))
 	{
-		focused = true;
+		if (focused == false) {
+			App->gui->RemoveAllFocus();
+			focused = true;
+		}
 	}
-	else
-		focused = false;
-
 	return focused;
 }
 

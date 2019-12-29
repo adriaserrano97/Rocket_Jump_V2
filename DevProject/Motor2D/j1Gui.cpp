@@ -14,6 +14,7 @@
 #include "Window.h"
 #include "ScrollBar.h"
 #include "InputText.h"
+#include "j1Audio.h"
 #include "Brofiler/Brofiler/Brofiler.h"
 
 j1Gui::j1Gui() : j1Module()
@@ -41,6 +42,9 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	BROFILER_CATEGORY("GUI Awake", Profiler::Color::DarkGreen)
 	LOG("Loading GUI atlas");
 	bool ret = true;
+	PlayerLifesCounter = 1;
+	PlayerCoinsCounter = 0;
+	PlayerScoreCounter = 0;
 
 	atlasFileName = conf.child("atlas").attribute("file").as_string("");
 
@@ -102,6 +106,8 @@ bool j1Gui::PostUpdate()
 	}
 
 	ManageInGameMenu();
+	ManageHUD();
+
 
 	return true;
 }
@@ -162,6 +168,17 @@ void j1Gui::ListenerUI(UIElement * element)
 		DestroySettingsWindow();
 	}
 
+}
+
+void j1Gui::RemoveAllFocus()
+{
+	for (int i = 0; i < MAX_ELEMENTS; i++)
+	{
+		if (elementArray[i] != NULL && elementArray[i]->focused == true)
+		{
+			elementArray[i]->focused = false;
+		}
+	}
 }
 
 
@@ -238,6 +255,7 @@ UIElement* j1Gui::CreateScrollBar(int x, int y, UIElement* father, j1Module* lis
 
 void j1Gui::CheckFocusedElements() {
 
+	/*
 	for (int i = 0; i < MAX_ELEMENTS; i++)
 	{
 		if (elementArray[i] != nullptr)
@@ -245,7 +263,7 @@ void j1Gui::CheckFocusedElements() {
 			elementArray[i]->focused = false;
 		}
 	}
-
+	*/
 	iPoint pos;
 	App->input->GetMousePosition(pos.x, pos.y);
 	pos = App->render->ScreenToWorld(pos.x, pos.y);
@@ -254,10 +272,8 @@ void j1Gui::CheckFocusedElements() {
 	{
 		if (elementArray[i] != nullptr && elementArray[i]->my_box != nullptr)
 		{
-			if (elementArray[i]->MouseUnderElement(pos.x, pos.y))
-			{
-				break;
-			}
+			elementArray[i]->MouseUnderElement(pos.x, pos.y);
+			
 		}
 	}
 
@@ -312,11 +328,13 @@ void j1Gui::ManageInGameMenu() {
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == false) {
 
 		CreateInGameMenu();
+		
 	}
 
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN && inGameMenu == true) {
 
 		DestroyInGameMenu();
+		
 	}
 }
 
@@ -351,6 +369,91 @@ void j1Gui::DestroyInGameMenu() {
 	inGameMenu = false;
 }
 
+void j1Gui::ManageHUD() {
+
+	if (PlayerCoinsCounter >= 5) {
+		PlayerCoinsCounter -= 5;
+		PlayerLifesCounter += 1;
+		UpdateLifesNCoins();
+		App->audio->PlayFx(App->audio->powerup);
+	}
+	
+	/*
+	timer?
+	
+	*/
+}
+
+void j1Gui::CreateHUD() {
+
+	CoinsWindow = App->gui->CreateUIWindow(50, 50, nullptr, new SDL_Rect{ 676, 1350, 49, 26 }, false, p2SString("CoinsWindow"));
+	HUDUIElements[0] = CoinsWindow;
+
+	LifesWindow = App->gui->CreateUIWindow(120, 50, nullptr, new SDL_Rect{ 676, 1381, 49, 26 }, false, p2SString("LifesWindow"));
+	HUDUIElements[1] = LifesWindow;
+
+	char coins_text[] = "fillingspace";
+	sprintf_s(coins_text, 10, "%02d", PlayerCoinsCounter);
+	UIElement* CoinsText = App->gui->CreateText(30, 8, CoinsWindow, App->font->default, p2SString(coins_text), false, p2SString("CoinsText"));
+	HUDUIElements[2] = CoinsText;
+
+	char lifes_text[] = "fillingspace";
+	sprintf_s(lifes_text, 10, "%02d", PlayerLifesCounter);
+	UIElement* LifesText = App->gui->CreateText(30, 8, LifesWindow, App->font->default, p2SString(lifes_text), false, p2SString("LifesText"));
+	HUDUIElements[3] = LifesText;
+
+	ScoreWindow = App->gui->CreateUIWindow(190, 50, nullptr, new SDL_Rect{ 676, 1410, 49, 26 }, false, p2SString("ScoreWindow"));
+	HUDUIElements[4] = ScoreWindow;
+
+	char score_text[] = "fillingspace";
+	sprintf_s(score_text, 10, "%03d", PlayerScoreCounter);
+	UIElement* ScoreText = App->gui->CreateText(25, 8, ScoreWindow, App->font->default, p2SString(score_text), false, p2SString("ScoreText"));
+	HUDUIElements[5] = ScoreText;
+	
+}
+
+void j1Gui::DestroyHUD() {
+	
+	for (int i = 0; i < 15; i++)
+	{
+		if (HUDUIElements[i] != nullptr)
+		{
+			App->gui->DeleteElement(HUDUIElements[i]);
+			HUDUIElements[i] = nullptr;
+		}
+	}
+
+}
+
+void j1Gui::UpdateLifesNCoins()
+{
+	PlayerScoreCounter += 10;
+	
+	App->gui->DeleteElement(HUDUIElements[2]);
+	HUDUIElements[2] = nullptr;
+
+	App->gui->DeleteElement(HUDUIElements[3]);
+	HUDUIElements[3] = nullptr;
+
+	App->gui->DeleteElement(HUDUIElements[5]);
+	HUDUIElements[5] = nullptr;
+
+
+	char coins_text[] = "fillingspace";
+	sprintf_s(coins_text, 10, "%02d", PlayerCoinsCounter);
+	UIElement* CoinsText = App->gui->CreateText(30, 8, CoinsWindow, App->font->default, p2SString(coins_text), false, p2SString("CoinsText"));
+	HUDUIElements[2] = CoinsText;
+
+	char lifes_text[] = "fillingspace";
+	sprintf_s(lifes_text, 10, "%02d", PlayerLifesCounter);
+	UIElement* LifesText = App->gui->CreateText(30, 8, LifesWindow, App->font->default, p2SString(lifes_text), false, p2SString("LifesText"));
+	HUDUIElements[3] = LifesText;
+
+	char score_text[] = "fillingspace";
+	sprintf_s(score_text, 10, "%03d", PlayerScoreCounter);
+	UIElement* ScoreText = App->gui->CreateText(25, 8, ScoreWindow, App->font->default, p2SString(score_text), false, p2SString("ScoreText"));
+	HUDUIElements[5] = ScoreText;
+}
 
 void j1Gui::CreateSettingsWindow(UIElement* father) {
 

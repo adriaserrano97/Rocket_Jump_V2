@@ -56,23 +56,24 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	}
 
 	//Load SFX needed. The Load function returns the int we need to call it in PlayFx, so we store it for easier use.
-	jump_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("jump").as_string()));
-	bomb_sound = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("bomb").as_string()));
-	button_1 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_1").as_string())); 
-	button_2 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_2").as_string()));
-	button_3 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_3").as_string()));
-	coin = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("coin").as_string()));
-	option_denied = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied").as_string()));
-	option_denied_2 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_2").as_string()));
-	option_denied_3 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_3").as_string()));
-	option_denied_4 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_4").as_string()));
-	option_selected = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_selected").as_string()));
+	jump_sound =		LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("jump").as_string()));
+	bomb_sound =		LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("bomb").as_string()));
+	button_1 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_1").as_string())); 
+	button_3 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_3").as_string()));
+	coin =				LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("coin").as_string()));
+	powerup =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup").as_string()));
+	/*
+	option_denied =		LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied").as_string()));
+	option_denied_2 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_2").as_string()));
+	option_denied_3 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_3").as_string()));
+	option_denied_4 =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_denied_4").as_string()));
+	option_selected =	LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_selected").as_string()));
 	option_selected_2 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_selected_2").as_string()));
 	option_selected_3 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("option_selected_3").as_string()));
-	powerup = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup").as_string()));
-	powerup_2 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup_2").as_string()));
-	powerup_3 = LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup_3").as_string()));
-
+	//button_2 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("button_2").as_string()));
+	powerup_2 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup_2").as_string()));
+	powerup_3 =			LoadFx(PATH(fxFolder.GetString(), config.child("fx").attribute("powerup_3").as_string()));
+	*/
 	return ret;
 }
 

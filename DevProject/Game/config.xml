@@ -24,12 +24,22 @@
 
   <audio>
 	<folder>audio/fx/</folder>
-	<fx jump="jump_sound.wav" bomb="bomb.wav"
-	    button_1="button_1.wav" button_2="button_2.wav" button_3="button_3.wav"
-	    coin = "coin.wav" option_denied="option_denied.wav" option_denied_2="option_denied_2.wav" 
-            option_denied_3="option_denied_3.wav" option_denied_4="option_denied_4.wav"
-	    option_selected="option_selected.wav" option_selected_2="option_selected_2.wav" option_selected_3="option_selected_3.wav"
-	    powerup="powerup.wav" powerup_2="powerup_2.wav" powerup_3="powerup_3.wav"
+	<fx 	jump="jump_sound.wav" 
+		bomb="bomb.wav"
+	    	button_1="b1.wav" 
+		button_2="b2.wav" 
+		button_3="b3.wav"
+	   	coin="coin.wav" 
+		option_denied="option_denied.wav" 
+		option_denied_2="option_denied_2.wav" 
+            	option_denied_3="option_denied_3.wav" 
+		option_denied_4="option_denied_4.wav"
+	   	option_selected="option_selected.wav" 
+		option_selected_2="option_selected_2.wav" 
+		option_selected_3="option_selected_3.wav"
+	    	powerup="powerup.wav" 
+		powerup_2="powerup_2.wav" 
+		powerup_3="powerup_3.wav"
 	>
 	</fx>
   </audio>
