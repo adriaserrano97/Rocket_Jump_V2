@@ -173,7 +173,7 @@ Entity* j1EntityManager::CreateEntity(Entity::EntityTypes type, int x, int y) {
 	case Entity::EntityTypes::WALK_ENEMY:	ret = new Walking_Enemy(x, y);	break;
 	case Entity::EntityTypes::EXPLOSION_PARTICLE: ret = new Explosion(x, y); break;
 	case Entity::EntityTypes::DUST_PARTICLE: ret = new Dust(x, y); break;
-	case Entity::EntityTypes::PLAYER: ret = new Player(x, y); break;
+	case Entity::EntityTypes::PLAYER: player = new Player(x, y); ret = player; break;
 	case Entity::EntityTypes::COIN: ret = new Coin(x, y); break;
 	}
 
@@ -398,4 +398,18 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 	
 
 	return true;
+}
+
+
+void j1EntityManager::GodModePlayer() {
+	
+	if (player->godMode == true)
+	{
+		player->godMode = false;
+	}
+	
+	else
+	{
+		player->godMode = true;
+	}
 }

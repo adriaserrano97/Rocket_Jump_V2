@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Fonts.h"
 #include "j1Input.h"
+#include "j1EntityManager.h"
 #include "j1Gui.h"
 #include "j1Scene.h"
 #include "j1Map.h"
@@ -99,7 +100,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 
 	else if (UI_element->name == ("god_mode"))
 	{
-		
+		App->entityManager->GodModePlayer();
 		
 	}
 
