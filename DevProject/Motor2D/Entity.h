@@ -46,6 +46,7 @@ public:
 
 public:
 	Entity();
+	Entity(iPoint position, EntityTypes type, Animation animation);
 	virtual ~Entity();
 	virtual bool HandleInput();
 	virtual bool Update(float);

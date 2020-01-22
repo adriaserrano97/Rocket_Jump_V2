@@ -6,37 +6,24 @@
 #include "j1Gui.h"
 
 
-Coin::Coin(int x, int y)
-{
-	position.x = x;
-	position.y = y;
-
-	texture = nullptr;
-
-	animation = App->entityManager->coinanimation;
-
-	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_COIN, (j1Module*)App->entityManager);
-
-	type = EntityTypes::COIN;
-	
-}
-
-Coin::~Coin()
+Coin::Coin(int x, int y) :
+	Entity(iPoint(x, y), EntityTypes::COIN, App->entityManager->coinanimation),
+	collider(App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_COIN, (j1Module*)App->entityManager))
 {
 }
 
-void Coin::Destroy()
-{
-
-	to_delete = true;
+Coin::~Coin() {
 
 	if (collider != nullptr) {
 
 		collider->to_delete = true;
 		collider = nullptr;
 	}
+}
 
-	animation = Animation();
+void Coin::Destroy() {
+
+	to_delete = true;
 }
 
 bool Coin::Start()

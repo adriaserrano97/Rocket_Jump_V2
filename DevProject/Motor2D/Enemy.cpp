@@ -9,7 +9,11 @@
 
 Enemy::~Enemy()
 {
-	collider = nullptr;
+	if (collider != nullptr) {
+
+		collider->to_delete = true;
+		collider = nullptr;
+	}
 
 	if (path != nullptr)
 	{
@@ -17,30 +21,12 @@ Enemy::~Enemy()
 		path = nullptr;
 	}
 	
-	texture = nullptr;
-
-	animation = Animation();
 }
 
 
 void Enemy::Destroy() {
 
 	to_delete = true;
-
-	if (collider != nullptr) {
-
-		collider->to_delete = true;
-		collider = nullptr;
-	}
-
-
-	if (path!= nullptr)
-	{
-		path->Clear();
-	}
-
-	animation = Animation();
-	
 }
 
 void Enemy::Move(iPoint pos, float dt) {}
@@ -151,9 +137,7 @@ void Enemy::ResetPathCounter(float dt) {
 bool Enemy::CheckLockOn(iPoint destiny) {
 
 	//each enemy has its own conditions
-
 	return true;
-
 }
 
 //Rendering functions
@@ -163,7 +147,7 @@ void Enemy::Draw(float dt)
 		collider->SetPos(position.x, position.y);
 	}
 
-		App->render->Blit(texture, position.x, position.y, &animation.GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
+	App->render->Blit(texture, position.x, position.y, &animation.GetCurrentFrameBox(dt), NULL, NULL, NULL, NULL, myflip);
 }
 
 

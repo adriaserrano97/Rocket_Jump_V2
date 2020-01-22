@@ -9,57 +9,50 @@
 #include "j1Scene.h"
 #include "j1Gui.h"
 
-Player::Player(int x, int y)
-{
+Player::Player(int x, int y) :
 
-	position.x = x;
-	position.y = y;
-	playerBuffer = { 0, 0 };
+	Entity(iPoint(x, y), EntityTypes::PLAYER, App->entityManager->player_idle),
+	playerBuffer(),
+	cursor(),
 
-	to_delete = false;
-	started = false;
-	godMode = false;
-	freeze = false;
-	right = false;
-	left = false;
-	up = false;
-	flip = false;
-	vertical = false;
+	godMode(false),
+	freeze(false),
+	right(false),
+	left(false),
+	up(false),
+	flip(false),
+	vertical(false),
 
-	texture = nullptr;
-	bazooka = nullptr;
+	collider(nullptr),
+	bazooka(nullptr),
+	bazookaRect(App->entityManager->bazookaRect),
+	cursorRect(App->entityManager->cursorRect),
 
-	deadTimerBuffer = 0.0f;
-	buffer_jump_sign = 2; // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
-	time_spent_jumping = 1.0f; //we always start our maps airborne
-	time_spent_falling = 1.0f;
-	cursorX = 0;
-	cursorY = 0;
+	buffer_jump_sign(2), // we initiate it at an impossible number (sgn only accepts +1 / 0 /-1) 
+	time_spent_jumping(1.0f), //we always start our maps airborne
+	time_spent_falling(1.0f),
+	deadTimerBuffer(0.0f),
+	deadTimer(App->entityManager->deadTimer),
+	explosion_CD(App->entityManager->explosion_CD),
+	JumpingDelta(App->entityManager->JumpingDelta),
+	JumpAdjustMargin(App->entityManager->JumpAdjustMargin),
 
-	collider = App->colliders->AddCollider({ x, y, App->entityManager->playerColRect.w, App->entityManager->playerColRect.h }, COLLIDER_PLAYER, (j1Module*)App->entityManager);;
-	bazookaRect = App->entityManager->bazookaRect;
-	cursorRect = App->entityManager->cursorRect;
-
-	walk = App->entityManager->player_walk;
-	idle = App->entityManager->player_idle;
-	jump = App->entityManager->player_jump;
-	dead = App->entityManager->player_dead;
-
-	speed = App->entityManager->speed;
-	jumpspeed = App->entityManager->jumpspeed;
-	rocketJumpSpeed = App->entityManager->rocketJumpSpeed;
-	speedcap = App->entityManager->speedcap;
-	grav = App->entityManager->grav;
-	deadFall = App->entityManager->deadFall;
+	speed(App->entityManager->speed),
+	jumpspeed(App->entityManager->jumpspeed),
+	rocketJumpSpeed(App->entityManager->rocketJumpSpeed),
+	speedcap(App->entityManager->speedcap),
+	grav(App->entityManager->grav),
+	deadFall(App->entityManager->deadFall),
 	
-	deadTimer = App->entityManager->deadTimer;
-	explosion_CD = App->entityManager->explosion_CD;
-	JumpingDelta = App->entityManager->JumpingDelta;
-	JumpAdjustMargin = App->entityManager->JumpAdjustMargin;
+	walk(App->entityManager->player_walk),
+	idle(App->entityManager->player_idle),
+	jump(App->entityManager->player_jump),
+	dead(App->entityManager->player_dead)
 
 
-	type = Entity::EntityTypes::PLAYER;
 
+{
+	collider = App->colliders->AddCollider({ x, y, App->entityManager->playerColRect.w, App->entityManager->playerColRect.h }, COLLIDER_PLAYER, (j1Module*)App->entityManager);
 }
 
 Player::~Player()
@@ -262,8 +255,8 @@ bool Player::external_input(p2Qeue<PLAYER_INPUTS>& inputs, float dt) {
 
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && round(time_from_last_explosion * dt) >= round(explosion_CD * dt)) { //This only creates one explosion, since the second frame transforms key_down in key_repeat
 			time_from_last_explosion = 0;
-			App->input->GetMousePosition(cursorX, cursorY);
-			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursorX - App->render->camera.x) - (App->entityManager->explosionAnimation.GetRect().w / 2), (cursorY - App->render->camera.y) - (App->entityManager->explosionAnimation.GetRect().h / 2));
+			App->input->GetMousePosition(cursor.x, cursor.y);
+			App->entityManager->CreateEntity(Entity::EntityTypes::EXPLOSION_PARTICLE, (cursor.x - App->render->camera.x) - (App->entityManager->explosionAnimation.GetRect().w / 2), (cursor.y - App->render->camera.y) - (App->entityManager->explosionAnimation.GetRect().h / 2));
 			App->audio->PlayFx(App->audio->bomb_sound, 0);
 		}
 
@@ -1222,9 +1215,9 @@ void Player::Draw(float dt) {
 	}
 
 	//Once our positions are set, draw everything player related
-	App->input->GetMousePosition(cursorX, cursorY);
+	App->input->GetMousePosition(cursor.x, cursor.y);
 	App->render->Blit(bazooka, position.x - bazookaRect.w / 2, position.y + bazookaRect.h / 2, &bazookaRect, NULL, NULL, NULL, NULL, flip);
-	App->render->Blit(bazooka, (cursorX - cursorRect.w / 2) - App->render->camera.x, (cursorY - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
+	App->render->Blit(bazooka, (cursor.x - cursorRect.w / 2) - App->render->camera.x, (cursor.y - cursorRect.h / 2) - App->render->camera.y, &cursorRect);
 	
 	Frame r = current_animation->GetCurrentFrame(dt);
 

@@ -10,7 +10,7 @@ class Text : public UIElement
 {
 public:
 	Text(int x, int y, UIElement* father, _TTF_Font* font, p2SString &text, bool dragable, p2SString &name);
-	~Text();
+	virtual ~Text();
 
 	bool Start();
 	bool Draw();

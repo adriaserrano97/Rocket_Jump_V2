@@ -401,13 +401,17 @@ bool j1EntityManager::Save(pugi::xml_node& data) const
 
 void j1EntityManager::GodModePlayer() {
 	
-	if (player->godMode == true)
+	if (player != nullptr)
 	{
-		player->godMode = false;
+		if (player->godMode == true)
+		{
+			player->godMode = false;
+		}
+
+		else
+		{
+			player->godMode = true;
+		}
 	}
 	
-	else
-	{
-		player->godMode = true;
-	}
 }

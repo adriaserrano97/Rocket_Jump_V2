@@ -13,7 +13,8 @@ protected:
 	float life;
 	
 public:
-	
+	Particle(int x, int y, float life, EntityTypes type, Animation animation);
+	~Particle();
 	void Draw(float dt);
 };
 

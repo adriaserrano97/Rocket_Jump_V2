@@ -59,8 +59,6 @@ bool j1Input::PreUpdate()
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-	
-
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
 		if(keys[i] == 1)
@@ -200,7 +198,7 @@ void j1Input::HandleTextInput() {
 
 	if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 	{
-		text.Cut(text.Length() - 2);
+		text.DeleteLast();
 	}
 
 }

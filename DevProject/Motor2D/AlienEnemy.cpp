@@ -96,15 +96,11 @@ void Alien_Enemy::OnCollision(Collider* collider) {
 
 			position.y = collider->rect.y - collider->rect.h + 1;
 
-
-
 			break;
 
 		case DIRECTION_UP:
 
 			position.y = collider->rect.y - this->collider->rect.h - 1;
-
-
 
 			break;
 		}

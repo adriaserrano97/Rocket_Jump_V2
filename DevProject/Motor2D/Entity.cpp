@@ -2,7 +2,23 @@
 
 Entity::Entity() {}
 
-Entity::~Entity() {}
+Entity::Entity(iPoint position, EntityTypes type, Animation animation) :
+	position(position),
+	type(type),
+	animation(animation),
+	texture(nullptr),
+	to_delete(false),
+	started(false)
+{
+}
+
+Entity::~Entity() {
+
+	position = {0, 0};
+	type = EntityTypes::FAIL;
+	texture = nullptr;
+	animation = Animation();
+}
 
 bool Entity::Start()
 {

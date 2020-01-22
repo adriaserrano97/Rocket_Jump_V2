@@ -41,8 +41,11 @@ j1Console::~j1Console()
 	}
 }
 
+
 bool j1Console::PreUpdate() {
+
 	BROFILER_CATEGORY("CONSOLE PREUPDATE", Profiler::Color::RosyBrown)
+
 	if (App->input->GetKey(SDL_SCANCODE_GRAVE) == KEY_DOWN && consoleOpen == false)
 	{
 		CreateConsole();
@@ -71,6 +74,7 @@ void j1Console::CreateConsole() {
 	consoleElements[4]->focused = true;
 	consoleOpen = true;
 }
+
 
 void j1Console::DestroyConsole() {
 	BROFILER_CATEGORY("CONSOLE DESTRUCTION", Profiler::Color::RoyalBlue)

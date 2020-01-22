@@ -253,6 +253,20 @@ public:
 		return true;
 	}
 
+
+	void DeleteLast()
+	{
+
+		if (str == NULL)
+			return;
+
+		char* p1 = str + Length() -1;
+		char* p2 = str + Length();
+
+		while (*p1++ = *p2++);
+
+	}
+
 	void Trim()
 	{
 		// cut right --

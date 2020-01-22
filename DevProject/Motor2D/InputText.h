@@ -9,7 +9,8 @@ class InputText : public Text
 {
 public:
 	InputText(int x, int y, UIElement* father, _TTF_Font* font, p2SString& text, bool dragable, p2SString& name);
-	
+	~InputText();
+
 	void HandleInput();
 	
 	bool Draw();

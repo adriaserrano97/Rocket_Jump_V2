@@ -15,6 +15,11 @@ InputText::InputText(int x, int y, UIElement* father, _TTF_Font* font, p2SString
 }
 
 
+InputText::~InputText() {
+
+	previousText.Clear();
+}
+
 
 void InputText::HandleInput() {
 

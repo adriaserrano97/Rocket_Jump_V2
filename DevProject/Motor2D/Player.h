@@ -160,7 +160,7 @@ private:
 	PLAYER_STATES state;
 	p2Qeue<PLAYER_INPUTS> inputs;
 
-	int cursorX, cursorY;
+	iPoint cursor;
 
 
 };

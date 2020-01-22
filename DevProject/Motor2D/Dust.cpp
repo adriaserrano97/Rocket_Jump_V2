@@ -3,33 +3,12 @@
 #include "j1Collision.h"
 #include "j1Audio.h"
 
-Dust::Dust(int x, int y) {
-
-	position.x = x;
-	position.y = y;
-
-	to_delete = false;
-	started = false;
-
-	texture = nullptr;
-
-	life = 0.0f;
-
-	animation = App->entityManager->dustAnimation;
-	
-	life = App->entityManager->dust_life;
-
-	type = EntityTypes::DUST_PARTICLE;
-
+Dust::Dust(int x, int y) :
+Particle(x, y, App->entityManager->dust_life, EntityTypes::DUST_PARTICLE, App->entityManager->dustAnimation)
+{
 }
 
 
-Dust::~Dust() {
-
-	texture = nullptr;
-
-	animation = Animation();
-}
 
 
 bool Dust::Start() {

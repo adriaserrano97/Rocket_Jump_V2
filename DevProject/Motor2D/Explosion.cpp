@@ -3,45 +3,25 @@
 #include "j1Collision.h"
 #include "j1Audio.h"
 
-Explosion::Explosion(int x, int y) {
-
-	position.x = x;
-	position.y = y;
-
-	to_delete = false;
-	started = false;
-
-	texture = nullptr;
-
-	life = 0.0f;
-
-	animation = App->entityManager->explosionAnimation;
-
-	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);;
-
-	life = App->entityManager->explosion_life;
-
-	type = EntityTypes::EXPLOSION_PARTICLE;
-
+Explosion::Explosion(int x, int y) :
+	Particle(x, y, App->entityManager->explosion_life, EntityTypes::EXPLOSION_PARTICLE, App->entityManager->explosionAnimation)
+{
+	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_EXPLOSION, (j1Module*)App->entityManager);
 }
 
 Explosion::~Explosion() {
 
-	texture = nullptr;
-
-	animation = Animation();
-
 	if (collider != nullptr) {
 	
+		collider->to_delete = true;
 		collider = nullptr;
-
 	}
-
 }
 
 bool Explosion::Start() {
 
 	texture = App->entityManager->spritesDust;
+
 	started = true;
 
 	return true;
@@ -52,6 +32,7 @@ Collider* Explosion::GetCollider() const
 {
 	return collider;
 }
+
 
 bool Explosion::Update(float dt) {
 
