@@ -115,7 +115,6 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 	else if (UI_element->name == ("god_mode"))
 	{
 		App->entityManager->GodModePlayer();
-		
 	}
 
 	else if (aux == ("fps"))
@@ -144,6 +143,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 			LOG("LOADING_MAP_1");
 			
 			App->scene->scene_number = 1;
+			App->entityManager->GodModePlayer();
 			App->scene->ClearUIArray();
 			App->map->Unload();
 			App->fade->FadeToBlack(App->scene, App->scene, 2);
@@ -154,6 +154,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 			LOG("LOADING_MAP_2");
 
 			App->scene->scene_number = 2;
+			App->entityManager->GodModePlayer();
 			App->scene->ClearUIArray();
 			App->map->Unload();
 			App->fade->FadeToBlack(App->scene, App->scene, 2);
@@ -164,6 +165,7 @@ void j1Console::ListenerUI(UIElement* UI_element) {
 			LOG("LOADING_MAP_3");
 
 			App->scene->scene_number = 3;
+			App->entityManager->GodModePlayer();
 			App->scene->ClearUIArray();
 			App->map->Unload();
 			App->fade->FadeToBlack(App->scene, App->scene, 2);
