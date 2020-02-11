@@ -19,7 +19,6 @@ public:
 	
 	Collider* collider;
 
-	//pathfinding info
 protected:
 	bool in_path;
 	float frames_stuck;
@@ -29,6 +28,7 @@ protected:
 	float speed;
 
 public:
+	Enemy(int x, int y, EntityTypes type, Animation animation);
 	~Enemy();
 	void Destroy();
 	bool Update(float dt);

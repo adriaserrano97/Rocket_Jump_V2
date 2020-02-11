@@ -36,6 +36,9 @@ public:
 	bool CleanUp();
 
 	void GodModePlayer();
+
+public:
+
 	Player* player;
 
 	//Enemy

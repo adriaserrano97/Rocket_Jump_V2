@@ -7,36 +7,9 @@
 #include "j1Pathfinding.h"
 #include "j1Render.h"
 
-Alien_Enemy::Alien_Enemy(int x, int y) //: Enemy(x, y)
-{
-	//load the animation
-
-	position.x = x;
-	position.y = y;
-
-	position_buffer = { 0, 0 };
-	
-	to_delete = false;
-	started = false;
-	in_path = false;
-	myflip = false;
-
-
-	texture = nullptr;
-	path = nullptr;
-
-	frames_stuck = 0.0f;
-	path_counter = 0.0f;
-
-
-	animation = App->entityManager->alienAnimation;
-
-	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
-	
-	speed = App->entityManager->enemy_speed;
-
-	type = EntityTypes::FLY_ENEMY;
-}
+Alien_Enemy::Alien_Enemy(int x, int y) : 
+	Enemy(x, y, EntityTypes::FLY_ENEMY, App->entityManager->alienAnimation)
+{}
 
 
 bool Alien_Enemy::Start() {

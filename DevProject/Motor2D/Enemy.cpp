@@ -7,6 +7,20 @@
 #include "j1EntityManager.h"
 
 
+Enemy::Enemy(int x, int y, EntityTypes type, Animation animation) :
+	Entity(iPoint(x, y), type, animation),
+	in_path(false),
+	myflip(false),
+	frames_stuck(0.0f),
+	path_counter(0.0f),
+	speed(App->entityManager->enemy_speed),
+	position_buffer(0, 0),
+	path(nullptr),
+	collider(App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager))
+
+{}
+
+
 Enemy::~Enemy()
 {
 	if (collider != nullptr) {

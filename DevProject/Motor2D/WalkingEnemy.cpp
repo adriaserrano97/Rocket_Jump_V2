@@ -7,34 +7,9 @@
 #include "j1Render.h"
 
 
-
-Walking_Enemy::Walking_Enemy(int x, int y) 
+Walking_Enemy::Walking_Enemy(int x, int y) :
+	Enemy(x, y, EntityTypes::WALK_ENEMY, App->entityManager->walkingAlien)
 {
-	//load the animation
-	position.x = x;
-	position.y = y;
-
-
-	position_buffer = position;
-
-	to_delete = false;
-	started = false;
-	in_path = false;
-	myflip = false;
-
-	texture = nullptr;
-	path = nullptr;
-
-	frames_stuck = 0.0f;
-	path_counter = 0.0f;
-
-	animation = App->entityManager->walkingAlien;
-
-	collider = App->colliders->AddCollider({ x, y, animation.GetRect().w, animation.GetRect().h }, COLLIDER_ENEMY, (j1Module*)App->entityManager);
-																															//not enemies >:(
-	speed = App->entityManager->enemy_speed;
-
-	type = EntityTypes::WALK_ENEMY;
 }
 
 
@@ -59,15 +34,16 @@ void Walking_Enemy::Move(iPoint destiny, float dt)
 	if (sgn(position.x - destiny.x) == 1) {
 		pos_prevision.x -=App->map->data.tile_width/3 ; //next tile you're expected to reach
 	}
+
 	else {
       		pos_prevision.x += (App->map->data.tile_width/3 + collider->rect.w); //next tile you're expected to reach
 	}
 
 	if ((App->pathfinding->IsWalkable(App->map->WorldToMap(pos_prevision.x, pos_prevision.y))) != true) {
 		position.x = pos_aux.x;
-		
 	}
 }
+
 
 void Walking_Enemy::OnCollision(Collider* collider) {
 
@@ -76,15 +52,14 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 		Destroy();
 	}
 
-	if (collider->type == COLLIDER_PLAYER)
+	else if (collider->type == COLLIDER_PLAYER)
 	{
 		Destroy();
 	}
 
-	if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
+	else if (collider->type == COLLIDER_WALL || collider->type == COLLIDER_TRANSPASSABLE_WALL)
 	{
 
-		
 		switch (App->entityManager->checkDirection(collider->rect, this->collider->rect))
 		{
 		case DIRECTION_LEFT:
@@ -124,8 +99,8 @@ void Walking_Enemy::OnCollision(Collider* collider) {
 	}
 }
 
-//Pathfinding, specific of walking enemy
 
+//Pathfinding, specific of walking enemy
 void Walking_Enemy::LockOn(iPoint destiny, float dt) {
 
 	position.x = App->render->Full_Lerp(position.x, destiny.x, speed, dt); 
@@ -157,11 +132,13 @@ void Walking_Enemy::FollowPath(float dt) {
 
 			//done pathfinding? Try to pathfind again
    			if (path->Count() == 0) {
-				in_path = false; }
+				in_path = false; 
+			}
 
 		}
 	}
 }
+
 
 bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	
@@ -174,6 +151,7 @@ bool Walking_Enemy::CheckLockOn(iPoint destiny) {
 	return ret;
 
 }
+
 
 void Walking_Enemy::AvoidStuck(iPoint destiny) {
 	
@@ -188,12 +166,14 @@ void Walking_Enemy::AvoidStuck(iPoint destiny) {
 
 }
 
+
 void Walking_Enemy::CheckStuck() {
 
 	if (abs(position.x - position_buffer.x) <= 2*App->entityManager->delta_move && in_path == true) {
 
 		frames_stuck++;
 	}
+
 	if (frames_stuck > 5) {
 
 		AvoidStuck(App->entityManager->playerPosition);
